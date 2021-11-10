@@ -1,0 +1,14 @@
+$light-purple: #31335a;
+$blue: #5599ec;
+
+header {
+  background-color: $light-purple;
+  display: flex;
+
+  justify-content: flex-end;
+
+  svg {
+    margin: 0.5rem 2rem;
+    color: $blue;
+  }
+}

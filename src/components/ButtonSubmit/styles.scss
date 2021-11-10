@@ -1,0 +1,22 @@
+$green: #174f5e;
+$lightgreen: #5cbabc;
+$white: #ffffff;
+
+.calculate-btn-container {
+  width: 100%;
+  margin: 2rem 0;
+  .calculate-btn {
+    border: 1px solid $lightgreen;
+    border-radius: 0.5rem;
+    background-color: $green;
+    width: 100%;
+    color: $white;
+    padding: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $lightgreen;
+    }
+  }
+}
