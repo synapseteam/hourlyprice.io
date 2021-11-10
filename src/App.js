@@ -7,6 +7,7 @@ import Form from "components/Form";
 import Display from "components/Display";
 import ButtonSubmit from "components/ButtonSubmit";
 import ContentColumn from "components/ContentColumn";
+import Footer from "components/Footer";
 
 import "App.scss";
 
@@ -29,6 +30,7 @@ function App() {
             </ContentColumn>
           </div>
         </div>
+        <Footer />
       </Provider>
     </div>
   );

@@ -1,0 +1,15 @@
+$light-purple: #31335a;
+$white: #ffffff;
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid $light-purple;
+  padding: 0.6rem;
+
+  .footer-text {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+}

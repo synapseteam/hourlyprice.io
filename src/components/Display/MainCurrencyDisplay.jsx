@@ -19,7 +19,7 @@ export default function MainCurrencyDisplay({ sum, currency, isLoading }) {
 }
 
 MainCurrencyDisplay.propTypes = {
-  sum: PropTypes.number,
+  sum: PropTypes.string,
   currency: PropTypes.string,
   isLoading: PropTypes.bool,
 };
