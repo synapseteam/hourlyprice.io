@@ -1,14 +1,14 @@
-import "./App.scss";
 import { Provider } from "react-redux";
 
-import { store } from "./store";
+import { store } from "store";
+import Header from "components/Header";
+import HeroTitle from "components/HeroTitle";
+import Form from "components/Form";
+import Display from "components/Display";
+import ButtonSubmit from "components/ButtonSubmit";
+import ContentColumn from "components/ContentColumn";
 
-import Header from "./components/Header";
-import HeroTitle from "./components/HeroTitle";
-import Form from "./components/Form";
-import Display from "./components/Display";
-import ButtonSubmit from "./components/ButtonSubmit";
-import ContentColumn from "./components/ContentColumn";
+import "App.scss";
 
 function App() {
   return (

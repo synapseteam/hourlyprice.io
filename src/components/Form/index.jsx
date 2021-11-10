@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import "./styles.scss";
-import Input from "./Input";
-import Select from "./Select";
-import { submitFieldsData, setRequestErr } from "../../store/mainReducer";
-import { getNewRatesThunkCreator } from "../../store/currenciesReducer";
-import { formSchema } from "../../configure";
+import Input from "components/Form/Input";
+import Select from "components/Form/Select";
+import { submitFieldsData, setRequestErr } from "store/mainReducer";
+import { getNewRatesThunkCreator } from "store/currenciesReducer";
+import { formSchema } from "configure";
 import {
   convertStrTimeToNum,
   handleTimeChange,
   handlePriceChange,
-} from "../../utils";
-import { ratesUpdatingTimeFrame } from "../../configure";
+} from "utils";
+import { ratesUpdatingTimeFrame } from "configure";
+
+import "components/Form/styles.scss";
 
 export default function Form() {
   const {

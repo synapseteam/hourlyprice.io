@@ -1,5 +1,5 @@
-import { ratesDataAPI } from "../api/api";
-import { toggleLoadingStatus, setRequestErr } from "./mainReducer";
+import { ratesDataAPI } from "api/api";
+import { toggleLoadingStatus, setRequestErr } from "store/mainReducer";
 
 export const SET_NEW_RATES = "SET_NEW_RATES";
 

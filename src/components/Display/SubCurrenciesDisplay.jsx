@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import uniqid from "uniqid";
 
-import SubCurrency from "./SubCurrency";
-import Loader from "../Loader";
+import SubCurrency from "components/Display/SubCurrency";
+import Loader from "components/Loader";
 
 export default function SubCurrenciesDisplay({ subCurrenciesArr, isLoading }) {
   if (isLoading) {

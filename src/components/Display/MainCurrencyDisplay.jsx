@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Loader from "../Loader";
+
+import Loader from "components/Loader";
 
 export default function MainCurrencyDisplay({ sum, currency, isLoading }) {
   return (

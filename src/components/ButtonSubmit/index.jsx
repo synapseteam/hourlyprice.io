@@ -1,7 +1,8 @@
 import React from "react";
 
-import "./styles.scss";
-import { buttonText } from "../../configure";
+import { buttonText } from "configure";
+
+import "components/ButtonSubmit/styles.scss";
 
 export default function ButtonSubmit() {
   return (

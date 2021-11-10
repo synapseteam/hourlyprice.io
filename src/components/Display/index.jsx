@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import "./styles.scss";
-import SubCurrenciesDisplay from "./SubCurrenciesDisplay";
-import MainCurrencyDisplay from "./MainCurrencyDisplay";
+import SubCurrenciesDisplay from "components/Display/SubCurrenciesDisplay";
+import MainCurrencyDisplay from "components/Display/MainCurrencyDisplay";
+
+import "components/Display/styles.scss";
 
 export default function Display() {
   const { price, time, currency } = useSelector((state) => state.main.fields);

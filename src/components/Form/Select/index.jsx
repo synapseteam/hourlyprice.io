@@ -2,7 +2,7 @@ import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
 
-import { errorsMessages } from "../../../configure";
+import { errorsMessages } from "configure";
 
 export default function Select({
   labelName,

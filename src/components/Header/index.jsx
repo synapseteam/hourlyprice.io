@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 
-import "./styles.scss";
+import "components/Header/styles.scss";
 
 export default function Header() {
   return (
