@@ -5,10 +5,12 @@ header {
   background-color: $light-purple;
   display: flex;
 
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 4rem;
 
   svg {
-    margin: 0.5rem 2rem;
+    //margin: 0.5rem 2rem;
     color: $blue;
   }
 }

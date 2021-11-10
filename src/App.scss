@@ -24,8 +24,8 @@ $white: #ffffff;
 }
 
 .content-container {
-  width: 90%;
-  margin: 0 auto;
+  width: 96%;
+  margin: 2rem auto;
   display: flex;
   flex-direction: column;
 
@@ -51,9 +51,9 @@ $white: #ffffff;
   }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 720px) {
   .content-container {
-    width: 670px;
+    width: 700px;
 
     .content-columns-container {
       margin-top: 2rem;
