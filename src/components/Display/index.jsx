@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import SubCurrenciesDisplay from "components/Display/SubCurrenciesDisplay";
 import MainCurrencyDisplay from "components/Display/MainCurrencyDisplay";
+import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRatesDisplay";
 
 import "components/Display/styles.scss";
 
@@ -65,6 +66,10 @@ export default function Display() {
       <SubCurrenciesDisplay
         subCurrenciesArr={subCurrenciesArr}
         isLoading={isLoading}
+      />
+      <SubCurrenciesRatesDisplay
+        allCurrencies={allCurrencies}
+        currency={currency}
       />
     </div>
   );

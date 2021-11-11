@@ -34,7 +34,7 @@ export default function currenciesReducer(state = initStateForRates, action) {
           ...el,
           rate: action.payload[el.name],
         })),
-        ratesSource: action.payload.ratesSource,
+        ratesSource: "Manual",
       };
     default:
       return state;
@@ -55,7 +55,7 @@ export const getNewRatesThunkCreator = () => {
     ratesDataAPI
       .getRates()
       .then((newRatesObj) => {
-        dispatch(setNewRates(newRatesObj));
+        dispatch(setNewRates({ ...newRatesObj, ratesSource: "MasterCard" }));
       })
       .catch((err) => {
         dispatch(setRequestErr(true));

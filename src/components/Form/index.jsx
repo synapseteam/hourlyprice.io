@@ -25,13 +25,14 @@ export default function Form() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
   });
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
-  const mainCurrency = useSelector((state) => state.main.currency);
+  const ratesSource = useSelector((state) => state.rates.ratesSource);
   const timeStampCurrenciesUpdated = useSelector(
     (state) => state.rates.updatedAt
   );
@@ -42,10 +43,13 @@ export default function Form() {
   const [chosenCurrency, setChosenCurrency] = useState("USD");
   const [choseRatesSource, setChosenRatesSource] = useState("MasterCard");
 
+  const [keepAPIRatesCache, setkeepAPIRatesCache] = useState(true);
+
   function handleListChange(e) {
     const { name, value } = e.target;
     if (name === "currency") {
       setChosenCurrency((prev) => value);
+      setValue(value, 1);
     }
     if (name === "ratesSource") {
       setChosenRatesSource((prev) => value);
@@ -59,9 +63,24 @@ export default function Form() {
       (timeStampNow - timeStampCurrenciesUpdated) / 1000;
 
     if (timePassAfterRatesUpdated >= ratesUpdatingTimeFrame) {
+      console.log("fetch request: time expired");
+      dispatch(getNewRatesThunkCreator());
+    }
+
+    if (!keepAPIRatesCache) {
+      console.log("fetch request: manually reset");
       dispatch(getNewRatesThunkCreator());
     }
   }
+
+  useEffect(() => {
+    if (ratesSource === "Manual") {
+      setkeepAPIRatesCache((prev) => false);
+    }
+    if (ratesSource === "MasterCard") {
+      setkeepAPIRatesCache((prev) => false);
+    }
+  }, [ratesSource]);
 
   const onSubmit = ({
     price,
@@ -70,28 +89,34 @@ export default function Form() {
     ratesSource,
     ...manualRates
   }) => {
+    console.log("submit should works");
     dispatch(setRequestErr(false));
 
     const time = convertStrTimeToNum(timeString);
 
     if (ratesSource === "MasterCard") {
+      console.log("update from NASTERCARD should performed");
+      setkeepAPIRatesCache((pre) => true);
       updateRatesIfCacheExpired();
     }
 
     if (ratesSource === "Manual") {
+      console.log("update from Manual should performed");
       dispatch(setManualRates(manualRates));
     }
 
     dispatch(submitFieldsData({ price, time, currency }));
   };
-  /* 
-  useEffect(() => {
-    console.log(chosenCurrency, choseRatesSource, mainCurrency);
-    if (mainCurrency !== chosenCurrency) {
-      setChosenCurrency(mainCurrency);
-    }
-  }, [mainCurrency]); */
 
+  useEffect(() => {
+    setValue("UAH", "");
+    setValue("RUB", "");
+    setValue("EUR", "");
+    setValue("USD", "");
+    setValue(chosenCurrency, 1);
+  }, [chosenCurrency]);
+
+  console.log("keep chache", keepAPIRatesCache, ratesSource);
   return (
     <div className="form-container">
       <form id="calc-form" onSubmit={handleSubmit(onSubmit)}>
