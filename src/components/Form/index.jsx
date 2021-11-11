@@ -41,7 +41,7 @@ export default function Form() {
   const dispatch = useDispatch();
 
   const [chosenCurrency, setChosenCurrency] = useState("USD");
-  const [choseRatesSource, setChosenRatesSource] = useState("MasterCard");
+  const [chosenRatesSource, setChosenRatesSource] = useState("MasterCard");
 
   const [keepAPIRatesCache, setkeepAPIRatesCache] = useState(true);
 
@@ -63,12 +63,10 @@ export default function Form() {
       (timeStampNow - timeStampCurrenciesUpdated) / 1000;
 
     if (timePassAfterRatesUpdated >= ratesUpdatingTimeFrame) {
-      console.log("fetch request: time expired");
       dispatch(getNewRatesThunkCreator());
     }
 
     if (!keepAPIRatesCache) {
-      console.log("fetch request: manually reset");
       dispatch(getNewRatesThunkCreator());
     }
   }
@@ -78,7 +76,7 @@ export default function Form() {
       setkeepAPIRatesCache((prev) => false);
     }
     if (ratesSource === "MasterCard") {
-      setkeepAPIRatesCache((prev) => false);
+      setkeepAPIRatesCache((prev) => true);
     }
   }, [ratesSource]);
 
@@ -89,19 +87,15 @@ export default function Form() {
     ratesSource,
     ...manualRates
   }) => {
-    console.log("submit should works");
     dispatch(setRequestErr(false));
 
     const time = convertStrTimeToNum(timeString);
 
     if (ratesSource === "MasterCard") {
-      console.log("update from NASTERCARD should performed");
-      setkeepAPIRatesCache((pre) => true);
       updateRatesIfCacheExpired();
     }
 
     if (ratesSource === "Manual") {
-      console.log("update from Manual should performed");
       dispatch(setManualRates(manualRates));
     }
 
@@ -116,7 +110,6 @@ export default function Form() {
     setValue(chosenCurrency, 1);
   }, [chosenCurrency]);
 
-  console.log("keep chache", keepAPIRatesCache, ratesSource);
   return (
     <div className="form-container">
       <form id="calc-form" onSubmit={handleSubmit(onSubmit)}>
@@ -150,12 +143,17 @@ export default function Form() {
           inputName="ratesSource"
           register={register}
           changeHandler={handleListChange}
-          value={choseRatesSource}
+          value={chosenRatesSource}
           optionsArr={ratesSources}
           errors={errors}
         />
-        {choseRatesSource === "Manual" && (
-          <RatesInputSet register={register} chosenCurrency={chosenCurrency} />
+        {chosenRatesSource === "Manual" && (
+          <RatesInputSet
+            register={register}
+            allCurrencies={allCurrencies}
+            chosenCurrency={chosenCurrency}
+            errors={errors}
+          />
         )}
       </form>
     </div>

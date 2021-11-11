@@ -26,15 +26,21 @@ export function handleTimeChange(e) {
 }
 
 export function handlePriceChange(e) {
-  const { value } = e.target;
+  const { value, name } = e.target;
 
   const updatedValue = value.replace(",", ".").replace(/[^0-9^.]/, "");
 
   const [intVal, decimalVal] = updatedValue.split(".");
 
-  if (decimalVal?.length >= 2) {
+  if (name === "price" && decimalVal?.length >= 2) {
     e.target.value = `${intVal}.${decimalVal.slice(0, 2)}`;
     return;
   }
+
+  if (name !== "price" && decimalVal?.length >= 4) {
+    e.target.value = `${intVal}.${decimalVal.slice(0, 4)}`;
+    return;
+  }
+
   e.target.value = updatedValue;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import uniqid from "uniqid";
+import PropTypes from "prop-types";
 
 export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
   const basicRate = allCurrencies.find((el) => el.name === currency)?.rate;
@@ -25,3 +26,8 @@ export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
     </div>
   );
 }
+
+SubCurrenciesRatesDisplay.propTypes = {
+  allCurrencies: PropTypes.arrayOf(PropTypes.object),
+  currency: PropTypes.string,
+};
