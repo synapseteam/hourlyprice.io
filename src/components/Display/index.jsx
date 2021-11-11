@@ -37,10 +37,11 @@ export default function Display() {
         };
       });
     }
+
     return subCurrencyInitial.map((el) => {
       return {
         name: el.name,
-        value: formatSum(el.rate * basicRate * time),
+        value: el.rate ? formatSum(el.rate * basicRate * time) : "--",
       };
     });
   }

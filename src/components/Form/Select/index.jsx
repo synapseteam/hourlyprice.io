@@ -9,8 +9,8 @@ export default function Select({
   inputName,
   register,
   changeHandler,
-  value,
   optionsArr,
+  value,
   errors,
 }) {
   return (

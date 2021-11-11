@@ -5,9 +5,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import Input from "components/Form/Input";
 import Select from "components/Form/Select";
+import RatesInputSet from "components/Form/RatesInputSet";
 import { submitFieldsData, setRequestErr } from "store/mainReducer";
-import { getNewRatesThunkCreator } from "store/currenciesReducer";
-import { formSchema } from "configure";
+import {
+  getNewRatesThunkCreator,
+  setManualRates,
+} from "store/currenciesReducer";
+import { formSchema, ratesSources } from "configure";
 import {
   convertStrTimeToNum,
   handleTimeChange,
@@ -36,9 +40,17 @@ export default function Form() {
   const dispatch = useDispatch();
 
   const [chosenCurrency, setChosenCurrency] = useState("USD");
+  const [choseRatesSource, setChosenRatesSource] = useState("MasterCard");
 
   function handleListChange(e) {
-    setChosenCurrency((prev) => e.target.value);
+    const { name, value } = e.target;
+    if (name === "currency") {
+      setChosenCurrency((prev) => value);
+    }
+    if (name === "ratesSource") {
+      setChosenRatesSource((prev) => value);
+    }
+    return;
   }
 
   function updateRatesIfCacheExpired() {
@@ -51,20 +63,34 @@ export default function Form() {
     }
   }
 
-  const onSubmit = ({ price, time: timeString, currency }) => {
+  const onSubmit = ({
+    price,
+    time: timeString,
+    currency,
+    ratesSource,
+    ...manualRates
+  }) => {
     dispatch(setRequestErr(false));
 
     const time = convertStrTimeToNum(timeString);
 
-    updateRatesIfCacheExpired();
+    if (ratesSource === "MasterCard") {
+      updateRatesIfCacheExpired();
+    }
+
+    if (ratesSource === "Manual") {
+      dispatch(setManualRates(manualRates));
+    }
+
     dispatch(submitFieldsData({ price, time, currency }));
   };
-
+  /* 
   useEffect(() => {
+    console.log(chosenCurrency, choseRatesSource, mainCurrency);
     if (mainCurrency !== chosenCurrency) {
       setChosenCurrency(mainCurrency);
     }
-  }, [mainCurrency]);
+  }, [mainCurrency]); */
 
   return (
     <div className="form-container">
@@ -94,6 +120,18 @@ export default function Form() {
           optionsArr={allCurrenciesNames}
           errors={errors}
         />
+        <Select
+          labelName="Exchange rate"
+          inputName="ratesSource"
+          register={register}
+          changeHandler={handleListChange}
+          value={choseRatesSource}
+          optionsArr={ratesSources}
+          errors={errors}
+        />
+        {choseRatesSource === "Manual" && (
+          <RatesInputSet register={register} chosenCurrency={chosenCurrency} />
+        )}
       </form>
     </div>
   );

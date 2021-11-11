@@ -1,0 +1,19 @@
+$dark-purple: #171d3d;
+$light-purple: #31335a;
+$white: #ffffff;
+
+.rates-input-set {
+  display: flex;
+  width: 100%;
+  column-gap: 1rem;
+
+  input {
+    width: 25%;
+    background-color: $dark-purple;
+    border: 1px solid $light-purple;
+    border-radius: 0.3rem;
+    color: $white;
+    padding: 0.8rem 1rem;
+    margin-top: 1.6rem;
+  }
+}
