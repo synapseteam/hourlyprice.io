@@ -12,7 +12,8 @@ export function convertStrTimeToNum(timeString) {
 
 export function handleTimeChange(e) {
   const { value } = e.target;
-  const updatedValue = value.replace(/([^0-9^:]|^0)/, "");
+
+  const updatedValue = value.replace(",", ":").replace(/[^0-9^:]/gim, "");
 
   const minutesLimited = updatedValue.replace(/:[6-9]/gim, ":5");
   const [hours, minutes] = minutesLimited.split(":");

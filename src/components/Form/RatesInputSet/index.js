@@ -27,6 +27,7 @@ export default function RatesInputSet({
           <input
             {...register(name)}
             key={uniqid()}
+            inputMode="decimal"
             className="rates-input"
             type="text"
             autoComplete="off"

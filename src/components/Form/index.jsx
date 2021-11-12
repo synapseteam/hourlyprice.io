@@ -68,11 +68,10 @@ export default function Form() {
     const timePassAfterRatesUpdated =
       (timeStampNow - timeStampCurrenciesUpdated) / 1000;
 
-    if (timePassAfterRatesUpdated >= ratesUpdatingTimeFrame) {
-      dispatch(getNewRatesThunkCreator());
-    }
-
-    if (!keepAPIRatesCache) {
+    if (
+      timePassAfterRatesUpdated >= ratesUpdatingTimeFrame ||
+      !keepAPIRatesCache
+    ) {
       dispatch(getNewRatesThunkCreator());
     }
   }

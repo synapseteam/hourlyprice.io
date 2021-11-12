@@ -17,14 +17,11 @@ const initStateMain = {
 export default function mainReducer(state = initStateMain, action) {
   switch (action.type) {
     case SUBMIT_FIELDS_DATA:
-      const { price, time, currency } = action.payload;
       return {
         ...state,
         fields: {
           ...state.fields,
-          price,
-          time,
-          currency,
+          ...action.payload,
         },
       };
     case TOGGLE_IS_LOADING:

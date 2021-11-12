@@ -20,6 +20,7 @@ export default function Input({
         <input
           {...register(inputName)}
           type="text"
+          inputMode="decimal"
           placeholder={placeholder}
           autoComplete="off"
           onChange={changeHandler}
