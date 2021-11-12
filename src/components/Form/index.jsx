@@ -19,6 +19,7 @@ import {
 } from "utils";
 import { ratesUpdatingTimeFrame } from "configure";
 import { useAppThemeContext } from "context/AppContext";
+import { useCustomTranslation } from "i18n";
 
 import "components/Form/styles.scss";
 
@@ -33,6 +34,8 @@ export default function Form() {
   });
 
   const [state] = useAppThemeContext();
+
+  const [t] = useCustomTranslation();
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
   const ratesSource = useSelector((state) => state.rates.ratesSource);
@@ -123,21 +126,21 @@ export default function Form() {
         <Input
           inputName="price"
           register={register}
-          labelName="Price"
-          placeholder="20.3"
+          labelName={t("labelPrice")}
+          placeholder={t("pricePlaceholder")}
           changeHandler={handlePriceChange}
           errors={errors}
         />
         <Input
           inputName="time"
           register={register}
-          labelName="Time"
-          placeholder="HH:MM"
+          labelName={t("labelTime")}
+          placeholder={t("timePlaceholder")}
           changeHandler={handleTimeChange}
           errors={errors}
         />
         <Select
-          labelName="Currency"
+          labelName={t("labelCurrency")}
           inputName="currency"
           register={register}
           changeHandler={handleListChange}
@@ -146,7 +149,7 @@ export default function Form() {
           errors={errors}
         />
         <Select
-          labelName="Exchange rate"
+          labelName={t("labelExchangeRate")}
           inputName="ratesSource"
           register={register}
           changeHandler={handleListChange}

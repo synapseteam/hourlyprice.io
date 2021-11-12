@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { useCustomTranslation } from "i18n";
 import Loader from "components/Loader";
 
 export default function MainCurrencyDisplay({ sum, currency, isLoading }) {
+  const [t] = useCustomTranslation();
   return (
     <>
-      <h2 className="display-title">Total price</h2>
+      <h2 className="display-title">{t("totalPrice")}</h2>
       <div className="display-sum-container">
         {isLoading ? (
           <Loader />

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { errorsMessages } from "configure";
+import { useCustomTranslation } from "i18n";
 
 export default function Input({
   labelName,
@@ -11,10 +11,12 @@ export default function Input({
   inputName,
   errors,
 }) {
+  const [t] = useCustomTranslation();
+
   return (
     <>
       <label>
-        {labelName}
+        {labelName}:
         <input
           {...register(inputName)}
           type="text"
@@ -23,7 +25,7 @@ export default function Input({
           onChange={changeHandler}
         />
         {errors[inputName] && (
-          <p className="error-text">{errorsMessages[inputName]}</p>
+          <p className="error-text">{t(inputName + "Error")}</p>
         )}
       </label>
     </>

@@ -1,12 +1,13 @@
 import React from "react";
 
-import { buttonText } from "configure";
 import { useAppThemeContext } from "context/AppContext";
+import { useCustomTranslation } from "i18n";
 
 import "components/ButtonSubmit/styles.scss";
 
 export default function ButtonSubmit() {
   const [state] = useAppThemeContext();
+  const [t] = useCustomTranslation();
 
   return (
     <div
@@ -17,7 +18,7 @@ export default function ButtonSubmit() {
       }
     >
       <button form="calc-form" className="calculate-btn">
-        {buttonText}
+        {t("btnResult").toUpperCase()}
       </button>
     </div>
   );
