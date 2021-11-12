@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import SubCurrenciesDisplay from "components/Display/SubCurrenciesDisplay";
 import MainCurrencyDisplay from "components/Display/MainCurrencyDisplay";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRatesDisplay";
+import { useAppThemeContext } from "context/AppContext";
 
 import "components/Display/styles.scss";
 
@@ -15,6 +16,8 @@ export default function Display() {
   const isLoading = useSelector((state) => state.main.isLoading);
 
   const isRequestError = useSelector((state) => state.main.ratesRequestErr);
+
+  const [state] = useAppThemeContext();
 
   const mainCurrencyData = allCurrencies.find((el) => el.name === currency) || {
     name: "",
@@ -54,7 +57,7 @@ export default function Display() {
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
   return (
-    <div className="display">
+    <div className={state.darkMode ? "display" : "display light-display"}>
       {isRequestError && (
         <p>Request Failed. Rates was not update properly 🤪</p>
       )}

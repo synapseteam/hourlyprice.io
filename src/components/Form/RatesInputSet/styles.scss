@@ -1,6 +1,7 @@
 $dark-purple: #171d3d;
 $light-purple: #31335a;
 $white: #ffffff;
+$white-purlpe: #f0f3ff;
 
 .rates-input-set {
   display: flex;
@@ -15,5 +16,12 @@ $white: #ffffff;
     color: $white;
     padding: 0.8rem 1rem;
     margin-top: 1.6rem;
+  }
+}
+
+.light-input-set {
+  input {
+    background-color: $white-purlpe;
+    color: $dark-purple;
   }
 }

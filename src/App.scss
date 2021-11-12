@@ -55,6 +55,11 @@ $white: #ffffff;
   }
 }
 
+.light-mode {
+  background-color: $white;
+  color: $dark-purple;
+}
+
 @media (min-width: 720px) {
   .content-container {
     width: 700px;

@@ -1,4 +1,5 @@
 $light-purple: #31335a;
+$purple: #24274a;
 $white: #ffffff;
 
 .footer {
@@ -7,9 +8,11 @@ $white: #ffffff;
   align-items: center;
   border-top: 1px solid $light-purple;
   padding: 0.6rem;
+  background-color: $purple;
 
   .footer-text {
     font-weight: 500;
     font-size: 0.9rem;
+    color: white;
   }
 }

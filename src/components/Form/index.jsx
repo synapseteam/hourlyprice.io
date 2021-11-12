@@ -18,6 +18,7 @@ import {
   handlePriceChange,
 } from "utils";
 import { ratesUpdatingTimeFrame } from "configure";
+import { useAppThemeContext } from "context/AppContext";
 
 import "components/Form/styles.scss";
 
@@ -30,6 +31,8 @@ export default function Form() {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
+
+  const [state] = useAppThemeContext();
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
   const ratesSource = useSelector((state) => state.rates.ratesSource);
@@ -111,7 +114,11 @@ export default function Form() {
   }, [chosenCurrency]);
 
   return (
-    <div className="form-container">
+    <div
+      className={
+        state.darkMode ? "form-container" : "form-container light-form"
+      }
+    >
       <form id="calc-form" onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputName="price"

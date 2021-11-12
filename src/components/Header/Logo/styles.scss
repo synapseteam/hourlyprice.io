@@ -1,3 +1,5 @@
+$purple: #24274a;
+
 .logo-container {
   .logo {
     font-weight: 600;
@@ -5,4 +7,8 @@
     line-height: 0.6;
     cursor: pointer;
   }
+}
+
+.light-logo {
+  color: $purple;
 }

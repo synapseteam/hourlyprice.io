@@ -4,6 +4,8 @@ $light-purple: #31335a;
 $blue: #5599ec;
 $white: #ffffff;
 
+$white-purlpe: #f0f3ff;
+
 .form-container {
   display: flex;
 
@@ -37,6 +39,24 @@ $white: #ffffff;
         -moz-appearance: none; /* Firefox */
         -webkit-appearance: none; /* Safari and Chrome */
         appearance: none;
+      }
+    }
+
+    .error-text {
+      margin: 0.3rem 0 0;
+    }
+  }
+}
+
+.light-form {
+  form {
+    label {
+      color: $purple;
+
+      input,
+      select {
+        background-color: $white-purlpe;
+        color: $dark-purple;
       }
     }
   }

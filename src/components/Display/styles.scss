@@ -1,6 +1,8 @@
 $light-purple: #31335a;
 $dark-purple: #171d3d;
 $blue: #5599ec;
+$white-purlpe: #f0f3ff;
+$white: #ffffff;
 
 @mixin box-shadow {
   -webkit-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
@@ -71,6 +73,7 @@ $blue: #5599ec;
     position: absolute;
     display: flex;
     justify-content: center;
+    border-radius: 0 0 0.4rem 0.4rem;
     bottom: 0;
 
     .subcurrency-rate {
@@ -82,5 +85,13 @@ $blue: #5599ec;
         margin: 0 0.6rem;
       }
     }
+  }
+}
+
+.light-display {
+  background-color: $white-purlpe;
+
+  .display-subcurrencies-rates-cont {
+    background-color: $white;
   }
 }

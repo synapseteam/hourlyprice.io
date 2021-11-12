@@ -1,5 +1,6 @@
 $green: #174f5e;
 $lightgreen: #5cbabc;
+$mediumGreen: #2d8587;
 $white: #ffffff;
 
 .calculate-btn-container {
@@ -17,6 +18,17 @@ $white: #ffffff;
 
     &:hover {
       background-color: $lightgreen;
+    }
+  }
+}
+
+.light-btn {
+  .calculate-btn {
+    background-color: $mediumGreen;
+    border: 1px solid $green;
+
+    &:hover {
+      background-color: $green;
     }
   }
 }

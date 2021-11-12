@@ -22,7 +22,9 @@ export default function Input({
           autoComplete="off"
           onChange={changeHandler}
         />
-        {errors[inputName] && <p>{errorsMessages[inputName]}</p>}
+        {errors[inputName] && (
+          <p className="error-text">{errorsMessages[inputName]}</p>
+        )}
       </label>
     </>
   );

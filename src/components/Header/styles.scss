@@ -13,4 +13,19 @@ header {
     //margin: 0.5rem 2rem;
     color: $blue;
   }
+
+  .theme-switch-icon {
+    font-size: 2rem;
+    margin-right: 2rem;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.light-header {
+  background-color: white;
+  border-bottom: 1px solid $light-purple;
 }

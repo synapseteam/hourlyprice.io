@@ -25,7 +25,9 @@ export default function Select({
               </option>
             ))}
         </select>
-        {errors[inputName] && <p>{errorsMessages[inputName]}</p>}
+        {errors[inputName] && (
+          <p className="error-text">{errorsMessages[inputName]}</p>
+        )}
       </label>
     </>
   );
