@@ -12,22 +12,19 @@ export default function RatesInputSet({
   allCurrencies,
   errors,
 }) {
-  const allCurrenciesNames = allCurrencies.map((el) => ({
-    ...el,
-    basic: el.name === chosenCurrency,
-  }));
+  const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 
   return (
     <div className="rates-input-set">
-      {allCurrenciesNames.map((el) => {
+      {allCurrenciesNames.map(({ name }) => {
         return (
           <input
-            {...register(el.name)}
+            {...register(name)}
             key={uniqid()}
             className="rates-input"
             type="text"
             autoComplete="off"
-            placeholder={el.name}
+            placeholder={name}
             onChange={handlePriceChange}
           />
         );
