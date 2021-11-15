@@ -3,6 +3,7 @@ $dark-purple: #171d3d;
 $light-purple: #31335a;
 $blue: #5599ec;
 $white: #ffffff;
+$light-grey: #dbdbdb;
 
 $white-purlpe: #f0f3ff;
 
@@ -55,8 +56,10 @@ $white-purlpe: #f0f3ff;
 
       input,
       select {
-        background-color: $white-purlpe;
+        background-color: $white;
+        border-color: $light-grey;
         color: $dark-purple;
+        outline: none;
       }
     }
   }
