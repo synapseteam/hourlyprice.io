@@ -1,6 +1,7 @@
 $light-purple: #31335a;
 $purple: #24274a;
 $white: #ffffff;
+$dark-grey: #5f6368;
 
 .footer {
   display: flex;
@@ -13,6 +14,30 @@ $white: #ffffff;
   .footer-text {
     font-weight: 500;
     font-size: 0.9rem;
-    color: white;
+
+    a {
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        color: darken($white, 10);
+      }
+    }
+  }
+}
+
+.light-footer {
+  background-color: $white;
+  border: none;
+  box-shadow: -1px -1px 3px #ddd;
+
+  .footer-text {
+    a {
+      color: $dark-grey;
+
+      &:hover {
+        color: darken($dark-grey, 10);
+      }
+    }
   }
 }

@@ -1,5 +1,7 @@
 $light-purple: #31335a;
 $blue: #5599ec;
+$light-grey: #ddd;
+$dark-grey: #5f6368;
 
 header {
   background-color: $light-purple;
@@ -17,12 +19,12 @@ header {
   }
 
   svg {
-    //margin: 0.5rem 2rem;
     color: $blue;
   }
 
   .theme-switch-icon {
     font-size: 2rem;
+
     cursor: pointer;
 
     &:hover {
@@ -33,7 +35,11 @@ header {
 
 .light-header {
   background-color: white;
-  border-bottom: 1px solid $light-purple;
+  box-shadow: 0 1px 3px $light-grey;
+
+  svg {
+    color: $dark-grey;
+  }
 }
 
 @media (min-width: 720px) {

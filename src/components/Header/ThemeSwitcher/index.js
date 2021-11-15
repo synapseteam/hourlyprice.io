@@ -14,13 +14,13 @@ export default function ThemeSwitcher() {
     <>
       {state.darkMode ? (
         <Icon
-          icon="emojione:sun-with-face"
+          icon="emojione:light-bulb"
           className="theme-switch-icon"
           onClick={handleThemeSwitcherClick}
         />
       ) : (
         <Icon
-          icon="noto:new-moon-face"
+          icon="emojione-monotone:light-bulb"
           className="theme-switch-icon"
           onClick={handleThemeSwitcherClick}
         />
