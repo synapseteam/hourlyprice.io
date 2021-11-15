@@ -26,8 +26,10 @@ export default function Display() {
   };
 
   function formatSum(num) {
-    return new Intl.NumberFormat("de-DE")
-      .format(num.toFixed(2))
+    return new Intl.NumberFormat("de-DE", {
+      maximumFractionDigits: 2,
+    })
+      .format(num)
       .replace(".", " ");
   }
 

@@ -12,8 +12,6 @@ export default function LangList() {
 
   const [state] = useAppThemeContext();
 
-  console.log(state.darkMode);
-
   const langChangeHandler = (e) => {
     e.preventDefault();
 
