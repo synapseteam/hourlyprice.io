@@ -3,6 +3,9 @@ $dark-purple: #171d3d;
 $blue: #5599ec;
 $white-purlpe: #f0f3ff;
 $white: #ffffff;
+$light-grey: #f1f3f4;
+$medium-grey: #e5e5e5;
+$dark-grey: #5f6368;
 
 @mixin box-shadow {
   -webkit-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
@@ -89,9 +92,29 @@ $white: #ffffff;
 }
 
 .light-display {
-  background-color: $white-purlpe;
+  background-color: $light-grey;
+
+  .display-sum-container {
+    .display-sum {
+      color: $dark-grey;
+    }
+  }
+
+  .display-currencies-container {
+    .display-sep-currency {
+      .display-sep-currency-type {
+        color: $dark-grey;
+      }
+    }
+  }
 
   .display-subcurrencies-rates-cont {
-    background-color: $white;
+    background-color: $medium-grey;
+
+    .subcurrency-rate {
+      span {
+        color: $dark-grey;
+      }
+    }
   }
 }
