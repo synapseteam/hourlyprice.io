@@ -13,6 +13,12 @@ $dark-grey: #5f6368;
   box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
 }
 
+@mixin no-shadow {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
 .display {
   background-color: $light-purple;
   border-radius: 0.4rem;
@@ -93,6 +99,7 @@ $dark-grey: #5f6368;
 
 .light-display {
   background-color: $light-grey;
+  @include no-shadow;
 
   .display-sum-container {
     .display-sum {
