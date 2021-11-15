@@ -33,7 +33,10 @@ function App() {
             </ContentColumn>
           </div>
         </div>
-        <Footer />
+        <Footer
+          companyName="Synapse Team LLC"
+          companyUrl="https://synapseteam.com"
+        />
       </Provider>
     </div>
   );
