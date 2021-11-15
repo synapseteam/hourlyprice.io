@@ -17,7 +17,6 @@ export default function Header() {
       <div className="header-right-side-cont">
         <LangList />
         <ThemeSwitcher />
-        <Icon icon="ci:menu-duo" className="big-icon" />
       </div>
     </header>
   );
