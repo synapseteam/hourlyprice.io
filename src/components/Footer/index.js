@@ -1,13 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { useAppThemeContext } from "context/AppContext";
+
 import "components/Footer/styles.scss";
 
 export default function Footer({ companyName, companyUrl }) {
   const currentYear = new Date().getFullYear();
 
+  const [state] = useAppThemeContext();
+
   return (
-    <footer className="footer">
+    <footer className={state.darkMode ? "footer" : "footer light-footer"}>
       <p className="footer-text">
         <a
           href={companyUrl}

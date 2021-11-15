@@ -25,3 +25,19 @@ $dark-grey: #5f6368;
     }
   }
 }
+
+.light-footer {
+  background-color: $white;
+  border: none;
+  box-shadow: -1px -1px 3px #ddd;
+
+  .footer-text {
+    a {
+      color: $dark-grey;
+
+      &:hover {
+        color: darken($dark-grey, 10);
+      }
+    }
+  }
+}
