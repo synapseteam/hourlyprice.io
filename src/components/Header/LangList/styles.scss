@@ -1,6 +1,8 @@
 $purple: #24274a;
 $dark-purple: #171d3d;
 $white: #ffffff;
+$dark-grey: #5f6368;
+$ligth-grey: #f1f3f4;
 
 .lang-list-container {
   position: absolute;
@@ -23,6 +25,19 @@ $white: #ffffff;
       a {
         text-decoration: none;
         color: $white;
+      }
+    }
+  }
+}
+
+.light-lang-list-container {
+  border: none;
+  background-color: $ligth-grey;
+
+  .lang-list {
+    .lang-item {
+      a {
+        color: $dark-grey;
       }
     }
   }
