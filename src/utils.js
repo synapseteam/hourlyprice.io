@@ -24,6 +24,8 @@ export function handleTimeChange(e) {
   }
 
   e.target.value = minutesLimited;
+
+  return minutesLimited;
 }
 
 export function handlePriceChange(e) {
@@ -44,4 +46,6 @@ export function handlePriceChange(e) {
   }
 
   e.target.value = updatedValue;
+
+  return updatedValue;
 }
