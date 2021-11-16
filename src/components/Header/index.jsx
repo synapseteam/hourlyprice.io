@@ -1,5 +1,4 @@
 import React from "react";
-import { Icon } from "@iconify/react";
 
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
