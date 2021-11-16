@@ -13,13 +13,13 @@ export default function RatesInputSet({
   allCurrencies,
   errors,
 }) {
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
   const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 
   return (
     <div
       className={
-        state.darkMode ? "rates-input-set" : "rates-input-set light-input-set"
+        context.darkMode ? "rates-input-set" : "rates-input-set light-input-set"
       }
     >
       {allCurrenciesNames.map(({ name }) => {

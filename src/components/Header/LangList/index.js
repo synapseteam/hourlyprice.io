@@ -10,7 +10,7 @@ export default function LangList() {
   const [isListShown, setisListShown] = useState(false);
   const [chosenLang, setChosenLang] = useState("EN");
 
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
 
   const langChangeHandler = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function LangList() {
   return (
     <div
       className={
-        state.darkMode
+        context.darkMode
           ? "lang-list-container"
           : "lang-list-container light-lang-list-container"
       }

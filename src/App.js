@@ -13,10 +13,10 @@ import { useAppThemeContext } from "context/AppContext";
 import "App.scss";
 
 function App() {
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
 
   return (
-    <div className={state.darkMode ? "App" : "App light-mode"}>
+    <div className={context.darkMode ? "App" : "App light-mode"}>
       <Provider store={store}>
         <Header />
 

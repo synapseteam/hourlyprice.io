@@ -8,10 +8,10 @@ import { useAppThemeContext } from "context/AppContext";
 import "components/Header/styles.scss";
 
 export default function Header() {
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
 
   return (
-    <header className={!state.darkMode ? "light-header" : ""}>
+    <header className={!context.darkMode ? "light-header" : ""}>
       <Logo />
       <div className="header-right-side-cont">
         <LangList />

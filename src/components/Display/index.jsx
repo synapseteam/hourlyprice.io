@@ -17,7 +17,7 @@ export default function Display() {
 
   const isRequestError = useSelector((state) => state.main.ratesRequestErr);
 
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
 
   const mainCurrencyData = allCurrencies.find((el) => el.name === currency) || {
     name: "",
@@ -26,10 +26,8 @@ export default function Display() {
   };
 
   function formatSum(num) {
-    return new Intl.NumberFormat("de-DE", {
-      maximumFractionDigits: 2,
-    })
-      .format(num)
+    return new Intl.NumberFormat("de-DE")
+      .format(num.toFixed(2))
       .replace(".", " ");
   }
 
@@ -59,7 +57,7 @@ export default function Display() {
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
   return (
-    <div className={state.darkMode ? "display" : "display light-display"}>
+    <div className={context.darkMode ? "display" : "display light-display"}>
       {isRequestError && (
         <p>Request Failed. Rates was not update properly 🤪</p>
       )}

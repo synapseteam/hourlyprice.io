@@ -9,28 +9,10 @@ if (!global.React) {
 }
 
 it("Footer rendered correctly with dark Theme", () => {
-  const state = {
+  const context = {
     darkMode: true,
   };
-  const value = [state];
-  const tree = renderer
-    .create(
-      <AppThemeProvider value={value}>
-        <Footer
-          companyName="Synapse Team LLC"
-          companyUrl="https://synapseteam.com"
-        />
-      </AppThemeProvider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-it("Footer rendered correctly with light Theme", () => {
-  const state = {
-    darkMode: false,
-  };
-  const value = [state];
+  const value = [context];
   const tree = renderer
     .create(
       <AppThemeProvider value={value}>

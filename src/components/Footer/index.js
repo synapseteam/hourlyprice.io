@@ -8,10 +8,10 @@ import "components/Footer/styles.scss";
 export default function Footer({ companyName, companyUrl }) {
   const currentYear = new Date().getFullYear();
 
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
 
   return (
-    <footer className={state.darkMode ? "footer" : "footer light-footer"}>
+    <footer className={context.darkMode ? "footer" : "footer light-footer"}>
       <p className="footer-text">
         <a
           href={companyUrl}

@@ -33,7 +33,7 @@ export default function Form() {
     resolver: yupResolver(formSchema),
   });
 
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
 
   const [t] = useCustomTranslation();
 
@@ -118,7 +118,7 @@ export default function Form() {
   return (
     <div
       className={
-        state.darkMode ? "form-container" : "form-container light-form"
+        context.darkMode ? "form-container" : "form-container light-form"
       }
     >
       <form id="calc-form" onSubmit={handleSubmit(onSubmit)}>

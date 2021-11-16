@@ -6,13 +6,13 @@ import { useCustomTranslation } from "i18n";
 import "components/ButtonSubmit/styles.scss";
 
 export default function ButtonSubmit() {
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
   const [t] = useCustomTranslation();
 
   return (
     <div
       className={
-        state.darkMode
+        context.darkMode
           ? "calculate-btn-container"
           : "calculate-btn-container light-btn"
       }

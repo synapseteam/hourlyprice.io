@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { useAppThemeContext, toggleTheme } from "context/AppContext";
 
 export default function ThemeSwitcher() {
-  const [state, dispatch] = useAppThemeContext();
+  const [context, dispatch] = useAppThemeContext();
 
   function handleThemeSwitcherClick() {
     dispatch(toggleTheme());
@@ -12,7 +12,7 @@ export default function ThemeSwitcher() {
 
   return (
     <>
-      {state.darkMode ? (
+      {context.darkMode ? (
         <Icon
           icon="emojione:light-bulb"
           className="theme-switch-icon"
