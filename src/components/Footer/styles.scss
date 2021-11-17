@@ -10,34 +10,32 @@ $dark-grey: #5f6368;
   border-top: 1px solid $light-purple;
   padding: 0.6rem;
   background-color: $purple;
-
-  .footer-text {
-    font-weight: 500;
-    font-size: 0.9rem;
-
-    a {
-      text-decoration: none;
-      color: white;
-
-      &:hover {
-        color: darken($white, 10);
-      }
-    }
-  }
 }
 
-.light-footer {
+.footer_light {
   background-color: $white;
   border: none;
   box-shadow: -1px -1px 3px #ddd;
+}
 
-  .footer-text {
-    a {
-      color: $dark-grey;
+.footer__text {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
 
-      &:hover {
-        color: darken($dark-grey, 10);
-      }
-    }
+.footer__link {
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    color: darken($white, 10);
+  }
+}
+
+.footer__link_light {
+  color: $dark-grey;
+
+  &:hover {
+    color: darken($dark-grey, 10);
   }
 }

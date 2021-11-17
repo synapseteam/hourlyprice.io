@@ -3,7 +3,6 @@ import uniqid from "uniqid";
 import PropTypes from "prop-types";
 
 import { handlePriceChange } from "utils";
-import { useAppThemeContext } from "context/AppContext";
 
 import "components/Form/RatesInputSet/styles.scss";
 

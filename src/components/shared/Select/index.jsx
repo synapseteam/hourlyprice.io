@@ -52,4 +52,9 @@ Select.propTypes = {
   errors: PropTypes.object,
   value: PropTypes.string,
   optionsArr: PropTypes.arrayOf(PropTypes.string),
+  darkMode: PropTypes.bool,
+};
+
+Select.defaultProps = {
+  darkMode: true,
 };

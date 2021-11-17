@@ -11,12 +11,15 @@ export default function Footer({ companyName, companyUrl }) {
   const [context] = useAppThemeContext();
 
   return (
-    <footer className={context.darkMode ? "footer" : "footer light-footer"}>
-      <p className="footer-text">
+    <footer className={context.darkMode ? "footer" : "footer footer_light"}>
+      <p className="footer__text">
         <a
           href={companyUrl}
           target="_blank"
           rel="noreferrer"
+          className={`footer__link ${
+            !context.darkMode ? "footer__link_light" : ""
+          }`}
         >{`© ${companyName}, ${currentYear}`}</a>
       </p>
     </footer>

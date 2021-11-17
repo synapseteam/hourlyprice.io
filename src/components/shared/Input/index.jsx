@@ -46,4 +46,9 @@ Input.propTypes = {
   changeHandler: PropTypes.func,
   inputName: PropTypes.string,
   errors: PropTypes.object,
+  darkMode: PropTypes.bool,
+};
+
+Input.defaultProps = {
+  darkMode: true,
 };

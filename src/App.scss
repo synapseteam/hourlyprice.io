@@ -1,20 +1,7 @@
 $purple: #24274a;
 $dark-purple: #171d3d;
 $light-purple: #31335a;
-$blue: #5599ec;
-$green: #174f5e;
-$lightgreen: #5cbabc;
 $white: #ffffff;
-
-@mixin box-shadow {
-  -webkit-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
-  -moz-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
-  box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
-}
-
-.big-icon {
-  font-size: 2rem;
-}
 
 .App {
   min-height: 100vh;
@@ -27,6 +14,11 @@ $white: #ffffff;
   justify-content: space-between;
 }
 
+.App_light {
+  background-color: $white;
+  color: $dark-purple;
+}
+
 .content-container {
   width: 96%;
   margin: 1rem auto;
@@ -35,7 +27,7 @@ $white: #ffffff;
 
   h1 {
     font-style: italic;
-    line-height: 1;
+    line-height: 0.8;
     margin: 2rem 0 0 0;
   }
 
@@ -53,11 +45,6 @@ $white: #ffffff;
     flex-direction: column;
     column-gap: 2rem;
   }
-}
-
-.light-mode {
-  background-color: $white;
-  color: $dark-purple;
 }
 
 @media (min-width: 720px) {

@@ -1,3 +1,5 @@
+$dark-grey: #5f6368;
+$white: #ffffff;
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -11,9 +13,14 @@
   width: 0.6rem;
   height: 0.6rem;
   border-radius: 50%;
-  background: #fff;
+  background: $white;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
+.lds-ellipsis_light div {
+  background: $dark-grey;
+}
+
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;

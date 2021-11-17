@@ -16,7 +16,7 @@ function App() {
   const [context] = useAppThemeContext();
 
   return (
-    <div className={context.darkMode ? "App" : "App light-mode"}>
+    <div className={context.darkMode ? "App" : "App App_light"}>
       <Provider store={store}>
         <Header />
 

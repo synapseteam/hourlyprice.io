@@ -17,14 +17,11 @@ export default function ButtonSubmit({ formId }) {
     : null;
 
   return (
-    <div
-      className={
-        context.darkMode
-          ? "calculate-btn-container"
-          : "calculate-btn-container light-btn"
-      }
-    >
-      <button className="calculate-btn" {...additionalProps}>
+    <div className="btn-container">
+      <button
+        className={context.darkMode ? "btn" : "btn btn-light"}
+        {...additionalProps}
+      >
         {t("btnResult").toUpperCase()}
       </button>
     </div>
