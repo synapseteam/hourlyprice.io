@@ -5,7 +5,7 @@ import Header from "components/Header";
 import HeroTitle from "components/HeroTitle";
 import Form from "components/Form";
 import Display from "components/Display";
-import ButtonSubmit from "components/ButtonSubmit";
+import Button from "components/shared/Button";
 import ContentColumn from "components/ContentColumn";
 import Footer from "components/Footer";
 import { useAppThemeContext } from "context/AppContext";
@@ -24,12 +24,12 @@ function App() {
           <HeroTitle />
           <div className="content-columns-container">
             <ContentColumn>
-              <Form />
+              <Form id="calc-form" />
             </ContentColumn>
 
             <ContentColumn>
               <Display />
-              <ButtonSubmit />
+              <Button formId="calc-form" />
             </ContentColumn>
           </div>
         </div>

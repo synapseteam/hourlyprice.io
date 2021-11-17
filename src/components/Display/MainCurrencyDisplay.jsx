@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
-import Loader from "components/Loader";
+import Loader from "components/shared/Loader";
 
 export default function MainCurrencyDisplay({ sum, currency, isLoading }) {
   const [t] = useCustomTranslation();

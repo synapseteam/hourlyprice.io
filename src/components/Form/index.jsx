@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import PropTypes from "prop-types";
 
-import Input from "components/Form/Input";
-import Select from "components/Form/Select";
+import Input from "components/shared/Input";
+import Select from "components/shared/Select";
 import RatesInputSet from "components/Form/RatesInputSet";
 import { submitFieldsData, setRequestErr } from "store/mainReducer";
 import {
@@ -23,7 +24,7 @@ import { useCustomTranslation } from "i18n";
 
 import "components/Form/styles.scss";
 
-export default function Form() {
+export default function Form({ id }) {
   const {
     register,
     handleSubmit,
@@ -121,7 +122,7 @@ export default function Form() {
         context.darkMode ? "form-container" : "form-container light-form"
       }
     >
-      <form id="calc-form" onSubmit={handleSubmit(onSubmit)}>
+      <form id={id} onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputName="price"
           register={register}
@@ -168,3 +169,11 @@ export default function Form() {
     </div>
   );
 }
+
+Form.propTypes = {
+  id: PropTypes.string,
+};
+
+Form.defaultProps = {
+  id: "calc-form",
+};

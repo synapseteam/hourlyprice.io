@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import uniqid from "uniqid";
 
 import SubCurrency from "components/Display/SubCurrency";
-import Loader from "components/Loader";
+import Loader from "components/shared/Loader";
 
 export default function SubCurrenciesDisplay({ subCurrenciesArr, isLoading }) {
   if (isLoading) {

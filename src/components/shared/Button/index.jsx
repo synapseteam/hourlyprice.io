@@ -1,13 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { useAppThemeContext } from "context/AppContext";
 import { useCustomTranslation } from "i18n";
 
-import "components/ButtonSubmit/styles.scss";
+import "components/shared/Button/styles.scss";
 
-export default function ButtonSubmit() {
+export default function ButtonSubmit({ formId }) {
   const [context] = useAppThemeContext();
   const [t] = useCustomTranslation();
+
+  const additionalProps = formId
+    ? {
+        form: formId,
+      }
+    : null;
 
   return (
     <div
@@ -17,9 +24,13 @@ export default function ButtonSubmit() {
           : "calculate-btn-container light-btn"
       }
     >
-      <button form="calc-form" className="calculate-btn">
+      <button className="calculate-btn" {...additionalProps}>
         {t("btnResult").toUpperCase()}
       </button>
     </div>
   );
 }
+
+ButtonSubmit.propTypes = {
+  formId: PropTypes.string,
+};
