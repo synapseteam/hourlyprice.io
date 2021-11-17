@@ -43,7 +43,6 @@ $white: #ffffff;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
-    column-gap: 2rem;
   }
 }
 
@@ -54,9 +53,10 @@ $white: #ffffff;
     .content-columns-container {
       margin-top: 2rem;
       flex-direction: row;
+      justify-content: space-between;
 
       .content-column {
-        width: 50%;
+        width: 47%;
 
         .display {
           margin-top: 0;
