@@ -12,23 +12,21 @@ export default function RatesInputSet({
   chosenCurrency,
   allCurrencies,
   errors,
+  darkMode,
 }) {
-  const [context] = useAppThemeContext();
   const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 
   return (
-    <div
-      className={
-        context.darkMode ? "rates-input-set" : "rates-input-set light-input-set"
-      }
-    >
+    <div className="rates-input-set">
       {allCurrenciesNames.map(({ name }) => {
         return (
           <input
+            className={`rates-input-set__input ${
+              !darkMode ? "rates-input-set__input_light" : ""
+            }`}
             {...register(name)}
             key={uniqid()}
             inputMode="decimal"
-            className="rates-input"
             type="text"
             autoComplete="off"
             placeholder={name}

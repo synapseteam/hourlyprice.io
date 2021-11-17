@@ -8,23 +8,21 @@ $light-grey: #dbdbdb;
   display: flex;
   width: 100%;
   column-gap: 1rem;
-
-  input {
-    width: 25%;
-    background-color: $dark-purple;
-    border: 1px solid $light-purple;
-    border-radius: 0.3rem;
-    color: $white;
-    padding: 0.8rem 1rem;
-    margin-top: 1.6rem;
-  }
 }
 
-.light-input-set {
-  input {
-    background-color: $white;
-    color: $dark-purple;
-    border-color: $light-grey;
-    outline: none;
-  }
+.rates-input-set__input {
+  width: 25%;
+  background-color: $dark-purple;
+  border: 1px solid $light-purple;
+  border-radius: 0.3rem;
+  color: $white;
+  padding: 0.8rem 1rem;
+  margin-top: 1.6rem;
+}
+
+.rates-input-set__input_light {
+  background-color: $white;
+  color: $dark-purple;
+  border-color: $light-grey;
+  outline: none;
 }

@@ -35,6 +35,7 @@ export default function Form({ id }) {
   });
 
   const [context] = useAppThemeContext();
+  const darkMode = context.darkMode;
 
   const [t] = useCustomTranslation();
 
@@ -122,7 +123,7 @@ export default function Form({ id }) {
         context.darkMode ? "form-container" : "form-container light-form"
       }
     >
-      <form id={id} onSubmit={handleSubmit(onSubmit)}>
+      <form id={id} className="form" onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputName="price"
           register={register}
@@ -130,6 +131,7 @@ export default function Form({ id }) {
           placeholder={t("pricePlaceholder")}
           changeHandler={handlePriceChange}
           errors={errors}
+          darkMode={darkMode}
         />
         <Input
           inputName="time"
@@ -138,6 +140,7 @@ export default function Form({ id }) {
           placeholder={t("timePlaceholder")}
           changeHandler={handleTimeChange}
           errors={errors}
+          darkMode={darkMode}
         />
         <Select
           labelName={t("labelCurrency")}
@@ -147,6 +150,7 @@ export default function Form({ id }) {
           value={chosenCurrency}
           optionsArr={allCurrenciesNames}
           errors={errors}
+          darkMode={darkMode}
         />
         <Select
           labelName={t("labelExchangeRate")}
@@ -156,6 +160,7 @@ export default function Form({ id }) {
           value={chosenRatesSource}
           optionsArr={ratesSources}
           errors={errors}
+          darkMode={darkMode}
         />
         {chosenRatesSource === "Manual" && (
           <RatesInputSet
@@ -163,6 +168,7 @@ export default function Form({ id }) {
             allCurrencies={allCurrencies}
             chosenCurrency={chosenCurrency}
             errors={errors}
+            darkMode={darkMode}
           />
         )}
       </form>

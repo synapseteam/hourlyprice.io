@@ -33,11 +33,9 @@ export default function SubCurrenciesRatesDisplay({
             {`${el.symbol}${el.crossRate}`}
             {i !== lastElIndex && (
               <span
-                className={
-                  darkMode
-                    ? "sub-currencies-rates-cont__delimiter"
-                    : "sub-currencies-rates-cont__delimiter sub-currencies-rates-cont__delimiter_light"
-                }
+                className={`sub-currencies-rates-cont__delimiter ${
+                  !darkMode ? "sub-currencies-rates-cont__delimiter_light" : ""
+                }`}
               >
                 /
               </span>

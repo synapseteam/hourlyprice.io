@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
 
+import "components/shared/Input/styles.scss";
+
 export default function Input({
   labelName,
   register,
@@ -10,12 +12,15 @@ export default function Input({
   changeHandler,
   inputName,
   errors,
+  darkMode,
 }) {
   const [t] = useCustomTranslation();
 
   return (
     <>
-      <label>
+      <label
+        className={`input__label ${!darkMode ? "input__label_light" : ""}`}
+      >
         {labelName}:
         <input
           {...register(inputName)}
@@ -24,6 +29,7 @@ export default function Input({
           placeholder={placeholder}
           autoComplete="off"
           onChange={changeHandler}
+          className={`input ${!darkMode ? "input_light" : ""}`}
         />
         {errors[inputName] && (
           <p className="error-text">{t(inputName + "Error")}</p>

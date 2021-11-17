@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 import { errorsMessages } from "configure";
 
+import "components/shared/Select/styles.scss";
+
 export default function Select({
   labelName,
   inputName,
@@ -12,12 +14,20 @@ export default function Select({
   optionsArr,
   value,
   errors,
+  darkMode,
 }) {
   return (
     <>
-      <label>
+      <label
+        className={`select__label ${!darkMode ? "select__label_light" : ""}`}
+      >
         {labelName}:
-        <select {...register(inputName)} onChange={changeHandler} value={value}>
+        <select
+          {...register(inputName)}
+          onChange={changeHandler}
+          value={value}
+          className={`select ${!darkMode ? "select_light" : ""}`}
+        >
           {optionsArr &&
             optionsArr.map((name) => (
               <option key={uniqid()} value={name}>
