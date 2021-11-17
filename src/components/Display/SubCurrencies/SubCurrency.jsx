@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 export default function SubCurrency({ name, value }) {
   return (
-    <div className="display-sep-currency">
-      <div className="display-sep-currency-type">{name}</div>
-      <div className="display-sep-currency-sum">{value}</div>
+    <div className="sub-currencies-container__sep_currency">
+      <div className="sub-currencies-container__sep_currency_type">{name}</div>
+      <div className="sub-currencies-container__sep_currency_sum">{value}</div>
     </div>
   );
 }

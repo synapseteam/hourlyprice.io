@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import SubCurrenciesDisplay from "components/Display/SubCurrenciesDisplay";
-import MainCurrencyDisplay from "components/Display/MainCurrencyDisplay";
-import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRatesDisplay";
+import SubCurrenciesDisplay from "components/Display/SubCurrencies";
+import MainCurrencyDisplay from "components/Display/MainCurrency/MainCurrencyDisplay";
+import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
 import { useAppThemeContext } from "context/AppContext";
 
 import "components/Display/styles.scss";
@@ -56,8 +56,10 @@ export default function Display() {
 
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
+  const darkMode = context.darkMode;
+
   return (
-    <div className={context.darkMode ? "display" : "display light-display"}>
+    <div className={darkMode ? "display" : "display display_light"}>
       {isRequestError && (
         <p>Request Failed. Rates was not update properly 🤪</p>
       )}
@@ -65,14 +67,17 @@ export default function Display() {
         currency={mainCurrencyData.symbol}
         sum={mainCurrencySum}
         isLoading={isLoading}
+        darkMode={darkMode}
       />
       <SubCurrenciesDisplay
         subCurrenciesArr={subCurrenciesArr}
         isLoading={isLoading}
+        darkMode={darkMode}
       />
       <SubCurrenciesRatesDisplay
         allCurrencies={allCurrencies}
         currency={currency}
+        darkMode={darkMode}
       />
     </div>
   );
