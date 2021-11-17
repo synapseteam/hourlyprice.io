@@ -1,49 +1,28 @@
 $light-purple: #31335a;
-$blue: #5599ec;
 $light-grey: #ddd;
-$dark-grey: #5f6368;
 
-header {
+.header {
   background-color: $light-purple;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-
-  .header-right-side-cont {
-    display: flex;
-    column-gap: 1rem;
-    align-items: center;
-    position: relative;
-  }
-
-  svg {
-    color: $blue;
-  }
-
-  .theme-switch-icon {
-    font-size: 2rem;
-
-    cursor: pointer;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
 }
 
-.light-header {
+.header__right-side-cont {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  position: relative;
+}
+
+.header_light {
   background-color: white;
   box-shadow: 0 1px 3px $light-grey;
-
-  svg {
-    color: $dark-grey;
-  }
 }
 
 @media (min-width: 720px) {
-  header {
+  .header {
     padding: 0.5rem 4rem;
   }
 }

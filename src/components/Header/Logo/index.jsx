@@ -6,12 +6,10 @@ import { useAppThemeContext } from "context/AppContext";
 export default function Logo({ logoText }) {
   const [context] = useAppThemeContext();
   return (
-    <div
-      className={
-        context.darkMode ? "logo-container" : "logo-container light-logo"
-      }
-    >
-      <p className="logo">hourlyprice.io</p>
-    </div>
+    <>
+      <p className={context.darkMode ? "logo" : "logo logo_light"}>
+        hourlyprice.io
+      </p>
+    </>
   );
 }

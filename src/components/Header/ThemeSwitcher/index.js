@@ -3,6 +3,8 @@ import { Icon } from "@iconify/react";
 
 import { useAppThemeContext, toggleTheme } from "context/AppContext";
 
+import "components/Header/ThemeSwitcher/styles.scss";
+
 export default function ThemeSwitcher() {
   const [context, dispatch] = useAppThemeContext();
 

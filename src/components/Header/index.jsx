@@ -11,9 +11,9 @@ export default function Header() {
   const [context] = useAppThemeContext();
 
   return (
-    <header className={!context.darkMode ? "light-header" : ""}>
+    <header className={context.darkMode ? "header" : "header header_light"}>
       <Logo />
-      <div className="header-right-side-cont">
+      <div className="header__right-side-cont">
         <LangList />
         <ThemeSwitcher />
       </div>

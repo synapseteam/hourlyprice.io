@@ -33,24 +33,32 @@ export default function LangList() {
     <div
       className={
         context.darkMode
-          ? "lang-list-container"
-          : "lang-list-container light-lang-list-container"
+          ? "lang-container"
+          : "lang-container lang-container_light"
       }
     >
-      <ul className="lang-list">
+      <ul className="lang-container__list">
         {isListShown ? (
           locales.map((el) => {
             return (
-              <li className="lang-item" key={uniqid()}>
-                <a href="/" onClick={langChangeHandler}>
+              <li className="lang-container__item" key={uniqid()}>
+                <a
+                  className="lang-container__link"
+                  href="/"
+                  onClick={langChangeHandler}
+                >
                   {el.toUpperCase()}
                 </a>
               </li>
             );
           })
         ) : (
-          <li className="lang-item">
-            <a href="/" onClick={langChangeHandler}>
+          <li className="lang-container__item">
+            <a
+              className="lang-container__link"
+              href="/"
+              onClick={langChangeHandler}
+            >
               {chosenLang}
             </a>
           </li>
