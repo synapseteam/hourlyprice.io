@@ -1,11 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import uniqid from "uniqid";
+import styled from "@emotion/styled";
 
 import SubCurrency from "components/Display/SubCurrencies/SubCurrency";
 import Loader from "components/shared/Loader";
 
-import "components/Display/SubCurrencies/styles.scss";
+const StyledContainer = styled.div`
+  margin-top: 1.6rem;
+  margin-bottom: 1rem;
+  min-height: 3rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+`;
 
 export default function SubCurrenciesDisplay({
   subCurrenciesArr,
@@ -13,21 +21,20 @@ export default function SubCurrenciesDisplay({
   darkMode,
 }) {
   return (
-    <div
-      className={
-        darkMode
-          ? "sub-currencies-container"
-          : "sub-currencies-container sub-currencies-container_light"
-      }
-    >
+    <StyledContainer>
       {isLoading ? (
         <Loader />
       ) : (
         subCurrenciesArr.map((el) => (
-          <SubCurrency name={el.name} value={el.value || 0} key={uniqid()} />
+          <SubCurrency
+            name={el.name}
+            value={el.value || 0}
+            key={uniqid()}
+            darkMode={darkMode}
+          />
         ))
       )}
-    </div>
+    </StyledContainer>
   );
 }
 

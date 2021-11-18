@@ -1,10 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 
 import { useCustomTranslation } from "i18n";
 import Loader from "components/shared/Loader";
 
-import "components/Display/MainCurrency/styles.scss";
+import {
+  lightPurple,
+  blue,
+  darkGrey,
+} from "components/shared/sharedStylesEmotion/colors.js";
+
+const StyledTitle = styled.h2`
+  margin: 0;
+`;
+const StyledContainer = styled.div`
+  border-bottom: 1px solid lighten(${lightPurple}, 15);
+  min-height: 6.8rem;
+`;
+
+const StyledSum = styled.p`
+  color: ${({ darkMode }) => (darkMode ? blue : darkGrey)};
+  font-weight: 700;
+  line-height: 0.7;
+  padding: 2.4rem 1rem;
+  margin: 0;
+  font-size: 3rem;
+`;
 
 export default function MainCurrencyDisplay({
   sum,
@@ -15,20 +37,14 @@ export default function MainCurrencyDisplay({
   const [t] = useCustomTranslation();
   return (
     <>
-      <h2 className="main_currency__title">{t("totalPrice")}</h2>
-      <div className="main_currency__sum-container">
+      <StyledTitle>{t("totalPrice")}</StyledTitle>
+      <StyledContainer>
         {isLoading ? (
           <Loader />
         ) : (
-          <p
-            className={
-              darkMode
-                ? "main_currency__sum"
-                : "main_currency__sum main_currency__sum_light"
-            }
-          >{`${sum}${currency}`}</p>
+          <StyledSum darkMode={darkMode}>{`${sum}${currency}`}</StyledSum>
         )}
-      </div>
+      </StyledContainer>
     </>
   );
 }

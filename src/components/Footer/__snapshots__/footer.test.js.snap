@@ -5,9 +5,10 @@ exports[`Footer rendered correctly with dark Theme 1`] = `
   className="footer"
 >
   <p
-    className="footer-text"
+    className="footer__text"
   >
     <a
+      className="footer__link "
       href="https://synapseteam.com"
       rel="noreferrer"
       target="_blank"

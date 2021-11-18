@@ -1,10 +1,30 @@
 import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 
 import { errorsMessages } from "configure";
 
-import "components/shared/Select/styles.scss";
+import { StyledLabel } from "../sharedStylesEmotion/StyledLabel";
+import {
+  darkPurple,
+  white,
+  lightPurple,
+  lightGrey,
+} from "components/shared/sharedStylesEmotion/colors";
+
+const StyledSelect = styled.select`
+  background-color: ${({ darkMode }) => (darkMode ? darkPurple : white)};
+  border: 1px solid ${({ darkMode }) => (darkMode ? lightPurple : lightGrey)};
+  border-radius: 0.3rem;
+  color: ${({ darkMode }) => (darkMode ? white : darkPurple)};
+  padding: 0.8rem 1rem;
+  margin-top: 0.4rem;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  outline: ${({ darkMode }) => !darkMode && "none"};
+`;
 
 export default function Select({
   labelName,
@@ -18,15 +38,13 @@ export default function Select({
 }) {
   return (
     <>
-      <label
-        className={`select__label ${!darkMode ? "select__label_light" : ""}`}
-      >
+      <StyledLabel darkMode={darkMode}>
         {labelName}:
-        <select
+        <StyledSelect
           {...register(inputName)}
+          darkMode={darkMode}
           onChange={changeHandler}
           value={value}
-          className={`select ${!darkMode ? "select_light" : ""}`}
         >
           {optionsArr &&
             optionsArr.map((name) => (
@@ -34,11 +52,11 @@ export default function Select({
                 {name}
               </option>
             ))}
-        </select>
+        </StyledSelect>
         {errors[inputName] && (
           <p className="error-text">{errorsMessages[inputName]}</p>
         )}
-      </label>
+      </StyledLabel>
     </>
   );
 }

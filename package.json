@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
     "@hookform/resolvers": "^2.8.3",
     "@iconify/react": "^3.0.1",
     "@testing-library/jest-dom": "^5.11.4",
@@ -63,6 +65,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
+    "@emotion/babel-plugin": "^11.3.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "babel-jest": "^27.3.1",
     "jest": "^27.3.1"

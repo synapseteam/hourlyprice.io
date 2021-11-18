@@ -5,13 +5,9 @@ import { useAppThemeContext } from "context/AppContext";
 import "components/shared/Loader/styles.scss";
 
 export default function Loader() {
-  const [context] = useAppThemeContext();
+  const [{ darkMode }] = useAppThemeContext();
   return (
-    <div
-      className={`lds-ellipsis ${
-        !context.darkMode ? "lds-ellipsis_light" : ""
-      }`}
-    >
+    <div className={`lds-ellipsis ${!darkMode ? "lds-ellipsis_light" : ""}`}>
       <div></div>
       <div></div>
       <div></div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 
 import Input from "components/shared/Input";
 import Select from "components/shared/Select";
@@ -22,7 +23,14 @@ import { ratesUpdatingTimeFrame } from "configure";
 import { useAppThemeContext } from "context/AppContext";
 import { useCustomTranslation } from "i18n";
 
-import "components/Form/styles.scss";
+const StylesContainer = styled.div`
+  display: flex;
+`;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 export default function Form({ id }) {
   const {
@@ -118,12 +126,8 @@ export default function Form({ id }) {
   }, [chosenCurrency]);
 
   return (
-    <div
-      className={
-        context.darkMode ? "form-container" : "form-container light-form"
-      }
-    >
-      <form id={id} className="form" onSubmit={handleSubmit(onSubmit)}>
+    <StylesContainer>
+      <StyledForm id={id} onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputName="price"
           register={register}
@@ -171,8 +175,8 @@ export default function Form({ id }) {
             darkMode={darkMode}
           />
         )}
-      </form>
-    </div>
+      </StyledForm>
+    </StylesContainer>
   );
 }
 

@@ -1,8 +1,34 @@
 import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 
-import "components/Display/SubCurrenciesRates/styles.scss";
+import {
+  mediumGrey,
+  darkPurple,
+  blue,
+  darkGrey,
+} from "components/shared/sharedStylesEmotion/colors.js";
+
+const StyledRatesContainer = styled.div`
+  background-color: ${({ darkMode }) => (darkMode ? darkPurple : mediumGrey)};
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  border-radius: 0 0 0.4rem 0.4rem;
+  bottom: 0;
+`;
+
+const StyledRateText = styled.p`
+  font-size: 0.8rem;
+  line-height: 0.5;
+`;
+
+const StyledRatesDelimiter = styled.span`
+  color: ${({ darkMode }) => (darkMode ? blue : darkGrey)};
+  margin: 0 0.6rem;
+`;
 
 export default function SubCurrenciesRatesDisplay({
   allCurrencies,
@@ -20,30 +46,18 @@ export default function SubCurrenciesRatesDisplay({
 
   const lastElIndex = subCurrenciesRatesArr.length - 1;
   return (
-    <div
-      className={
-        darkMode
-          ? "sub-currencies-rates-cont"
-          : "sub-currencies-rates-cont sub-currencies-rates-cont_light"
-      }
-    >
+    <StyledRatesContainer darkMode={darkMode}>
       {subCurrenciesRatesArr.map((el, i) => {
         return (
-          <p className="sub-currencies-rates-cont__rate" key={uniqid()}>
+          <StyledRateText key={uniqid()}>
             {`${el.symbol}${el.crossRate}`}
             {i !== lastElIndex && (
-              <span
-                className={`sub-currencies-rates-cont__delimiter ${
-                  !darkMode ? "sub-currencies-rates-cont__delimiter_light" : ""
-                }`}
-              >
-                /
-              </span>
+              <StyledRatesDelimiter darkMode={darkMode}>/</StyledRatesDelimiter>
             )}
-          </p>
+          </StyledRateText>
         );
       })}
-    </div>
+    </StyledRatesContainer>
   );
 }
 

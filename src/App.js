@@ -22,7 +22,7 @@ function App() {
 
         <div className="content-container">
           <HeroTitle />
-          <div className="content-columns-container">
+          <div className="content-container__columns">
             <ContentColumn>
               <Form id="calc-form" />
             </ContentColumn>

@@ -1,12 +1,40 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import styled from "@emotion/styled";
 
 import SubCurrenciesDisplay from "components/Display/SubCurrencies";
 import MainCurrencyDisplay from "components/Display/MainCurrency/MainCurrencyDisplay";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
 import { useAppThemeContext } from "context/AppContext";
 
-import "components/Display/styles.scss";
+import {
+  lightPurple,
+  brightGrey,
+} from "components/shared/sharedStylesEmotion/colors.js";
+
+const mixinShadow = `
+-webkit-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
+-moz-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
+box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
+`;
+
+const mixinNoShadow = `
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+`;
+
+const StyledDisplay = styled.div`
+  background-color: ${({ darkMode }) => (darkMode ? lightPurple : brightGrey)};
+  border-radius: 0.4rem;
+  position: relative;
+  width: 100%;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ${({ darkMode }) => (darkMode ? mixinShadow : mixinNoShadow)};
+`;
 
 export default function Display() {
   const { price, time, currency } = useSelector((state) => state.main.fields);
@@ -59,7 +87,7 @@ export default function Display() {
   const darkMode = context.darkMode;
 
   return (
-    <div className={darkMode ? "display" : "display display_light"}>
+    <StyledDisplay darkMode={darkMode} className="display">
       {isRequestError && (
         <p>Request Failed. Rates was not update properly 🤪</p>
       )}
@@ -79,6 +107,6 @@ export default function Display() {
         currency={currency}
         darkMode={darkMode}
       />
-    </div>
+    </StyledDisplay>
   );
 }

@@ -1,9 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 
 import { useCustomTranslation } from "i18n";
 
-import "components/shared/Input/styles.scss";
+import { StyledLabel } from "components/shared/sharedStylesEmotion/StyledLabel";
+import { StyledInput } from "components/shared/sharedStylesEmotion/StyledInput";
+
+const StyledErorrText = styled.div`
+  margin: 0.3rem 0 0;
+`;
 
 export default function Input({
   labelName,
@@ -18,11 +24,9 @@ export default function Input({
 
   return (
     <>
-      <label
-        className={`input__label ${!darkMode ? "input__label_light" : ""}`}
-      >
+      <StyledLabel darkMode={darkMode}>
         {labelName}:
-        <input
+        <StyledInput
           {...register(inputName)}
           type="text"
           inputMode="decimal"
@@ -30,11 +34,12 @@ export default function Input({
           autoComplete="off"
           onChange={changeHandler}
           className={`input ${!darkMode ? "input_light" : ""}`}
+          darkMode={darkMode}
         />
         {errors[inputName] && (
-          <p className="error-text">{t(inputName + "Error")}</p>
+          <StyledErorrText>{t(inputName + "Error")}</StyledErorrText>
         )}
-      </label>
+      </StyledLabel>
     </>
   );
 }

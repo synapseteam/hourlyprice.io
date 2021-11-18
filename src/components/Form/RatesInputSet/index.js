@@ -1,10 +1,21 @@
 import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 
 import { handlePriceChange } from "utils";
+import { StyledInput } from "components/shared/sharedStylesEmotion/StyledInput";
 
-import "components/Form/RatesInputSet/styles.scss";
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const StyledRatesInput = styled(StyledInput)`
+  width: 22%;
+  margin-top: 1.6rem;
+`;
 
 export default function RatesInputSet({
   register,
@@ -16,13 +27,11 @@ export default function RatesInputSet({
   const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 
   return (
-    <div className="rates-input-set">
+    <StyledContainer>
       {allCurrenciesNames.map(({ name }) => {
         return (
-          <input
-            className={`rates-input-set__input ${
-              !darkMode ? "rates-input-set__input_light" : ""
-            }`}
+          <StyledRatesInput
+            darkMode={darkMode}
             {...register(name)}
             key={uniqid()}
             inputMode="decimal"
@@ -33,7 +42,7 @@ export default function RatesInputSet({
           />
         );
       })}
-    </div>
+    </StyledContainer>
   );
 }
 
