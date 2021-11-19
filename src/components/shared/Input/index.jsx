@@ -7,7 +7,7 @@ import { useCustomTranslation } from "i18n";
 import { StyledLabel } from "components/shared/sharedStylesEmotion/StyledLabel";
 import { StyledInput } from "components/shared/sharedStylesEmotion/StyledInput";
 
-const StyledErorrText = styled.div`
+const StyledErorrText = styled.p`
   margin: 0.3rem 0 0;
 `;
 
@@ -24,7 +24,7 @@ export default function Input({
 
   return (
     <>
-      <StyledLabel darkMode={darkMode}>
+      <StyledLabel darkMode={darkMode} className="input__label">
         {labelName}:
         <StyledInput
           {...register(inputName)}
@@ -33,11 +33,13 @@ export default function Input({
           placeholder={placeholder}
           autoComplete="off"
           onChange={changeHandler}
-          className={`input ${!darkMode ? "input_light" : ""}`}
           darkMode={darkMode}
+          className="input"
         />
         {errors[inputName] && (
-          <StyledErorrText>{t(inputName + "Error")}</StyledErorrText>
+          <StyledErorrText className="input__error">
+            {t(inputName + "Error")}
+          </StyledErorrText>
         )}
       </StyledLabel>
     </>

@@ -43,8 +43,8 @@ export default function ButtonSubmit({ formId }) {
     : null;
 
   return (
-    <StyledButtonContainer>
-      <StyledButton darkMode={darkMode} {...additionalProps}>
+    <StyledButtonContainer className="button__container">
+      <StyledButton darkMode={darkMode} {...additionalProps} className="button">
         {t("btnResult").toUpperCase()}
       </StyledButton>
     </StyledButtonContainer>

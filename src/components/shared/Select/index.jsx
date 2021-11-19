@@ -38,17 +38,18 @@ export default function Select({
 }) {
   return (
     <>
-      <StyledLabel darkMode={darkMode}>
+      <StyledLabel darkMode={darkMode} className="select__label">
         {labelName}:
         <StyledSelect
           {...register(inputName)}
           darkMode={darkMode}
           onChange={changeHandler}
           value={value}
+          className="select"
         >
           {optionsArr &&
             optionsArr.map((name) => (
-              <option key={uniqid()} value={name}>
+              <option key={uniqid()} value={name} className="select__option">
                 {name}
               </option>
             ))}

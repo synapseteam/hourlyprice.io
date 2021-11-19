@@ -9,6 +9,5 @@ if (!global.React) {
 
 it("Hero title rendered correctly", () => {
   const tree = renderer.create(<HeroTitle />).toJSON();
-
   expect(tree).toMatchSnapshot();
 });

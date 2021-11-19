@@ -20,7 +20,7 @@ export function handleTimeChange(e) {
 
   if (minutes?.length >= 2) {
     e.target.value = `${hours}:${minutes.slice(0, 2)}`;
-    return;
+    return null;
   }
 
   e.target.value = minutesLimited;
@@ -37,12 +37,12 @@ export function handlePriceChange(e) {
 
   if (name === "price" && decimalVal?.length >= 2) {
     e.target.value = `${intVal}.${decimalVal.slice(0, 2)}`;
-    return;
+    return null;
   }
 
   if (name !== "price" && decimalVal?.length >= 4) {
     e.target.value = `${intVal}.${decimalVal.slice(0, 4)}`;
-    return;
+    return null;
   }
 
   e.target.value = updatedValue;

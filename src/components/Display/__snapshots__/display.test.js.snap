@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Display component snapshot test 1`] = `
+Array [
+  <style
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": ".css-1xt4dij-StyledDisplay{background-color:#31335a;border-radius:0.4rem;position:relative;width:100%;padding:3rem 2rem;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-shadow:0px 18px 23px -3px rgba(0, 0, 0, 0.51);-moz-box-shadow:0px 18px 23px -3px rgba(0, 0, 0, 0.51);box-shadow:0px 18px 23px -3px rgba(0, 0, 0, 0.51);}",
+      }
+    }
+    data-emotion="css 1xt4dij-StyledDisplay"
+  />,
+  <div
+    className="display css-1xt4dij-StyledDisplay e1ppmzqf0"
+  >
+    <style
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": ".css-1y4cgmw-StyledTitle{margin:0;}",
+        }
+      }
+      data-emotion="css 1y4cgmw-StyledTitle"
+    />
+    <h2
+      className="css-1y4cgmw-StyledTitle eix4w6c2"
+    >
+      Total price
+    </h2>
+    <style
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": ".css-1twvyoy-StyledContainer{border-bottom:1px solid lighten(#31335a, 15);min-height:6.8rem;}",
+        }
+      }
+      data-emotion="css 1twvyoy-StyledContainer"
+    />
+    <div
+      className="css-1twvyoy-StyledContainer eix4w6c1"
+    >
+      <style
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": ".css-9oghy1-StyledSum{color:#5599ec;font-weight:700;line-height:0.7;padding:2.4rem 1rem;margin:0;font-size:3rem;}",
+          }
+        }
+        data-emotion="css 9oghy1-StyledSum"
+      />
+      <p
+        className="css-9oghy1-StyledSum eix4w6c0"
+      >
+        0$
+      </p>
+    </div>
+    <style
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": ".css-1hjtp1r-StyledContainer{margin-top:1.6rem;margin-bottom:1rem;min-height:3rem;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;-webkit-box-pack:space-around;-ms-flex-pack:space-around;-webkit-justify-content:space-around;justify-content:space-around;}",
+        }
+      }
+      data-emotion="css 1hjtp1r-StyledContainer"
+    />
+    <div
+      className="css-1hjtp1r-StyledContainer er5z01m0"
+    >
+      <style
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": ".css-tsn4jp-StyledSubCurrencyContainer{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+          }
+        }
+        data-emotion="css tsn4jp-StyledSubCurrencyContainer"
+      />
+      <div
+        className="css-tsn4jp-StyledSubCurrencyContainer eqbx3fg2"
+      >
+        <style
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": ".css-1nsjxjc-StyledSubCurrencyTitlte{color:#5599ec;font-size:0.8rem;}",
+            }
+          }
+          data-emotion="css 1nsjxjc-StyledSubCurrencyTitlte"
+        />
+        <div
+          className="css-1nsjxjc-StyledSubCurrencyTitlte eqbx3fg1"
+        >
+          EUR
+        </div>
+        <style
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": ".css-96u9oc-StyledSubCurrencySum{margin-top:0.4rem;font-weight:700;}",
+            }
+          }
+          data-emotion="css 96u9oc-StyledSubCurrencySum"
+        />
+        <div
+          className="css-96u9oc-StyledSubCurrencySum eqbx3fg0"
+        >
+          0
+        </div>
+      </div>
+      <div
+        className="css-tsn4jp-StyledSubCurrencyContainer eqbx3fg2"
+      >
+        <div
+          className="css-1nsjxjc-StyledSubCurrencyTitlte eqbx3fg1"
+        >
+          UAH
+        </div>
+        <div
+          className="css-96u9oc-StyledSubCurrencySum eqbx3fg0"
+        >
+          0
+        </div>
+      </div>
+      <div
+        className="css-tsn4jp-StyledSubCurrencyContainer eqbx3fg2"
+      >
+        <div
+          className="css-1nsjxjc-StyledSubCurrencyTitlte eqbx3fg1"
+        >
+          RUB
+        </div>
+        <div
+          className="css-96u9oc-StyledSubCurrencySum eqbx3fg0"
+        >
+          0
+        </div>
+      </div>
+    </div>
+    <style
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": ".css-7235x7-StyledRatesContainer{background-color:#171d3d;width:100%;position:absolute;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;border-radius:0 0 0.4rem 0.4rem;bottom:0;}",
+        }
+      }
+      data-emotion="css 7235x7-StyledRatesContainer"
+    />
+    <div
+      className="css-7235x7-StyledRatesContainer e1orvfm72"
+    >
+      <style
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": ".css-1pmwpg8-StyledRateText{font-size:0.8rem;line-height:0.5;}",
+          }
+        }
+        data-emotion="css 1pmwpg8-StyledRateText"
+      />
+      <p
+        className="css-1pmwpg8-StyledRateText e1orvfm71"
+      >
+        €1.0000
+        <style
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": ".css-16mfi3c-StyledRatesDelimiter{color:#5599ec;margin:0 0.6rem;}",
+            }
+          }
+          data-emotion="css 16mfi3c-StyledRatesDelimiter"
+        />
+        <span
+          className="css-16mfi3c-StyledRatesDelimiter e1orvfm70"
+        >
+          /
+        </span>
+      </p>
+      <p
+        className="css-1pmwpg8-StyledRateText e1orvfm71"
+      >
+        ₴1.0000
+        <span
+          className="css-16mfi3c-StyledRatesDelimiter e1orvfm70"
+        >
+          /
+        </span>
+      </p>
+      <p
+        className="css-1pmwpg8-StyledRateText e1orvfm71"
+      >
+        ₽1.0000
+      </p>
+    </div>
+  </div>,
+]
+`;
