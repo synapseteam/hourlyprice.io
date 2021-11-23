@@ -1,36 +1,17 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 
-import {
-  blue,
-  darkGrey,
-} from "components/shared/sharedStylesEmotion/colors.js";
-
-const StyledSubCurrencyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const StyledSubCurrencyTitlte = styled.div`
-  color: ${({ darkMode }) => (darkMode ? blue : darkGrey)};
-  font-size: 0.8rem;
-`;
-
-const StyledSubCurrencySum = styled.div`
-  margin-top: 0.4rem;
-  font-weight: 700;
-`;
+import { styles } from "./styles";
 
 export default function SubCurrency({ name, value, darkMode }) {
   return (
-    <StyledSubCurrencyContainer>
-      <StyledSubCurrencyTitlte darkMode={darkMode}>
+    <div css={() => styles.getStyle(darkMode, "subCurrencyContainer")}>
+      <div css={() => styles.getStyle(darkMode, "subCurrencyTitlte")}>
         {name}
-      </StyledSubCurrencyTitlte>
-      <StyledSubCurrencySum>{value}</StyledSubCurrencySum>
-    </StyledSubCurrencyContainer>
+      </div>
+      <div css={() => styles.getStyle(darkMode, "subCurrencySum")}>{value}</div>
+    </div>
   );
 }
 

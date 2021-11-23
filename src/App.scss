@@ -25,27 +25,8 @@ $white: #ffffff;
   display: flex;
   flex-direction: column;
 
-  h1 {
-    font-style: italic;
-    line-height: 0.8;
-    margin: 1.4rem 0 0 0;
-  }
-
-  h3 {
-    font-size: 1rem;
-    font-style: italic;
-    font-weight: 400;
-  }
-
-  .content-container__columns {
-    display: flex;
-    flex-direction: column;
-
-    .content-column {
-      .display {
-        margin-top: 1.2rem;
-      }
-    }
+  .display {
+    margin-top: 1.2rem;
   }
 }
 
@@ -56,18 +37,17 @@ $white: #ffffff;
   .content-container {
     width: 700px;
 
-    .content-container__columns {
-      margin-top: 2rem;
+    .form {
       flex-direction: row;
-      justify-content: space-between;
 
-      .content-column {
+      .form__left-column,
+      .form__right-column {
         width: 47%;
-
-        .display {
-          margin-top: 0;
-        }
       }
+    }
+
+    .display {
+      margin-top: 0;
     }
   }
 }

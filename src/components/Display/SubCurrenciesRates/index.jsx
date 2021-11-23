@@ -1,34 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 
-import {
-  mediumGrey,
-  darkPurple,
-  blue,
-  darkGrey,
-} from "components/shared/sharedStylesEmotion/colors.js";
-
-const StyledRatesContainer = styled.div`
-  background-color: ${({ darkMode }) => (darkMode ? darkPurple : mediumGrey)};
-  width: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  border-radius: 0 0 0.4rem 0.4rem;
-  bottom: 0;
-`;
-
-const StyledRateText = styled.p`
-  font-size: 0.8rem;
-  line-height: 0.5;
-`;
-
-const StyledRatesDelimiter = styled.span`
-  color: ${({ darkMode }) => (darkMode ? blue : darkGrey)};
-  margin: 0 0.6rem;
-`;
+import { styles } from "./styles";
 
 export default function SubCurrenciesRatesDisplay({
   allCurrencies,
@@ -46,18 +21,20 @@ export default function SubCurrenciesRatesDisplay({
 
   const lastElIndex = subCurrenciesRatesArr.length - 1;
   return (
-    <StyledRatesContainer darkMode={darkMode}>
+    <div css={() => styles.getStyle(darkMode, "ratesContainer")}>
       {subCurrenciesRatesArr.map((el, i) => {
         return (
-          <StyledRateText key={uniqid()}>
+          <p css={() => styles.getStyle(darkMode, "rateText")} key={uniqid()}>
             {`${el.symbol}${el.crossRate}`}
             {i !== lastElIndex && (
-              <StyledRatesDelimiter darkMode={darkMode}>/</StyledRatesDelimiter>
+              <span css={() => styles.getStyle(darkMode, "ratesDelimiter")}>
+                /
+              </span>
             )}
-          </StyledRateText>
+          </p>
         );
       })}
-    </StyledRatesContainer>
+    </div>
   );
 }
 

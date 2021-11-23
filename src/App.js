@@ -3,10 +3,9 @@ import { Provider } from "react-redux";
 import { store } from "store";
 import Header from "components/Header";
 import HeroTitle from "components/HeroTitle";
-import Form from "components/Form";
+import PriceForm from "components/PriceForm";
 import Display from "components/Display";
-import Button from "components/shared/Button";
-import ContentColumn from "components/ContentColumn";
+import Button from "components/UI/Button";
 import Footer from "components/Footer";
 import { useAppThemeContext } from "context/AppContext";
 
@@ -22,16 +21,10 @@ function App() {
 
         <div className="content-container">
           <HeroTitle />
-          <div className="content-container__columns">
-            <ContentColumn>
-              <Form id="calc-form" />
-            </ContentColumn>
-
-            <ContentColumn>
-              <Display />
-              <Button formId="calc-form" />
-            </ContentColumn>
-          </div>
+          <PriceForm id="calc-form">
+            <Display />
+            <Button formId="calc-form" />
+          </PriceForm>
         </div>
         <Footer
           companyName="Synapse Team LLC"

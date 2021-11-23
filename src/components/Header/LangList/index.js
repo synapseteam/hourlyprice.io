@@ -1,44 +1,11 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import uniqid from "uniqid";
 import { changeLanguage } from "i18n";
-import styled from "@emotion/styled";
 
 import { useAppThemeContext } from "context/AppContext";
 
-import {
-  purple,
-  darkPurple,
-  darkGrey,
-  white,
-  brightGrey,
-} from "components/shared/sharedStylesEmotion/colors";
-
-const StyledContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: -200%;
-  background-color: ${({ darkMode }) => (darkMode ? purple : brightGrey)};
-  border: 1px solid ${darkPurple};
-  border: ${({ darkMode }) => !darkMode && "none"};
-  border-radius: 0.4rem;
-`;
-
-const StyledList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  padding: 0.3rem;
-  margin: 0;
-`;
-
-const StyledListItem = styled.li`
-  list-style: none;
-  padding: 0.3rem;
-`;
-
-const StyledListLink = styled.a`
-  text-decoration: none;
-  color: ${({ darkMode }) => (darkMode ? white : darkGrey)};
-`;
+import { styles } from "./styles";
 
 export default function LangList() {
   const [isListShown, setisListShown] = useState(false);
@@ -64,34 +31,37 @@ export default function LangList() {
   const locales = ["en", "ru", "ua"];
 
   return (
-    <StyledContainer darkMode={darkMode}>
-      <StyledList>
+    <div css={() => styles.getStyle(darkMode, "langContainer")}>
+      <ul css={() => styles.getStyle(darkMode, "langList")}>
         {isListShown ? (
           locales.map((el) => {
             return (
-              <StyledListItem key={uniqid()}>
-                <StyledListLink
-                  darkMode={darkMode}
+              <li
+                css={() => styles.getStyle(darkMode, "langListItem")}
+                key={uniqid()}
+              >
+                <a
+                  css={() => styles.getStyle(darkMode, "langListLink")}
                   href="/"
                   onClick={langChangeHandler}
                 >
                   {el.toUpperCase()}
-                </StyledListLink>
-              </StyledListItem>
+                </a>
+              </li>
             );
           })
         ) : (
-          <StyledListItem>
-            <StyledListLink
-              darkMode={darkMode}
+          <li css={() => styles.getStyle(darkMode, "langListItem")}>
+            <a
+              css={() => styles.getStyle(darkMode, "langListLink")}
               href="/"
               onClick={langChangeHandler}
             >
               {chosenLang}
-            </StyledListLink>
-          </StyledListItem>
+            </a>
+          </li>
         )}
-      </StyledList>
-    </StyledContainer>
+      </ul>
+    </div>
   );
 }

@@ -1,17 +1,10 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import { Icon } from "@iconify/react";
-import styled from "@emotion/styled";
 
 import { useAppThemeContext, toggleTheme } from "context/AppContext";
 
-const StyledIcon = styled(Icon)`
-  font-size: 2rem;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
+import { styles } from "./styles";
 
 export default function ThemeSwitcher() {
   const [context, dispatch] = useAppThemeContext();
@@ -23,12 +16,14 @@ export default function ThemeSwitcher() {
   return (
     <>
       {context.darkMode ? (
-        <StyledIcon
+        <Icon
+          css={() => styles.getStyle(null, "icon")}
           icon="emojione:light-bulb"
           onClick={handleThemeSwitcherClick}
         />
       ) : (
-        <StyledIcon
+        <Icon
+          css={() => styles.getStyle(null, "icon")}
           icon="emojione-monotone:light-bulb"
           onClick={handleThemeSwitcherClick}
         />

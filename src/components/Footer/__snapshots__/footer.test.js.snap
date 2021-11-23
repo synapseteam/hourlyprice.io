@@ -5,35 +5,35 @@ Array [
   <style
     dangerouslySetInnerHTML={
       Object {
-        "__html": ".css-bfb84a-StyledFooter{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-top:1px solid #31335a;padding:0.6rem;background-color:#24274a;}",
+        "__html": ".css-hv2ej9-footer{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-top:1px solid #31335a;padding:0.6rem;background-color:#24274a;}",
       }
     }
-    data-emotion="css bfb84a-StyledFooter"
+    data-emotion="css hv2ej9-footer"
   />,
   <footer
-    className="css-bfb84a-StyledFooter eofqh092"
+    className="css-hv2ej9-footer"
   >
     <style
       dangerouslySetInnerHTML={
         Object {
-          "__html": ".css-1lm46ln-StyledFooterText{font-weight:500;font-size:0.9rem;}",
+          "__html": ".css-1s857j0-footerText{font-weight:500;font-size:0.9rem;}",
         }
       }
-      data-emotion="css 1lm46ln-StyledFooterText"
+      data-emotion="css 1s857j0-footerText"
     />
     <p
-      className="css-1lm46ln-StyledFooterText eofqh091"
+      className="css-1s857j0-footerText"
     >
       <style
         dangerouslySetInnerHTML={
           Object {
-            "__html": ".css-z06lgn-StyledLink{-webkit-text-decoration:none;text-decoration:none;color:#ffffff;}",
+            "__html": ".css-1wo6gpe-footerLink{-webkit-text-decoration:none;text-decoration:none;color:#ffffff;}",
           }
         }
-        data-emotion="css z06lgn-StyledLink"
+        data-emotion="css 1wo6gpe-footerLink"
       />
       <a
-        className="css-z06lgn-StyledLink eofqh090"
+        className="css-1wo6gpe-footerLink"
         href="https://synapseteam.com"
         rel="noreferrer"
         target="_blank"

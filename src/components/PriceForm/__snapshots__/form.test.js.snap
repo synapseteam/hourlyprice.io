@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form component snapshot test 1`] = `
+<form
+  className="form css-8fe1xa-form"
+  onSubmit={[Function]}
+>
+  <div
+    className="form__left-column"
+  >
+    <label
+      className="input__label css-18g99wt-label"
+    >
+      Price
+      :
+      <input
+        autoComplete="off"
+        className="input css-15b9r8k-input"
+        inputMode="decimal"
+        name="price"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder="20.30"
+        type="text"
+      />
+    </label>
+    <label
+      className="input__label css-18g99wt-label"
+    >
+      Time
+      :
+      <input
+        autoComplete="off"
+        className="input css-15b9r8k-input"
+        inputMode="decimal"
+        name="time"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder="HH:MM"
+        type="text"
+      />
+    </label>
+    <label
+      className="select__label css-18g99wt-label"
+    >
+      Currency
+      :
+      <select
+        className="select css-r0acw-select"
+        name="currency"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="USD"
+      >
+        <option
+          className="select__option"
+          value="USD"
+        >
+          USD
+        </option>
+        <option
+          className="select__option"
+          value="EUR"
+        >
+          EUR
+        </option>
+        <option
+          className="select__option"
+          value="UAH"
+        >
+          UAH
+        </option>
+        <option
+          className="select__option"
+          value="RUB"
+        >
+          RUB
+        </option>
+      </select>
+    </label>
+    <label
+      className="select__label css-18g99wt-label"
+    >
+      Exchange rate
+      :
+      <select
+        className="select css-r0acw-select"
+        name="ratesSource"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="MasterCard"
+      >
+        <option
+          className="select__option"
+          value="MasterCard"
+        >
+          MasterCard
+        </option>
+        <option
+          className="select__option"
+          value="Manual"
+        >
+          Manual
+        </option>
+      </select>
+    </label>
+  </div>
+  <div
+    className="form__right-column"
+  />
+</form>
+`;

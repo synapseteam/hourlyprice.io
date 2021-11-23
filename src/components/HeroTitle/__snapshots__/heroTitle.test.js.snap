@@ -2,10 +2,30 @@
 
 exports[`Hero title rendered correctly 1`] = `
 Array [
-  <h1>
+  <style
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": ".css-fk5dhr-title{font-style:italic;line-height:0.8;margin:1.4rem 0 0 0;}",
+      }
+    }
+    data-emotion="css fk5dhr-title"
+  />,
+  <h1
+    className="css-fk5dhr-title"
+  >
     Hourly Rate Calculator
   </h1>,
-  <h3>
+  <style
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": ".css-4abh04-subTitle{font-size:1rem;font-style:italic;font-weight:400;}",
+      }
+    }
+    data-emotion="css 4abh04-subTitle"
+  />,
+  <h3
+    className="css-4abh04-subTitle"
+  >
     <q>
       Time is money
     </q>

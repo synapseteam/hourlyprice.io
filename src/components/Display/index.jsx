@@ -1,40 +1,14 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import { useSelector } from "react-redux";
-import styled from "@emotion/styled";
 
 import SubCurrenciesDisplay from "components/Display/SubCurrencies";
-import MainCurrencyDisplay from "components/Display/MainCurrency/MainCurrencyDisplay";
+import MainCurrencyDisplay from "components/Display/MainCurrency/";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
 import { useAppThemeContext } from "context/AppContext";
+import { useCustomTranslation } from "i18n";
 
-import {
-  lightPurple,
-  brightGrey,
-} from "components/shared/sharedStylesEmotion/colors.js";
-
-const mixinShadow = `
--webkit-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
--moz-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
-box-shadow: 0px 18px 23px -3px rgba(0, 0, 0, 0.51);
-`;
-
-const mixinNoShadow = `
--webkit-box-shadow: none;
--moz-box-shadow: none;
-box-shadow: none;
-`;
-
-const StyledDisplay = styled.div`
-  background-color: ${({ darkMode }) => (darkMode ? lightPurple : brightGrey)};
-  border-radius: 0.4rem;
-  position: relative;
-  width: 100%;
-  padding: 3rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  ${({ darkMode }) => (darkMode ? mixinShadow : mixinNoShadow)};
-`;
+import { styles } from "./styles";
 
 export default function Display() {
   const { price, time, currency } = useSelector((state) => state.main.fields);
@@ -46,6 +20,8 @@ export default function Display() {
   const isRequestError = useSelector((state) => state.main.ratesRequestErr);
 
   const [context] = useAppThemeContext();
+
+  const [t] = useCustomTranslation();
 
   const mainCurrencyData = allCurrencies.find((el) => el.name === currency) || {
     name: "",
@@ -87,10 +63,8 @@ export default function Display() {
   const darkMode = context.darkMode;
 
   return (
-    <StyledDisplay darkMode={darkMode} className="display">
-      {isRequestError && (
-        <p>Request Failed. Rates was not update properly 🤪</p>
-      )}
+    <div css={() => styles.getStyle(darkMode, "display")} className="display">
+      {isRequestError && <p>{t("badRequestApi")}</p>}
       <MainCurrencyDisplay
         currency={mainCurrencyData.symbol}
         sum={mainCurrencySum}
@@ -107,6 +81,6 @@ export default function Display() {
         currency={currency}
         darkMode={darkMode}
       />
-    </StyledDisplay>
+    </div>
   );
 }
