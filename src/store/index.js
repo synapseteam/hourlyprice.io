@@ -1,12 +1,9 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 
-import { mainReducer } from "store/reducers/generic";
-import { ratesReducer } from "store/reducers/rates";
-
-const rootReducer = combineReducers({
-  main: mainReducer,
-  rates: ratesReducer,
-});
+import { rootReducer } from "store/reducers";
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+export * from "store/reducers";
+export * from "store/actions";
