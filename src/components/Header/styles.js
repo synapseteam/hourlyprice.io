@@ -14,6 +14,10 @@ export const styles = {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
+
+    @media (min-width: 720px) {
+      padding: 0.5rem 4rem !important;
+    }
   `,
   headerLight: css`
     background-color: ${white};

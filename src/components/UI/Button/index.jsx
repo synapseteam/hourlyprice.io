@@ -12,14 +12,10 @@ export default function ButtonSubmit() {
   const [t] = useCustomTranslation();
 
   return (
-    <div
-      css={() => styles.getStyle(darkMode, "buttonContainer")}
-      className="button__container"
-    >
+    <div css={() => styles.getStyle(darkMode, "buttonContainer")}>
       <button
         css={() => styles.getStyle(darkMode, "button")}
         type="submit"
-        className="button"
         color="red"
       >
         {t("btnResult").toUpperCase()}

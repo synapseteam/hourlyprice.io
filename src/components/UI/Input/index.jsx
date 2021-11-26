@@ -19,10 +19,7 @@ export default function Input({
 
   return (
     <>
-      <label
-        css={() => styles.getStyle(darkMode, "label")}
-        className="input__label"
-      >
+      <label css={() => styles.getStyle(darkMode, "label")}>
         {labelName}:
         <input
           css={() => styles.getStyle(darkMode, "input")}
@@ -32,13 +29,9 @@ export default function Input({
           placeholder={placeholder}
           autoComplete="off"
           onChange={changeHandler}
-          className="input"
         />
         {errors[inputName] && (
-          <p
-            css={() => styles.getStyle(darkMode, "error")}
-            className="input__error"
-          >
+          <p css={() => styles.getStyle(darkMode, "error")}>
             {t(inputName + "Error")}
           </p>
         )}

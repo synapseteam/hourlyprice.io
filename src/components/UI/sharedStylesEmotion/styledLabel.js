@@ -10,7 +10,7 @@ export const styles = {
     flex-direction: column;
     font-size: 0.7rem;
     color: ${blue};
-    margin-top: 1.6rem;
+    margin-top: 1.2rem;
 
     &:first-of-type {
       margin-top: 0;

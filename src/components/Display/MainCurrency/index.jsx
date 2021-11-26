@@ -23,7 +23,6 @@ export default function MainCurrencyDisplay({
         ) : (
           <p
             css={() => styles.getStyle(darkMode, "sum")}
-            className="display__main_currency"
           >{`${sum}${currency}`}</p>
         )}
       </div>

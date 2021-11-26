@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import Input from "components/UI/Input";
 import Select from "components/UI/Select";
 import RatesInputSet from "components/PriceForm/RatesInputSet";
+import Button from "components/UI/Button";
 import { submitFieldsData, setRequestErr } from "store/actions/generic";
 import { getNewRatesThunkCreator, setManualRates } from "store/actions/rates";
 import { formSchema, ratesSources } from "configure";
@@ -119,9 +120,8 @@ export default function PriceForm({ children }) {
     <form
       css={() => styles.getStyle(darkMode, "form")}
       onSubmit={handleSubmit(onSubmit)}
-      className="form"
     >
-      <div className="form__left-column">
+      <div>
         <Input
           inputName="price"
           register={register}
@@ -169,8 +169,8 @@ export default function PriceForm({ children }) {
             darkMode={darkMode}
           />
         )}
+        <Button />
       </div>
-      <div className="form__right-column">{children}</div>
     </form>
   );
 }

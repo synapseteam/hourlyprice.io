@@ -12,7 +12,7 @@ export default function Header() {
   const [{ darkMode }] = useAppThemeContext();
 
   return (
-    <header css={() => styles.getStyle(darkMode, "header")} className="header">
+    <header css={() => styles.getStyle(darkMode, "header")}>
       <Logo />
       <div css={() => styles.getStyle(darkMode, "rightHandContainer")}>
         <LangList />

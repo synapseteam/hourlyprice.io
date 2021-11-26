@@ -8,11 +8,11 @@ export default function HeroTitle() {
   const [t, Trans] = useCustomTranslation();
 
   return (
-    <>
+    <div css={() => styles.getStyle(null, "container")}>
       <h1 css={() => styles.getStyle(null, "title")}>{t("heroTitle")}</h1>
       <h3 css={() => styles.getStyle(null, "subTitle")}>
         <Trans components={{ citation: <q /> }}>heroSubTitle</Trans>
       </h3>
-    </>
+    </div>
   );
 }

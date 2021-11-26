@@ -19,28 +19,22 @@ export default function Select({
 }) {
   return (
     <>
-      <label
-        css={() => styles.getStyle(darkMode, "label")}
-        className="select__label"
-      >
+      <label css={() => styles.getStyle(darkMode, "label")}>
         {labelName}:
         <select
           css={() => styles.getStyle(darkMode, "select")}
           {...register(inputName)}
           onChange={changeHandler}
           value={value}
-          className="select"
         >
           {optionsArr &&
             optionsArr.map((name) => (
-              <option key={uniqid()} value={name} className="select__option">
+              <option key={uniqid()} value={name}>
                 {name}
               </option>
             ))}
         </select>
-        {errors[inputName] && (
-          <p className="error-text">{errorsMessages[inputName]}</p>
-        )}
+        {errors[inputName] && <p>{errorsMessages[inputName]}</p>}
       </label>
     </>
   );

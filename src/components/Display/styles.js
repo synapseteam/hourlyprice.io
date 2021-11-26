@@ -28,7 +28,12 @@ export const styles = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 1.2rem;
     ${mixinShadow};
+
+    @media (min-width: 720px) {
+      width: 47%;
+    }
   `,
   displayLight: css`
     background-color: ${brightGrey};

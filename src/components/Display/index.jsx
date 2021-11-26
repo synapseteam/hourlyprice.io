@@ -63,7 +63,7 @@ export default function Display() {
   const darkMode = context.darkMode;
 
   return (
-    <div css={() => styles.getStyle(darkMode, "display")} className="display">
+    <div css={() => styles.getStyle(darkMode, "display")}>
       {isRequestError && <p>{t("badRequestApi")}</p>}
       <MainCurrencyDisplay
         currency={mainCurrencyData.symbol}

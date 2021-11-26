@@ -11,7 +11,7 @@ const darkGrey = "#d5d3d3";
 export const styles = {
   buttonContainer: css`
     width: 100%;
-    margin: 2rem 0;
+    margin: 1.6rem 0 0.4rem;
   `,
   button: css`
     border: 1px solid ${lightgreen};

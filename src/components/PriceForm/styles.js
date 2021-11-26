@@ -8,6 +8,10 @@ export const styles = {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
+
+    @media (min-width: 720px) {
+      width: 47%;
+    }
   `,
   getStyle,
 };

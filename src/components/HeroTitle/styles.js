@@ -2,6 +2,9 @@ import { css } from "@emotion/react";
 import { getStyle } from "utils/generic";
 
 export const styles = {
+  container: css`
+    width: 100%;
+  `,
   title: css`
     font-style: italic;
     line-height: 0.8;
