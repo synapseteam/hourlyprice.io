@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 
 import Logo from "components/Header/Logo";
@@ -5,15 +6,15 @@ import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
 import { useAppThemeContext } from "context/AppContext";
 
-import "components/Header/styles.scss";
+import { styles } from "./styles";
 
 export default function Header() {
-  const [state] = useAppThemeContext();
+  const [{ darkMode }] = useAppThemeContext();
 
   return (
-    <header className={!state.darkMode ? "light-header" : ""}>
+    <header css={() => styles.getStyle(darkMode, "header")}>
       <Logo />
-      <div className="header-right-side-cont">
+      <div css={() => styles.getStyle(darkMode, "rightHandContainer")}>
         <LangList />
         <ThemeSwitcher />
       </div>

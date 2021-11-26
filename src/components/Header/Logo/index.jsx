@@ -1,17 +1,20 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
+import PropTypes from "prop-types";
 
-import "components/Header/Logo/styles.scss";
 import { useAppThemeContext } from "context/AppContext";
 
+import { styles } from "./styles";
+
 export default function Logo({ logoText }) {
-  const [state] = useAppThemeContext();
-  return (
-    <div
-      className={
-        state.darkMode ? "logo-container" : "logo-container light-logo"
-      }
-    >
-      <p className="logo">hourlyprice.io</p>
-    </div>
-  );
+  const [{ darkMode }] = useAppThemeContext();
+  return <p css={() => styles.getStyle(darkMode, "logo")}>{logoText}</p>;
 }
+
+Logo.propTypes = {
+  logoText: PropTypes.string,
+};
+
+Logo.defaultProps = {
+  logoText: "hourlyprice.io",
+};

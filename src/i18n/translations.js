@@ -2,7 +2,6 @@ export const translationEN = {
   heroTitle: "Hourly Rate Calculator",
   heroSubTitle: "<citation>Time is money</citation> as Benjamin Franklin Said.",
   labelPrice: "Price",
-  pricePlaceholder: "20.30",
   timePlaceholder: "HH:MM",
   labelTime: "Time",
   labelCurrency: "Currency",
@@ -12,6 +11,7 @@ export const translationEN = {
   priceError: "Rate should be a positive number",
   timeError: "Time should be in format hours:minutes. Example: 160:47",
   manualOptionExchangeSource: "Manual",
+  badRequestApi: "Request Failed. Rates was not update properly 🤪",
 };
 
 export const translationRU = {
@@ -19,7 +19,6 @@ export const translationRU = {
   heroSubTitle:
     "<citation>Время - деньги</citation> как сказал Бенджамин Франклин",
   labelPrice: "Стоимость",
-  pricePlaceholder: "20.30",
   timePlaceholder: "ЧЧ:ММ",
   labelTime: "Время",
   labelCurrency: "Валюта",
@@ -29,6 +28,7 @@ export const translationRU = {
   priceError: "Стоимость должна быть положительным числом",
   timeError: "Время должно быть в формате часы:минуты. Например: 160:47",
   manualOptionExchangeSource: "Свой курс",
+  badRequestApi: "Не удалось получить корректный курс валют",
 };
 
 export const translationUA = {
@@ -36,7 +36,6 @@ export const translationUA = {
   heroSubTitle:
     "<citation>Час - це гроші</citation>, як сказав Бенджамін Франклін",
   labelPrice: "Вартість",
-  pricePlaceholder: "20.30",
   timePlaceholder: "ГГ:ХВ",
   labelTime: "Час",
   labelCurrency: "Валюта",
@@ -46,4 +45,5 @@ export const translationUA = {
   priceError: "Вартість має бути позитивним числом",
   timeError: "Час має бути в форматі ходини:хвилини. Наприклад: 160:47",
   manualOptionExchangeSource: "Свій курс",
+  badRequestApi: "Не вдалося отримати корректний курс валют",
 };

@@ -1,19 +1,21 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import PropTypes from "prop-types";
 
 import { useAppThemeContext } from "context/AppContext";
 
-import "components/Footer/styles.scss";
+import { styles } from "./styles";
 
 export default function Footer({ companyName, companyUrl }) {
   const currentYear = new Date().getFullYear();
 
-  const [state] = useAppThemeContext();
+  const [{ darkMode }] = useAppThemeContext();
 
   return (
-    <footer className={state.darkMode ? "footer" : "footer light-footer"}>
-      <p className="footer-text">
+    <footer css={() => styles.getStyle(darkMode, "footer")}>
+      <p css={() => styles.getStyle(darkMode, "footerText")}>
         <a
+          css={() => styles.getStyle(darkMode, "footerLink")}
           href={companyUrl}
           target="_blank"
           rel="noreferrer"

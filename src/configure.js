@@ -13,8 +13,6 @@ export const errorsMessages = {
     "Currency should be chosen from following values: USD, RUB, EUR, UAH",
 };
 
-export const buttonText = "RESULT";
-
 //limit frame for updating rates using API. If user made new request within specified timeframe (in seconds) data will requested from state, state not updated using API/
 export const ratesUpdatingTimeFrame = 60 * 3;
 

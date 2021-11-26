@@ -1,16 +1,17 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import uniqid from "uniqid";
 import { changeLanguage } from "i18n";
 
 import { useAppThemeContext } from "context/AppContext";
 
-import "components/Header/LangList/styles.scss";
+import { styles } from "./styles";
 
 export default function LangList() {
   const [isListShown, setisListShown] = useState(false);
   const [chosenLang, setChosenLang] = useState("EN");
 
-  const [state] = useAppThemeContext();
+  const [{ darkMode }] = useAppThemeContext();
 
   const langChangeHandler = (e) => {
     e.preventDefault();
@@ -30,27 +31,32 @@ export default function LangList() {
   const locales = ["en", "ru", "ua"];
 
   return (
-    <div
-      className={
-        state.darkMode
-          ? "lang-list-container"
-          : "lang-list-container light-lang-list-container"
-      }
-    >
-      <ul className="lang-list">
+    <div css={() => styles.getStyle(darkMode, "langContainer")}>
+      <ul css={() => styles.getStyle(darkMode, "langList")}>
         {isListShown ? (
           locales.map((el) => {
             return (
-              <li className="lang-item" key={uniqid()}>
-                <a href="/" onClick={langChangeHandler}>
+              <li
+                css={() => styles.getStyle(darkMode, "langListItem")}
+                key={uniqid()}
+              >
+                <a
+                  css={() => styles.getStyle(darkMode, "langListLink")}
+                  href="/"
+                  onClick={langChangeHandler}
+                >
                   {el.toUpperCase()}
                 </a>
               </li>
             );
           })
         ) : (
-          <li className="lang-item">
-            <a href="/" onClick={langChangeHandler}>
+          <li css={() => styles.getStyle(darkMode, "langListItem")}>
+            <a
+              css={() => styles.getStyle(darkMode, "langListLink")}
+              href="/"
+              onClick={langChangeHandler}
+            >
               {chosenLang}
             </a>
           </li>

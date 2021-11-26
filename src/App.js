@@ -1,38 +1,31 @@
+/** @jsxImportSource @emotion/react */
 import { Provider } from "react-redux";
 
 import { store } from "store";
 import Header from "components/Header";
 import HeroTitle from "components/HeroTitle";
-import Form from "components/Form";
+import PriceForm from "components/PriceForm";
 import Display from "components/Display";
-import ButtonSubmit from "components/ButtonSubmit";
-import ContentColumn from "components/ContentColumn";
+import ContentContainer from "components/ContentContainer";
 import Footer from "components/Footer";
 import { useAppThemeContext } from "context/AppContext";
 
-import "App.scss";
+import { styles } from "./styles";
 
 function App() {
-  const [state] = useAppThemeContext();
+  const [{ darkMode }] = useAppThemeContext();
 
   return (
-    <div className={state.darkMode ? "App" : "App light-mode"}>
+    <div css={() => styles.getStyle(darkMode, "app")}>
       <Provider store={store}>
         <Header />
 
-        <div className="content-container">
+        <ContentContainer>
           <HeroTitle />
-          <div className="content-columns-container">
-            <ContentColumn>
-              <Form />
-            </ContentColumn>
+          <Display />
+          <PriceForm />
+        </ContentContainer>
 
-            <ContentColumn>
-              <Display />
-              <ButtonSubmit />
-            </ContentColumn>
-          </div>
-        </div>
         <Footer
           companyName="Synapse Team LLC"
           companyUrl="https://synapseteam.com"

@@ -1,12 +1,14 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import { useSelector } from "react-redux";
 
-import SubCurrenciesDisplay from "components/Display/SubCurrenciesDisplay";
-import MainCurrencyDisplay from "components/Display/MainCurrencyDisplay";
-import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRatesDisplay";
+import SubCurrenciesDisplay from "components/Display/SubCurrencies";
+import MainCurrencyDisplay from "components/Display/MainCurrency/";
+import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
 import { useAppThemeContext } from "context/AppContext";
+import { useCustomTranslation } from "i18n";
 
-import "components/Display/styles.scss";
+import { styles } from "./styles";
 
 export default function Display() {
   const { price, time, currency } = useSelector((state) => state.main.fields);
@@ -17,7 +19,9 @@ export default function Display() {
 
   const isRequestError = useSelector((state) => state.main.ratesRequestErr);
 
-  const [state] = useAppThemeContext();
+  const [context] = useAppThemeContext();
+
+  const [t] = useCustomTranslation();
 
   const mainCurrencyData = allCurrencies.find((el) => el.name === currency) || {
     name: "",
@@ -26,10 +30,8 @@ export default function Display() {
   };
 
   function formatSum(num) {
-    return new Intl.NumberFormat("de-DE", {
-      maximumFractionDigits: 2,
-    })
-      .format(num)
+    return new Intl.NumberFormat("de-DE")
+      .format(num.toFixed(2))
       .replace(".", " ");
   }
 
@@ -58,23 +60,26 @@ export default function Display() {
 
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
+  const darkMode = context.darkMode;
+
   return (
-    <div className={state.darkMode ? "display" : "display light-display"}>
-      {isRequestError && (
-        <p>Request Failed. Rates was not update properly 🤪</p>
-      )}
+    <div css={() => styles.getStyle(darkMode, "display")}>
+      {isRequestError && <p>{t("badRequestApi")}</p>}
       <MainCurrencyDisplay
         currency={mainCurrencyData.symbol}
         sum={mainCurrencySum}
         isLoading={isLoading}
+        darkMode={darkMode}
       />
       <SubCurrenciesDisplay
         subCurrenciesArr={subCurrenciesArr}
         isLoading={isLoading}
+        darkMode={darkMode}
       />
       <SubCurrenciesRatesDisplay
         allCurrencies={allCurrencies}
         currency={currency}
+        darkMode={darkMode}
       />
     </div>
   );
