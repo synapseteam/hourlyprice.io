@@ -14,6 +14,9 @@ export const styles = {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 3;
 
     @media (min-width: 720px) {
       padding: 0.5rem 4rem !important;
