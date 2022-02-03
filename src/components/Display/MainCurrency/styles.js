@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { getStyle } from "utils/generic";
 
 import {
-  lightPurple,
+  lightenPurple,
   blue,
   darkGrey,
 } from "components/UI/sharedStylesEmotion/colors.js";
@@ -12,7 +12,7 @@ export const styles = {
     margin: 0;
   `,
   mainContainer: css`
-    border-bottom: 1px solid lighten(${lightPurple}, 15);
+    border-bottom: 1px solid ${lightenPurple};
     min-height: 6.8rem;
   `,
   sum: css`

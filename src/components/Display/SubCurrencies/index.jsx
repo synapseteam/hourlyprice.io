@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import uniqid from "uniqid";
 
 import SubCurrency from "components/Display/SubCurrencies/SubCurrency";
-import Loader from "components/UI/Loader";
 
 import { styles } from "./styles";
 
@@ -15,18 +14,15 @@ export default function SubCurrenciesDisplay({
 }) {
   return (
     <div css={() => styles.getStyle(darkMode, "mainContainer")}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        subCurrenciesArr.map((el) => (
-          <SubCurrency
-            name={el.name}
-            value={el.value || 0}
-            key={uniqid()}
-            darkMode={darkMode}
-          />
-        ))
-      )}
+      {subCurrenciesArr.map((el) => (
+        <SubCurrency
+          name={el.name}
+          value={el.value || 0}
+          key={uniqid()}
+          darkMode={darkMode}
+          isLoading={isLoading}
+        />
+      ))}
     </div>
   );
 }
