@@ -8,8 +8,18 @@ export const styles = {
     display: flex;
     flex-direction: column;
 
-    @media (min-width: 720px) {
+    @media (min-width: 720px) and (max-width: 919px) {
       width: 700px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: start;
+      align-content: flex-start;
+      flex: 1;
+    }
+
+    @media (min-width: 920px) {
+      width: 900px;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-between;
