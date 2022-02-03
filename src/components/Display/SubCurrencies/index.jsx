@@ -16,7 +16,7 @@ export default function SubCurrenciesDisplay({
   return (
     <div css={() => styles.getStyle(darkMode, "mainContainer")}>
       {isLoading ? (
-        <Loader />
+        <Loader size={46} />
       ) : (
         subCurrenciesArr.map((el) => (
           <SubCurrency

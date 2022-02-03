@@ -11,15 +11,15 @@ const darkGrey = "#d5d3d3";
 export const styles = {
   buttonContainer: css`
     width: 100%;
-    margin: 1.6rem 0 0.4rem;
+    margin: 1.2rem 0 0.4rem;
   `,
   button: css`
     border: 1px solid ${lightgreen};
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     background-color: ${green};
     width: 100%;
     color: ${white};
-    padding: 0.8rem;
+    padding: 0.7rem;
     font-weight: 600;
     cursor: pointer;
 

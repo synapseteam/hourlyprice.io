@@ -19,7 +19,7 @@ export default function MainCurrencyDisplay({
       <h2 css={() => styles.getStyle(darkMode, "title")}>{t("totalPrice")}</h2>
       <div css={() => styles.getStyle(darkMode, "mainContainer")}>
         {isLoading ? (
-          <Loader />
+          <Loader size={60} />
         ) : (
           <p
             css={() => styles.getStyle(darkMode, "sum")}
