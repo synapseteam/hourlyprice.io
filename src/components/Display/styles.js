@@ -31,7 +31,12 @@ export const styles = {
     margin-top: 1.2rem;
     ${mixinShadow};
 
-    @media (min-width: 720px) {
+    @media (min-width: 720px) and (max-width: 919px) {
+      width: 47%;
+      padding: 3rem 1rem;
+    }
+
+    @media (min-width: 920px) {
       width: 47%;
     }
   `,
