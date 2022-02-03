@@ -19,8 +19,8 @@ export const styles = {
     border: 1px solid ${lightPurple};
     border-radius: 0.3rem;
     color: ${white};
-    padding: 0.8rem 1rem;
-    margin-top: 0.4rem;
+    padding: 0.7rem 1rem;
+    margin-top: 0.3rem;
   `,
   inputLight: css`
     background-color: ${white};

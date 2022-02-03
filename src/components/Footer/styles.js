@@ -14,7 +14,7 @@ export const styles = {
     justify-content: center;
     align-items: center;
     border-top: 1px solid ${lightPurple};
-    padding: 0.6rem;
+    padding: 0.5rem;
     background-color: ${purple};
   `,
   footerLight: css`
