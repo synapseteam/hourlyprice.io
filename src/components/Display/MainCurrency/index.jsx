@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
-import Loader from "components/UI/Loader";
+import SkeletonLoader from "components/UI/SkeleotonLoaders/SkeletonLoader";
 
 import { styles } from "./styles";
 
@@ -19,7 +19,7 @@ export default function MainCurrencyDisplay({
       <h2 css={() => styles.getStyle(darkMode, "title")}>{t("totalPrice")}</h2>
       <div css={() => styles.getStyle(darkMode, "mainContainer")}>
         {isLoading ? (
-          <Loader />
+          <SkeletonLoader size="l" />
         ) : (
           <p
             css={() => styles.getStyle(darkMode, "sum")}
