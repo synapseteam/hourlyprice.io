@@ -8,11 +8,9 @@ import { styles } from "./styles";
 
 export default function SubCurrency({ name, value, darkMode, isLoading }) {
   return (
-    <div css={() => styles.getStyle(darkMode, "subCurrencyContainer")}>
-      <div css={() => styles.getStyle(darkMode, "subCurrencyTitlte")}>
-        {name}
-      </div>
-      <div css={() => styles.getStyle(darkMode, "subCurrencySum")}>
+    <div css={styles.subCurrencyContainer}>
+      <div css={styles.subCurrencyTitlte}>{name}</div>
+      <div css={styles.subCurrencySum}>
         {isLoading ? <SkeletonLoader size="m" /> : value}
       </div>
     </div>

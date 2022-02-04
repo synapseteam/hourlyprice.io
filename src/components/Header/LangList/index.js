@@ -31,7 +31,7 @@ export default function LangList() {
   const locales = ["en", "ru", "ua"];
 
   return (
-    <div css={() => styles.getStyle(darkMode, "langContainer")}>
+    <div css={styles.langContainer}>
       <ul css={() => styles.getStyle(darkMode, "langList")}>
         {isListShown ? (
           locales.map((el) => {

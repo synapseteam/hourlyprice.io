@@ -19,10 +19,10 @@ export default function Input({
 
   return (
     <>
-      <label css={() => styles.getStyle(darkMode, "label")}>
+      <label css={styles.label}>
         {labelName}:
         <input
-          css={() => styles.getStyle(darkMode, "input")}
+          css={styles.input}
           {...register(inputName)}
           type="text"
           inputMode="decimal"
@@ -31,9 +31,7 @@ export default function Input({
           onChange={changeHandler}
         />
         {errors[inputName] && (
-          <p css={() => styles.getStyle(darkMode, "error")}>
-            {t(inputName + "Error")}
-          </p>
+          <p css={styles.error}>{t(inputName + "Error")}</p>
         )}
       </label>
     </>

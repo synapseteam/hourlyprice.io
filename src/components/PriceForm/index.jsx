@@ -117,10 +117,7 @@ export default function PriceForm({ children }) {
   }, [chosenCurrency]);
 
   return (
-    <form
-      css={() => styles.getStyle(darkMode, "form")}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form css={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <Input
           inputName="price"

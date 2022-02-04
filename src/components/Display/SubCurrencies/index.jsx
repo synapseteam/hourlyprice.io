@@ -13,7 +13,7 @@ export default function SubCurrenciesDisplay({
   darkMode,
 }) {
   return (
-    <div css={() => styles.getStyle(darkMode, "mainContainer")}>
+    <div css={styles.mainContainer}>
       {subCurrenciesArr.map((el) => (
         <SubCurrency
           name={el.name}

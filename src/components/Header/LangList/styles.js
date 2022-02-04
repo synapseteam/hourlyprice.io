@@ -10,17 +10,13 @@ import {
 } from "components/UI/sharedStylesEmotion/colors";
 
 export const styles = {
-  langContainer: css`
+  langContainer: (theme) => css`
     position: absolute;
     top: 0;
     left: -200%;
-    background-color: ${purple};
-    border: 1px solid ${darkPurple};
+    background-color: ${theme.octonary};
+    border: ${theme.langListBorder};
     border-radius: 0.4rem;
-  `,
-  langContainerLight: css`
-    background-color: ${brightGrey};
-    border: none;
   `,
   langList: css`
     display: flex;

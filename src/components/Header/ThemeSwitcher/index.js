@@ -6,24 +6,25 @@ import { useAppThemeContext, toggleTheme } from "context/AppContext";
 
 import { styles } from "./styles";
 
-export default function ThemeSwitcher() {
+export default function ThemeSwitcher({ setIsDark }) {
   const [context, dispatch] = useAppThemeContext();
 
   function handleThemeSwitcherClick() {
     dispatch(toggleTheme());
+    setIsDark((prev) => !prev);
   }
 
   return (
     <>
       {context.darkMode ? (
         <Icon
-          css={() => styles.getStyle(null, "icon")}
+          css={styles.icon}
           icon="emojione:light-bulb"
           onClick={handleThemeSwitcherClick}
         />
       ) : (
         <Icon
-          css={() => styles.getStyle(null, "icon")}
+          css={styles.icon}
           icon="emojione-monotone:light-bulb"
           onClick={handleThemeSwitcherClick}
         />

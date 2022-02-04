@@ -21,16 +21,12 @@ export default function SubCurrenciesRatesDisplay({
 
   const lastElIndex = subCurrenciesRatesArr.length - 1;
   return (
-    <div css={() => styles.getStyle(darkMode, "ratesContainer")}>
+    <div css={styles.ratesContainer}>
       {subCurrenciesRatesArr.map((el, i) => {
         return (
-          <p css={() => styles.getStyle(darkMode, "rateText")} key={uniqid()}>
+          <p css={styles.rateText} key={uniqid()}>
             {`${el.symbol}${el.crossRate}`}
-            {i !== lastElIndex && (
-              <span css={() => styles.getStyle(darkMode, "ratesDelimiter")}>
-                /
-              </span>
-            )}
+            {i !== lastElIndex && <span css={styles.ratesDelimiter}>/</span>}
           </p>
         );
       })}

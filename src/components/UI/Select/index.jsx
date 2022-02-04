@@ -19,10 +19,10 @@ export default function Select({
 }) {
   return (
     <>
-      <label css={() => styles.getStyle(darkMode, "label")}>
+      <label css={styles.label}>
         {labelName}:
         <select
-          css={() => styles.getStyle(darkMode, "select")}
+          css={styles.select}
           {...register(inputName)}
           onChange={changeHandler}
           value={value}

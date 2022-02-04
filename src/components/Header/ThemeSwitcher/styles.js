@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
 
 export const styles = {
   icon: css`
@@ -10,5 +9,4 @@ export const styles = {
       transform: scale(1.1);
     }
   `,
-  getStyle,
 };
