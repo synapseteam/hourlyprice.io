@@ -1,17 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import { useState } from "react";
 import uniqid from "uniqid";
 import { changeLanguage } from "i18n";
-
-import { useAppThemeContext } from "context/AppContext";
 
 import { styles } from "./styles";
 
 export default function LangList() {
   const [isListShown, setisListShown] = useState(false);
   const [chosenLang, setChosenLang] = useState("EN");
-
-  const [{ darkMode }] = useAppThemeContext();
 
   const langChangeHandler = (e) => {
     e.preventDefault();
@@ -32,16 +28,13 @@ export default function LangList() {
 
   return (
     <div css={styles.langContainer}>
-      <ul css={() => styles.getStyle(darkMode, "langList")}>
+      <ul css={styles.langList}>
         {isListShown ? (
           locales.map((el) => {
             return (
-              <li
-                css={() => styles.getStyle(darkMode, "langListItem")}
-                key={uniqid()}
-              >
+              <li css={styles.langListItem} key={uniqid()}>
                 <a
-                  css={() => styles.getStyle(darkMode, "langListLink")}
+                  css={styles.langListLink}
                   href="/"
                   onClick={langChangeHandler}
                 >
@@ -51,12 +44,8 @@ export default function LangList() {
             );
           })
         ) : (
-          <li css={() => styles.getStyle(darkMode, "langListItem")}>
-            <a
-              css={() => styles.getStyle(darkMode, "langListLink")}
-              href="/"
-              onClick={langChangeHandler}
-            >
+          <li css={styles.langListItem}>
+            <a css={styles.langListLink} href="/" onClick={langChangeHandler}>
               {chosenLang}
             </a>
           </li>

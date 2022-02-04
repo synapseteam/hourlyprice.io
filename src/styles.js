@@ -1,10 +1,4 @@
 import { css } from "@emotion/react";
-import {
-  purple,
-  darkPurple,
-  white,
-} from "components/UI/sharedStylesEmotion/colors.js";
-import { getStyle } from "utils/generic";
 
 export const styles = {
   app: css`

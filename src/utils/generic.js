@@ -62,7 +62,7 @@ export function handlePriceChange(e) {
   return updatedValue;
 }
 
-export function getStyle(mode = true, element) {
+/* export function getStyle(mode = true, element) {
   if (mode) {
     return this[element].styles;
   }
@@ -70,4 +70,4 @@ export function getStyle(mode = true, element) {
   const lightThemeStyles = this[`${element}Light`]?.styles || "";
 
   return this[element].styles + lightThemeStyles;
-}
+} */

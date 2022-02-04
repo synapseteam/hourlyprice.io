@@ -7,12 +7,7 @@ import SkeletonLoader from "components/UI/SkeleotonLoaders/SkeletonLoader";
 
 import { styles } from "./styles";
 
-export default function MainCurrencyDisplay({
-  sum,
-  currency,
-  isLoading,
-  darkMode,
-}) {
+export default function MainCurrencyDisplay({ sum, currency, isLoading }) {
   const [t] = useCustomTranslation();
   return (
     <>
@@ -32,12 +27,10 @@ MainCurrencyDisplay.propTypes = {
   sum: PropTypes.string,
   currency: PropTypes.string,
   isLoading: PropTypes.bool,
-  darkMode: PropTypes.bool,
 };
 
 MainCurrencyDisplay.defaultProps = {
   sum: 0.0,
   currency: "USD",
   isLoading: false,
-  darkMode: true,
 };

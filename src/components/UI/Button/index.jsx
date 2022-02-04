@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
 import PropTypes from "prop-types";
-import { useAppThemeContext } from "context/AppContext";
 import { useCustomTranslation } from "i18n";
 
 import { styles } from "./styles";

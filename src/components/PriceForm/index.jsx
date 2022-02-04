@@ -18,7 +18,6 @@ import {
   handlePriceChange,
 } from "utils/generic";
 import { ratesUpdatingTimeFrame } from "configure";
-import { useAppThemeContext } from "context/AppContext";
 import { useCustomTranslation } from "i18n";
 
 import { styles } from "./styles";
@@ -32,9 +31,6 @@ export default function PriceForm({ children }) {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
-  const [context] = useAppThemeContext();
-  const darkMode = context.darkMode;
 
   const [t] = useCustomTranslation();
 
@@ -126,7 +122,6 @@ export default function PriceForm({ children }) {
           placeholder="20.30"
           changeHandler={handlePriceChange}
           errors={errors}
-          darkMode={darkMode}
         />
         <Input
           inputName="time"
@@ -135,7 +130,6 @@ export default function PriceForm({ children }) {
           placeholder={t("timePlaceholder")}
           changeHandler={handleTimeChange}
           errors={errors}
-          darkMode={darkMode}
         />
         <Select
           labelName={t("labelCurrency")}
@@ -145,7 +139,6 @@ export default function PriceForm({ children }) {
           value={chosenCurrency}
           optionsArr={allCurrenciesNames}
           errors={errors}
-          darkMode={darkMode}
         />
         <Select
           labelName={t("labelExchangeRate")}
@@ -155,7 +148,6 @@ export default function PriceForm({ children }) {
           value={chosenRatesSource}
           optionsArr={ratesSources}
           errors={errors}
-          darkMode={darkMode}
         />
         {chosenRatesSource === "Manual" && (
           <RatesInputSet
@@ -163,7 +155,6 @@ export default function PriceForm({ children }) {
             allCurrencies={allCurrencies}
             chosenCurrency={chosenCurrency}
             errors={errors}
-            darkMode={darkMode}
           />
         )}
         <Button />

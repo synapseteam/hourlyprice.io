@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
 
 export const styles = {
   mainContainer: css`
@@ -23,5 +22,4 @@ export const styles = {
     margin-top: 0.4rem;
     font-weight: 700;
   `,
-  getStyle,
 };

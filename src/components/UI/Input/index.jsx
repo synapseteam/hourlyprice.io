@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
@@ -13,7 +12,6 @@ export default function Input({
   changeHandler,
   inputName,
   errors,
-  darkMode,
 }) {
   const [t] = useCustomTranslation();
 
@@ -45,9 +43,4 @@ Input.propTypes = {
   changeHandler: PropTypes.func,
   inputName: PropTypes.string,
   errors: PropTypes.object,
-  darkMode: PropTypes.bool,
-};
-
-Input.defaultProps = {
-  darkMode: true,
 };

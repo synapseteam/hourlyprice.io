@@ -1,22 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import { Icon } from "@iconify/react";
-
-import { useAppThemeContext, toggleTheme } from "context/AppContext";
+import { useTheme } from "@emotion/react";
 
 import { styles } from "./styles";
 
 export default function ThemeSwitcher({ setIsDark }) {
-  const [context, dispatch] = useAppThemeContext();
+  const theme = useTheme();
 
   function handleThemeSwitcherClick() {
-    dispatch(toggleTheme());
     setIsDark((prev) => !prev);
   }
 
   return (
     <>
-      {context.darkMode ? (
+      {theme.name === "dark" ? (
         <Icon
           css={styles.icon}
           icon="emojione:light-bulb"

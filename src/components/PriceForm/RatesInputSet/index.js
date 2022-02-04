@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
 
@@ -17,11 +16,11 @@ export default function RatesInputSet({
   const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 
   return (
-    <div css={() => styles.getStyle(darkMode, "ratesInputsContainer")}>
+    <div css={styles.ratesInputsContainer}>
       {allCurrenciesNames.map(({ name }) => {
         return (
           <input
-            css={() => styles.getStyle(darkMode, "ratesInput")}
+            css={styles.ratesInput}
             {...register(name)}
             key={uniqid()}
             inputMode="decimal"

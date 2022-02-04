@@ -1,15 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
 
 import { styles } from "./styles";
 
-export default function SubCurrenciesRatesDisplay({
-  allCurrencies,
-  currency,
-  darkMode,
-}) {
+export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
   const basicRate = allCurrencies.find((el) => el.name === currency)?.rate;
 
   const subCurrenciesRatesArr = allCurrencies
@@ -37,9 +32,4 @@ export default function SubCurrenciesRatesDisplay({
 SubCurrenciesRatesDisplay.propTypes = {
   allCurrencies: PropTypes.arrayOf(PropTypes.object),
   currency: PropTypes.string,
-  darkMode: PropTypes.bool,
-};
-
-SubCurrenciesRatesDisplay.defaultProps = {
-  darkMode: true,
 };

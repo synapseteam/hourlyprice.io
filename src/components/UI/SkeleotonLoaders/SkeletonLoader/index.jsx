@@ -3,8 +3,6 @@ import React from "react";
 import ContentLoader from "react-content-loader";
 import PropTypes from "prop-types";
 
-import { useAppThemeContext } from "context/AppContext";
-
 import {
   mediumGrey,
   darkGrey,
@@ -12,16 +10,15 @@ import {
   skeletonLoaderPurple,
 } from "components/UI/sharedStylesEmotion/colors.js";
 import { styles } from "./styles";
+import { useTheme } from "@emotion/react";
 
 const SkeletonLoader = ({ size, ...props }) => {
+  const theme = useTheme();
   const canvasWidth = size === "l" ? 200 : 80;
   const canvasHeight = size === "l" ? 110 : 18;
   const skeletonWidth = size === "l" ? 95 : 80;
   const skeletonHeight = size === "l" ? 110 : 18;
   const borderRadius = size === "l" ? 12 : 4;
-
-  const [context] = useAppThemeContext();
-  const darkMode = context.darkMode;
 
   return (
     <ContentLoader
@@ -29,8 +26,12 @@ const SkeletonLoader = ({ size, ...props }) => {
       width={skeletonWidth}
       height={skeletonHeight}
       viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
-      backgroundColor={darkMode ? skeletonLoaderDarkPurple : darkGrey}
-      foregroundColor={darkMode ? skeletonLoaderPurple : mediumGrey}
+      backgroundColor={
+        theme.name === "dark" ? skeletonLoaderDarkPurple : darkGrey
+      }
+      foregroundColor={
+        theme.name === "dark" ? skeletonLoaderPurple : mediumGrey
+      }
       {...props}
       css={
         size === "l" ? styles.bigLoaderContainer : styles.smallLoaderContainer

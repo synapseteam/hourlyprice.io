@@ -1,12 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
-
-import {
-  lightPurple,
-  purple,
-  white,
-  darkGrey,
-} from "components/UI/sharedStylesEmotion/colors.js";
 
 export const styles = {
   footer: (theme) => css`

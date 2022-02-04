@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
 
 export const styles = {
   contentContainer: (theme) => css`

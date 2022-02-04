@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
 
 import {
   purple,
@@ -28,12 +27,8 @@ export const styles = {
     list-style: none;
     padding: 0.3rem;
   `,
-  langListLink: css`
+  langListLink: (theme) => css`
     text-decoration: none;
-    color: ${white};
+    color: ${theme.senary};
   `,
-  langListLinkLight: css`
-    color: ${darkGrey};
-  `,
-  getStyle,
 };

@@ -7,11 +7,7 @@ import SubCurrency from "components/Display/SubCurrencies/SubCurrency";
 
 import { styles } from "./styles";
 
-export default function SubCurrenciesDisplay({
-  subCurrenciesArr,
-  isLoading,
-  darkMode,
-}) {
+export default function SubCurrenciesDisplay({ subCurrenciesArr, isLoading }) {
   return (
     <div css={styles.mainContainer}>
       {subCurrenciesArr.map((el) => (
@@ -19,7 +15,6 @@ export default function SubCurrenciesDisplay({
           name={el.name}
           value={el.value || 0}
           key={uniqid()}
-          darkMode={darkMode}
           isLoading={isLoading}
         />
       ))}
@@ -35,7 +30,6 @@ SubCurrenciesDisplay.propTypes = {
     })
   ),
   isLoading: PropTypes.bool,
-  darkMode: PropTypes.bool,
 };
 
 SubCurrenciesDisplay.defaultProps = {
@@ -44,5 +38,4 @@ SubCurrenciesDisplay.defaultProps = {
     { name: "UAH", value: "0.00" },
     { name: "RUB", value: "0.00" },
   ],
-  darkMode: true,
 };

@@ -10,13 +10,11 @@ import PriceForm from "components/PriceForm";
 import Display from "components/Display";
 import ContentContainer from "components/ContentContainer";
 import Footer from "components/Footer";
-import { useAppThemeContext } from "context/AppContext";
 
 import { themeDark, themeLight } from "theme/index";
 import { styles } from "./styles";
 
 function App() {
-  const [{ darkMode }] = useAppThemeContext();
   const [isDark, setIsDark] = useState(true);
 
   return (
