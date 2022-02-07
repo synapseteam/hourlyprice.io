@@ -11,7 +11,6 @@ export default function RatesInputSet({
   chosenCurrency,
   allCurrencies,
   errors,
-  darkMode,
 }) {
   const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 

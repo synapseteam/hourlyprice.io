@@ -1,4 +1,6 @@
 export const themeDark = {
+  name: "dark",
+
   primary: "#31335a",
   secondary: "#5599ec",
   tertiary: "#4c4f8c",
@@ -9,19 +11,13 @@ export const themeDark = {
   octonary: "#24274a",
   nonary: "#174f5e",
   denary: "#ffffff",
+
   btnHoverColor: "#5cbabc",
   labelColor: "#5599ec",
   inputBackgroundColor: "#171d3d",
   inputBgColor: "#171d3d",
-
-  name: "dark",
-
-  darkPurple: "#171d3d",
-  lightPurple: "#31335a",
-  lightenPurple: "#4c4f8c",
-  white: "#ffffff",
-  blue: "#5599ec",
-  purple: "#24274a",
+  skeletonBg: "#4a4d87",
+  skeletonFg: "#24274a",
 
   shadow: "0px 18px 23px -3px rgba(0, 0, 0, 0.51)",
   footerBorderTop: "1px solid #31335a",
@@ -33,6 +29,8 @@ export const themeDark = {
 };
 
 export const themeLight = {
+  name: "light",
+
   primary: "#f1f3f4",
   secondary: "#5f6368",
   tertiary: "#dbdbdb",
@@ -43,17 +41,14 @@ export const themeLight = {
   octonary: "#f1f3f4",
   nonary: "#dbdbdb",
   denary: "#171d3d",
+
   btnHoverColor: "#d5d3d3",
   labelColor: "#24274a",
   inputBackgroundColor: "#ffffff",
   inputBgColor: "#ffffff",
+  skeletonBg: "#5f6368",
+  skeletonFg: "#e5e5e5",
 
-  name: "light",
-
-  lightGrey: "#dbdbdb",
-  darkGrey: "#5f6368",
-  mediumGrey: "#e5e5e5",
-  brightGrey: "#f1f3f4",
   shadow: "none",
   footerBorderTop: "none",
   footerShadow: "-1px -1px 3px #ddd",
@@ -63,5 +58,16 @@ export const themeLight = {
   inputBorder: "1px solid #dbdbdb",
 };
 
-export const skeletonLoaderPurple = "#24274a";
-export const skeletonLoaderDarkPurple = "#4a4d87";
+/* const darkPurple = "#171d3d";
+const lightPurple = "#31335a";
+const lightenPurple = "#4c4f8c";
+const white = "#ffffff";
+const blue = "#5599ec";
+const purple = "#24274a";
+const lightGrey = "#dbdbdb";
+const darkGrey = "#5f6368";
+const mediumGrey = "#e5e5e5";
+const brightGrey = "#f1f3f4";
+
+const skeletonLoaderPurple = "#24274a";
+const skeletonLoaderDarkPurple = "#4a4d87"; */

@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
 

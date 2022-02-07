@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
-import SkeletonLoader from "components/UI/SkeleotonLoaders/SkeletonLoader";
+import SkeletonLoader from "components/UI/SkeletonLoader";
 
 import { styles } from "./styles";
 
