@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import PropTypes from "prop-types";
 
 import Input from "components/UI/Input";
 import Select from "components/UI/Select";
@@ -19,10 +18,11 @@ import {
 } from "utils/generic";
 import { ratesUpdatingTimeFrame } from "configure";
 import { useCustomTranslation } from "i18n";
+import { transformRatesResponse } from "utils/generic";
 
 import { styles } from "./styles";
 
-export default function PriceForm({ children }) {
+export default function PriceForm() {
   const {
     register,
     handleSubmit,
@@ -98,7 +98,9 @@ export default function PriceForm({ children }) {
     }
 
     if (ratesSource === "Manual") {
-      dispatch(setManualRates(manualRates));
+      const newRates = transformRatesResponse(manualRates);
+      console.log(newRates);
+      dispatch(setManualRates(newRates));
     }
 
     dispatch(submitFieldsData({ price, time, currency }));
@@ -162,11 +164,3 @@ export default function PriceForm({ children }) {
     </form>
   );
 }
-
-PriceForm.propTypes = {
-  id: PropTypes.string,
-};
-
-PriceForm.defaultProps = {
-  id: "calc-form",
-};

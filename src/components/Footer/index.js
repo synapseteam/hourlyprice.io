@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 
 import { styles } from "./styles";
 
-export default function Footer({ companyName, companyUrl }) {
+export default function Footer({
+  companyName = "Synapse Team LLC",
+  companyUrl = "https://synapseteam.com",
+}) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -23,9 +26,4 @@ export default function Footer({ companyName, companyUrl }) {
 Footer.propTypes = {
   companyName: PropTypes.string,
   companyUrl: PropTypes.string,
-};
-
-Footer.defaultProps = {
-  companyName: "Synapse Team LLC",
-  companyUrl: "https://synapseteam.com",
 };

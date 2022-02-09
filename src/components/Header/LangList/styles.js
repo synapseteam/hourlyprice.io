@@ -1,13 +1,5 @@
 import { css } from "@emotion/react";
 
-import {
-  purple,
-  darkPurple,
-  darkGrey,
-  white,
-  brightGrey,
-} from "components/UI/sharedStylesEmotion/colors";
-
 export const styles = {
   langContainer: (theme) => css`
     position: absolute;

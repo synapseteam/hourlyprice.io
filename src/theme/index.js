@@ -57,17 +57,3 @@ export const themeLight = {
   btnBorder: "none",
   inputBorder: "1px solid #dbdbdb",
 };
-
-/* const darkPurple = "#171d3d";
-const lightPurple = "#31335a";
-const lightenPurple = "#4c4f8c";
-const white = "#ffffff";
-const blue = "#5599ec";
-const purple = "#24274a";
-const lightGrey = "#dbdbdb";
-const darkGrey = "#5f6368";
-const mediumGrey = "#e5e5e5";
-const brightGrey = "#f1f3f4";
-
-const skeletonLoaderPurple = "#24274a";
-const skeletonLoaderDarkPurple = "#4a4d87"; */

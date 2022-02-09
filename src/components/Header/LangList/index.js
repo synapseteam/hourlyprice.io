@@ -2,6 +2,7 @@
 import { useState } from "react";
 import uniqid from "uniqid";
 import { changeLanguage } from "i18n";
+import ListItem from "./ListItem";
 
 import { styles } from "./styles";
 
@@ -32,23 +33,18 @@ export default function LangList() {
         {isListShown ? (
           locales.map((el) => {
             return (
-              <li css={styles.langListItem} key={uniqid()}>
-                <a
-                  css={styles.langListLink}
-                  href="/"
-                  onClick={langChangeHandler}
-                >
-                  {el.toUpperCase()}
-                </a>
-              </li>
+              <ListItem
+                key={uniqid()}
+                langChangeHandler={langChangeHandler}
+                localeString={el}
+              />
             );
           })
         ) : (
-          <li css={styles.langListItem}>
-            <a css={styles.langListLink} href="/" onClick={langChangeHandler}>
-              {chosenLang}
-            </a>
-          </li>
+          <ListItem
+            langChangeHandler={langChangeHandler}
+            localeString={chosenLang}
+          />
         )}
       </ul>
     </div>

@@ -6,7 +6,16 @@ import SubCurrency from "components/Display/SubCurrencies/SubCurrency";
 
 import { styles } from "./styles";
 
-export default function SubCurrenciesDisplay({ subCurrenciesArr, isLoading }) {
+const initialSubCurrenciesArr = [
+  { name: "EUR", value: "0.00" },
+  { name: "UAH", value: "0.00" },
+  { name: "RUB", value: "0.00" },
+];
+
+export default function SubCurrenciesDisplay({
+  subCurrenciesArr = initialSubCurrenciesArr,
+  isLoading,
+}) {
   return (
     <div css={styles.mainContainer}>
       {subCurrenciesArr.map((el) => (
@@ -29,12 +38,4 @@ SubCurrenciesDisplay.propTypes = {
     })
   ),
   isLoading: PropTypes.bool,
-};
-
-SubCurrenciesDisplay.defaultProps = {
-  subCurrenciesArr: [
-    { name: "EUR", value: "0.00" },
-    { name: "UAH", value: "0.00" },
-    { name: "RUB", value: "0.00" },
-  ],
 };

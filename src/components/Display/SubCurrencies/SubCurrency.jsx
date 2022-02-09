@@ -5,7 +5,11 @@ import SkeletonLoader from "components/UI/SkeletonLoader";
 
 import { styles } from "./styles";
 
-export default function SubCurrency({ name, value, isLoading }) {
+export default function SubCurrency({
+  name = "USD",
+  value = "0.00",
+  isLoading = false,
+}) {
   return (
     <div css={styles.subCurrencyContainer}>
       <div css={styles.subCurrencyTitlte}>{name}</div>
@@ -20,10 +24,4 @@ SubCurrency.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
   isLoading: PropTypes.bool,
-};
-
-SubCurrency.defaultProps = {
-  name: "USD",
-  value: "0.00",
-  isLoading: false,
 };

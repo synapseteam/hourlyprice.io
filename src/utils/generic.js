@@ -1,3 +1,5 @@
+import { currenciesSymbols } from "configure";
+
 const MINUTES_IN_HOUR = 60;
 const DECIMAL_SIGNS_FOR_RATES = 4;
 const DECIMAL_SIGNS_FOR_PRICE = 2;
@@ -60,4 +62,19 @@ export function handlePriceChange(e) {
   e.target.value = updatedValue;
 
   return updatedValue;
+}
+
+export function transformRatesResponse(ratesResponse) {
+  const ratesToArr = Object.entries(ratesResponse);
+  return ratesToArr.map((currency) => {
+    const [name, rate] = currency;
+    const { symbol } =
+      currenciesSymbols.find((currencyObj) => currencyObj.name === name) || "$";
+
+    return {
+      name,
+      symbol,
+      rate: Number(rate),
+    };
+  });
 }
