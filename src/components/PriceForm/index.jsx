@@ -51,11 +51,11 @@ export default function PriceForm() {
   function handleListChange(e) {
     const { name, value } = e.target;
     if (name === "currency") {
-      setChosenCurrency((prev) => value);
+      setChosenCurrency(() => value);
       setValue(value, 1);
     }
     if (name === "ratesSource") {
-      setChosenRatesSource((prev) => value);
+      setChosenRatesSource(() => value);
     }
     return;
   }
@@ -75,10 +75,10 @@ export default function PriceForm() {
 
   useEffect(() => {
     if (ratesSource === "Manual") {
-      setkeepAPIRatesCache((prev) => false);
+      setkeepAPIRatesCache(() => false);
     }
     if (ratesSource === "MasterCard") {
-      setkeepAPIRatesCache((prev) => true);
+      setkeepAPIRatesCache(() => true);
     }
   }, [ratesSource]);
 
@@ -99,7 +99,6 @@ export default function PriceForm() {
 
     if (ratesSource === "Manual") {
       const newRates = transformRatesResponse(manualRates);
-      console.log(newRates);
       dispatch(setManualRates(newRates));
     }
 

@@ -6,12 +6,7 @@ import { handlePriceChange } from "utils/generic";
 
 import { styles } from "./styles";
 
-export default function RatesInputSet({
-  register,
-  chosenCurrency,
-  allCurrencies,
-  errors,
-}) {
+export default function RatesInputSet({ register, allCurrencies }) {
   const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
 
   return (

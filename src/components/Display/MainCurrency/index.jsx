@@ -6,8 +6,10 @@ import SkeletonLoader from "components/UI/SkeletonLoader";
 
 import { styles } from "./styles";
 
+const initSum = 0.0;
+
 export default function MainCurrencyDisplay({
-  sum = 0.0,
+  sum = initSum,
   currency = "USD",
   isLoading = false,
 }) {

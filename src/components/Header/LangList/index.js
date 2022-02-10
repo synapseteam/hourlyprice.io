@@ -14,14 +14,14 @@ export default function LangList() {
     e.preventDefault();
 
     if (!isListShown) {
-      setisListShown((prev) => true);
+      setisListShown(() => true);
     }
 
     if (isListShown) {
       const value = e.target.innerText.toLowerCase();
       changeLanguage(value);
-      setisListShown((prev) => false);
-      setChosenLang((prev) => value.toUpperCase());
+      setisListShown(() => false);
+      setChosenLang(() => value.toUpperCase());
     }
   };
 
