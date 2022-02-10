@@ -1,6 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
-import * as inputStyles from "components/UI/sharedStylesEmotion/styledInput";
 
 export const styles = {
   ratesInputsContainer: css`
@@ -9,13 +7,16 @@ export const styles = {
     width: 100%;
   `,
 
-  ratesInput: css`
-    ${inputStyles.styles.input}
+  ratesInput: (theme) => css`
+    background-color: ${theme.inputBgColor};
+    border: ${theme.inputBorder};
+    border-radius: 0.3rem;
+    color: ${theme.denary};
+    padding: 0.8rem 1rem;
+    margin-top: 0.4rem;
     width: 22%;
     margin-top: 1.6rem;
+
+    outline: none;
   `,
-  ratesInputLight: css`
-    ${inputStyles.styles.inputLight}
-  `,
-  getStyle,
 };

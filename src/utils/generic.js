@@ -1,3 +1,5 @@
+import { currenciesSymbols } from "configure";
+
 const MINUTES_IN_HOUR = 60;
 const DECIMAL_SIGNS_FOR_RATES = 4;
 const DECIMAL_SIGNS_FOR_PRICE = 2;
@@ -62,12 +64,17 @@ export function handlePriceChange(e) {
   return updatedValue;
 }
 
-export function getStyle(mode = true, element) {
-  if (mode) {
-    return this[element].styles;
-  }
+export function transformRatesResponse(ratesResponse) {
+  const ratesToArr = Object.entries(ratesResponse);
+  return ratesToArr.map((currency) => {
+    const [name, rate] = currency;
+    const { symbol } =
+      currenciesSymbols.find((currencyObj) => currencyObj.name === name) || "$";
 
-  const lightThemeStyles = this[`${element}Light`]?.styles || "";
-
-  return this[element].styles + lightThemeStyles;
+    return {
+      name,
+      symbol,
+      rate: Number(rate),
+    };
+  });
 }

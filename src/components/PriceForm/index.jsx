@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import PropTypes from "prop-types";
 
 import Input from "components/UI/Input";
 import Select from "components/UI/Select";
@@ -18,12 +17,12 @@ import {
   handlePriceChange,
 } from "utils/generic";
 import { ratesUpdatingTimeFrame } from "configure";
-import { useAppThemeContext } from "context/AppContext";
 import { useCustomTranslation } from "i18n";
+import { transformRatesResponse } from "utils/generic";
 
 import { styles } from "./styles";
 
-export default function PriceForm({ children }) {
+export default function PriceForm() {
   const {
     register,
     handleSubmit,
@@ -32,9 +31,6 @@ export default function PriceForm({ children }) {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
-  const [context] = useAppThemeContext();
-  const darkMode = context.darkMode;
 
   const [t] = useCustomTranslation();
 
@@ -55,11 +51,11 @@ export default function PriceForm({ children }) {
   function handleListChange(e) {
     const { name, value } = e.target;
     if (name === "currency") {
-      setChosenCurrency((prev) => value);
+      setChosenCurrency(() => value);
       setValue(value, 1);
     }
     if (name === "ratesSource") {
-      setChosenRatesSource((prev) => value);
+      setChosenRatesSource(() => value);
     }
     return;
   }
@@ -79,10 +75,10 @@ export default function PriceForm({ children }) {
 
   useEffect(() => {
     if (ratesSource === "Manual") {
-      setkeepAPIRatesCache((prev) => false);
+      setkeepAPIRatesCache(() => false);
     }
     if (ratesSource === "MasterCard") {
-      setkeepAPIRatesCache((prev) => true);
+      setkeepAPIRatesCache(() => true);
     }
   }, [ratesSource]);
 
@@ -102,7 +98,8 @@ export default function PriceForm({ children }) {
     }
 
     if (ratesSource === "Manual") {
-      dispatch(setManualRates(manualRates));
+      const newRates = transformRatesResponse(manualRates);
+      dispatch(setManualRates(newRates));
     }
 
     dispatch(submitFieldsData({ price, time, currency }));
@@ -117,10 +114,7 @@ export default function PriceForm({ children }) {
   }, [chosenCurrency]);
 
   return (
-    <form
-      css={() => styles.getStyle(darkMode, "form")}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form css={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <Input
           inputName="price"
@@ -129,7 +123,6 @@ export default function PriceForm({ children }) {
           placeholder="20.30"
           changeHandler={handlePriceChange}
           errors={errors}
-          darkMode={darkMode}
         />
         <Input
           inputName="time"
@@ -138,7 +131,6 @@ export default function PriceForm({ children }) {
           placeholder={t("timePlaceholder")}
           changeHandler={handleTimeChange}
           errors={errors}
-          darkMode={darkMode}
         />
         <Select
           labelName={t("labelCurrency")}
@@ -148,7 +140,6 @@ export default function PriceForm({ children }) {
           value={chosenCurrency}
           optionsArr={allCurrenciesNames}
           errors={errors}
-          darkMode={darkMode}
         />
         <Select
           labelName={t("labelExchangeRate")}
@@ -158,7 +149,6 @@ export default function PriceForm({ children }) {
           value={chosenRatesSource}
           optionsArr={ratesSources}
           errors={errors}
-          darkMode={darkMode}
         />
         {chosenRatesSource === "Manual" && (
           <RatesInputSet
@@ -166,7 +156,6 @@ export default function PriceForm({ children }) {
             allCurrencies={allCurrencies}
             chosenCurrency={chosenCurrency}
             errors={errors}
-            darkMode={darkMode}
           />
         )}
         <Button />
@@ -174,11 +163,3 @@ export default function PriceForm({ children }) {
     </form>
   );
 }
-
-PriceForm.propTypes = {
-  id: PropTypes.string,
-};
-
-PriceForm.defaultProps = {
-  id: "calc-form",
-};

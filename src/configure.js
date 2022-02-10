@@ -17,3 +17,10 @@ export const errorsMessages = {
 export const ratesUpdatingTimeFrame = 60 * 3;
 
 export const ratesSources = ["MasterCard", "Manual"];
+
+export const currenciesSymbols = [
+  { name: "USD", symbol: "$" },
+  { name: "EUR", symbol: "€" },
+  { name: "UAH", symbol: "₴" },
+  { name: "RUB", symbol: "₽" },
+];

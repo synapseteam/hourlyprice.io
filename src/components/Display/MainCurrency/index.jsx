@@ -1,29 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
-import SkeletonLoader from "components/UI/SkeleotonLoaders/SkeletonLoader";
+import SkeletonLoader from "components/UI/SkeletonLoader";
 
 import { styles } from "./styles";
 
+const initSum = 0.0;
+
 export default function MainCurrencyDisplay({
-  sum,
-  currency,
-  isLoading,
-  darkMode,
+  sum = initSum,
+  currency = "USD",
+  isLoading = false,
 }) {
   const [t] = useCustomTranslation();
   return (
     <>
-      <h2 css={() => styles.getStyle(darkMode, "title")}>{t("totalPrice")}</h2>
-      <div css={() => styles.getStyle(darkMode, "mainContainer")}>
+      <h2 css={styles.title}>{t("totalPrice")}</h2>
+      <div css={styles.mainContainer}>
         {isLoading ? (
           <SkeletonLoader size="l" />
         ) : (
-          <p
-            css={() => styles.getStyle(darkMode, "sum")}
-          >{`${sum}${currency}`}</p>
+          <p css={styles.sum}>{`${sum}${currency}`}</p>
         )}
       </div>
     </>
@@ -34,12 +32,4 @@ MainCurrencyDisplay.propTypes = {
   sum: PropTypes.string,
   currency: PropTypes.string,
   isLoading: PropTypes.bool,
-  darkMode: PropTypes.bool,
-};
-
-MainCurrencyDisplay.defaultProps = {
-  sum: 0.0,
-  currency: "USD",
-  isLoading: false,
-  darkMode: true,
 };

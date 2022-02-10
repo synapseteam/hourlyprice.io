@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import { useSelector } from "react-redux";
 
 import SubCurrenciesDisplay from "components/Display/SubCurrencies";
 import MainCurrencyDisplay from "components/Display/MainCurrency/";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
-import { useAppThemeContext } from "context/AppContext";
 import { useCustomTranslation } from "i18n";
 
 import { styles } from "./styles";
@@ -18,8 +16,6 @@ export default function Display() {
   const isLoading = useSelector((state) => state.main.isLoading);
 
   const isRequestError = useSelector((state) => state.main.ratesRequestErr);
-
-  const [context] = useAppThemeContext();
 
   const [t] = useCustomTranslation();
 
@@ -60,26 +56,21 @@ export default function Display() {
 
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
-  const darkMode = context.darkMode;
-
   return (
-    <div css={() => styles.getStyle(darkMode, "display")}>
+    <div css={styles.display}>
       {isRequestError && <p>{t("badRequestApi")}</p>}
       <MainCurrencyDisplay
         currency={mainCurrencyData.symbol}
         sum={mainCurrencySum}
         isLoading={isLoading}
-        darkMode={darkMode}
       />
       <SubCurrenciesDisplay
         subCurrenciesArr={subCurrenciesArr}
         isLoading={isLoading}
-        darkMode={darkMode}
       />
       <SubCurrenciesRatesDisplay
         allCurrencies={allCurrencies}
         currency={currency}
-        darkMode={darkMode}
       />
     </div>
   );

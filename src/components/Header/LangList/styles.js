@@ -1,26 +1,13 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
-
-import {
-  purple,
-  darkPurple,
-  darkGrey,
-  white,
-  brightGrey,
-} from "components/UI/sharedStylesEmotion/colors";
 
 export const styles = {
-  langContainer: css`
+  langContainer: (theme) => css`
     position: absolute;
     top: 0;
     left: -200%;
-    background-color: ${purple};
-    border: 1px solid ${darkPurple};
+    background-color: ${theme.octonary};
+    border: ${theme.langListBorder};
     border-radius: 0.4rem;
-  `,
-  langContainerLight: css`
-    background-color: ${brightGrey};
-    border: none;
   `,
   langList: css`
     display: flex;
@@ -32,12 +19,8 @@ export const styles = {
     list-style: none;
     padding: 0.3rem;
   `,
-  langListLink: css`
+  langListLink: (theme) => css`
     text-decoration: none;
-    color: ${white};
+    color: ${theme.senary};
   `,
-  langListLinkLight: css`
-    color: ${darkGrey};
-  `,
-  getStyle,
 };

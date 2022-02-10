@@ -1,21 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import PropTypes from "prop-types";
-
-import { useAppThemeContext } from "context/AppContext";
 
 import { styles } from "./styles";
 
-export default function Footer({ companyName, companyUrl }) {
+export default function Footer({
+  companyName = "Synapse Team LLC",
+  companyUrl = "https://synapseteam.com",
+}) {
   const currentYear = new Date().getFullYear();
 
-  const [{ darkMode }] = useAppThemeContext();
-
   return (
-    <footer css={() => styles.getStyle(darkMode, "footer")}>
-      <p css={() => styles.getStyle(darkMode, "footerText")}>
+    <footer css={styles.footer}>
+      <p css={styles.footerText}>
         <a
-          css={() => styles.getStyle(darkMode, "footerLink")}
+          css={styles.footerLink}
           href={companyUrl}
           target="_blank"
           rel="noreferrer"
@@ -28,9 +26,4 @@ export default function Footer({ companyName, companyUrl }) {
 Footer.propTypes = {
   companyName: PropTypes.string,
   companyUrl: PropTypes.string,
-};
-
-Footer.defaultProps = {
-  companyName: "Synapse Team LLC",
-  companyUrl: "https://synapseteam.com",
 };

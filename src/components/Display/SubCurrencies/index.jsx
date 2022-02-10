@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import PropTypes from "prop-types";
 import uniqid from "uniqid";
 
@@ -7,19 +6,23 @@ import SubCurrency from "components/Display/SubCurrencies/SubCurrency";
 
 import { styles } from "./styles";
 
+const initialSubCurrenciesArr = [
+  { name: "EUR", value: "0.00" },
+  { name: "UAH", value: "0.00" },
+  { name: "RUB", value: "0.00" },
+];
+
 export default function SubCurrenciesDisplay({
-  subCurrenciesArr,
+  subCurrenciesArr = initialSubCurrenciesArr,
   isLoading,
-  darkMode,
 }) {
   return (
-    <div css={() => styles.getStyle(darkMode, "mainContainer")}>
+    <div css={styles.mainContainer}>
       {subCurrenciesArr.map((el) => (
         <SubCurrency
           name={el.name}
           value={el.value || 0}
           key={uniqid()}
-          darkMode={darkMode}
           isLoading={isLoading}
         />
       ))}
@@ -35,14 +38,4 @@ SubCurrenciesDisplay.propTypes = {
     })
   ),
   isLoading: PropTypes.bool,
-  darkMode: PropTypes.bool,
-};
-
-SubCurrenciesDisplay.defaultProps = {
-  subCurrenciesArr: [
-    { name: "EUR", value: "0.00" },
-    { name: "UAH", value: "0.00" },
-    { name: "RUB", value: "0.00" },
-  ],
-  darkMode: true,
 };

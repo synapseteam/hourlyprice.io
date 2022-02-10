@@ -1,5 +1,6 @@
 import { toggleLoadingStatus, setRequestErr } from "store/actions/generic";
 import { ratesDataAPI } from "api/api";
+import { transformRatesResponse } from "utils/generic";
 
 export const SET_NEW_RATES = "SET_NEW_RATES";
 export const SET_MANUAL_RATES = "SET_MANUAL_RATES";
@@ -17,8 +18,17 @@ export const getNewRatesThunkCreator = () => {
     dispatch(toggleLoadingStatus());
     ratesDataAPI
       .getRates()
-      .then((newRatesObj) => {
-        dispatch(setNewRates({ ...newRatesObj, ratesSource: "MasterCard" }));
+      .then((ratesResponse) => {
+        const newRates = [
+          ...transformRatesResponse(ratesResponse),
+          { name: "USD", rate: 1, symbol: "$" },
+        ];
+        dispatch(
+          setNewRates({
+            newRates,
+            ratesSource: "MasterCard",
+          })
+        );
       })
       .catch((err) => {
         dispatch(setRequestErr(true));

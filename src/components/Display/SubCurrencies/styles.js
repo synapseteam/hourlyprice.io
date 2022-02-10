@@ -1,7 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
-
-import { blue, darkGrey } from "components/UI/sharedStylesEmotion/colors.js";
 
 export const styles = {
   mainContainer: css`
@@ -17,16 +14,12 @@ export const styles = {
     flex-direction: column;
     align-items: center;
   `,
-  subCurrencyTitlte: css`
-    color: ${blue};
+  subCurrencyTitlte: (theme) => css`
+    color: ${theme.secondary};
     font-size: 0.8rem;
-  `,
-  subCurrencyTitlteLight: css`
-    color: ${darkGrey};
   `,
   subCurrencySum: css`
     margin-top: 0.4rem;
     font-weight: 700;
   `,
-  getStyle,
 };

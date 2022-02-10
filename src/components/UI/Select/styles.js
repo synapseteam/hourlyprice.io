@@ -1,33 +1,27 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
-import * as labelStyles from "components/UI/sharedStylesEmotion/styledLabel";
-
-import {
-  darkPurple,
-  white,
-  lightPurple,
-  lightGrey,
-} from "components/UI/sharedStylesEmotion/colors";
 
 export const styles = {
-  ...labelStyles.styles,
-  select: css`
-    background-color: ${darkPurple};
-    border: 1px solid ${lightPurple};
+  label: (theme) => css`
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+    color: ${theme.labelColor};
+    margin-top: 0.8rem;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  `,
+  select: (theme) => css`
+    background: ${theme.inputBgColor};
+    border: ${theme.inputBorder};
     border-radius: 0.3rem;
-    color: ${white};
+    color: ${theme.denary};
     padding: 0.8rem 1rem;
     margin-top: 0.4rem;
-    -moz-appearance: none; /* Firefox */
-    -webkit-appearance: none; /* Safari and Chrome */
+
+    outline: none;
+
     appearance: none;
   `,
-  selectLight: css`
-    background-color: ${white};
-    border: 1px solid ${lightGrey};
-    border-radius: 0.3rem;
-    color: ${darkPurple};
-    outline: none;
-  `,
-  getStyle,
 };

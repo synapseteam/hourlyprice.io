@@ -1,15 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
 
 import { styles } from "./styles";
 
-export default function SubCurrenciesRatesDisplay({
-  allCurrencies,
-  currency,
-  darkMode,
-}) {
+export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
   const basicRate = allCurrencies.find((el) => el.name === currency)?.rate;
 
   const subCurrenciesRatesArr = allCurrencies
@@ -21,16 +16,12 @@ export default function SubCurrenciesRatesDisplay({
 
   const lastElIndex = subCurrenciesRatesArr.length - 1;
   return (
-    <div css={() => styles.getStyle(darkMode, "ratesContainer")}>
+    <div css={styles.ratesContainer}>
       {subCurrenciesRatesArr.map((el, i) => {
         return (
-          <p css={() => styles.getStyle(darkMode, "rateText")} key={uniqid()}>
+          <p css={styles.rateText} key={uniqid()}>
             {`${el.symbol}${el.crossRate}`}
-            {i !== lastElIndex && (
-              <span css={() => styles.getStyle(darkMode, "ratesDelimiter")}>
-                /
-              </span>
-            )}
+            {i !== lastElIndex && <span css={styles.ratesDelimiter}>/</span>}
           </p>
         );
       })}
@@ -41,9 +32,4 @@ export default function SubCurrenciesRatesDisplay({
 SubCurrenciesRatesDisplay.propTypes = {
   allCurrencies: PropTypes.arrayOf(PropTypes.object),
   currency: PropTypes.string,
-  darkMode: PropTypes.bool,
-};
-
-SubCurrenciesRatesDisplay.defaultProps = {
-  darkMode: true,
 };

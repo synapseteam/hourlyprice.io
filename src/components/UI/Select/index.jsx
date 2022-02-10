@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import uniqid from "uniqid";
 import PropTypes from "prop-types";
 
@@ -15,14 +14,13 @@ export default function Select({
   optionsArr,
   value,
   errors,
-  darkMode,
 }) {
   return (
     <>
-      <label css={() => styles.getStyle(darkMode, "label")}>
+      <label css={styles.label}>
         {labelName}:
         <select
-          css={() => styles.getStyle(darkMode, "select")}
+          css={styles.select}
           {...register(inputName)}
           onChange={changeHandler}
           value={value}
@@ -49,9 +47,4 @@ Select.propTypes = {
   errors: PropTypes.object,
   value: PropTypes.string,
   optionsArr: PropTypes.arrayOf(PropTypes.string),
-  darkMode: PropTypes.bool,
-};
-
-Select.defaultProps = {
-  darkMode: true,
 };

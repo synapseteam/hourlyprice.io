@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { getStyle } from "utils/generic";
 
 export const styles = {
   form: css`
@@ -13,5 +12,4 @@ export const styles = {
       width: 47%;
     }
   `,
-  getStyle,
 };

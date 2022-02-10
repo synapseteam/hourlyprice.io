@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
@@ -13,16 +12,15 @@ export default function Input({
   changeHandler,
   inputName,
   errors,
-  darkMode,
 }) {
   const [t] = useCustomTranslation();
 
   return (
     <>
-      <label css={() => styles.getStyle(darkMode, "label")}>
+      <label css={styles.label}>
         {labelName}:
         <input
-          css={() => styles.getStyle(darkMode, "input")}
+          css={styles.input}
           {...register(inputName)}
           type="text"
           inputMode="decimal"
@@ -31,9 +29,7 @@ export default function Input({
           onChange={changeHandler}
         />
         {errors[inputName] && (
-          <p css={() => styles.getStyle(darkMode, "error")}>
-            {t(inputName + "Error")}
-          </p>
+          <p css={styles.error}>{t(inputName + "Error")}</p>
         )}
       </label>
     </>
@@ -47,9 +43,4 @@ Input.propTypes = {
   changeHandler: PropTypes.func,
   inputName: PropTypes.string,
   errors: PropTypes.object,
-  darkMode: PropTypes.bool,
-};
-
-Input.defaultProps = {
-  darkMode: true,
 };
