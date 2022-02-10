@@ -1,6 +1,9 @@
-import { toggleLoadingStatus, setRequestErr } from "store/actions/generic";
 import { ratesDataAPI } from "api/api";
 import { transformRatesResponse } from "utils/generic";
+import {
+  toggleIsLoading,
+  setRequestErr as setRequestErr2,
+} from "features/generic";
 
 export const SET_NEW_RATES = "SET_NEW_RATES";
 export const SET_MANUAL_RATES = "SET_MANUAL_RATES";
@@ -15,7 +18,7 @@ export const setManualRates = (manualRatesData) => {
 
 export const getNewRatesThunkCreator = () => {
   return (dispatch) => {
-    dispatch(toggleLoadingStatus());
+    dispatch(toggleIsLoading());
     ratesDataAPI
       .getRates()
       .then((ratesResponse) => {
@@ -31,11 +34,11 @@ export const getNewRatesThunkCreator = () => {
         );
       })
       .catch((err) => {
-        dispatch(setRequestErr(true));
+        dispatch(setRequestErr2(true));
         throw new Error(`Rates were not updated 🥲. ${err}`);
       })
       .finally(() => {
-        dispatch(toggleLoadingStatus());
+        dispatch(toggleIsLoading());
       });
   };
 };

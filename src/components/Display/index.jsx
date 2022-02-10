@@ -9,13 +9,15 @@ import { useCustomTranslation } from "i18n";
 import { styles } from "./styles";
 
 export default function Display() {
-  const { price, time, currency } = useSelector((state) => state.main.fields);
+  const { price, time, currency } = useSelector(
+    (state) => state.generic.fields
+  );
 
-  const allCurrencies = useSelector((state) => state.rates.allCurrencies);
+  const allCurrencies = useSelector((state) => state.root.rates.allCurrencies);
 
-  const isLoading = useSelector((state) => state.main.isLoading);
+  const isLoading = useSelector((state) => state.generic.isLoading);
 
-  const isRequestError = useSelector((state) => state.main.ratesRequestErr);
+  const isRequestError = useSelector((state) => state.generic.ratesRequestErr);
 
   const [t] = useCustomTranslation();
 

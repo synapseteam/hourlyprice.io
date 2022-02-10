@@ -8,7 +8,6 @@ import Input from "components/UI/Input";
 import Select from "components/UI/Select";
 import RatesInputSet from "components/PriceForm/RatesInputSet";
 import Button from "components/UI/Button";
-import { submitFieldsData, setRequestErr } from "store/actions/generic";
 import { getNewRatesThunkCreator, setManualRates } from "store/actions/rates";
 import { formSchema, ratesSources } from "configure";
 import {
@@ -19,6 +18,11 @@ import {
 import { ratesUpdatingTimeFrame } from "configure";
 import { useCustomTranslation } from "i18n";
 import { transformRatesResponse } from "utils/generic";
+import {
+  modifyFields,
+  setRequestErr as setRequestErr2,
+} from "features/generic";
+import { fetchRates } from "features/rates";
 
 import { styles } from "./styles";
 
@@ -34,10 +38,12 @@ export default function PriceForm() {
 
   const [t] = useCustomTranslation();
 
-  const allCurrencies = useSelector((state) => state.rates.allCurrencies);
-  const ratesSource = useSelector((state) => state.rates.ratesSource);
+  const milisecondsInOneSecond = 1000;
+
+  const allCurrencies = useSelector((state) => state.root.rates.allCurrencies);
+  const ratesSource = useSelector((state) => state.root.rates.ratesSource);
   const timeStampCurrenciesUpdated = useSelector(
-    (state) => state.rates.updatedAt
+    (state) => state.root.rates.updatedAt
   );
   const allCurrenciesNames = allCurrencies.map((el) => el.name);
 
@@ -63,13 +69,14 @@ export default function PriceForm() {
   function updateRatesIfCacheExpired() {
     const timeStampNow = new Date();
     const timePassAfterRatesUpdated =
-      (timeStampNow - timeStampCurrenciesUpdated) / 1000;
+      (timeStampNow - timeStampCurrenciesUpdated) / milisecondsInOneSecond;
 
     if (
       timePassAfterRatesUpdated >= ratesUpdatingTimeFrame ||
       !keepAPIRatesCache
     ) {
       dispatch(getNewRatesThunkCreator());
+      dispatch(fetchRates());
     }
   }
 
@@ -89,7 +96,7 @@ export default function PriceForm() {
     ratesSource,
     ...manualRates
   }) => {
-    dispatch(setRequestErr(false));
+    dispatch(setRequestErr2(false));
 
     const time = convertStrTimeToNum(timeString);
 
@@ -102,7 +109,7 @@ export default function PriceForm() {
       dispatch(setManualRates(newRates));
     }
 
-    dispatch(submitFieldsData({ price, time, currency }));
+    dispatch(modifyFields({ price, time, currency }));
   };
 
   useEffect(() => {
