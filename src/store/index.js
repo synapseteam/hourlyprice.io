@@ -9,6 +9,3 @@ export const store = configureStore({
     rates: ratesSlice.reducer,
   },
 });
-
-export * from "store/reducers";
-export * from "store/actions";
