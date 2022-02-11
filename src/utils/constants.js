@@ -20,3 +20,5 @@ export const SKELETON_HEIGHT_M = 18;
 export const SKELETON_HEIGHT_L = 110;
 export const SKELETOIN_BORDER_RADIUS_M = 4;
 export const SKELETOIN_BORDER_RADIUS_L = 12;
+
+export const ROUTES_HOME = "/";
