@@ -36,8 +36,14 @@ export const ratesSlice = createSlice({
   },
   extraReducers: {
     [fetchRates.fulfilled]: (state, action) => {
-      console.log("from rtk", action.payload);
+      const newPayload = [
+        ...transformRatesResponse(action.payload),
+        { name: "USD", rate: 1, symbol: "$" },
+      ];
+      state.allCurrencies = newPayload;
+      state.updatedAt = String(new Date());
     },
-    [fetchRates.pending]: () => {},
   },
 });
+
+export const { setNewRates, setManualRates } = ratesSlice.actions;

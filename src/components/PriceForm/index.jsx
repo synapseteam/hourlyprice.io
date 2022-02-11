@@ -8,7 +8,6 @@ import Input from "components/UI/Input";
 import Select from "components/UI/Select";
 import RatesInputSet from "components/PriceForm/RatesInputSet";
 import Button from "components/UI/Button";
-import { getNewRatesThunkCreator, setManualRates } from "store/actions/rates";
 import { formSchema, ratesSources } from "configure";
 import {
   convertStrTimeToNum,
@@ -18,11 +17,10 @@ import {
 import { ratesUpdatingTimeFrame } from "configure";
 import { useCustomTranslation } from "i18n";
 import { transformRatesResponse } from "utils/generic";
-import {
-  modifyFields,
-  setRequestErr as setRequestErr2,
-} from "features/generic";
+import { modifyFields, setRequestErr } from "features/generic";
 import { fetchRates } from "features/rates";
+import { setManualRates as setManualRates2 } from "features/rates";
+import { MILISEC_IN_ONE_SEC } from "utils/constants";
 
 import { styles } from "./styles";
 
@@ -38,12 +36,10 @@ export default function PriceForm() {
 
   const [t] = useCustomTranslation();
 
-  const milisecondsInOneSecond = 1000;
-
-  const allCurrencies = useSelector((state) => state.root.rates.allCurrencies);
-  const ratesSource = useSelector((state) => state.root.rates.ratesSource);
+  const allCurrencies = useSelector((state) => state.rates.allCurrencies);
+  const ratesSource = useSelector((state) => state.rates.ratesSource);
   const timeStampCurrenciesUpdated = useSelector(
-    (state) => state.root.rates.updatedAt
+    (state) => state.rates.updatedAt
   );
   const allCurrenciesNames = allCurrencies.map((el) => el.name);
 
@@ -58,6 +54,7 @@ export default function PriceForm() {
     const { name, value } = e.target;
     if (name === "currency") {
       setChosenCurrency(() => value);
+      // eslint-disable-next-line no-magic-numbers
       setValue(value, 1);
     }
     if (name === "ratesSource") {
@@ -69,13 +66,12 @@ export default function PriceForm() {
   function updateRatesIfCacheExpired() {
     const timeStampNow = new Date();
     const timePassAfterRatesUpdated =
-      (timeStampNow - timeStampCurrenciesUpdated) / milisecondsInOneSecond;
+      (timeStampNow - timeStampCurrenciesUpdated) / MILISEC_IN_ONE_SEC;
 
     if (
       timePassAfterRatesUpdated >= ratesUpdatingTimeFrame ||
       !keepAPIRatesCache
     ) {
-      dispatch(getNewRatesThunkCreator());
       dispatch(fetchRates());
     }
   }
@@ -96,7 +92,7 @@ export default function PriceForm() {
     ratesSource,
     ...manualRates
   }) => {
-    dispatch(setRequestErr2(false));
+    dispatch(setRequestErr(false));
 
     const time = convertStrTimeToNum(timeString);
 
@@ -106,7 +102,7 @@ export default function PriceForm() {
 
     if (ratesSource === "Manual") {
       const newRates = transformRatesResponse(manualRates);
-      dispatch(setManualRates(newRates));
+      dispatch(setManualRates2(newRates));
     }
 
     dispatch(modifyFields({ price, time, currency }));
@@ -117,6 +113,7 @@ export default function PriceForm() {
     setValue("RUB", "");
     setValue("EUR", "");
     setValue("USD", "");
+    // eslint-disable-next-line no-magic-numbers
     setValue(chosenCurrency, 1);
   }, [chosenCurrency]);
 

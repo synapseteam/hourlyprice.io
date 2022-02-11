@@ -1,6 +1,6 @@
 import * as axios from "axios";
 
-const API_KEY = "6d3e6140-413a-11ec-8fa2-6b878c6b77da";
+import { SUCCESS_RES_CODE } from "utils/constants";
 
 const instance = axios.create({
   baseURL: "https://freecurrencyapi.net/api/v2/",
@@ -8,8 +8,8 @@ const instance = axios.create({
 
 export const ratesDataAPI = {
   getRates() {
-    return instance.get(`latest?apikey=${API_KEY}`).then((res) => {
-      if (res.status === 200) {
+    return instance.get(`latest?apikey=${process.env.API_KEY}`).then((res) => {
+      if (res.status === SUCCESS_RES_CODE) {
         const { EUR, RUB, UAH } = res.data.data;
 
         return { EUR, RUB, UAH };

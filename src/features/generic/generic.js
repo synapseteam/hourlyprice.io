@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchRates } from "features/rates";
 
 const initialState = {
   fields: {
@@ -25,6 +26,18 @@ export const genericSlice = createSlice({
     },
     clearFields: (state) => {
       state.fields = initialState.fields;
+    },
+  },
+  extraReducers: {
+    [fetchRates.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchRates.rejected]: (state) => {
+      state.ratesRequestErr = true;
+      state.isLoading = false;
+    },
+    [fetchRates.fulfilled]: (state) => {
+      state.isLoading = false;
     },
   },
 });

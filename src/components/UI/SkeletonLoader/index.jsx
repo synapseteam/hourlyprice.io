@@ -3,16 +3,30 @@ import { useTheme } from "@emotion/react";
 import ContentLoader from "react-content-loader";
 import PropTypes from "prop-types";
 
+import {
+  CANVAS_WIDTH_M,
+  CANVAS_WIDTH_L,
+  CANVAS_HEIGHT_M,
+  CANVAS_HEIGHT_L,
+  SKELETON_WIDTH_M,
+  SKELETON_WIDTH_L,
+  SKELETON_HEIGHT_M,
+  SKELETON_HEIGHT_L,
+  SKELETOIN_BORDER_RADIUS_M,
+  SKELETOIN_BORDER_RADIUS_L,
+} from "utils/constants";
+
 import { styles } from "./styles";
 
 const SkeletonLoader = ({ size, ...props }) => {
   const theme = useTheme();
 
-  const canvasWidth = size === "l" ? 200 : 80;
-  const canvasHeight = size === "l" ? 110 : 18;
-  const skeletonWidth = size === "l" ? 95 : 80;
-  const skeletonHeight = size === "l" ? 110 : 18;
-  const borderRadius = size === "l" ? 12 : 4;
+  const canvasWidth = size === "l" ? CANVAS_WIDTH_L : CANVAS_WIDTH_M;
+  const canvasHeight = size === "l" ? CANVAS_HEIGHT_L : CANVAS_HEIGHT_M;
+  const skeletonWidth = size === "l" ? SKELETON_WIDTH_L : SKELETON_WIDTH_M;
+  const skeletonHeight = size === "l" ? SKELETON_HEIGHT_L : SKELETON_HEIGHT_M;
+  const borderRadius =
+    size === "l" ? SKELETOIN_BORDER_RADIUS_L : SKELETOIN_BORDER_RADIUS_M;
 
   return (
     <ContentLoader
