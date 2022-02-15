@@ -10,7 +10,7 @@ export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
   const basicRate = allCurrencies.find((el) => el.name === currency)?.rate;
 
   const subCurrenciesRatesArr = allCurrencies
-    .filter((el) => el.name !== currency && el.rate !== "")
+    .filter((el) => el.name !== currency && el.rate)
     .map((el) => ({
       symbol: el.symbol,
       crossRate: (el.rate / basicRate).toFixed(DECIMAL_SIGNS_FOR_RATES),
