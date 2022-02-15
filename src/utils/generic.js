@@ -1,9 +1,11 @@
 import { currenciesSymbols } from "configure";
-
-const MINUTES_IN_HOUR = 60;
-const DECIMAL_SIGNS_FOR_RATES = 4;
-const DECIMAL_SIGNS_FOR_PRICE = 2;
-const SIGNS_FOR_MINUTES_FORMAT = 2;
+import {
+  ZERO_VAL,
+  MINUTES_IN_HOUR,
+  DECIMAL_SIGNS_FOR_RATES,
+  DECIMAL_SIGNS_FOR_PRICE,
+  SIGNS_FOR_MINUTES_FORMAT,
+} from "utils/constants";
 
 export function convertStrTimeToNum(timeString) {
   const normalizedTime = timeString.split(":");
@@ -13,6 +15,7 @@ export function convertStrTimeToNum(timeString) {
   if (!minutes) return Number(hours);
 
   const minutesConvertedTrunced =
+    // eslint-disable-next-line no-magic-numbers
     Math.floor((minutes / MINUTES_IN_HOUR) * 1000) / 1000; //1000 used as multyplier and divider to convert decimal number to the integer and getting a proper Math.floor result.
 
   return Number(hours) + Number(minutesConvertedTrunced);
@@ -27,7 +30,10 @@ export function handleTimeChange(e) {
   const [hours, minutes] = minutesLimited.split(":");
 
   if (minutes?.length >= SIGNS_FOR_MINUTES_FORMAT) {
-    e.target.value = `${hours}:${minutes.slice(0, SIGNS_FOR_MINUTES_FORMAT)}`;
+    e.target.value = `${hours}:${minutes.slice(
+      ZERO_VAL,
+      SIGNS_FOR_MINUTES_FORMAT
+    )}`;
     return null;
   }
 
@@ -45,7 +51,7 @@ export function handlePriceChange(e) {
 
   if (name === "price" && decimalVal?.length >= DECIMAL_SIGNS_FOR_PRICE) {
     e.target.value = `${intVal}.${decimalVal.slice(
-      0,
+      ZERO_VAL,
       DECIMAL_SIGNS_FOR_PRICE
     )}`;
     return null;
@@ -53,7 +59,7 @@ export function handlePriceChange(e) {
 
   if (name !== "price" && decimalVal?.length >= DECIMAL_SIGNS_FOR_RATES) {
     e.target.value = `${intVal}.${decimalVal.slice(
-      0,
+      ZERO_VAL,
       DECIMAL_SIGNS_FOR_RATES
     )}`;
     return null;

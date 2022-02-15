@@ -8,8 +8,6 @@ import Input from "components/UI/Input";
 import Select from "components/UI/Select";
 import RatesInputSet from "components/PriceForm/RatesInputSet";
 import Button from "components/UI/Button";
-import { submitFieldsData, setRequestErr } from "store/actions/generic";
-import { getNewRatesThunkCreator, setManualRates } from "store/actions/rates";
 import { formSchema, ratesSources } from "configure";
 import {
   convertStrTimeToNum,
@@ -19,6 +17,10 @@ import {
 import { ratesUpdatingTimeFrame } from "configure";
 import { useCustomTranslation } from "i18n";
 import { transformRatesResponse } from "utils/generic";
+import { modifyFields, setRequestErr } from "features/generic";
+import { fetchRates } from "features/rates";
+import { setManualRates as setManualRates2 } from "features/rates";
+import { MILISEC_IN_ONE_SEC } from "utils/constants";
 
 import { styles } from "./styles";
 
@@ -52,6 +54,7 @@ export default function PriceForm() {
     const { name, value } = e.target;
     if (name === "currency") {
       setChosenCurrency(() => value);
+      // eslint-disable-next-line no-magic-numbers
       setValue(value, 1);
     }
     if (name === "ratesSource") {
@@ -63,13 +66,13 @@ export default function PriceForm() {
   function updateRatesIfCacheExpired() {
     const timeStampNow = new Date();
     const timePassAfterRatesUpdated =
-      (timeStampNow - timeStampCurrenciesUpdated) / 1000;
+      (timeStampNow - timeStampCurrenciesUpdated) / MILISEC_IN_ONE_SEC;
 
     if (
       timePassAfterRatesUpdated >= ratesUpdatingTimeFrame ||
       !keepAPIRatesCache
     ) {
-      dispatch(getNewRatesThunkCreator());
+      dispatch(fetchRates());
     }
   }
 
@@ -99,10 +102,10 @@ export default function PriceForm() {
 
     if (ratesSource === "Manual") {
       const newRates = transformRatesResponse(manualRates);
-      dispatch(setManualRates(newRates));
+      dispatch(setManualRates2(newRates));
     }
 
-    dispatch(submitFieldsData({ price, time, currency }));
+    dispatch(modifyFields({ price, time, currency }));
   };
 
   useEffect(() => {
@@ -110,6 +113,7 @@ export default function PriceForm() {
     setValue("RUB", "");
     setValue("EUR", "");
     setValue("USD", "");
+    // eslint-disable-next-line no-magic-numbers
     setValue(chosenCurrency, 1);
   }, [chosenCurrency]);
 

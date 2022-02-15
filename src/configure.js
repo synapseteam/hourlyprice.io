@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+import { SEC_IN_MINUTE, MIN_STORE_CACHE } from "utils/constants";
+
 export const formSchema = yup.object().shape({
   price: yup.number().positive().required(),
   time: yup.string().required(),
@@ -14,7 +16,7 @@ export const errorsMessages = {
 };
 
 //limit frame for updating rates using API. If user made new request within specified timeframe (in seconds) data will requested from state, state not updated using API/
-export const ratesUpdatingTimeFrame = 60 * 3;
+export const ratesUpdatingTimeFrame = SEC_IN_MINUTE * MIN_STORE_CACHE;
 
 export const ratesSources = ["MasterCard", "Manual"];
 

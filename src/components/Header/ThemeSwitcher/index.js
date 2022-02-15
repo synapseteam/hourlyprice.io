@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Icon } from "@iconify/react";
 import { useTheme } from "@emotion/react";
+import PropTypes from "prop-types";
 
 import { styles } from "./styles";
 
@@ -29,3 +30,7 @@ export default function ThemeSwitcher({ setIsDark }) {
     </>
   );
 }
+
+ThemeSwitcher.propTypes = {
+  setIsDark: PropTypes.func.isRequired,
+};

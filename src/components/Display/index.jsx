@@ -5,17 +5,20 @@ import SubCurrenciesDisplay from "components/Display/SubCurrencies";
 import MainCurrencyDisplay from "components/Display/MainCurrency/";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
 import { useCustomTranslation } from "i18n";
+import { DECIMAL_SIGNS_FOR_PRICE } from "utils/constants";
 
 import { styles } from "./styles";
 
 export default function Display() {
-  const { price, time, currency } = useSelector((state) => state.main.fields);
+  const { price, time, currency } = useSelector(
+    (state) => state.generic.fields
+  );
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
 
-  const isLoading = useSelector((state) => state.main.isLoading);
+  const isLoading = useSelector((state) => state.generic.isLoading);
 
-  const isRequestError = useSelector((state) => state.main.ratesRequestErr);
+  const isRequestError = useSelector((state) => state.generic.ratesRequestErr);
 
   const [t] = useCustomTranslation();
 
@@ -27,7 +30,7 @@ export default function Display() {
 
   function formatSum(num) {
     return new Intl.NumberFormat("de-DE")
-      .format(num.toFixed(2))
+      .format(num.toFixed(DECIMAL_SIGNS_FOR_PRICE))
       .replace(".", " ");
   }
 

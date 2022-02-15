@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import PropTypes from "prop-types";
+
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
@@ -16,3 +18,7 @@ export default function Header({ setIsDark }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  setIsDark: PropTypes.func.isRequired,
+};

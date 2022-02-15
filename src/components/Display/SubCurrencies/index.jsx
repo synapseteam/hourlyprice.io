@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import uniqid from "uniqid";
 
 import SubCurrency from "components/Display/SubCurrencies/SubCurrency";
+import { ZERO_VAL } from "utils/constants";
 
 import { styles } from "./styles";
 
@@ -21,7 +22,7 @@ export default function SubCurrenciesDisplay({
       {subCurrenciesArr.map((el) => (
         <SubCurrency
           name={el.name}
-          value={el.value || 0}
+          value={el.value || ZERO_VAL}
           key={uniqid()}
           isLoading={isLoading}
         />
