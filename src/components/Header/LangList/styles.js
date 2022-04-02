@@ -2,12 +2,10 @@ import { css } from "@emotion/react";
 
 export const styles = {
   langContainer: (theme) => css`
-    position: absolute;
-    top: 0;
-    left: -200%;
     background-color: ${theme.octonary};
     border: ${theme.langListBorder};
     border-radius: 0.4rem;
+    margin: 0 16px;
   `,
   langList: css`
     display: flex;

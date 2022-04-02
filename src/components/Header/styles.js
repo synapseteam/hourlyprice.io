@@ -18,5 +18,21 @@ export const styles = {
   `,
   rightHandContainer: css`
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `,
+  createInvoiceButton: css`
+    background-color: #24274a;
+    border: 1px solid #171d3d;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(36, 39, 74, 0.3);
+    }
   `,
 };

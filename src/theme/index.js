@@ -11,6 +11,7 @@ export const themeDark = {
   octonary: "#24274a",
   nonary: "#174f5e",
   denary: "#ffffff",
+  modalOverlay: "rgba(0, 0, 0, 0.5)",
 
   btnHoverColor: "#5cbabc",
   labelColor: "#5599ec",
@@ -41,6 +42,7 @@ export const themeLight = {
   octonary: "#f1f3f4",
   nonary: "#dbdbdb",
   denary: "#171d3d",
+  modalOverlay: "rgba(0, 0, 0, 0.5)",
 
   btnHoverColor: "#d5d3d3",
   labelColor: "#24274a",

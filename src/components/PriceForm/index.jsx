@@ -162,7 +162,7 @@ export default function PriceForm() {
             errors={errors}
           />
         )}
-        <Button />
+        <Button type={"submit"}>{t("btnResult").toUpperCase()}</Button>
       </div>
     </form>
   );
