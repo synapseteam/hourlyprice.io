@@ -13,6 +13,9 @@ export const translationEN = {
   timeError: "Time should be in format hours:minutes. Example: 160:47",
   manualOptionExchangeSource: "Manual",
   badRequestApi: "Request Failed. Rates was not update properly 🤪",
+  noPreviewSupportedMessage: "No preview supported for this resolution",
+  exportToPDFText: "Export to PDF",
+  closeButtonText: "Close",
 };
 
 export const translationRU = {
@@ -31,6 +34,10 @@ export const translationRU = {
   timeError: "Время должно быть в формате часы:минуты. Например: 160:47",
   manualOptionExchangeSource: "Свой курс",
   badRequestApi: "Не удалось получить корректный курс валют",
+  noPreviewSupportedMessage:
+    "Предворительньій просмотр не поддерживается для єтого разрешения",
+  exportToPDFText: "Експортировать в PDF",
+  closeButtonText: "Завершить",
 };
 
 export const translationUA = {
@@ -49,4 +56,7 @@ export const translationUA = {
   timeError: "Час має бути в форматі ходини:хвилини. Наприклад: 160:47",
   manualOptionExchangeSource: "Свій курс",
   badRequestApi: "Не вдалося отримати корректний курс валют",
+  noPreviewSupportedMessage: "Попередній перегляд не підтримується",
+  exportToPDFText: "Експортувати в PDF",
+  closeButtonText: "Завершити",
 };

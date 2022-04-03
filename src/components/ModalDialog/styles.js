@@ -68,24 +68,10 @@ export const styles = {
     flex-direction: column;
     align-items: center;
   `,
-  intro: css``,
   closeButton: css`
-    background-color: #24274a;
-    border: 1px solid #171d3d;
-    padding: 10px 12px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     cursor: pointer;
-    font-size: 14px;
-    color: #fff;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background: rgba(36, 39, 74, 0.3);
-    }
-  `,
-  modalFooter: css`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
   `,
 };

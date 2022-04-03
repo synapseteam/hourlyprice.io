@@ -22,6 +22,11 @@ export const styles = {
     align-items: center;
     justify-content: center;
   `,
+  invoiceIcon: css`
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+  `,
   createInvoiceButton: css`
     background-color: #24274a;
     border: 1px solid #171d3d;
@@ -34,5 +39,11 @@ export const styles = {
     &:hover {
       background: rgba(36, 39, 74, 0.3);
     }
+  `,
+  noPreviewMessage: css`
+    font-size: 28px;
+    line-height: 36px;
+    color: #212121;
+    margin: 50px 20px;
   `,
 };
