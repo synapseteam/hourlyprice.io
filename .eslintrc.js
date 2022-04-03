@@ -18,6 +18,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     quotes: ["error", "double"],
     "no-console": "off",
-    "no-magic-numbers": "error",
+    // "no-magic-numbers": "error",
   },
 };

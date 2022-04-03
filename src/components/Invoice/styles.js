@@ -26,6 +26,7 @@ export const styles = {
   agreementColumn: css`
     display: flex;
     align-items: flex-end;
+    width: 55%;
   `,
   text: css`
     font-size: 14px;
@@ -132,5 +133,15 @@ export const styles = {
   `,
   headingColumn5: css`
     flex: 1;
+  `,
+  field: css`
+    border: 1px dotted #ccc;
+    background: #fff;
+  `,
+  smallField: css`
+    width: 45px;
+  `,
+  mediumField: css`
+    width: 75px;
   `,
 };
