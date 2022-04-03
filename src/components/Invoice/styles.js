@@ -1,6 +1,12 @@
 import { css } from "@emotion/react";
 
 export const styles = {
+  actionPanel: css`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 40px;
+  `,
   invoice: css`
     display: flex;
     flex-direction: column;
@@ -149,6 +155,7 @@ export const styles = {
     border: 1px dotted #ccc;
     background: #fff;
     min-width: 28px;
+    line-height: 24px;
     width: auto;
 
     &:disabled {
@@ -159,6 +166,7 @@ export const styles = {
     resize: none;
     overflow: hidden;
     min-height: 180px;
+    line-height: 24px;
     width: 100%;
   `,
   notesTextArea: css`
@@ -176,5 +184,19 @@ export const styles = {
     height: 50px;
     width: 100%;
     resize: none;
+  `,
+  balanceDue: css`
+    input {
+      text-align: right;
+    }
+  `,
+  bigTextarea: css`
+    min-height: 240px;
+  `,
+  button: css`
+    background-color: #24274a;
+    border: 1px solid #171d3d;
+    border-radius: 2px;
+    color: #fff;
   `,
 };

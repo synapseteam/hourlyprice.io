@@ -3,10 +3,16 @@ import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/ukraine-heart.png";
 import { styles } from "./styles";
 
 export const Invoice = () => {
+  const now = new Date();
+  const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
+  const [startDate, setStartDate] = useState(now);
+  const [weekFromNowDate, setWeekFromNowDate] = useState(weekFromNow);
   const [isEditMode, setIsEditMode] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
 
@@ -29,12 +35,12 @@ export const Invoice = () => {
     email: "email@test.com",
     invoiceNumber: "001",
     agreementNumber: "777",
-    balanceDue: "some value",
+    balanceDue: "7777777",
     billToColumn1: "column1",
     billToColumn2: "column2",
     billToColumn3: "column3",
-    invoiceDate: "start date",
-    dueDate: "end date",
+    invoiceDate: now,
+    dueDate: weekFromNow,
     notes: "Thanks for your business",
     wireTransferDetails:
       "Lorem Ipsum is simply dummy text\n" +
@@ -80,6 +86,18 @@ export const Invoice = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div css={styles.actionPanel}>
+          {!isEditMode && (
+            <button css={styles.button} type="button" onClick={handleEditMode}>
+              Edit
+            </button>
+          )}
+          {isEditMode && (
+            <button css={styles.button} type={"submit"}>
+              Save
+            </button>
+          )}
+        </div>
         <div css={styles.invoice}>
           <div css={[styles.row, styles.invoiceHeadingRow]}>
             <div css={styles.logo}>
@@ -148,7 +166,7 @@ export const Invoice = () => {
               <span css={styles.text}>
                 <strong>Balance Due</strong>
               </span>
-              <span css={styles.text}>
+              <span css={[styles.text, styles.balanceDue]}>
                 <input
                   css={[styles.field, styles.mediumField]}
                   type="text"
@@ -203,17 +221,21 @@ export const Invoice = () => {
               <span css={styles.text}>&nbsp;</span>
               <span css={styles.text}>&nbsp;</span>
               <span css={styles.text}>
-                <input
+                <DatePicker
                   css={[styles.field, styles.mediumField]}
                   {...register("invoiceDate", { required: true })}
+                  selected={startDate}
                   disabled={!isEditMode}
+                  onChange={(date) => setStartDate(date)}
                 />
               </span>
               <span css={styles.text}>
-                <input
+                <DatePicker
                   css={[styles.field, styles.mediumField]}
                   {...register("dueDate", { required: true })}
+                  selected={weekFromNowDate}
                   disabled={!isEditMode}
+                  onChange={(date) => setWeekFromNowDate(date)}
                 />
               </span>
             </div>
@@ -225,10 +247,11 @@ export const Invoice = () => {
               <span css={styles.headingColumn3}>Qty</span>
               <span css={styles.headingColumn4}>Rate</span>
               <span css={styles.headingColumn5}>Amount</span>
-              <span css={styles.headingColumn5}>&nbsp;</span>
+              {isEditMode && <span css={styles.headingColumn5}>&nbsp;</span>}
             </div>
             {isEditMode && (
               <button
+                css={styles.button}
                 type="button"
                 onClick={() =>
                   append({ title: "", qty: 0, rate: 0, amount: 0 })
@@ -295,7 +318,9 @@ export const Invoice = () => {
                     {...register(`services.${index}.amount`)}
                   />
                 </span>
-                <button onClick={() => remove(index)}>Remove</button>
+                <button css={styles.button} onClick={() => remove(index)}>
+                  Remove
+                </button>
               </div>
             ))}
             <div css={styles.generalInfoColumn}>
@@ -325,19 +350,13 @@ export const Invoice = () => {
               <strong>Wire Transfer Details:</strong>
             </span>
             <textarea
-              css={[styles.field, styles.textarea]}
+              css={[styles.field, styles.textarea, styles.bigTextarea]}
               disabled={!isEditMode}
               maxLength={500}
               {...register("wireTransferDetails", { required: true })}
             />
           </div>
         </div>
-        {!isEditMode && (
-          <button type="button" onClick={handleEditMode}>
-            Edit
-          </button>
-        )}
-        {isEditMode && <button type={"submit"}>Save</button>}
       </form>
     </>
   );
