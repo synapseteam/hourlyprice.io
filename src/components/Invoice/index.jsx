@@ -107,7 +107,7 @@ export const Invoice = () => {
               <span css={styles.text}>
                 USREOU Code:
                 <input
-                  css={[styles.field, styles.smallField]}
+                  css={[styles.field, styles.mediumField]}
                   {...register("code", { required: true })}
                   disabled={!isEditMode}
                 />
@@ -151,8 +151,11 @@ export const Invoice = () => {
               <span css={styles.text}>
                 <input
                   css={[styles.field, styles.mediumField]}
-                  {...register("balanceDue", { required: true })}
+                  type="text"
+                  pattern="\d*"
+                  maxLength="7"
                   disabled={!isEditMode}
+                  {...register("balanceDue", { required: true })}
                 />
               </span>
             </div>
@@ -188,6 +191,7 @@ export const Invoice = () => {
             </div>
             <div css={styles.column2}>
               <span css={styles.text}>&nbsp;</span>
+              <span css={styles.text}>&nbsp;</span>
               <span css={styles.text}>
                 <strong>Invoice Date:</strong>
               </span>
@@ -196,6 +200,7 @@ export const Invoice = () => {
               </span>
             </div>
             <div css={styles.column3}>
+              <span css={styles.text}>&nbsp;</span>
               <span css={styles.text}>&nbsp;</span>
               <span css={styles.text}>
                 <input
@@ -235,18 +240,18 @@ export const Invoice = () => {
             {fields.map((item, index) => (
               <div key={index} css={[styles.row, styles.headingRow]}>
                 <span css={styles.headingColumn1}>{index}</span>
-                <span css={styles.headingColumn2}>
-                  <input
-                    css={[styles.field, styles.mediumField]}
+                <span css={[styles.headingColumn, styles.headingColumn2]}>
+                  <textarea
+                    css={[styles.field, styles.serviceInput]}
                     name={`services[${index}]title`}
-                    type="text"
                     {...register(`services.${index}.title`)}
+                    maxLength={90}
                     disabled={!isEditMode}
                   />
                 </span>
-                <span css={styles.headingColumn3}>
+                <span css={[styles.headingColumn, styles.headingColumn3]}>
                   <input
-                    css={[styles.field, styles.mediumField]}
+                    css={[styles.field, styles.serviceInput]}
                     name={`services[${index}]qty`}
                     type="number"
                     disabled={!isEditMode}
@@ -262,9 +267,9 @@ export const Invoice = () => {
                     }}
                   />
                 </span>
-                <span css={styles.headingColumn4}>
+                <span css={[styles.headingColumn, styles.headingColumn4]}>
                   <input
-                    css={[styles.field, styles.mediumField]}
+                    css={[styles.field, styles.serviceInput]}
                     name={`services[${index}]rate`}
                     type="number"
                     disabled={!isEditMode}
@@ -280,12 +285,13 @@ export const Invoice = () => {
                     }}
                   />
                 </span>
-                <span css={styles.headingColumn5}>
+                <span css={[styles.headingColumn, styles.headingColumn5]}>
                   <input
-                    css={[styles.field, styles.mediumField]}
+                    css={[styles.field, styles.serviceInput]}
                     name={`services[${index}]amount`}
                     type="number"
                     readOnly={true}
+                    disabled={!isEditMode}
                     {...register(`services.${index}.amount`)}
                   />
                 </span>
@@ -309,19 +315,20 @@ export const Invoice = () => {
             </span>
             <span css={styles.text}>
               <textarea
-                css={styles.field}
-                {...register("notes", { required: true })}
+                css={[styles.field, styles.textarea, styles.notesTextArea]}
                 disabled={!isEditMode}
+                maxLength={250}
+                {...register("notes", { required: true })}
               />
             </span>
-            <br />
             <span css={styles.text}>
               <strong>Wire Transfer Details:</strong>
             </span>
             <textarea
-              css={styles.field}
-              {...register("wireTransferDetails", { required: true })}
+              css={[styles.field, styles.textarea]}
               disabled={!isEditMode}
+              maxLength={500}
+              {...register("wireTransferDetails", { required: true })}
             />
           </div>
         </div>

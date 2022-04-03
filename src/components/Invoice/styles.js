@@ -6,6 +6,7 @@ export const styles = {
     flex-direction: column;
     font-size: 14px;
     line-height: 18px;
+    padding-top: 30px;
     height: 100%;
     width: 100%;
   `,
@@ -62,11 +63,16 @@ export const styles = {
     }
   `,
   title: css`
-    font-size: 24px;
-    line-height: 28px;
-    font-weight: bold;
-    margin: 0;
-    color: #000;
+    padding-right: 15px;
+
+    input {
+      text-align: right;
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: bold;
+      margin: 0;
+      color: #000;
+    }
   `,
   details: css`
     display: flex;
@@ -121,6 +127,11 @@ export const styles = {
   headingColumn1: css`
     width: 60px;
   `,
+  headingColumn: css`
+    input {
+      width: 100%;
+    }
+  `,
   headingColumn2: css`
     width: 50%;
     min-width: 210px;
@@ -137,11 +148,33 @@ export const styles = {
   field: css`
     border: 1px dotted #ccc;
     background: #fff;
+    min-width: 28px;
+    width: auto;
+
+    &:disabled {
+      border: none;
+    }
+  `,
+  textarea: css`
+    resize: none;
+    overflow: hidden;
+    min-height: 180px;
+    width: 100%;
+  `,
+  notesTextArea: css`
+    min-height: 60px;
   `,
   smallField: css`
-    width: 45px;
+    width: 30px; ;
   `,
   mediumField: css`
-    width: 75px;
+    width: 80px;
+  `,
+  serviceInput: css`
+    word-wrap: break-word;
+    word-break: break-all;
+    height: 50px;
+    width: 100%;
+    resize: none;
   `,
 };
