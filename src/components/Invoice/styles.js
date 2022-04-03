@@ -58,7 +58,7 @@ export const styles = {
     flex-direction: column;
     align-items: flex-end;
     height: 100%;
-    width: 20%;
+    width: 10%;
   `,
   logo: css`
     height: 60px;

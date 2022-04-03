@@ -28,7 +28,8 @@ export default function Header({ setIsDark }) {
   };
 
   const generatePDF = () => {
-    const report = new JsPDF("portrait", "pt", "a4");
+    const report = new JsPDF("p", "pt", [700, 900]);
+    report.viewerPreferences({ FitWindow: true, CenterWindow: true }, true);
     report.html(document.querySelector("#report"), { margin: 20 }).then(() => {
       report.save("report.pdf");
     });

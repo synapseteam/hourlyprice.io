@@ -262,7 +262,9 @@ export const Invoice = () => {
             )}
             {fields.map((item, index) => (
               <div key={index} css={[styles.row, styles.headingRow]}>
-                <span css={styles.headingColumn1}>{index}</span>
+                <span css={[styles.headingColumn, styles.headingColumn1]}>
+                  {index + 1}
+                </span>
                 <span css={[styles.headingColumn, styles.headingColumn2]}>
                   <textarea
                     css={[styles.field, styles.serviceInput]}
@@ -318,9 +320,11 @@ export const Invoice = () => {
                     {...register(`services.${index}.amount`)}
                   />
                 </span>
-                <button css={styles.button} onClick={() => remove(index)}>
-                  Remove
-                </button>
+                {isEditMode && (
+                  <button css={styles.button} onClick={() => remove(index)}>
+                    Remove
+                  </button>
+                )}
               </div>
             ))}
             <div css={styles.generalInfoColumn}>
