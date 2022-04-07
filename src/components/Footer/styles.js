@@ -13,7 +13,7 @@ export const styles = {
 
   footerText: css`
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 1rem;
   `,
   footerLink: (theme) => css`
     text-decoration: none;

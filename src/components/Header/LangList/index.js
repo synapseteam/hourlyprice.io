@@ -1,52 +1,28 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
-import uniqid from "uniqid";
+import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18n";
-import ListItem from "./ListItem";
 
 import { styles } from "./styles";
 
+const locales = ["en", "ru", "ua"];
 export default function LangList() {
-  const [isListShown, setisListShown] = useState(false);
-  const [chosenLang, setChosenLang] = useState("EN");
-
+  const { i18n } = useTranslation();
   const langChangeHandler = (e) => {
-    e.preventDefault();
-
-    if (!isListShown) {
-      setisListShown(() => true);
-    }
-
-    if (isListShown) {
-      const value = e.target.innerText.toLowerCase();
-      changeLanguage(value);
-      setisListShown(() => false);
-      setChosenLang(() => value.toUpperCase());
-    }
+    const value = e.currentTarget.value;
+    changeLanguage(value);
   };
-
-  const locales = ["en", "ru", "ua"];
 
   return (
     <div css={styles.langContainer}>
-      <ul css={styles.langList}>
-        {isListShown ? (
-          locales.map((el) => {
-            return (
-              <ListItem
-                key={uniqid()}
-                langChangeHandler={langChangeHandler}
-                localeString={el}
-              />
-            );
-          })
-        ) : (
-          <ListItem
-            langChangeHandler={langChangeHandler}
-            localeString={chosenLang}
-          />
-        )}
-      </ul>
+      <select
+        css={styles.langList}
+        onChange={langChangeHandler}
+        defaultValue={i18n.language}
+      >
+        {locales.map((item) => {
+          return <option key={item} value={item} label={item} />;
+        })}
+      </select>
     </div>
   );
 }

@@ -23,8 +23,11 @@ function App() {
 
           <ContentContainer>
             <HeroTitle />
-            <Display />
-            <PriceForm />
+            <div css={styles.calculator}>
+              <PriceForm />
+
+              <Display />
+            </div>
           </ContentContainer>
 
           <Footer

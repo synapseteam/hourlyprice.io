@@ -22,28 +22,57 @@ export const styles = {
     align-items: center;
     justify-content: center;
   `,
-  invoiceIcon: css`
+  invoice: (theme) => css`
+    display: flex;
+    align-items: center;
+    background-color: ${theme.octonary};
+    border: ${theme.langListBorder};
+    border-radius: 0.4rem;
+    color: ${theme.senary};
+    padding: 0rem 0.5rem;
     cursor: pointer;
     height: 40px;
-    width: 40px;
   `,
-  createInvoiceButton: css`
-    background-color: #24274a;
-    border: 1px solid #171d3d;
-    padding: 10px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #fff;
-    transition: all 0.3s ease;
 
-    &:hover {
-      background: rgba(36, 39, 74, 0.3);
+  invoiceAnimation: (theme) => css`
+    animation-name: colorChange;
+    animation-duration: 2s;
+    @keyframes colorChange {
+      0% {
+        background-color: ${theme.octonary};
+      }
+      50% {
+        background-color: ${theme.senary};
+        color: ${theme.octonary};
+      }
+      100% {
+        background-color: ${theme.octonary};
+      }
     }
   `,
+
+  invoiceIcon: css`
+    height: 40px;
+    width: 40px;
+    margin-left: 0.3rem;
+  `,
+
   noPreviewMessage: css`
     font-size: 28px;
     line-height: 36px;
     color: #212121;
     margin: 50px 20px;
+  `,
+  buttons: css`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    & button {
+      text-transform: uppercase;
+    }
+  `,
+  button: css`
+    margin: 0px 10px;
+    width: 35%;
   `,
 };

@@ -12,7 +12,6 @@ export const styles = {
     flex-direction: column;
     font-size: 14px;
     line-height: 18px;
-    padding-top: 30px;
     height: 100%;
     width: 100%;
   `,
@@ -23,7 +22,7 @@ export const styles = {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px 0px;
   `,
   column: css`
     display: flex;
@@ -69,8 +68,6 @@ export const styles = {
     }
   `,
   title: css`
-    padding-right: 15px;
-
     input {
       text-align: right;
       font-size: 24px;
@@ -90,7 +87,7 @@ export const styles = {
       align-items: center;
       justify-content: center;
       height: 100%;
-      padding: 15px;
+      padding: 8px;
     }
   `,
   heading: css`
@@ -105,6 +102,7 @@ export const styles = {
     span {
       align-items: center;
       justify-content: flex-start;
+      margin-left: 3px;
     }
   `,
   transferDetails: css`
@@ -131,7 +129,7 @@ export const styles = {
     }
   `,
   headingColumn1: css`
-    width: 60px;
+    width: 25px;
   `,
   headingColumn: css`
     input {
@@ -152,12 +150,13 @@ export const styles = {
     flex: 1;
   `,
   field: css`
-    border: 1px dotted #ccc;
+    border: 1px solid #d0d0d0;
+    margin: 1px;
     background: #fff;
     min-width: 28px;
     line-height: 24px;
     width: auto;
-
+    padding-left: 3px;
     &:disabled {
       border: none;
     }
@@ -173,10 +172,14 @@ export const styles = {
     min-height: 60px;
   `,
   smallField: css`
-    width: 30px; ;
+    width: 30px;
+  `,
+  fieldBold: css`
+    width: 30px;
+    font-weight: bold;
   `,
   mediumField: css`
-    width: 80px;
+    width: 77px;
   `,
   serviceInput: css`
     word-wrap: break-word;
@@ -184,6 +187,11 @@ export const styles = {
     height: 50px;
     width: 100%;
     resize: none;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   `,
   balanceDue: css`
     input {
@@ -198,5 +206,7 @@ export const styles = {
     border: 1px solid #171d3d;
     border-radius: 2px;
     color: #fff;
+    height: 30px;
+    cursor: pointer;
   `,
 };

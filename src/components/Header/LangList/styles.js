@@ -1,17 +1,20 @@
 import { css } from "@emotion/react";
 
 export const styles = {
-  langContainer: (theme) => css`
-    background-color: ${theme.octonary};
-    border: ${theme.langListBorder};
+  langContainer: css`
     border-radius: 0.4rem;
     margin: 0 16px;
   `,
-  langList: css`
+  langList: (theme) => css`
     display: flex;
-    flex-direction: column;
     padding: 0.3rem;
+    background-color: ${theme.octonary};
+    border: ${theme.langListBorder};
+    color: ${theme.senary};
+    height: 2.5rem;
+    border-radius: 0.4rem;
     margin: 0;
+    text-transform: uppercase;
   `,
   langListItem: css`
     list-style: none;

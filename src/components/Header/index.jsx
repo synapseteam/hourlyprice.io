@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice.svg";
@@ -9,11 +10,19 @@ import LangList from "components/Header/LangList";
 import ModalDialog from "components/ModalDialog";
 import Invoice from "components/Invoice";
 import { INVOICE_PREVIEW_SUPPORTED_RESOLUTION } from "../../configure";
+import { toggleEditMode, setInvoiceItemAdded } from "features/generic";
 import { useWindowDimensions } from "../../hooks";
 import { useCustomTranslation } from "../../i18n";
+import Button from "components/UI/Button";
 import { styles } from "./styles";
 
 export default function Header({ setIsDark }) {
+  const dispatch = useDispatch();
+  const isEditMode = useSelector((state) => state.generic.isEditMode);
+  const isInvoiceItemAdded = useSelector(
+    (state) => state.generic.isInvoiceItemAdded
+  );
+
   const { width } = useWindowDimensions();
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [t] = useCustomTranslation();
@@ -35,15 +44,31 @@ export default function Header({ setIsDark }) {
     });
   };
 
+  const handleToggleEditMode = () => {
+    return dispatch(toggleEditMode());
+  };
+
+  useEffect(() => {
+    if (isInvoiceItemAdded) {
+      setTimeout(() => {
+        dispatch(setInvoiceItemAdded(false));
+      }, 2000);
+    }
+  }, [isInvoiceItemAdded]);
+
+  const invoiceStyles = [
+    styles.invoice,
+    isInvoiceItemAdded ? styles.invoiceAnimation : null,
+  ];
+
   return (
     <header css={styles.header}>
       <Logo />
       <div css={styles.rightHandContainer}>
-        <img
-          src={InvoiceIcon}
-          css={styles.invoiceIcon}
-          onClick={toggleInvoiceModal}
-        />
+        <div css={invoiceStyles} onClick={toggleInvoiceModal}>
+          {t("invoice")}
+          <img src={InvoiceIcon} css={styles.invoiceIcon} />
+        </div>
         <LangList />
         <ThemeSwitcher setIsDark={setIsDark} />
       </div>
@@ -58,13 +83,18 @@ export default function Header({ setIsDark }) {
             {t("noPreviewSupportedMessage")}
           </span>
         )}
-        <button
-          css={styles.createInvoiceButton}
-          onClick={generatePDF}
-          type="button"
-        >
-          {t("exportToPDFText")}
-        </button>
+        <div css={styles.buttons}>
+          <div css={styles.button}>
+            <Button onClick={handleToggleEditMode} type="button">
+              {isEditMode ? "save" : "edit"}
+            </Button>
+          </div>
+          <div css={styles.button}>
+            <Button onClick={generatePDF} type="button" disabled={isEditMode}>
+              {t("exportToPDFText")}
+            </Button>
+          </div>
+        </div>
       </ModalDialog>
     </header>
   );

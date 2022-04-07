@@ -38,6 +38,7 @@ export default function PriceForm() {
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
   const ratesSource = useSelector((state) => state.rates.ratesSource);
+
   const timeStampCurrenciesUpdated = useSelector(
     (state) => state.rates.updatedAt
   );
@@ -119,21 +120,13 @@ export default function PriceForm() {
 
   return (
     <form css={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <div css={styles.currency}>
         <Input
           inputName="price"
           register={register}
           labelName={t("labelPrice")}
-          placeholder="20.30"
+          placeholder="0.0"
           changeHandler={handlePriceChange}
-          errors={errors}
-        />
-        <Input
-          inputName="time"
-          register={register}
-          labelName={t("labelTime")}
-          placeholder={t("timePlaceholder")}
-          changeHandler={handleTimeChange}
           errors={errors}
         />
         <Select
@@ -145,24 +138,34 @@ export default function PriceForm() {
           optionsArr={allCurrenciesNames}
           errors={errors}
         />
-        <Select
-          labelName={t("labelExchangeRate")}
-          inputName="ratesSource"
+      </div>
+      <Input
+        inputName="time"
+        register={register}
+        labelName={t("labelTime")}
+        placeholder={t("timePlaceholder")}
+        changeHandler={handleTimeChange}
+        errors={errors}
+      />
+      <Select
+        labelName={t("labelExchangeRate")}
+        inputName="ratesSource"
+        register={register}
+        changeHandler={handleListChange}
+        value={chosenRatesSource}
+        optionsArr={ratesSources}
+        errors={errors}
+      />
+      {chosenRatesSource === "Manual" && (
+        <RatesInputSet
           register={register}
-          changeHandler={handleListChange}
-          value={chosenRatesSource}
-          optionsArr={ratesSources}
+          allCurrencies={allCurrencies}
+          chosenCurrency={chosenCurrency}
           errors={errors}
         />
-        {chosenRatesSource === "Manual" && (
-          <RatesInputSet
-            register={register}
-            allCurrencies={allCurrencies}
-            chosenCurrency={chosenCurrency}
-            errors={errors}
-          />
-        )}
-        <Button type={"submit"}>{t("btnResult").toUpperCase()}</Button>
+      )}
+      <div css={styles.buttons}>
+        <Button type="submit">{t("btnResult")}</Button>
       </div>
     </form>
   );

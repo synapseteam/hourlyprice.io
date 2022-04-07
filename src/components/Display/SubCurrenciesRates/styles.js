@@ -4,14 +4,13 @@ export const styles = {
   ratesContainer: (theme) => css`
     background-color: ${theme.quaternary};
     width: 100%;
-    position: absolute;
     display: flex;
     justify-content: center;
     border-radius: 0 0 0.4rem 0.4rem;
     bottom: 0;
   `,
   rateText: css`
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 0.5;
   `,
   ratesDelimiter: (theme) => css`

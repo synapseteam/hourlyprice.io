@@ -12,7 +12,7 @@ export const styles = {
   `,
   modal: css`
     display: flex;
-    padding: 25px;
+    padding: 50px 25px 25px;
     flex-direction: column;
     align-items: center;
     position: fixed;
@@ -23,7 +23,6 @@ export const styles = {
     width: 100%;
     background: #fff;
     z-index: 5;
-
     &.show {
       -webkit-animation-name: modal-animation;
       -webkit-animation-duration: 0.5s;
@@ -70,8 +69,8 @@ export const styles = {
   `,
   closeButton: css`
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
   `,
 };

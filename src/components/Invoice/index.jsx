@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -9,20 +10,20 @@ import Logo from "../../assets/ukraine-heart.png";
 import { styles } from "./styles";
 
 export const Invoice = () => {
+  const isEditMode = useSelector((state) => state.generic.isEditMode);
   const now = new Date();
   const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
   const [startDate, setStartDate] = useState(now);
   const [weekFromNowDate, setWeekFromNowDate] = useState(weekFromNow);
-  const [isEditMode, setIsEditMode] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
 
   const JsSchema = Yup.object().shape({
     services: Yup.array().of(
       Yup.object().shape({
         title: Yup.string(),
-        qty: Yup.number(),
-        rate: Yup.number(),
-        amount: Yup.number(),
+        price: Yup.number(),
+        time: Yup.number(),
+        total: Yup.number(),
       })
     ),
   });
@@ -54,7 +55,7 @@ export const Invoice = () => {
       "Lorem Ipsum is simply.\n" +
       "Lorem Ipsum is simply dummy text of the printing and typesetting",
   };
-  const { handleSubmit, register, control, getValues, setValue } = useForm({
+  const { register, control, getValues, setValue } = useForm({
     defaultValues,
     resolver: yupResolver(JsSchema),
   });
@@ -62,42 +63,62 @@ export const Invoice = () => {
     name: "services",
     control,
   });
+
   const formValues = getValues();
-
-  const onSubmit = (data) => {
-    console.log("data = ", data);
-    setIsEditMode(false);
-  };
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
 
   const calculateOrderTotal = () => {
     if (formValues.services) {
       const total = formValues.services.reduce(
-        (acc, curr) => Number(curr.amount) + acc,
+        (acc, curr) => Number(curr.total) + acc,
         0
       );
       setOrderTotal(total);
     }
   };
 
+  useEffect(() => {
+    const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
+
+    invoiceItems.forEach((item) => {
+      append({
+        title: "no description",
+        price: item.price,
+        time: item.time,
+        total: item.price * item.time,
+      });
+    });
+  }, []);
+
+  const addService = () => {
+    append({ title: "", price: 0, time: 0, total: 0 });
+
+    const invoiceObj = {
+      description: "",
+      price: 0,
+      time: 0,
+      total: 0,
+    };
+    const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
+    if (!invoiceItems) {
+      let invoiceArray = [];
+      invoiceArray.push(invoiceObj);
+      localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
+    }
+    if (invoiceItems) {
+      invoiceItems.push(invoiceObj);
+      localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+    }
+  };
+  const removeService = (index) => {
+    let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
+    invoiceItems.splice(index, 1);
+    localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+    remove(index);
+  };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div css={styles.actionPanel}>
-          {!isEditMode && (
-            <button css={styles.button} type="button" onClick={handleEditMode}>
-              Edit
-            </button>
-          )}
-          {isEditMode && (
-            <button css={styles.button} type={"submit"}>
-              Save
-            </button>
-          )}
-        </div>
+      <form>
+        <div css={styles.actionPanel}></div>
         <div css={styles.invoice}>
           <div css={[styles.row, styles.invoiceHeadingRow]}>
             <div css={styles.logo}>
@@ -148,15 +169,15 @@ export const Invoice = () => {
             <div css={[styles.column, styles.agreementColumn]}>
               <span css={styles.text}>
                 <strong>
-                  # INV-
+                  # INV-{" "}
                   <input
-                    css={[styles.field, styles.smallField]}
+                    css={[styles.field, styles.smallField, styles.fieldBold]}
                     {...register("invoiceNumber", { required: true })}
                     disabled={!isEditMode}
                   />{" "}
-                  to the Agreement
+                  to the Agreement{" "}
                   <input
-                    css={[styles.field, styles.smallField]}
+                    css={[styles.field, styles.smallField, styles.fieldBold]}
                     {...register("agreementNumber", { required: true })}
                     disabled={!isEditMode}
                   />
@@ -168,7 +189,7 @@ export const Invoice = () => {
               </span>
               <span css={[styles.text, styles.balanceDue]}>
                 <input
-                  css={[styles.field, styles.mediumField]}
+                  css={[styles.field, styles.fieldBold, styles.mediumField]}
                   type="text"
                   pattern="\d*"
                   maxLength="7"
@@ -180,9 +201,7 @@ export const Invoice = () => {
           </div>
           <div css={styles.row}>
             <div css={styles.column1}>
-              <span css={styles.text}>
-                <strong>Bill To</strong>
-              </span>
+              <span css={styles.text}>Bill To</span>
               <div css={styles.column}>
                 <span css={styles.text}>
                   <input
@@ -222,7 +241,12 @@ export const Invoice = () => {
               <span css={styles.text}>&nbsp;</span>
               <span css={styles.text}>
                 <DatePicker
-                  css={[styles.field, styles.mediumField]}
+                  css={[
+                    styles.field,
+                    styles.fieldBold,
+                    styles.mediumField,
+                    styles.dataPicker,
+                  ]}
                   {...register("invoiceDate", { required: true })}
                   selected={startDate}
                   disabled={!isEditMode}
@@ -231,7 +255,12 @@ export const Invoice = () => {
               </span>
               <span css={styles.text}>
                 <DatePicker
-                  css={[styles.field, styles.mediumField]}
+                  css={[
+                    styles.field,
+                    styles.fieldBold,
+                    styles.mediumField,
+                    styles.dataPicker,
+                  ]}
                   {...register("dueDate", { required: true })}
                   selected={weekFromNowDate}
                   disabled={!isEditMode}
@@ -243,23 +272,13 @@ export const Invoice = () => {
           <div css={styles.details}>
             <div css={styles.heading}>
               <span css={styles.headingColumn1}>#</span>
-              <span css={styles.headingColumn2}>Item & Description</span>
-              <span css={styles.headingColumn3}>Qty</span>
-              <span css={styles.headingColumn4}>Rate</span>
-              <span css={styles.headingColumn5}>Amount</span>
+              <span css={styles.headingColumn2}>Description</span>
+              <span css={styles.headingColumn3}>Price</span>
+              <span css={styles.headingColumn4}>Time</span>
+              <span css={styles.headingColumn5}>Total</span>
               {isEditMode && <span css={styles.headingColumn5}>&nbsp;</span>}
             </div>
-            {isEditMode && (
-              <button
-                css={styles.button}
-                type="button"
-                onClick={() =>
-                  append({ title: "", qty: 0, rate: 0, amount: 0 })
-                }
-              >
-                Add service
-              </button>
-            )}
+
             {fields.map((item, index) => (
               <div key={index} css={[styles.row, styles.headingRow]}>
                 <span css={[styles.headingColumn, styles.headingColumn1]}>
@@ -277,15 +296,15 @@ export const Invoice = () => {
                 <span css={[styles.headingColumn, styles.headingColumn3]}>
                   <input
                     css={[styles.field, styles.serviceInput]}
-                    name={`services[${index}]qty`}
+                    name={`services[${index}]price`}
                     type="number"
                     disabled={!isEditMode}
-                    {...register(`services.${index}.qty`)}
+                    {...register(`services.${index}.price`)}
                     onChange={(e) => {
                       setValue(
-                        `services.${index}.amount`,
+                        `services.${index}.total`,
                         Number(e.target.value) *
-                          Number(formValues.services[index].rate),
+                          Number(formValues.services[index].time),
                         { shouldTouch: true }
                       );
                       calculateOrderTotal();
@@ -295,14 +314,14 @@ export const Invoice = () => {
                 <span css={[styles.headingColumn, styles.headingColumn4]}>
                   <input
                     css={[styles.field, styles.serviceInput]}
-                    name={`services[${index}]rate`}
+                    name={`services[${index}]time`}
                     type="number"
                     disabled={!isEditMode}
-                    {...register(`services.${index}.rate`)}
+                    {...register(`services.${index}.time`)}
                     onChange={(e) => {
                       setValue(
-                        `services.${index}.amount`,
-                        Number(formValues.services[index].qty) *
+                        `services.${index}.total`,
+                        Number(formValues.services[index].price) *
                           Number(e.target.value),
                         { shouldTouch: true }
                       );
@@ -313,20 +332,31 @@ export const Invoice = () => {
                 <span css={[styles.headingColumn, styles.headingColumn5]}>
                   <input
                     css={[styles.field, styles.serviceInput]}
-                    name={`services[${index}]amount`}
+                    name={`services[${index}]total`}
                     type="number"
                     readOnly={true}
                     disabled={!isEditMode}
-                    {...register(`services.${index}.amount`)}
+                    {...register(`services.${index}.total`)}
                   />
                 </span>
                 {isEditMode && (
-                  <button css={styles.button} onClick={() => remove(index)}>
+                  <button
+                    css={styles.button}
+                    type="button"
+                    onClick={(e) => removeService(e, index)}
+                  >
                     Remove
                   </button>
                 )}
               </div>
             ))}
+
+            {isEditMode && (
+              <button css={styles.button} type="button" onClick={addService}>
+                Add service
+              </button>
+            )}
+
             <div css={styles.generalInfoColumn}>
               <div css={styles.generalInfo}>
                 <strong>Total:</strong>
