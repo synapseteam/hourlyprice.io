@@ -16,7 +16,7 @@ import { useCustomTranslation } from "../../i18n";
 import Button from "components/UI/Button";
 import { styles } from "./styles";
 
-export default function Header({ setIsDark }) {
+export default function Header({ setIsDark, isDark }) {
   const dispatch = useDispatch();
   const isEditMode = useSelector((state) => state.generic.isEditMode);
   const isInvoiceItemAdded = useSelector(
@@ -70,7 +70,7 @@ export default function Header({ setIsDark }) {
           <img src={InvoiceIcon} css={styles.invoiceIcon} />
         </div>
         <LangList />
-        <ThemeSwitcher setIsDark={setIsDark} />
+        <ThemeSwitcher setIsDark={setIsDark} isDark={isDark} />
       </div>
       <ModalDialog isOpen={isInvoiceModalOpen} onClose={toggleInvoiceModal}>
         {width >= INVOICE_PREVIEW_SUPPORTED_RESOLUTION && (
@@ -102,4 +102,5 @@ export default function Header({ setIsDark }) {
 
 Header.propTypes = {
   setIsDark: PropTypes.func.isRequired,
+  isDark: PropTypes.bool,
 };

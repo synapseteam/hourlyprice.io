@@ -5,11 +5,12 @@ import PropTypes from "prop-types";
 
 import { styles } from "./styles";
 
-export default function ThemeSwitcher({ setIsDark }) {
+export default function ThemeSwitcher({ setIsDark, isDark }) {
   const theme = useTheme();
 
   function handleThemeSwitcherClick() {
-    setIsDark((prev) => !prev);
+    localStorage.setItem("isDark", JSON.stringify(!isDark));
+    setIsDark(!isDark);
   }
 
   return (
@@ -33,4 +34,5 @@ export default function ThemeSwitcher({ setIsDark }) {
 
 ThemeSwitcher.propTypes = {
   setIsDark: PropTypes.func.isRequired,
+  isDark: PropTypes.bool,
 };

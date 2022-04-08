@@ -7,6 +7,7 @@ import { styles } from "./styles";
 const locales = ["en", "ru", "ua"];
 export default function LangList() {
   const { i18n } = useTranslation();
+
   const langChangeHandler = (e) => {
     const value = e.currentTarget.value;
     changeLanguage(value);

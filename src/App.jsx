@@ -12,14 +12,16 @@ import Footer from "components/Footer";
 import { themeDark, themeLight } from "theme";
 import { styles } from "./styles";
 
+const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
+
 function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(isDarkTheme);
 
   return (
     <div css={styles.app}>
       <Provider store={store}>
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
-          <Header setIsDark={setIsDark} />
+          <Header setIsDark={setIsDark} isDark={isDark} />
 
           <ContentContainer>
             <HeroTitle />
