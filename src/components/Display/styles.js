@@ -21,6 +21,11 @@ export const styles = {
     @media (min-width: 920px) {
       width: 47%;
     }
+
+    @media (max-width: 720px) {
+      width: 100%;
+      backgound: red;
+    }
   `,
   button: css`
     width: 80%;
