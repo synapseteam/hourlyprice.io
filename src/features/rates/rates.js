@@ -16,10 +16,8 @@ const initialState = {
 
 export const fetchRates = createAsyncThunk("rates/fetchRates", async () => {
   const data = await ratesDataAPI.getRates();
-
   return data;
 });
-
 export const ratesSlice = createSlice({
   name: "rates",
   initialState,

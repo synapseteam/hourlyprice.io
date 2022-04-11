@@ -102,7 +102,6 @@ export const styles = {
     span {
       align-items: center;
       justify-content: flex-start;
-      margin-left: 3px;
     }
   `,
   transferDetails: css`
@@ -175,7 +174,6 @@ export const styles = {
     width: 30px;
   `,
   fieldBold: css`
-    width: 30px;
     font-weight: bold;
   `,
   mediumField: css`

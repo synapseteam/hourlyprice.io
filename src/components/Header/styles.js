@@ -11,6 +11,7 @@ export const styles = {
     top: 0;
     z-index: 3;
     box-shadow: ${theme.headerShadow};
+    transition: background 0.5s;
 
     @media (min-width: 720px) {
       padding: 0.4rem 4rem !important;

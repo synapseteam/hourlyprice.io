@@ -38,7 +38,6 @@ export default function PriceForm() {
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
   const ratesSource = useSelector((state) => state.rates.ratesSource);
-
   const timeStampCurrenciesUpdated = useSelector(
     (state) => state.rates.updatedAt
   );

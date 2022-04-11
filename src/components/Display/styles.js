@@ -14,7 +14,6 @@ export const styles = {
     box-shadow: ${theme.shadow};
     text-align: center;
     height: 360px;
-
     @media (min-width: 720px) and (max-width: 919px) {
       width: 47%;
     }

@@ -6,10 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useCustomTranslation } from "../../i18n";
 import Logo from "../../assets/ukraine-heart.png";
 import { styles } from "./styles";
 
 export const Invoice = () => {
+  const [t] = useCustomTranslation();
   const isEditMode = useSelector((state) => state.generic.isEditMode);
   const now = new Date();
   const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
@@ -331,7 +333,7 @@ export const Invoice = () => {
                 </span>
                 <span css={[styles.headingColumn, styles.headingColumn5]}>
                   <input
-                    css={[styles.field, styles.serviceInput]}
+                    css={[styles.field, styles.fieldBold, styles.serviceInput]}
                     name={`services[${index}]total`}
                     type="number"
                     readOnly={true}
@@ -345,7 +347,7 @@ export const Invoice = () => {
                     type="button"
                     onClick={(e) => removeService(e, index)}
                   >
-                    Remove
+                    {t("remove")}
                   </button>
                 )}
               </div>
@@ -353,7 +355,7 @@ export const Invoice = () => {
 
             {isEditMode && (
               <button css={styles.button} type="button" onClick={addService}>
-                Add service
+                {t("addService")}
               </button>
             )}
 

@@ -86,7 +86,7 @@ export default function Header({ setIsDark, isDark }) {
         <div css={styles.buttons}>
           <div css={styles.button}>
             <Button onClick={handleToggleEditMode} type="button">
-              {isEditMode ? "save" : "edit"}
+              {isEditMode ? t("save") : t("edit")}
             </Button>
           </div>
           <div css={styles.button}>

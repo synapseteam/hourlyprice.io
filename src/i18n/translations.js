@@ -16,6 +16,10 @@ export const translationEN = {
   badRequestApi: "Request Failed. Rates were not updated properly 🤪",
   noPreviewSupportedMessage: "No preview supported for this resolution",
   invoice: "Invoice",
+  remove: "Remove",
+  addService: "Add service",
+  save: "Save",
+  edit: "Edit",
   exportToPDFText: "Export to PDF",
   closeButtonText: "Close",
 };
@@ -40,6 +44,10 @@ export const translationRU = {
   noPreviewSupportedMessage:
     "Предворительньій просмотр не поддерживается для єтого разрешения",
   invoice: "Инвойс",
+  remove: "Удалять",
+  addService: "Добавить услугу",
+  save: "Сохранить",
+  edit: "Редактировать",
   exportToPDFText: "Експортировать в PDF",
   closeButtonText: "Завершить",
 };
@@ -63,6 +71,10 @@ export const translationUA = {
   badRequestApi: "Не вдалося отримати корректний курс валют",
   noPreviewSupportedMessage: "Попередній перегляд не підтримується",
   invoice: "Інвойс",
+  remove: "Видалити",
+  addService: "Додати послугу",
+  save: "Зберегти",
+  edit: "Редактировать",
   exportToPDFText: "Експортувати в PDF",
   closeButtonText: "Завершити",
 };
