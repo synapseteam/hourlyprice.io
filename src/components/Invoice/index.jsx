@@ -81,14 +81,15 @@ export const Invoice = () => {
   useEffect(() => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
 
-    invoiceItems.forEach((item) => {
-      append({
-        title: "no description",
-        price: item.price,
-        time: item.time,
-        total: item.price * item.time,
+    invoiceItems &&
+      invoiceItems.forEach((item) => {
+        append({
+          title: "no description",
+          price: item.price,
+          time: item.time,
+          total: item.price * item.time,
+        });
       });
-    });
   }, []);
 
   const addService = () => {
