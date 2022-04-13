@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 export const styles = {
   langContainer: css`
     border-radius: 0.4rem;
-    margin: 0 16px;
   `,
   langList: (theme) => css`
     display: flex;

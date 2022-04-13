@@ -12,9 +12,9 @@ export const ratesDataAPI = {
   getRates() {
     return instance.get(`${apiKey}/latest/USD`).then((res) => {
       if (res.status === SUCCESS_RES_CODE) {
-        const { EUR, RUB, UAH } = res.data.conversion_rates;
+        const { EUR, UAH } = res.data.conversion_rates;
 
-        return { EUR, RUB, UAH };
+        return { EUR, UAH };
       }
       throw new Error("Request failed. Rates were not updated 🥲");
     });

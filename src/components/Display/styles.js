@@ -6,33 +6,19 @@ export const styles = {
     border-radius: 0.4rem;
     position: relative;
     width: 100%;
+    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     margin-top: 1.2rem;
     box-shadow: ${theme.shadow};
     text-align: center;
-    height: 360px;
     @media (min-width: 720px) and (max-width: 919px) {
       width: 47%;
     }
 
     @media (min-width: 920px) {
       width: 47%;
-    }
-
-    @media (max-width: 720px) {
-      width: 100%;
-      backgound: red;
-    }
-  `,
-  button: css`
-    width: 80%;
-    margin-top: auto;
-    margin-bottom: 0.5rem;
-    & button {
-      text-transform: uppercase;
     }
   `,
 };

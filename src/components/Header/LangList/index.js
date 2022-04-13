@@ -4,7 +4,7 @@ import { changeLanguage } from "i18n";
 
 import { styles } from "./styles";
 
-const locales = ["en", "ru", "ua"];
+const locales = ["en", "ua"];
 export default function LangList() {
   const { i18n } = useTranslation();
 

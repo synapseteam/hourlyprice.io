@@ -1,19 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import SubCurrenciesDisplay from "components/Display/SubCurrencies";
 import MainCurrencyDisplay from "components/Display/MainCurrency/";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
 import { useCustomTranslation } from "i18n";
-import { clearFields, setInvoiceItemAdded } from "features/generic";
 import { DECIMAL_SIGNS_FOR_PRICE } from "utils/constants";
-import Button from "components/UI/Button";
 
 import { styles } from "./styles";
 
 export default function Display() {
   const [t] = useCustomTranslation();
-  const dispatch = useDispatch();
   const { price, time, currency } = useSelector(
     (state) => state.generic.fields
   );
@@ -57,27 +54,6 @@ export default function Display() {
   const mainCurrencySum = formatSum(time * price);
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
-  const addItemToLocalStorage = () => {
-    const invoiceObj = {
-      description: "no description",
-      price: price,
-      time: time,
-    };
-    const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-    if (!invoiceItems) {
-      let invoiceArray = [];
-      invoiceArray.push(invoiceObj);
-      localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
-      dispatch(clearFields());
-    }
-    if (invoiceItems) {
-      invoiceItems.push(invoiceObj);
-      localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
-      dispatch(clearFields());
-    }
-    dispatch(setInvoiceItemAdded(true));
-  };
-
   return (
     <div css={styles.display}>
       <MainCurrencyDisplay
@@ -90,12 +66,6 @@ export default function Display() {
         isLoading={isLoading}
       />
       {isRequestError && <p>{t("badRequestApi")}</p>}
-
-      <div css={styles.button}>
-        <Button type="button" disabled={!price} onClick={addItemToLocalStorage}>
-          {t("addToInvoice")}
-        </Button>
-      </div>
 
       <SubCurrenciesRatesDisplay
         allCurrencies={allCurrencies}

@@ -15,7 +15,7 @@ export const styles = {
 
   footerText: css`
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
   `,
   footerLink: (theme) => css`
     text-decoration: none;

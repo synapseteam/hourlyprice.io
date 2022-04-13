@@ -19,8 +19,7 @@ export const styles = {
     left: 50%;
     transform: translate(-50%, -50%);
     max-height: 500px;
-    max-width: 700px;
-    width: 100%;
+    width: 820px;
     background: #fff;
     z-index: 5;
     &.show {
@@ -30,7 +29,6 @@ export const styles = {
       animation-duration: 0.5s;
       top: 50%;
     }
-
     @-webkit-keyframes modal-animation {
       from {
         top: -500px;
@@ -41,7 +39,6 @@ export const styles = {
         opacity: 1;
       }
     }
-
     @keyframes modal-animation {
       from {
         top: -500px;
@@ -51,6 +48,12 @@ export const styles = {
         top: 50%;
         opacity: 1;
       }
+    }
+    @media (max-width: 820px) {
+      width: 100%;
+    }
+    @media (max-width: 820px) {
+      padding: 0;
     }
   `,
   title: css`
@@ -66,6 +69,9 @@ export const styles = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (max-width: 820px) {
+      overflow-y: hidden;
+    }
   `,
   closeButton: css`
     position: absolute;

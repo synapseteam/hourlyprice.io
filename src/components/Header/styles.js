@@ -33,8 +33,13 @@ export const styles = {
     padding: 0rem 0.5rem;
     cursor: pointer;
     height: 40px;
+    @media (max-width: 420px) {
+      padding: 0rem 0.1rem;
+    }
   `,
-
+  report: css`
+    height: 1200px;
+  `,
   invoiceAnimation: (theme) => css`
     animation-name: colorChange;
     animation-duration: 2s;
@@ -51,25 +56,36 @@ export const styles = {
       }
     }
   `,
-
   invoiceIcon: css`
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     margin-left: 0.3rem;
+    @media (max-width: 420px) {
+      margin-left: 0rem;
+    }
   `,
-
+  invoiceText: css`
+    @media (max-width: 420px) {
+      display: none;
+    }
+  `,
   noPreviewMessage: css`
     font-size: 28px;
     line-height: 36px;
     color: #212121;
     margin: 50px 20px;
+    text-align: center;
   `,
   buttons: css`
     width: 100%;
     display: flex;
     justify-content: center;
+    text-size-adjust: 80%;
     & button {
       text-transform: uppercase;
+    }
+    @media (max-width: 820px) {
+      display: none;
     }
   `,
   button: css`

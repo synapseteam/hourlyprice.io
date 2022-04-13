@@ -20,6 +20,7 @@ import { transformRatesResponse } from "utils/generic";
 import { modifyFields, setRequestErr } from "features/generic";
 import { fetchRates } from "features/rates";
 import { setManualRates as setManualRates2 } from "features/rates";
+import { clearFields, setInvoiceItemAdded } from "features/generic";
 import { MILISEC_IN_ONE_SEC } from "utils/constants";
 
 import { styles } from "./styles";
@@ -41,6 +42,8 @@ export default function PriceForm() {
   const timeStampCurrenciesUpdated = useSelector(
     (state) => state.rates.updatedAt
   );
+  const { price, time } = useSelector((state) => state.generic.fields);
+
   const allCurrenciesNames = allCurrencies.map((el) => el.name);
 
   const dispatch = useDispatch();
@@ -110,12 +113,42 @@ export default function PriceForm() {
 
   useEffect(() => {
     setValue("UAH", "");
-    setValue("RUB", "");
     setValue("EUR", "");
     setValue("USD", "");
     // eslint-disable-next-line no-magic-numbers
     setValue(chosenCurrency, 1);
   }, [chosenCurrency]);
+
+  const addItemToLocalStorage = () => {
+    const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
+
+    if (invoiceItems && invoiceItems.length < 10) {
+      const invoiceObj = {
+        description: "No description",
+        price: price,
+        time: time,
+      };
+      if (!invoiceItems) {
+        let invoiceArray = [];
+        invoiceArray.push(invoiceObj);
+        localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
+        dispatch(clearFields());
+      }
+      if (invoiceItems) {
+        invoiceItems.push(invoiceObj);
+        localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+        dispatch(clearFields());
+      }
+      dispatch(setInvoiceItemAdded(true));
+    }
+  };
+
+  const addToInvoiceButtonStyles = [
+    styles.button,
+    price ? styles.addToInvoiceButtonVisible : styles.addToInvoiceButton,
+  ];
+
+  const submitButtonStyles = price ? styles.button : styles.buttonWide;
 
   return (
     <form css={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -164,7 +197,14 @@ export default function PriceForm() {
         />
       )}
       <div css={styles.buttons}>
-        <Button type="submit">{t("btnResult")}</Button>
+        <div css={submitButtonStyles}>
+          <Button type="submit">{t("btnResult")}</Button>
+        </div>
+        <div css={addToInvoiceButtonStyles}>
+          <Button type="button" onClick={addItemToLocalStorage}>
+            {t("addToInvoice")}
+          </Button>
+        </div>
       </div>
     </form>
   );

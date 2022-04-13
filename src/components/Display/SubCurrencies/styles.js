@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 export const styles = {
   mainContainer: css`
-    margin-top: 1rem;
+    margin-top: 1.6rem;
     margin-bottom: 1rem;
     min-height: 3rem;
     display: flex;
@@ -16,7 +16,7 @@ export const styles = {
   `,
   subCurrencyTitlte: (theme) => css`
     color: ${theme.secondary};
-    font-size: 1rem;
+    font-size: 0.8rem;
   `,
   subCurrencySum: css`
     margin-top: 0.4rem;

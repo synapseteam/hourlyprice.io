@@ -14,7 +14,7 @@ export const translationEN = {
   timeError: "Time should be in format hours:minutes. Example: 160:47",
   manualOptionExchangeSource: "Manual",
   badRequestApi: "Request Failed. Rates were not updated properly 🤪",
-  noPreviewSupportedMessage: "No preview supported for this resolution",
+  noPreviewSupportedMessage: "Preview is not supported for this resolution",
   invoice: "Invoice",
   remove: "Remove",
   addService: "Add service",
@@ -22,34 +22,6 @@ export const translationEN = {
   edit: "Edit",
   exportToPDFText: "Export to PDF",
   closeButtonText: "Close",
-};
-
-export const translationRU = {
-  heroTitle: "Почасовый калькулятор оплаты",
-  heroSubTitle:
-    "<citation>Время - деньги</citation> как сказал Бенджамин Франклин",
-  labelPrice: "Стоимость",
-  timePlaceholder: "ЧЧ:ММ",
-  labelTime: "Время",
-  labelCurrency: "Валюта",
-  labelExchangeRate: "Курс валют",
-  totalPrice: "Общая стоимость",
-  btnResult: "Рассчитать",
-  addToInvoice: "Добавить в инвойс",
-  btnCreateInvoice: "Создать инвойс",
-  priceError: "Стоимость должна быть положительным числом",
-  timeError: "Время должно быть в формате часы:минуты. Например: 160:47",
-  manualOptionExchangeSource: "Свой курс",
-  badRequestApi: "Не удалось получить корректный курс валют",
-  noPreviewSupportedMessage:
-    "Предворительньій просмотр не поддерживается для єтого разрешения",
-  invoice: "Инвойс",
-  remove: "Удалять",
-  addService: "Добавить услугу",
-  save: "Сохранить",
-  edit: "Редактировать",
-  exportToPDFText: "Експортировать в PDF",
-  closeButtonText: "Завершить",
 };
 
 export const translationUA = {

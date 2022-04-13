@@ -50,13 +50,12 @@ export const styles = {
     flex-direction: column;
     align-items: flex-end;
     height: 100%;
-    width: 30%;
+    width: 36%;
   `,
   column3: css`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    height: 100%;
     width: 10%;
   `,
   logo: css`
@@ -87,14 +86,14 @@ export const styles = {
       align-items: center;
       justify-content: center;
       height: 100%;
-      padding: 8px;
+      padding: 4px;
     }
   `,
   heading: css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
+    height: 30px;
     width: 100%;
     background: #424242;
     color: #fff;
@@ -107,7 +106,7 @@ export const styles = {
   transferDetails: css`
     display: flex;
     flex-direction: column;
-    margin-top: 45px;
+    margin-top: 25px;
     padding-bottom: 40px;
   `,
   generalInfoColumn: css`
@@ -115,14 +114,20 @@ export const styles = {
     flex-direction: column;
     align-items: flex-end;
   `,
+  generalInfoColumnNoEdit: css`
+    margin-top: 30px;
+  `,
   generalInfo: css`
     display: flex;
     align-items: center;
     height: 30px;
+    span {
+      font-weight: bold;
+      padding-right: 0px;
+    }
   `,
   headingRow: css`
     padding: 0;
-
     span {
       justify-content: flex-start;
     }
@@ -149,13 +154,12 @@ export const styles = {
     flex: 1;
   `,
   field: css`
-    border: 1px solid #d0d0d0;
+    border: none;
     margin: 1px;
     background: #fff;
     min-width: 28px;
     line-height: 24px;
-    width: auto;
-    padding-left: 3px;
+
     &:disabled {
       border: none;
     }
@@ -166,9 +170,10 @@ export const styles = {
     min-height: 180px;
     line-height: 24px;
     width: 100%;
+    height: 97px;
   `,
   notesTextArea: css`
-    min-height: 60px;
+    min-height: 40px;
   `,
   smallField: css`
     width: 30px;
@@ -176,14 +181,24 @@ export const styles = {
   fieldBold: css`
     font-weight: bold;
   `,
+  fieldDate: css`
+    line-height: 20px;
+    text-align: right;
+  `,
+
   mediumField: css`
     width: 77px;
+  `,
+  bigField: css`
+    width: 300px;
+    text-align: right;
   `,
   serviceInput: css`
     word-wrap: break-word;
     word-break: break-all;
-    height: 50px;
+    height: 30px;
     width: 100%;
+    padding: 4px 0;
     resize: none;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -197,7 +212,7 @@ export const styles = {
     }
   `,
   bigTextarea: css`
-    min-height: 240px;
+    min-height: 150px;
   `,
   button: css`
     background-color: #24274a;

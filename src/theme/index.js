@@ -14,8 +14,8 @@ export const themeDark = {
   modalOverlay: "rgba(0, 0, 0, 0.5)",
 
   btnHoverColor: "#5cbabc",
-  btnDisabledColor: "#949494",
-  btnDisabledBgColor: "#7d7d7d",
+  btnDisabledColor: "#ffffff",
+  btnDisabledBgColor: "#528896",
   labelColor: "#5599ec",
   inputBackgroundColor: "#171d3d",
   inputBgColor: "#171d3d",
@@ -47,8 +47,8 @@ export const themeLight = {
   modalOverlay: "rgba(0, 0, 0, 0.5)",
 
   btnHoverColor: "#d5d3d3",
-  btnDisabledColor: "#c8c7c7",
-  btnDisabledBgColor: "#ababab",
+  btnDisabledColor: "#171d3d",
+  btnDisabledBgColor: "#bebebe",
   labelColor: "#24274a",
   inputBackgroundColor: "#ffffff",
   inputBgColor: "#ffffff",

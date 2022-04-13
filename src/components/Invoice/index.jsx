@@ -33,11 +33,11 @@ export const Invoice = () => {
   const defaultValues = {
     invoice: "Invoice",
     teamName: "Synapse Team LLC",
-    code: "42772269",
+    code: "USREOU Code: 42772269",
     location: "Ukraine, Zaporizhzhia",
     email: "email@test.com",
     invoiceNumber: "001",
-    agreementNumber: "777",
+    agreementNumber: " # INV-001 to the Agreement 777",
     balanceDue: "7777777",
     billToColumn1: "column1",
     billToColumn2: "column2",
@@ -50,12 +50,7 @@ export const Invoice = () => {
       "Lorem Ipsum is simply dummy text of the printing.\n" +
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n" +
       "Lorem Ipsum is simply.\n" +
-      "Lorem Ipsum is simply dummy text of the printing and typesetting\n" +
-      "\n" +
-      "Lorem Ipsum is simply dummy text of the printing.\n" +
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n" +
-      "Lorem Ipsum is simply.\n" +
-      "Lorem Ipsum is simply dummy text of the printing and typesetting",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting\n",
   };
   const { register, control, getValues, setValue } = useForm({
     defaultValues,
@@ -69,7 +64,7 @@ export const Invoice = () => {
   const formValues = getValues();
 
   const calculateOrderTotal = () => {
-    if (formValues.services) {
+    if (formValues && formValues.services) {
       const total = formValues.services.reduce(
         (acc, curr) => Number(curr.total) + acc,
         0
@@ -79,12 +74,16 @@ export const Invoice = () => {
   };
 
   useEffect(() => {
+    calculateOrderTotal();
+  }, [formValues.services]);
+
+  useEffect(() => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
 
     invoiceItems &&
       invoiceItems.forEach((item) => {
         append({
-          title: "no description",
+          title: "No description",
           price: item.price,
           time: item.time,
           total: item.price * item.time,
@@ -93,23 +92,26 @@ export const Invoice = () => {
   }, []);
 
   const addService = () => {
-    append({ title: "", price: 0, time: 0, total: 0 });
-
-    const invoiceObj = {
-      description: "",
-      price: 0,
-      time: 0,
-      total: 0,
-    };
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-    if (!invoiceItems) {
-      let invoiceArray = [];
-      invoiceArray.push(invoiceObj);
-      localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
-    }
-    if (invoiceItems) {
-      invoiceItems.push(invoiceObj);
-      localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+
+    if (invoiceItems.length < 10) {
+      append({ title: "", price: 0, time: 0, total: 0 });
+
+      const invoiceObj = {
+        description: "",
+        price: 0,
+        time: 0,
+        total: 0,
+      };
+      if (!invoiceItems) {
+        let invoiceArray = [];
+        invoiceArray.push(invoiceObj);
+        localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
+      }
+      if (invoiceItems) {
+        invoiceItems.push(invoiceObj);
+        localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+      }
     }
   };
   const removeService = (index) => {
@@ -118,6 +120,12 @@ export const Invoice = () => {
     localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
     remove(index);
   };
+
+  const generalInfoStyles = [
+    styles.generalInfoColumn,
+    !isEditMode && styles.generalInfoColumnNoEdit,
+  ];
+
   return (
     <>
       <form>
@@ -147,9 +155,8 @@ export const Invoice = () => {
                 </strong>
               </span>
               <span css={styles.text}>
-                USREOU Code:
                 <input
-                  css={[styles.field, styles.mediumField]}
+                  css={[styles.field]}
                   {...register("code", { required: true })}
                   disabled={!isEditMode}
                 />
@@ -172,15 +179,8 @@ export const Invoice = () => {
             <div css={[styles.column, styles.agreementColumn]}>
               <span css={styles.text}>
                 <strong>
-                  # INV-{" "}
                   <input
-                    css={[styles.field, styles.smallField, styles.fieldBold]}
-                    {...register("invoiceNumber", { required: true })}
-                    disabled={!isEditMode}
-                  />{" "}
-                  to the Agreement{" "}
-                  <input
-                    css={[styles.field, styles.smallField, styles.fieldBold]}
+                    css={[styles.field, styles.fieldBold, styles.bigField]}
                     {...register("agreementNumber", { required: true })}
                     disabled={!isEditMode}
                   />
@@ -248,7 +248,7 @@ export const Invoice = () => {
                     styles.field,
                     styles.fieldBold,
                     styles.mediumField,
-                    styles.dataPicker,
+                    styles.fieldDate,
                   ]}
                   {...register("invoiceDate", { required: true })}
                   selected={startDate}
@@ -262,7 +262,7 @@ export const Invoice = () => {
                     styles.field,
                     styles.fieldBold,
                     styles.mediumField,
-                    styles.dataPicker,
+                    styles.fieldDate,
                   ]}
                   {...register("dueDate", { required: true })}
                   selected={weekFromNowDate}
@@ -288,11 +288,11 @@ export const Invoice = () => {
                   {index + 1}
                 </span>
                 <span css={[styles.headingColumn, styles.headingColumn2]}>
-                  <textarea
+                  <input
                     css={[styles.field, styles.serviceInput]}
                     name={`services[${index}]title`}
                     {...register(`services.${index}.title`)}
-                    maxLength={90}
+                    maxLength={45}
                     disabled={!isEditMode}
                   />
                 </span>
@@ -360,14 +360,12 @@ export const Invoice = () => {
               </button>
             )}
 
-            <div css={styles.generalInfoColumn}>
+            <div css={generalInfoStyles}>
               <div css={styles.generalInfo}>
-                <strong>Total:</strong>
-                <span>{orderTotal}</span>
+                <span>Total: {orderTotal}</span>
               </div>
               <div css={styles.generalInfo}>
-                <strong>Balance Due:</strong>
-                <span>{orderTotal}</span>
+                <span>Balance Due: {orderTotal}</span>
               </div>
             </div>
           </div>

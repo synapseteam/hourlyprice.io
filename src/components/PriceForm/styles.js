@@ -7,7 +7,6 @@ export const styles = {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    align-self: stretch;
     @media (min-width: 720px) {
       width: 47%;
     }
@@ -21,8 +20,19 @@ export const styles = {
   `,
   buttons: css`
     display: flex;
-    & button {
-      text-transform: uppercase;
-    }
+    justify-content: space-between;
+    width: 100%;
+  `,
+  button: css`
+    width: 47%;
+  `,
+  buttonWide: css`
+    width: 100%;
+  `,
+  addToInvoiceButtonVisible: css`
+    display: block;
+  `,
+  addToInvoiceButton: css`
+    display: none;
   `,
 };

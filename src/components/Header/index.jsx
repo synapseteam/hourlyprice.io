@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import JsPDF from "jspdf";
-import InvoiceIcon from "../../assets/invoice.svg";
+import InvoiceIcon from "../../assets/invoice.png";
+import InvoiceWhiteIcon from "../../assets/invoice-white.png";
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
@@ -37,8 +38,8 @@ export default function Header({ setIsDark, isDark }) {
   };
 
   const generatePDF = () => {
-    const report = new JsPDF("p", "pt", [700, 900]);
-    report.viewerPreferences({ FitWindow: true, CenterWindow: true }, true);
+    const report = new JsPDF("p", "px", [780, 1250]);
+    report.viewerPreferences({ CenterWindow: true }, true);
     report.html(document.querySelector("#report"), { margin: 20 }).then(() => {
       report.save("report.pdf");
     });
@@ -60,21 +61,22 @@ export default function Header({ setIsDark, isDark }) {
     styles.invoice,
     isInvoiceItemAdded ? styles.invoiceAnimation : null,
   ];
+  const invoiceIcon = isDark ? InvoiceWhiteIcon : InvoiceIcon;
 
   return (
     <header css={styles.header}>
       <Logo />
       <div css={styles.rightHandContainer}>
         <div css={invoiceStyles} onClick={toggleInvoiceModal}>
-          {t("invoice")}
-          <img src={InvoiceIcon} css={styles.invoiceIcon} />
+          <p css={styles.invoiceText}> {t("invoice")}</p>
+          <img src={invoiceIcon} css={styles.invoiceIcon} />
         </div>
-        <LangList />
         <ThemeSwitcher setIsDark={setIsDark} isDark={isDark} />
+        <LangList />
       </div>
       <ModalDialog isOpen={isInvoiceModalOpen} onClose={toggleInvoiceModal}>
         {width >= INVOICE_PREVIEW_SUPPORTED_RESOLUTION && (
-          <div id="report">
+          <div id="report" css={styles.report}>
             <Invoice />
           </div>
         )}

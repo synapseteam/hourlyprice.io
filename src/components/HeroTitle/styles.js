@@ -6,8 +6,11 @@ export const styles = {
   `,
   title: css`
     font-style: italic;
-    line-height: 0.8;
+    line-height: 1;
     margin: 1.4rem 0 0 0;
+    @media (max-width: 720px) {
+      margin: 0;
+    }
   `,
   subTitle: css`
     font-size: 1rem;

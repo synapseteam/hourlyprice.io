@@ -4,7 +4,7 @@ export const styles = {
   label: (theme) => css`
     display: flex;
     flex-direction: column;
-    font-size: 1rem;
+    font-size: 0.7rem;
     color: ${theme.labelColor};
     margin-top: 0.8rem;
 

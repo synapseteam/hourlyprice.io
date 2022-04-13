@@ -8,7 +8,6 @@ const initialState = {
     { name: "USD", rate: 1, symbol: "$" },
     { name: "EUR", rate: 1, symbol: "€" },
     { name: "UAH", rate: 1, symbol: "₴" },
-    { name: "RUB", rate: 1, symbol: "₽" },
   ],
   updatedAt: "",
   ratesSource: "MasterCard",

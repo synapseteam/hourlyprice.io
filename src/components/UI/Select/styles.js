@@ -4,7 +4,7 @@ export const styles = {
   label: (theme) => css`
     display: flex;
     flex-direction: column;
-    font-size: 1rem;
+    font-size: 0.7rem;
     color: ${theme.labelColor};
 
     &:first-of-type {
@@ -18,9 +18,7 @@ export const styles = {
     color: ${theme.denary};
     padding: 0.8rem 1rem;
     margin-top: 0.4rem;
-
     outline: none;
-
     appearance: none;
   `,
 };
