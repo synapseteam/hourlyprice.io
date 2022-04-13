@@ -94,24 +94,22 @@ export const Invoice = () => {
   const addService = () => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
 
-    if (invoiceItems.length < 10) {
+    const invoiceObj = {
+      description: "",
+      price: 0,
+      time: 0,
+      total: 0,
+    };
+    if (!invoiceItems) {
+      let invoiceArray = [];
+      invoiceArray.push(invoiceObj);
+      localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
+    }
+    if (invoiceItems && invoiceItems.length < 10) {
       append({ title: "", price: 0, time: 0, total: 0 });
 
-      const invoiceObj = {
-        description: "",
-        price: 0,
-        time: 0,
-        total: 0,
-      };
-      if (!invoiceItems) {
-        let invoiceArray = [];
-        invoiceArray.push(invoiceObj);
-        localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
-      }
-      if (invoiceItems) {
-        invoiceItems.push(invoiceObj);
-        localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
-      }
+      invoiceItems.push(invoiceObj);
+      localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
     }
   };
   const removeService = (index) => {

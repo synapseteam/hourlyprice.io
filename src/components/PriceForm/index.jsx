@@ -121,24 +121,21 @@ export default function PriceForm() {
 
   const addItemToLocalStorage = () => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-
+    const invoiceObj = {
+      description: "No description",
+      price: price,
+      time: time,
+    };
+    if (!invoiceItems) {
+      let invoiceArray = [];
+      invoiceArray.push(invoiceObj);
+      localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
+      dispatch(clearFields());
+    }
     if (invoiceItems && invoiceItems.length < 10) {
-      const invoiceObj = {
-        description: "No description",
-        price: price,
-        time: time,
-      };
-      if (!invoiceItems) {
-        let invoiceArray = [];
-        invoiceArray.push(invoiceObj);
-        localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
-        dispatch(clearFields());
-      }
-      if (invoiceItems) {
-        invoiceItems.push(invoiceObj);
-        localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
-        dispatch(clearFields());
-      }
+      invoiceItems.push(invoiceObj);
+      localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
+      dispatch(clearFields());
       dispatch(setInvoiceItemAdded(true));
     }
   };
