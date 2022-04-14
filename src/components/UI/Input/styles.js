@@ -6,11 +6,6 @@ export const styles = {
     flex-direction: column;
     font-size: 0.7rem;
     color: ${theme.labelColor};
-    margin-top: 0.8rem;
-
-    &:first-of-type {
-      margin-top: 0;
-    }
   `,
   error: css`
     margin: 0.3rem 0 0;

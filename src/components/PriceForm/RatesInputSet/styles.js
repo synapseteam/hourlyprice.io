@@ -15,7 +15,6 @@ export const styles = {
     padding: 0.8rem 1rem;
     margin-top: 0.4rem;
     width: 22%;
-    margin-top: 1rem;
     outline: none;
   `,
 };
