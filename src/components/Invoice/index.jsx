@@ -377,7 +377,7 @@ export const Invoice = () => {
 
             {isEditMode && (
               <button
-                css={styles.button}
+                css={styles.addButton}
                 type="button"
                 disabled={isAddServiceButtonDisabled}
                 onClick={addService}

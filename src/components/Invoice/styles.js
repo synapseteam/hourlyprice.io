@@ -225,6 +225,14 @@ export const styles = {
     height: 30px;
     width: 80px;
     cursor: pointer;
+  `,
+  addButton: css`
+    background-color: #24274a;
+    border: 1px solid #171d3d;
+    border-radius: 2px;
+    color: #fff;
+    height: 30px;
+    cursor: pointer;
     &:disabled {
       background: #4e7585;
       border: 1px solid #4e7585;
