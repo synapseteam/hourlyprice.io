@@ -141,17 +141,17 @@ export const styles = {
     }
   `,
   headingColumn2: css`
-    width: 50%;
+    width: 340px;
     min-width: 210px;
   `,
   headingColumn3: css`
-    flex: 1;
+    width: 80px;
   `,
   headingColumn4: css`
-    flex: 1;
+    width: 80px;
   `,
   headingColumn5: css`
-    flex: 1;
+    width: 80px;
   `,
   field: css`
     border: none;
@@ -194,7 +194,7 @@ export const styles = {
     text-align: right;
   `,
   agreementNumber: css`
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   `,
   serviceInput: css`
     word-wrap: break-word;
@@ -223,6 +223,7 @@ export const styles = {
     border-radius: 2px;
     color: #fff;
     height: 30px;
+    width: 80px;
     cursor: pointer;
     &:disabled {
       background: #4e7585;
