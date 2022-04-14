@@ -96,6 +96,12 @@ export const Invoice = () => {
     }
   }, []);
 
+  const watchAllFields = watch(["services"]);
+
+  useEffect(() => {
+    localStorage.setItem("invoiceItems", JSON.stringify(watchAllFields[0]));
+  }, [watchAllFields]);
+
   const addService = () => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
     const invoiceObj = {
@@ -122,13 +128,6 @@ export const Invoice = () => {
     }
   };
 
-  const watchAllFields = watch(["services"]);
-
-  useEffect(() => {
-    if (formValues.services) {
-      localStorage.setItem("invoiceItems", JSON.stringify(formValues.services));
-    }
-  }, [watchAllFields]);
   const removeService = (e, index) => {
     let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
     invoiceItems.splice(index, 1);
