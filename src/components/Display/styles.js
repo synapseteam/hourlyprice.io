@@ -13,6 +13,9 @@ export const styles = {
     margin-top: 1.2rem;
     box-shadow: ${theme.shadow};
     text-align: center;
+    @media (max-width: 420px) {
+      padding: 3rem 0.5rem;
+    }
     @media (min-width: 720px) and (max-width: 919px) {
       width: 47%;
     }
