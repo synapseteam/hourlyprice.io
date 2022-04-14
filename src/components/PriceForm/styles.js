@@ -11,7 +11,7 @@ export const styles = {
     > * {
       margin-top: 0.8rem;
     }
-    &:first-child {
+    &:first-of-type {
       margin-top: 0rem;
     }
 

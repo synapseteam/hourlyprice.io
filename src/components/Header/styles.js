@@ -50,7 +50,7 @@ export const styles = {
       }
       50% {
         background-color: ${theme.senary};
-        color: ${theme.octonary};
+        color: ${theme.senary};
       }
       100% {
         background-color: ${theme.octonary};
