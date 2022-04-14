@@ -120,7 +120,7 @@ export const Invoice = () => {
       setIsAddServiceButtonDisabled(true);
     }
   };
-  const removeService = (index) => {
+  const removeService = (e, index) => {
     let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
     invoiceItems.splice(index, 1);
     localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
