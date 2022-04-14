@@ -18,6 +18,8 @@ export const Invoice = () => {
   const [startDate, setStartDate] = useState(now);
   const [weekFromNowDate, setWeekFromNowDate] = useState(weekFromNow);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [isAddServiceButtonDisabled, setIsAddServiceButtonDisabled] =
+    useState(false);
 
   const JsSchema = Yup.object().shape({
     services: Yup.array().of(
@@ -89,11 +91,14 @@ export const Invoice = () => {
           total: item.price * item.time,
         });
       });
+
+    if (invoiceItems && invoiceItems.length > 9) {
+      setIsAddServiceButtonDisabled(true);
+    }
   }, []);
 
   const addService = () => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-
     const invoiceObj = {
       description: "",
       price: 0,
@@ -111,12 +116,16 @@ export const Invoice = () => {
       invoiceItems.push(invoiceObj);
       localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
     }
+    if (invoiceItems && invoiceItems.length > 9) {
+      setIsAddServiceButtonDisabled(true);
+    }
   };
   const removeService = (index) => {
     let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
     invoiceItems.splice(index, 1);
     localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
     remove(index);
+    setIsAddServiceButtonDisabled(false);
   };
 
   const generalInfoStyles = [
@@ -353,7 +362,12 @@ export const Invoice = () => {
             ))}
 
             {isEditMode && (
-              <button css={styles.button} type="button" onClick={addService}>
+              <button
+                css={styles.button}
+                type="button"
+                disabled={isAddServiceButtonDisabled}
+                onClick={addService}
+              >
                 {t("addService")}
               </button>
             )}

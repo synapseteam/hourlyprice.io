@@ -20,7 +20,11 @@ import { transformRatesResponse } from "utils/generic";
 import { modifyFields, setRequestErr } from "features/generic";
 import { fetchRates } from "features/rates";
 import { setManualRates as setManualRates2 } from "features/rates";
-import { clearFields, setInvoiceItemAdded } from "features/generic";
+import {
+  clearFields,
+  setInvoiceItemAdded,
+  setInvoiceFull,
+} from "features/generic";
 import { MILISEC_IN_ONE_SEC } from "utils/constants";
 
 import { styles } from "./styles";
@@ -137,6 +141,9 @@ export default function PriceForm() {
       localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
       dispatch(clearFields());
       dispatch(setInvoiceItemAdded(true));
+    }
+    if (invoiceItems && invoiceItems.length > 9) {
+      dispatch(setInvoiceFull(true));
     }
   };
 

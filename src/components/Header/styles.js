@@ -24,6 +24,7 @@ export const styles = {
     justify-content: center;
   `,
   invoice: (theme) => css`
+    position: relative;
     display: flex;
     align-items: center;
     background-color: ${theme.octonary};
@@ -64,6 +65,35 @@ export const styles = {
       margin-left: 0rem;
     }
   `,
+  invoiceXIcon: css`
+    position: absolute;
+    right: 9px;
+    height: 30px;
+    width: 30px;
+    margin-left: 0.3rem;
+    opacity: 0;
+    @media (max-width: 420px) {
+      right: 2px;
+    }
+  `,
+
+  invoiceXIconAnimation: css`
+    animation-name: colorChange;
+    animation-duration: 2s;
+    @keyframes colorChange {
+      0% {
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  `,
+
   invoiceText: css`
     @media (max-width: 420px) {
       display: none;

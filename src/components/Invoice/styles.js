@@ -221,5 +221,10 @@ export const styles = {
     color: #fff;
     height: 30px;
     cursor: pointer;
+    &:disabled {
+      background: #4e7585;
+      border: 1px solid #4e7585;
+      cursor: not-allowed;
+    }
   `,
 };

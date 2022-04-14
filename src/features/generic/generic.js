@@ -11,6 +11,7 @@ const initialState = {
   ratesRequestErr: false,
   isEditMode: true,
   isInvoiceItemAdded: false,
+  isInvoiceFull: false,
 };
 
 export const genericSlice = createSlice({
@@ -35,6 +36,9 @@ export const genericSlice = createSlice({
     setInvoiceItemAdded: (state, action) => {
       state.isInvoiceItemAdded = action.payload;
     },
+    setInvoiceFull: (state, action) => {
+      state.isInvoiceFull = action.payload;
+    },
   },
   extraReducers: {
     [fetchRates.pending]: (state) => {
@@ -57,4 +61,5 @@ export const {
   clearFields,
   toggleEditMode,
   setInvoiceItemAdded,
+  setInvoiceFull,
 } = genericSlice.actions;

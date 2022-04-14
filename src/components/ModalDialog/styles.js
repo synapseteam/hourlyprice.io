@@ -19,7 +19,7 @@ export const styles = {
     left: 50%;
     transform: translate(-50%, -50%);
     max-height: 500px;
-    width: 820px;
+    width: 760px;
     background: #fff;
     z-index: 5;
     &.show {

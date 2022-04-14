@@ -5,13 +5,18 @@ import PropTypes from "prop-types";
 import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice.png";
 import InvoiceWhiteIcon from "../../assets/invoice-white.png";
+import RedXIcon from "../../assets/red-x.png";
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
 import ModalDialog from "components/ModalDialog";
 import Invoice from "components/Invoice";
 import { INVOICE_PREVIEW_SUPPORTED_RESOLUTION } from "../../configure";
-import { toggleEditMode, setInvoiceItemAdded } from "features/generic";
+import {
+  toggleEditMode,
+  setInvoiceItemAdded,
+  setInvoiceFull,
+} from "features/generic";
 import { useWindowDimensions } from "../../hooks";
 import { useCustomTranslation } from "../../i18n";
 import Button from "components/UI/Button";
@@ -23,6 +28,8 @@ export default function Header({ setIsDark, isDark }) {
   const isInvoiceItemAdded = useSelector(
     (state) => state.generic.isInvoiceItemAdded
   );
+
+  const isInvoiceFull = useSelector((state) => state.generic.isInvoiceFull);
 
   const { width } = useWindowDimensions();
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
@@ -40,9 +47,11 @@ export default function Header({ setIsDark, isDark }) {
   const generatePDF = () => {
     const report = new JsPDF("p", "px", [780, 1250]);
     report.viewerPreferences({ CenterWindow: true }, true);
-    report.html(document.querySelector("#report"), { margin: 20 }).then(() => {
-      report.save("report.pdf");
-    });
+    report
+      .html(document.querySelector("#report"), { margin: [20, 10, 10, 50] })
+      .then(() => {
+        report.save("report.pdf");
+      });
   };
 
   const handleToggleEditMode = () => {
@@ -57,18 +66,30 @@ export default function Header({ setIsDark, isDark }) {
     }
   }, [isInvoiceItemAdded]);
 
+  useEffect(() => {
+    if (isInvoiceFull) {
+      setTimeout(() => {
+        dispatch(setInvoiceFull(false));
+      }, 2000);
+    }
+  }, [isInvoiceFull]);
+
   const invoiceStyles = [
     styles.invoice,
     isInvoiceItemAdded ? styles.invoiceAnimation : null,
   ];
   const invoiceIcon = isDark ? InvoiceWhiteIcon : InvoiceIcon;
-
+  const invoiceXIconStyles = [
+    styles.invoiceXIcon,
+    isInvoiceFull ? styles.invoiceXIconAnimation : null,
+  ];
   return (
     <header css={styles.header}>
       <Logo />
       <div css={styles.rightHandContainer}>
         <div css={invoiceStyles} onClick={toggleInvoiceModal}>
           <p css={styles.invoiceText}> {t("invoice")}</p>
+          <img src={RedXIcon} css={invoiceXIconStyles} />
           <img src={invoiceIcon} css={styles.invoiceIcon} />
         </div>
         <ThemeSwitcher setIsDark={setIsDark} isDark={isDark} />
