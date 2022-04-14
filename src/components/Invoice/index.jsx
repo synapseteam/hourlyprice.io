@@ -125,7 +125,6 @@ export const Invoice = () => {
   const watchAllFields = watch(["services"]);
 
   useEffect(() => {
-    console.log(formValues.services);
     if (formValues.services) {
       localStorage.setItem("invoiceItems", JSON.stringify(formValues.services));
     }
