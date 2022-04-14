@@ -51,8 +51,6 @@ export const styles = {
     }
     @media (max-width: 820px) {
       width: 100%;
-    }
-    @media (max-width: 820px) {
       padding: 0;
     }
   `,

@@ -193,6 +193,9 @@ export const styles = {
     width: 300px;
     text-align: right;
   `,
+  agreementNumber: css`
+    margin-bottom: 3px;
+  `,
   serviceInput: css`
     word-wrap: break-word;
     word-break: break-all;

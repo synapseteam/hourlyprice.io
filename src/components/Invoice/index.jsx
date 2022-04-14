@@ -291,7 +291,13 @@ export const Invoice = () => {
 
             {fields.map((item, index) => (
               <div key={index} css={[styles.row, styles.headingRow]}>
-                <span css={[styles.headingColumn, styles.headingColumn1]}>
+                <span
+                  css={[
+                    styles.headingColumn,
+                    styles.headingColumn1,
+                    styles.agreementNumber,
+                  ]}
+                >
                   {index + 1}
                 </span>
                 <span css={[styles.headingColumn, styles.headingColumn2]}>
