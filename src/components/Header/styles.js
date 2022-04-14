@@ -61,6 +61,8 @@ export const styles = {
     height: 30px;
     width: 30px;
     margin-left: 0.3rem;
+    z-index: 2;
+
     @media (max-width: 420px) {
       margin-left: 0rem;
     }
@@ -78,9 +80,10 @@ export const styles = {
   `,
 
   invoiceXIconAnimation: css`
-    animation-name: colorChange;
+    animation-name: opacityChange;
     animation-duration: 2s;
-    @keyframes colorChange {
+    z-index: 3;
+    @keyframes opacityChange {
       0% {
         opacity: 0;
       }

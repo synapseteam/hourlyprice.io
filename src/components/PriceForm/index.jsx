@@ -136,13 +136,12 @@ export default function PriceForm() {
       localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
       dispatch(clearFields());
     }
-    if (invoiceItems && invoiceItems.length < 10) {
+    if (invoiceItems && invoiceItems.length <= 9) {
       invoiceItems.push(invoiceObj);
       localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
       dispatch(clearFields());
       dispatch(setInvoiceItemAdded(true));
-    }
-    if (invoiceItems && invoiceItems.length > 9) {
+    } else if (invoiceItems && invoiceItems.length >= 10) {
       dispatch(setInvoiceFull(true));
     }
   };

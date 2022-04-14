@@ -83,6 +83,7 @@ export default function Header({ setIsDark, isDark }) {
     styles.invoiceXIcon,
     isInvoiceFull ? styles.invoiceXIconAnimation : null,
   ];
+
   return (
     <header css={styles.header}>
       <Logo />
