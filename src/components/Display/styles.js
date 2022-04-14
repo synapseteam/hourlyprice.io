@@ -5,7 +5,7 @@ export const styles = {
     background-color: ${theme.primary};
     border-radius: 0.4rem;
     position: relative;
-    width: 100%;
+    width: 47%;
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
@@ -16,12 +16,8 @@ export const styles = {
     @media (max-width: 420px) {
       padding: 3rem 0.5rem;
     }
-    @media (min-width: 720px) and (max-width: 919px) {
-      width: 47%;
-    }
-
-    @media (min-width: 920px) {
-      width: 47%;
+    @media (max-width: 720px) {
+      width: 100%;
     }
   `,
 };
