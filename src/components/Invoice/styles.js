@@ -194,7 +194,7 @@ export const styles = {
     text-align: right;
   `,
   agreementNumber: css`
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   `,
   serviceInput: css`
     word-wrap: break-word;
