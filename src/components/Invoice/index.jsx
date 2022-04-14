@@ -54,7 +54,7 @@ export const Invoice = () => {
       "Lorem Ipsum is simply.\n" +
       "Lorem Ipsum is simply dummy text of the printing and typesetting\n",
   };
-  const { register, control, getValues, setValue } = useForm({
+  const { register, control, getValues, setValue, watch } = useForm({
     defaultValues,
     resolver: yupResolver(JsSchema),
   });
@@ -78,14 +78,13 @@ export const Invoice = () => {
   useEffect(() => {
     calculateOrderTotal();
   }, [formValues.services]);
-
   useEffect(() => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
 
     invoiceItems &&
       invoiceItems.forEach((item) => {
         append({
-          title: "No description",
+          title: item.title ? item.title : "No description",
           price: item.price,
           time: item.time,
           total: item.price * item.time,
@@ -107,6 +106,8 @@ export const Invoice = () => {
     };
     if (!invoiceItems) {
       let invoiceArray = [];
+      append({ title: "", price: 0, time: 0, total: 0 });
+
       invoiceArray.push(invoiceObj);
       localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
     }
@@ -120,6 +121,15 @@ export const Invoice = () => {
       setIsAddServiceButtonDisabled(true);
     }
   };
+
+  const watchAllFields = watch(["services"]);
+
+  useEffect(() => {
+    console.log(formValues.services);
+    if (formValues.services) {
+      localStorage.setItem("invoiceItems", JSON.stringify(formValues.services));
+    }
+  }, [watchAllFields]);
   const removeService = (e, index) => {
     let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
     invoiceItems.splice(index, 1);
