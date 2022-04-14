@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const styles = {
   contentContainer: (theme) => css`
     width: 100%;
-    padding: 1rem 1rem;
+    padding: 0.8rem 0.8rem;
     display: flex;
     flex-direction: column;
     align-self: stretch;

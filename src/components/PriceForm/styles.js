@@ -30,6 +30,11 @@ export const styles = {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    @media (max-width: 420px) {
+      button {
+        padding: 0.7rem 0.4rem;
+      }
+    }
   `,
   button: css`
     width: 47%;
