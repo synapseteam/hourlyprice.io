@@ -388,10 +388,10 @@ export const Invoice = () => {
 
             <div css={generalInfoStyles}>
               <div css={styles.generalInfo}>
-                <span>Total: {orderTotal}</span>
+                <span>Total: {orderTotal.toFixed(2)}</span>
               </div>
               <div css={styles.generalInfo}>
-                <span>Balance Due: {orderTotal}</span>
+                <span>Balance Due: {orderTotal.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -413,7 +413,7 @@ export const Invoice = () => {
             <textarea
               css={[styles.field, styles.textarea, styles.bigTextarea]}
               disabled={!isEditMode}
-              maxLength={500}
+              maxLength={250}
               {...register("wireTransferDetails", { required: true })}
             />
           </div>

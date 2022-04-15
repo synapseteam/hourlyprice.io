@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import JsPDF from "jspdf";
-import InvoiceIcon from "../../assets/invoice.png";
-import InvoiceWhiteIcon from "../../assets/invoice-white.png";
+import InvoiceIcon from "../../assets/invoice-ticket.svg";
 import RedXIcon from "../../assets/red-x.png";
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
@@ -78,7 +77,6 @@ export default function Header({ setIsDark, isDark }) {
     styles.invoice,
     isInvoiceItemAdded ? styles.invoiceAnimation : null,
   ];
-  const invoiceIcon = isDark ? InvoiceWhiteIcon : InvoiceIcon;
   const invoiceXIconStyles = [
     styles.invoiceXIcon,
     isInvoiceFull ? styles.invoiceXIconAnimation : null,
@@ -89,9 +87,8 @@ export default function Header({ setIsDark, isDark }) {
       <Logo />
       <div css={styles.rightHandContainer}>
         <div css={invoiceStyles} onClick={toggleInvoiceModal}>
-          <p css={styles.invoiceText}> {t("invoice")}</p>
           <img src={RedXIcon} css={invoiceXIconStyles} />
-          <img src={invoiceIcon} css={styles.invoiceIcon} />
+          <img src={InvoiceIcon} css={styles.invoiceIcon} />
         </div>
         <ThemeSwitcher setIsDark={setIsDark} isDark={isDark} />
         <LangList />
