@@ -3,7 +3,7 @@ name: MasterCI
 on:
   push:
     branches:
-      - master
+      - add-to-invoice
 
 jobs:
   build:
@@ -20,13 +20,13 @@ jobs:
       - run: npm i
       - run: npm run test
       - run: npm run build
-      
+
       - name: Publish
         uses: nogsantos/scp-deploy@master
         with:
           src: ./dist/*
           host: 165.232.156.60
-          remote: https://dev.hourlyprice.io/ 
+          remote: https://dev.hourlyprice.io/
           port: 22
           user: root
           key: 3KacLbKUc59CmsGC
