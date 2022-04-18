@@ -331,6 +331,7 @@ export const Invoice = () => {
                           Number(formValues.services[index].time),
                         { shouldTouch: true }
                       );
+                      setValue(`services.${index}.price`, e.target.value);
                       calculateOrderTotal();
                     }}
                   />
@@ -349,6 +350,7 @@ export const Invoice = () => {
                           Number(e.target.value),
                         { shouldTouch: true }
                       );
+                      setValue(`services.${index}.time`, e.target.value);
                       calculateOrderTotal();
                     }}
                   />
@@ -363,6 +365,7 @@ export const Invoice = () => {
                     {...register(`services.${index}.total`)}
                   />
                 </span>
+
                 {isEditMode && (
                   <button
                     css={styles.button}
