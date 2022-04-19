@@ -13,9 +13,9 @@ jobs:
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
-          host: root@165.232.156.60:/var/www/hourlyprice.io/public_html
+          host: root@165.232.156.60:/var/www/hourlyprice.io
           username: root
           password: 3KacLbKUc59CmsGC
           port: 22
           source: ./build/*
-          target: public_html
+          target: /public_html
