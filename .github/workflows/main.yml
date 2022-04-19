@@ -8,6 +8,11 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    - uses: actions/checkout@v2
+    run: |
+        mkdir ../build
+        cp -TR . ../build
+        tar -cvf deploy.tar ../build/
     steps:
       - uses: actions/checkout@master
       - name: copy file via ssh password
@@ -17,4 +22,4 @@ jobs:
           username: root
           password: 3KacLbKUc59CmsGC
           port: 22
-          source: ./build/*
+          source: "deploy.tar"
