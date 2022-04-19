@@ -22,5 +22,5 @@ jobs:
           username: root
           password: 3KacLbKUc59CmsGC
           port: 22
-          source: "./build/*"
+          source: "./build/"
           target: "root@165.232.156.60:/var/www/dev.hourlyprice.io/public_html"
