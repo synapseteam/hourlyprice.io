@@ -2,7 +2,8 @@ import { css } from "@emotion/react";
 
 export const styles = {
   header: (theme) => css`
-    background-color: ${theme.septenary};
+    background-color: #4c05c7;
+    background: #4c05c7;
     display: flex;
     justify-content: space-between;
     align-items: center;
