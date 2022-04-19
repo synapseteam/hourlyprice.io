@@ -1,5 +1,4 @@
-name: MasterCI
-
+name: scp files
 on:
   push:
     branches:
@@ -7,26 +6,16 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-    name: Build and Deploy
-
     steps:
       - uses: actions/checkout@master
-
-      - name: Bucket actions
-        uses: actions/setup-node@v1
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
         with:
-          node-version: 8
-      - run: npm i
-      - run: npm run test
-      - run: npm run build
-
-      - name: Publish
-        uses: nogsantos/scp-deploy@master
-        with:
-          src: ./dist/*
-          host: 165.232.156.60
-          remote: https://dev.hourlyprice.io/
+          host: root@165.232.156.60:/var/www/hourlyprice.io/public_html
+          username: root
+          password: 3KacLbKUc59CmsGC
           port: 22
-          user: root
-          key: 3KacLbKUc59CmsGC
+          source: ./build/*
+          target: "test"
