@@ -18,4 +18,4 @@ jobs:
           password: 3KacLbKUc59CmsGC
           port: 22
           source: ./build/*
-          target: "test"
+          target: public_html
