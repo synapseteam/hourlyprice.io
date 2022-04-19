@@ -12,6 +12,10 @@ jobs:
       - uses: actions/checkout@master
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
+      - run: npm i
+      - run: npm run test
+      - run: npm run build
+
         with:
           host: root@165.232.156.60:/var/www/hourlyprice.io
           username: root
