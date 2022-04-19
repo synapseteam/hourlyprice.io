@@ -23,4 +23,4 @@ jobs:
           password: 3KacLbKUc59CmsGC
           port: 22
           source: "deploy.tar"
-          target: "root@165.232.156.60:/var/www/dev.hourlyprice.io/public_html"
+          target: "/public_html"
