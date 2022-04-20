@@ -5,7 +5,6 @@ export const styles = {
     border-radius: 0.4rem;
   `,
   langIcon: css`
-    padding-top: 4px;
     width: 32px;
     &:hover {
       cursor: pointer;
