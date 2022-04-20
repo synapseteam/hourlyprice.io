@@ -19,7 +19,7 @@ export const styles = {
     left: 50%;
     transform: translate(-50%, -50%);
     max-height: 500px;
-    width: 760px;
+    width: 912px;
     background: #fff;
     z-index: 5;
     &.show {
@@ -49,7 +49,7 @@ export const styles = {
         opacity: 1;
       }
     }
-    @media (max-width: 820px) {
+    @media (max-width: 920px) {
       width: 100%;
       padding: 0;
     }
@@ -67,7 +67,7 @@ export const styles = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    @media (max-width: 820px) {
+    @media (max-width: 920px) {
       overflow-y: hidden;
     }
   `,

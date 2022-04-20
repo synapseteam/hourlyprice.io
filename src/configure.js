@@ -25,4 +25,4 @@ export const currenciesSymbols = [
   { name: "UAH", symbol: "₴" },
 ];
 
-export const INVOICE_PREVIEW_SUPPORTED_RESOLUTION = 821;
+export const INVOICE_PREVIEW_SUPPORTED_RESOLUTION = 921;

@@ -16,6 +16,6 @@ export const styles = {
     font-size: 1rem;
     font-style: italic;
     font-weight: 400;
-    margin-bottom: 0.4rem;
+    margin-bottom: 1.8rem;
   `,
 };

@@ -57,10 +57,18 @@ export default function PriceForm() {
 
   const [keepAPIRatesCache, setkeepAPIRatesCache] = useState(true);
 
+  useEffect(() => {
+    const currency = JSON.parse(localStorage.getItem("currency"));
+    if (currency) {
+      setChosenCurrency(currency);
+    }
+  }, []);
+
   function handleListChange(e) {
     const { name, value } = e.target;
     if (name === "currency") {
       setChosenCurrency(() => value);
+      localStorage.setItem("currency", JSON.stringify(value));
       // eslint-disable-next-line no-magic-numbers
       setValue(value, 1);
     }
@@ -69,7 +77,6 @@ export default function PriceForm() {
     }
     return;
   }
-
   function updateRatesIfCacheExpired() {
     const timeStampNow = new Date();
     const timePassAfterRatesUpdated =

@@ -2,8 +2,7 @@ import { css } from "@emotion/react";
 
 export const styles = {
   header: (theme) => css`
-    background-color: #4c05c7;
-    background: #4c05c7;
+    background-color: ${theme.septenary};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -118,7 +117,7 @@ export const styles = {
     & button {
       text-transform: uppercase;
     }
-    @media (max-width: 820px) {
+    @media (max-width: 920px) {
       display: none;
     }
   `,

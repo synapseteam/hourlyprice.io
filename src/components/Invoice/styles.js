@@ -61,9 +61,13 @@ export const styles = {
   logo: css`
     height: 60px;
     width: 60px;
-
     img {
       height: 100%;
+    }
+  `,
+  logoEdit: css`
+    &:hover {
+      cursor: pointer;
     }
   `,
   title: css`
@@ -80,7 +84,6 @@ export const styles = {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-
     span {
       display: flex;
       align-items: center;
@@ -115,7 +118,7 @@ export const styles = {
     align-items: flex-end;
   `,
   generalInfoColumnNoEdit: css`
-    margin-top: 30px;
+    border-top: 1px solid #bfbfbf;
   `,
   generalInfo: css`
     display: flex;
@@ -123,7 +126,6 @@ export const styles = {
     height: 30px;
     span {
       font-weight: bold;
-      padding-right: 0px;
     }
   `,
   headingRow: css`
@@ -209,7 +211,18 @@ export const styles = {
       margin: 0;
     }
   `,
+  serviceCurrency: css`
+    padding: 0px 0px 0px 0px !important;
+  `,
   balanceDue: css`
+    input {
+      text-align: right;
+    }
+  `,
+  balanceDueTotal: css`
+    font-weight: bold;
+    background-color: #f5f4f2;
+    padding: 10px 4px 10px 50px;
     input {
       text-align: right;
     }

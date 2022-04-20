@@ -1,7 +1,6 @@
 import i18n from "i18next";
 import detector from "i18next-browser-languagedetector";
 import { useTranslation, initReactI18next, Trans } from "react-i18next";
-
 import { translationEN, translationUA } from "i18n/translations";
 
 i18n
@@ -12,7 +11,7 @@ i18n
       en: { translation: translationEN },
       ua: { translation: translationUA },
     },
-    fallbackLng: "en",
+    lng: localStorage.getItem("i18nextLng") || "en",
     interpolation: { escapeValue: false },
   });
 

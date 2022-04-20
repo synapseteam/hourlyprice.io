@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import { useTranslation } from "react-i18next";
+import { changeLanguage } from "i18n";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -7,19 +9,31 @@ import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCustomTranslation } from "../../i18n";
-import Logo from "../../assets/ukraine-heart.png";
+import LogoUa from "../../assets/ukraine-heart.png";
+import LogoUs from "../../assets/us-heart.png";
 import { styles } from "./styles";
 
 export const Invoice = () => {
   const [t] = useCustomTranslation();
+  const { i18n } = useTranslation();
   const isEditMode = useSelector((state) => state.generic.isEditMode);
   const now = new Date();
   const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
   const [startDate, setStartDate] = useState(now);
   const [weekFromNowDate, setWeekFromNowDate] = useState(weekFromNow);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [chosenCurrencySign, setChosenCurrencySign] = useState("$");
   const [isAddServiceButtonDisabled, setIsAddServiceButtonDisabled] =
     useState(false);
+
+  useEffect(() => {
+    const currency = JSON.parse(localStorage.getItem("currency"));
+    if (currency) {
+      currency === "USD" && setChosenCurrencySign("$");
+      currency === "EUR" && setChosenCurrencySign("€");
+      currency === "UAH" && setChosenCurrencySign("₴");
+    }
+  }, []);
 
   const JsSchema = Yup.object().shape({
     services: Yup.array().of(
@@ -40,7 +54,6 @@ export const Invoice = () => {
     email: "email@test.com",
     invoiceNumber: "001",
     agreementNumber: " # INV-001 to the Agreement 777",
-    balanceDue: "7777777",
     billToColumn1: "column1",
     billToColumn2: "column2",
     billToColumn3: "column3",
@@ -82,6 +95,7 @@ export const Invoice = () => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
 
     invoiceItems &&
+      invoiceItems.length < 10 &&
       invoiceItems.forEach((item) => {
         append({
           title: item.title ? item.title : "No description",
@@ -128,7 +142,7 @@ export const Invoice = () => {
     }
   };
 
-  const removeService = (e, index) => {
+  const removeService = (index) => {
     let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
     invoiceItems.splice(index, 1);
     localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
@@ -141,14 +155,32 @@ export const Invoice = () => {
     !isEditMode && styles.generalInfoColumnNoEdit,
   ];
 
+  const switchLang = (lang) => {
+    if (isEditMode) changeLanguage(lang);
+  };
+
+  const logoStyles = [styles.logo, isEditMode && styles.logoEdit];
   return (
     <>
       <form>
         <div css={styles.actionPanel}></div>
         <div css={styles.invoice}>
           <div css={[styles.row, styles.invoiceHeadingRow]}>
-            <div css={styles.logo}>
-              <img src={Logo} alt={"Ukraine"} />
+            <div css={logoStyles}>
+              {i18n.language === "ua" && (
+                <img
+                  onClick={() => switchLang("en")}
+                  src={LogoUa}
+                  alt={"Ukraine"}
+                />
+              )}
+              {i18n.language === "en" && (
+                <img
+                  onClick={() => switchLang("ua")}
+                  src={LogoUs}
+                  alt={"Usa"}
+                />
+              )}
             </div>
             <div css={styles.title}>
               <input
@@ -206,20 +238,13 @@ export const Invoice = () => {
                 <strong>Balance Due</strong>
               </span>
               <span css={[styles.text, styles.balanceDue]}>
-                <input
-                  css={[styles.field, styles.fieldBold, styles.mediumField]}
-                  type="text"
-                  pattern="\d*"
-                  maxLength="7"
-                  disabled={!isEditMode}
-                  {...register("balanceDue", { required: true })}
-                />
+                <strong> {chosenCurrencySign + orderTotal.toFixed(2)}</strong>
               </span>
             </div>
           </div>
           <div css={styles.row}>
             <div css={styles.column1}>
-              <span css={styles.text}>Bill To</span>
+              <span css={[styles.text, styles.fieldBold]}>Bill To</span>
               <div css={styles.column}>
                 <span css={styles.text}>
                   <input
@@ -318,6 +343,7 @@ export const Invoice = () => {
                   />
                 </span>
                 <span css={[styles.headingColumn, styles.headingColumn3]}>
+                  <span css={styles.serviceCurrency}>{chosenCurrencySign}</span>
                   <input
                     css={[styles.field, styles.serviceInput]}
                     name={`services[${index}]price`}
@@ -355,7 +381,14 @@ export const Invoice = () => {
                     }}
                   />
                 </span>
-                <span css={[styles.headingColumn, styles.headingColumn5]}>
+                <span
+                  css={[
+                    styles.headingColumn,
+                    styles.fieldBold,
+                    styles.headingColumn5,
+                  ]}
+                >
+                  <span css={styles.serviceCurrency}>{chosenCurrencySign}</span>
                   <input
                     css={[styles.field, styles.fieldBold, styles.serviceInput]}
                     name={`services[${index}]total`}
@@ -370,7 +403,7 @@ export const Invoice = () => {
                   <button
                     css={styles.button}
                     type="button"
-                    onClick={(e) => removeService(e, index)}
+                    onClick={() => removeService(index)}
                   >
                     {t("remove")}
                   </button>
@@ -391,10 +424,12 @@ export const Invoice = () => {
 
             <div css={generalInfoStyles}>
               <div css={styles.generalInfo}>
-                <span>Total: {orderTotal.toFixed(2)}</span>
+                <span>Total: {chosenCurrencySign + orderTotal.toFixed(2)}</span>
               </div>
               <div css={styles.generalInfo}>
-                <span>Balance Due: {orderTotal.toFixed(2)}</span>
+                <div css={styles.balanceDueTotal}>
+                  Balance Due: {chosenCurrencySign + orderTotal.toFixed(2)}
+                </div>
               </div>
             </div>
           </div>

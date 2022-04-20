@@ -25,8 +25,10 @@ function App() {
 
           <ContentContainer>
             <HeroTitle />
-            <Display />
-            <PriceForm />
+            <div css={styles.calculator}>
+              <Display />
+              <PriceForm />
+            </div>
           </ContentContainer>
 
           <Footer

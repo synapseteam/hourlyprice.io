@@ -4,23 +4,14 @@ export const styles = {
   langContainer: css`
     border-radius: 0.4rem;
   `,
-  langList: (theme) => css`
-    display: flex;
-    padding: 0.3rem;
-    background-color: ${theme.octonary};
-    border: ${theme.langListBorder};
-    color: ${theme.senary};
-    height: 2.5rem;
-    border-radius: 0.4rem;
-    margin: 0;
-    text-transform: uppercase;
-  `,
-  langListItem: css`
-    list-style: none;
-    padding: 0.3rem;
-  `,
-  langListLink: (theme) => css`
-    text-decoration: none;
-    color: ${theme.senary};
+  langIcon: css`
+    padding-top: 4px;
+    width: 32px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:hover .langTooltip {
+      visibility: visible;
+    }
   `,
 };
