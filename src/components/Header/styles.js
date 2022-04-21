@@ -27,7 +27,7 @@ export const styles = {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: ${theme.octonary};
+    background-color: ${theme.quaternary};
     border: ${theme.langListBorder};
     border-radius: 0.4rem;
     color: ${theme.senary};
