@@ -6,6 +6,7 @@ export const styles = {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 55px;
     padding: 0.4rem;
     position: sticky;
     top: 0;
@@ -36,6 +37,18 @@ export const styles = {
     height: 40px;
     @media (max-width: 420px) {
       padding: 0rem 0.1rem;
+    }
+  `,
+  actOfWork: css`
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 0.4rem;
+    padding: 0rem 0.8rem;
+    cursor: pointer;
+    height: 40px;
+    @media (max-width: 420px) {
+      padding: 0rem 0.4rem;
     }
   `,
   report: css`

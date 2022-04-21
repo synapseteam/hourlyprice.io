@@ -1,4 +1,5 @@
 export const ROUTES = {
   home: "/",
-  catalog: "/catalog",
+  actOfWork: "/act-of-work",
+  bill: "/bill",
 };

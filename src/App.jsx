@@ -6,6 +6,8 @@ import { ThemeProvider } from "@emotion/react";
 import { store } from "store";
 
 import HomePage from "pages/HomePage/index";
+import ActOfWorkPage from "pages/ActOfWork/index";
+import BillPage from "pages/Bill/index";
 import { themeDark, themeLight } from "theme";
 import { ROUTES } from "./utils/urls";
 import { styles } from "./styles";
@@ -23,6 +25,14 @@ function App() {
             <Route
               path={ROUTES.home}
               element={<HomePage isDark={isDark} setIsDark={setIsDark} />}
+            />
+            <Route
+              path={ROUTES.actOfWork}
+              element={<ActOfWorkPage isDark={isDark} setIsDark={setIsDark} />}
+            />
+            <Route
+              path={ROUTES.bill}
+              element={<BillPage isDark={isDark} setIsDark={setIsDark} />}
             />
           </Routes>
         </ThemeProvider>
