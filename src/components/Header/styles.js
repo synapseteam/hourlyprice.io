@@ -27,13 +27,10 @@ export const styles = {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: ${theme.quaternary};
-    border: ${theme.langListBorder};
     border-radius: 0.4rem;
     color: ${theme.senary};
-    padding: 0rem 0.5rem;
     cursor: pointer;
-    height: 40px;
+    margin-bottom: 5px;
     @media (max-width: 420px) {
       padding: 0rem 0.1rem;
     }
