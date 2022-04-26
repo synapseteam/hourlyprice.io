@@ -2,21 +2,19 @@
 import PropTypes from "prop-types";
 import HeaderActOfWork from "../../components/HeaderActOfWork/index";
 import ActOfWorkDoc from "../../components/ActOfWorkDoc/index";
-import ContentContainer from "../../components/ContentContainer";
 import Footer from "../../components/Footer";
+import { styles } from "./styles";
 
 export default function ActOfWorkPage({ isDark }) {
   return (
-    <>
+    <div css={styles.ActOfWorkDoc}>
       <HeaderActOfWork isDark={isDark} />
-      <ContentContainer>
-        <ActOfWorkDoc />
-      </ContentContainer>
+      <ActOfWorkDoc />
       <Footer
         companyName="Synapse Team LLC"
         companyUrl="https://synapseteam.com"
       />
-    </>
+    </div>
   );
 }
 

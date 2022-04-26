@@ -7,11 +7,13 @@ export default function Button({
   onClick,
   children,
   disabled,
+  classname,
+  classnameContainer,
 }) {
   return (
-    <div css={styles.buttonContainer}>
+    <div css={[styles.buttonContainer, classnameContainer]}>
       <button
-        css={styles.button}
+        css={[styles.button, classname]}
         type={type}
         color="red"
         onClick={onClick}
@@ -29,6 +31,8 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
+  classname: PropTypes.any,
+  classnameContainer: PropTypes.any,
 };
 
 Button.defaultProps = {

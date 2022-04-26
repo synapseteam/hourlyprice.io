@@ -10,14 +10,38 @@ export const styles = {
     font-size: 14px;
     line-height: 18px;
     height: 100%;
-    width: 100%;
-    padding: 20px 40px;
-    p {
-      text-indent: 30px;
+    width: 800px;
+    margin: 50px auto;
+    padding: 30px 80px;
+  `,
+
+  save: css`
+    display: flex;
+    width: 200px;
+    margin-left: auto;
+    input {
+      border: 1px solid black;
+      margin-right: 10px;
     }
   `,
+  saveButton: css`
+    padding: 0.3rem 0.5rem;
+  `,
+  saveButtonContainer: css`
+    margin: 0;
+  `,
+  title: css`
+    text-align: center;
+    font-weight: bold;
+    input {
+      font-weight: bold;
+    }
+  `,
+
   subtitle: css`
     display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
   `,
   details: css`
     display: flex;
@@ -31,37 +55,70 @@ export const styles = {
       padding: 4px;
     }
   `,
+  textarea: css`
+    resize: none;
+    overflow: hidden;
+    line-height: 12px;
+    width: 100%;
+    border: none;
+    height: 100%;
+  `,
   heading: css`
+    text-align: center;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     height: 50px;
     width: 100%;
-
     span {
       align-items: center;
       border: 1px solid black;
-      justify-content: flex-start;
+      justify-content: center;
     }
   `,
-  headingColumn1: css`
-    width: 25px;
+  column1: css`
+    width: 30px;
   `,
-  headingColumn: css`
-    input {
-      width: 100%;
-    }
-  `,
-  headingColumn2: css`
+
+  column2: css`
     min-width: 210px;
   `,
-  headingColumn3: css`
+  column3: css`
     width: 100px;
   `,
-  headingColumn4: css`
+  column4: css`
     width: 100px;
   `,
-  headingColumn5: css`
+  column5: css`
     width: 100px;
+  `,
+  column6: css`
+    width: 100px;
+  `,
+  fieldBold: css`
+    font-weight: bold;
+  `,
+  total: css`
+    span {
+      justify-content: flex-end;
+    }
+  `,
+  paragraphs: css`
+    text-indent: 30px;
+  `,
+  info: css`
+    display: flex;
+    height: 300px;
+    margin-top: 60px;
+  `,
+  infoTitleInput: css`
+    margin: 15px 0px;
+  `,
+  item: css`
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+  `,
+  initials: css`
+    margin-top: auto;
   `,
 };

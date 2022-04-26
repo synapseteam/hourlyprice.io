@@ -1,46 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
 
-import { useCustomTranslation } from "i18n";
-
 import { styles } from "./styles";
 
-export default function Input({
-  labelName,
-  register,
-  placeholder,
-  changeHandler,
-  inputName,
-  errors,
-}) {
-  const [t] = useCustomTranslation();
-
+export default function BaseInput({ register, inputName, classname, width }) {
   return (
-    <>
-      <label css={styles.label}>
-        {labelName}:
-        <input
-          css={styles.input}
-          {...register(inputName)}
-          type="text"
-          inputMode="decimal"
-          placeholder={placeholder}
-          autoComplete="off"
-          onChange={changeHandler}
-        />
-        {errors[inputName] && (
-          <p css={styles.error}>{t(inputName + "Error")}</p>
-        )}
-      </label>
-    </>
+    <input
+      css={[styles.input, classname]}
+      style={{ width: width + "px" }}
+      {...register(inputName)}
+      type="text"
+      inputMode="decimal"
+      autoComplete="off"
+    />
   );
 }
 
-Input.propTypes = {
-  labelName: PropTypes.string,
+BaseInput.propTypes = {
   register: PropTypes.func,
-  placeholder: PropTypes.string,
-  changeHandler: PropTypes.func,
   inputName: PropTypes.string,
-  errors: PropTypes.object,
+  width: PropTypes.string,
+  classname: PropTypes.any,
 };
