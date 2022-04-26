@@ -7,13 +7,8 @@ import ArrowIcon from "../../assets/arrow-right.png";
 import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
 import { styles as headerStyles } from "../Header/styles";
 import { styles } from "./styles";
-import { useState } from "react";
 
-export default function HeaderActOfWork({ isDark }) {
-  const [selectedAct, setSelectedAct] = useState("");
-  const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs"));
-  console.log(selectedAct);
-
+export default function HeaderActOfWork({ isDark, actOfWork, setSelectedAct }) {
   return (
     <header css={headerStyles.header}>
       <Logo />
@@ -26,16 +21,17 @@ export default function HeaderActOfWork({ isDark }) {
             Акт виконаних робіт
           </Link>
           <div css={styles.dropdown} data-comp="list">
-            {actOfWork.map((item) => {
-              return (
-                <li
-                  onClick={() => setSelectedAct(item.docName)}
-                  key={item.docName}
-                >
-                  {item.docName}
-                </li>
-              );
-            })}
+            {actOfWork &&
+              actOfWork.map((item) => {
+                return (
+                  <li
+                    onClick={() => setSelectedAct(item.docName)}
+                    key={item.docName}
+                  >
+                    {item.docName}
+                  </li>
+                );
+              })}
           </div>
         </div>
         <Link css={styles.arrow} to={ROUTES.home}>
@@ -51,4 +47,6 @@ export default function HeaderActOfWork({ isDark }) {
 
 HeaderActOfWork.propTypes = {
   isDark: PropTypes.bool,
+  actOfWork: PropTypes.array,
+  setSelectedAct: PropTypes.func,
 };

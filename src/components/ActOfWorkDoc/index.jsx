@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import BaseDatePicker from "../UI/DatePicker/index";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import { styles } from "./styles";
 
-export default function ActOfWorkDoc() {
+export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
   const now = new Date();
+
+  console.log(selectedAct);
 
   const defaultValues = {
     docName: "test1",
@@ -48,7 +51,6 @@ export default function ActOfWorkDoc() {
       },
     },
   };
-
   const { register, handleSubmit } = useForm({
     defaultValues,
   });
@@ -57,7 +59,7 @@ export default function ActOfWorkDoc() {
     const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs"));
 
     if (!actOfWork) {
-      localStorage.setItem("actOfWorkDocs", JSON.stringify([data]));
+      setActOfWork([data]);
     }
     if (actOfWork) {
       const itemExist = actOfWork.find((item) => {
@@ -65,13 +67,14 @@ export default function ActOfWorkDoc() {
       });
       if (!itemExist) {
         actOfWork.push(data);
-        localStorage.setItem("actOfWorkDocs", JSON.stringify(actOfWork));
+        setActOfWork(actOfWork);
       }
       if (itemExist) {
-        console.log("item exists");
+        console.log("item already exists");
       }
     }
   };
+
   return (
     <form css={styles.actOfWork} onSubmit={handleSubmit(onSubmit)}>
       <div css={styles.save}>
@@ -291,3 +294,8 @@ export default function ActOfWorkDoc() {
     </form>
   );
 }
+
+ActOfWorkDoc.propTypes = {
+  selectedAct: PropTypes.string,
+  setActOfWork: PropTypes.func,
+};
