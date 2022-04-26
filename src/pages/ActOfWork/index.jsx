@@ -8,8 +8,15 @@ import { styles } from "./styles";
 import { useState } from "react";
 
 export default function ActOfWorkPage({ isDark }) {
-  const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", "initial");
-  const [selectedAct, setSelectedAct] = useState("");
+  const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);
+  const [selectedAct, setSelectedAct] = useState(null);
+
+  const setSelectedActDoc = (docName) => {
+    const selectedActOfWork = actOfWork.find(
+      (item) => item.docName === docName
+    );
+    setSelectedAct(selectedActOfWork);
+  };
 
   return (
     <div css={styles.ActOfWorkDoc}>
@@ -17,6 +24,7 @@ export default function ActOfWorkPage({ isDark }) {
         isDark={isDark}
         actOfWork={actOfWork}
         setSelectedAct={setSelectedAct}
+        setSelectedActDoc={setSelectedActDoc}
       />
       <ActOfWorkDoc
         actOfWork={actOfWork}

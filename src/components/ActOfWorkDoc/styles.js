@@ -11,21 +11,24 @@ export const styles = {
     line-height: 18px;
     height: 100%;
     width: 800px;
-    margin: 50px auto;
+    margin: 15px auto;
     padding: 30px 80px;
   `,
 
   save: css`
     display: flex;
-    width: 200px;
-    margin-left: auto;
+    justify-content: space-between;
+    margin: 15px auto;
+    padding: 0px 30px;
+    width: 800px;
+
     input {
       border: 1px solid black;
       margin-right: 10px;
     }
   `,
   saveButton: css`
-    padding: 0.3rem 0.5rem;
+    padding: 0.5rem 0.7rem;
   `,
   saveButtonContainer: css`
     margin: 0;
@@ -55,7 +58,21 @@ export const styles = {
       padding: 4px;
     }
   `,
+  paragraphs: css`
+    margin-top: 15px;
+  `,
+  indent: css`
+    text-indent: 30px;
+  `,
   textarea: css`
+    resize: none;
+    overflow: hidden;
+    line-height: 18px;
+    width: 100%;
+    border: none;
+    height: 55px;
+  `,
+  textareaSmall: css`
     resize: none;
     overflow: hidden;
     line-height: 12px;
@@ -102,9 +119,7 @@ export const styles = {
       justify-content: flex-end;
     }
   `,
-  paragraphs: css`
-    text-indent: 30px;
-  `,
+
   info: css`
     display: flex;
     height: 300px;

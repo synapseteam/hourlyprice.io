@@ -8,7 +8,11 @@ import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
 import { styles as headerStyles } from "../Header/styles";
 import { styles } from "./styles";
 
-export default function HeaderActOfWork({ isDark, actOfWork, setSelectedAct }) {
+export default function HeaderActOfWork({
+  isDark,
+  actOfWork,
+  setSelectedActDoc,
+}) {
   return (
     <header css={headerStyles.header}>
       <Logo />
@@ -25,7 +29,7 @@ export default function HeaderActOfWork({ isDark, actOfWork, setSelectedAct }) {
               actOfWork.map((item) => {
                 return (
                   <li
-                    onClick={() => setSelectedAct(item.docName)}
+                    onClick={() => setSelectedActDoc(item.docName)}
                     key={item.docName}
                   >
                     {item.docName}
@@ -48,5 +52,5 @@ export default function HeaderActOfWork({ isDark, actOfWork, setSelectedAct }) {
 HeaderActOfWork.propTypes = {
   isDark: PropTypes.bool,
   actOfWork: PropTypes.array,
-  setSelectedAct: PropTypes.func,
+  setSelectedActDoc: PropTypes.func,
 };

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { store } from "store";
@@ -12,10 +12,12 @@ import { themeDark, themeLight } from "theme";
 import { ROUTES } from "./utils/urls";
 import { styles } from "./styles";
 
-const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
-
 function App() {
-  const [isDark, setIsDark] = useState(isDarkTheme);
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
+    isDarkTheme !== null ? setIsDark(isDarkTheme) : setIsDark(true);
+  }, []);
 
   return (
     <div css={styles.app}>
