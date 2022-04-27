@@ -10,7 +10,7 @@ export const styles = {
       line-height: 18px;
       height: 100%;
       width: 800px;
-      margin: 50px auto;
+      margin: 100px auto;
       padding: 80px 50px;
     `,
 
@@ -103,16 +103,22 @@ export const styles = {
 
     save: css`
       display: flex;
-      width: 200px;
-      margin-left: auto;
+      justify-content: space-between;
+      margin: 15px auto;
+      width: 800px;
+      position: absolute;
+      top: 70px;
+      left: 320px;
 
       input {
         border: 1px solid black;
         margin-right: 10px;
+        border-radius: 5px;
+        padding: 0 10px;
       }
     `,
     saveButton: css`
-      padding: 0.3rem 0.5rem;
+      padding: 10px;
     `,
     saveButtonContainer: css`
       margin: 0;
