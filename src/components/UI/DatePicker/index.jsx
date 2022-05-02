@@ -20,7 +20,7 @@ export default function BaseDatePicker({ register, inputName, dateFormat }) {
             width: auto;
             text-indent: 0px;
             input {
-              width: 150px;
+              width: 155px;
             }
           }
         `}

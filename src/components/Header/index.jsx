@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice-ticket.svg";
-import ActOfWorkIcon from "../../assets/act-of-work.png";
 import RedXIcon from "../../assets/red-x.png";
+import ArrowIcon from "../../assets/arrow-right.png";
+import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
+
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
@@ -47,6 +49,7 @@ export default function Header({ setIsDark, isDark }) {
     }
     setIsInvoiceModalOpen(!isInvoiceModalOpen);
   };
+
   const generatePDF = () => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
@@ -96,7 +99,12 @@ export default function Header({ setIsDark, isDark }) {
             css={styles.actOfWork}
             data-tip={"Акт виконаних робіт"}
           >
-            <img src={ActOfWorkIcon} css={styles.invoiceIcon} />
+            {!isDark && (
+              <img css={styles.arrowImg} src={ArrowIcon} alt="arrow" />
+            )}
+            {isDark && (
+              <img css={styles.arrowImg} src={ArrowWhiteIcon} alt="arrow" />
+            )}
             <ReactTooltip place="bottom" effect="solid" />
           </Link>
         )}

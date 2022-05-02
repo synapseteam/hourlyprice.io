@@ -1,13 +1,22 @@
 /** @jsxImportSource @emotion/react */
+import JsPDF from "jspdf";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import BaseDatePicker from "../UI/DatePicker/index";
+import TextArea from "../UI/TextArea/index";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
-import { useEffect } from "react";
+import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
+import { useEffect, useState } from "react";
 import { styles } from "./styles";
 
-export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
+export default function ActOfWorkDoc({
+  selectedAct,
+  setActOfWork,
+  setIsActUpdated,
+  setIsActAdded,
+}) {
+  const [isEditMode, setIsEditMode] = useState();
   const now = new Date();
 
   useEffect(() => {
@@ -30,16 +39,15 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
       title: "Послуги веб розробки: React та налаштування компонентів",
       units: "Година",
       price: 10.5,
-      quantity: "10:00",
-      priceWithoutTax: "105",
+      quantity: "10:30",
+      total: "105",
     },
-    total: "105",
     cost: "105 (сто п'ять грн. 00 коп.)",
     info: {
       client: {
         name: "ТОВАРИСТВО З ОБЗЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»",
-        address:
-          "Україна, 69091, Запорізька обл., місто Запоріжжя, вул. Дунайська, буд.35",
+        address1: "Україна, 69091, Запорізька обл., ",
+        address2: "місто Запоріжжя, вул. Дунайська, буд.35",
         reg: "42772269",
         email: "roman@synapseteam.com",
         tel: "+380992688071",
@@ -49,6 +57,8 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
       },
       executor: {
         name: "Іван Іванович Тест",
+        address1: "Україна, 58000, Чернівецька обл., ",
+        address2: "місто Чернівці, вул. Небесної сотні, буд.4А",
         reg: "1122334455",
         email: "test@synapseteam.com",
         tel: "+38068111111",
@@ -58,15 +68,18 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
       },
     },
   };
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: selectedAct ? selectedAct : defaultValues,
-  });
+  const { register, handleSubmit, getValues, watch, setValue, reset } = useForm(
+    {
+      defaultValues: selectedAct ? selectedAct : defaultValues,
+    }
+  );
 
   const onSubmit = (data) => {
     const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs"));
 
     if (!actOfWork) {
       setActOfWork([data]);
+      setIsActAdded(true);
     }
     if (actOfWork) {
       let index = null;
@@ -77,21 +90,53 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
       if (!itemExist) {
         actOfWork.push(data);
         setActOfWork(actOfWork);
+        setIsActAdded(true);
       }
       if (itemExist) {
         actOfWork[index] = data;
-
         setActOfWork(actOfWork);
-        console.log("item updated");
+        setIsActUpdated(true);
       }
     }
   };
 
+  const formValues = getValues();
+  const watchTotal = watch("details.total");
+
+  const numberToString = require("number-to-cyrillic");
+  numberToString.convert(21);
+
+  const totalWritten = ` ${watchTotal} (${
+    numberToString.convert(watchTotal).convertedInteger
+  } грн. ${numberToString.convert(watchTotal).fractionalString} коп.)`;
+
+  const generatePDF = () => {
+    const report = new JsPDF("p", "px", [936, 1300]);
+    report.viewerPreferences({ CenterWindow: true }, true);
+    report
+      .html(document.querySelector("#actOfWork"), { margin: [20, 10, 10, 50] })
+      .then(() => {
+        report.save("actOfWork.pdf");
+      });
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} css={styles.ActOfWorkDoc}>
       <div css={styles.save}>
-        <BaseInput register={register} inputName="docName" width="200" />
-        <div>
+        <BaseInput
+          classname={styles.saveInput}
+          register={register}
+          inputName="docName"
+          width="250"
+        />
+        <div css={styles.buttons}>
+          <Button
+            classname={styles.saveButton}
+            classnameContainer={styles.saveButtonContainer}
+            onClick={() => setIsEditMode(!isEditMode)}
+          >
+            Редагувати
+          </Button>
           <Button
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
@@ -99,9 +144,17 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
           >
             Зберегти
           </Button>
+
+          <Button
+            classname={styles.saveButton}
+            classnameContainer={styles.saveButtonContainer}
+            onClick={generatePDF}
+          >
+            Скачати pdf
+          </Button>
         </div>
       </div>
-      <div css={styles.actOfWork}>
+      <div css={styles.actOfWork} id="actOfWork">
         <div css={styles.title}>
           Акт приймання-передачі №
           <BaseInput register={register} inputName="actNumber" width="95" />
@@ -122,15 +175,17 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
           </div>
         </div>
         <div css={styles.paragraphs}>
-          <textarea
-            css={[styles.textarea, styles.indent]}
-            maxLength={300}
-            {...register("clientTextBlock")}
+          <TextArea
+            classname={[styles.textarea, styles.indent]}
+            height="55"
+            register={register}
+            inputName="clientTextBlock"
           />
-          <textarea
-            css={[styles.textarea, styles.indent]}
-            maxLength={300}
-            {...register("executorTextBlock")}
+          <TextArea
+            classname={[styles.textarea, styles.indent]}
+            register={register}
+            height="75"
+            inputName="executorTextBlock"
           />
 
           <div css={[styles.paragraphs, styles.indent]}>
@@ -150,10 +205,12 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
           <div css={styles.heading}>
             <span css={styles.column1}>1</span>
             <span css={styles.column2}>
-              <textarea
-                css={[styles.fieldBold, styles.textareaSmall]}
+              <TextArea
+                classname={[styles.fieldBold, styles.textareaSmall]}
+                inputName="details.title"
+                register={register}
                 maxLength={100}
-                {...register("details.title")}
+                height="40"
               />
             </span>
             <span css={styles.column3}>
@@ -168,6 +225,16 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
                 classname={styles.fieldBold}
                 register={register}
                 inputName="details.price"
+                onChange={(e) => {
+                  handleTimeChange(e);
+                  setValue(
+                    "details.total",
+                    (
+                      Number(e.target.value) *
+                      convertStrTimeToNum(formValues.details.quantity)
+                    ).toFixed(2)
+                  );
+                }}
               />
             </span>
             <span css={styles.column5}>
@@ -175,29 +242,34 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
                 classname={styles.fieldBold}
                 register={register}
                 inputName="details.quantity"
+                onChange={(e) => {
+                  handleTimeChange(e);
+                  setValue(
+                    "details.total",
+                    (
+                      Number(formValues.details.price) *
+                      convertStrTimeToNum(e.target.value)
+                    ).toFixed(2)
+                  );
+                }}
               />
             </span>
             <span css={styles.column6}>
               <BaseInput
                 register={register}
                 classname={styles.fieldBold}
-                inputName="details.priceWithoutTax"
+                inputName="details.total"
+                readOnly
               />
             </span>
           </div>
 
           <div css={styles.total}>
-            <span css={styles.fieldBold}>111</span>
+            <span css={styles.fieldBold}>{watchTotal}</span>
           </div>
         </div>
         <div css={[styles.paragraphs, styles.fieldBold, styles.indent]}>
-          Загальна вартість наданих послуг складає
-          <BaseInput
-            register={register}
-            classname={styles.fieldBold}
-            inputName="cost"
-          />
-          , без ПДВ.
+          Загальна вартість наданих послуг складає{totalWritten}, без ПДВ.
           <div>
             Послуги надані вчасно та повному об’ємі. Сторони не мають претензій
             одна до одної з приводу якості наданих послуг.
@@ -213,40 +285,41 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
                 inputName="info.client.name"
               />
             </div>
-            <div>
-              <div>
-                <span css={styles.fieldBold}>Адреса:</span>
-                <BaseInput
-                  register={register}
-                  inputName="info.client.address"
-                />
+            <div css={styles.infoField}>
+              <div css={styles.infoAddressField}>
+                <div css={styles.infoField}>
+                  <span css={styles.fieldBold}>Адреса:</span>
+                  <BaseInput
+                    register={register}
+                    inputName="info.client.address1"
+                  />
+                </div>
+                <div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.client.address2"
+                  />
+                </div>
               </div>
             </div>
-            <div>
+
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>ЄДРПОУ:</span>
-              <BaseInput
-                register={register}
-                classname={styles.fieldBold}
-                inputName="info.client.reg"
-              />
+              <BaseInput register={register} inputName="info.client.reg" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>E-mail:</span>
-              <BaseInput
-                register={register}
-                classname={styles.fieldBold}
-                inputName="info.client.email"
-              />
+              <BaseInput register={register} inputName="info.client.email" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>Телефон:</span>
               <BaseInput register={register} inputName="info.client.tel" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>Назва банку:</span>
               <BaseInput register={register} inputName="info.client.bank" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>Рахунок:</span>
               <BaseInput register={register} inputName="info.client.account" />
             </div>
@@ -266,29 +339,44 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
               classname={[styles.fieldBold, styles.infoTitleInput]}
               inputName="info.executor.name"
             />
-            <div>
-              <span css={styles.fieldBold}>Адреса:</span>
-              <BaseInput register={register} inputName="info.client.address" />
+
+            <div css={styles.infoField}>
+              <div css={styles.infoAddressField}>
+                <div css={styles.infoField}>
+                  <span css={styles.fieldBold}>Адреса:</span>
+                  <BaseInput
+                    register={register}
+                    inputName="info.executor.address1"
+                  />
+                </div>
+                <div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.executor.address2"
+                  />
+                </div>
+              </div>
             </div>
+
             <div>
               <span css={styles.fieldBold}>
                 Реєстраційний номер облікової картки платника податків:
               </span>
               <BaseInput register={register} inputName="info.executor.reg" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>E-mail:</span>
               <BaseInput register={register} inputName="info.executor.email" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>Телефон:</span>
               <BaseInput register={register} inputName="info.executor.tel" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>Назва банку:</span>
               <BaseInput register={register} inputName="info.executor.tel" />
             </div>
-            <div>
+            <div css={styles.infoField}>
               <span css={styles.fieldBold}>Рахунок:</span>
               <BaseInput
                 register={register}
@@ -313,4 +401,6 @@ export default function ActOfWorkDoc({ selectedAct, setActOfWork }) {
 ActOfWorkDoc.propTypes = {
   selectedAct: PropTypes.object,
   setActOfWork: PropTypes.func,
+  setIsActUpdated: PropTypes.func,
+  setIsActAdded: PropTypes.func,
 };

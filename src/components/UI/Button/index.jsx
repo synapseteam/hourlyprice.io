@@ -6,7 +6,7 @@ export default function Button({
   type = "button",
   onClick,
   children,
-  disabled,
+  disabled = false,
   classname,
   classnameContainer,
 }) {
@@ -33,8 +33,4 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   classname: PropTypes.any,
   classnameContainer: PropTypes.any,
-};
-
-Button.defaultProps = {
-  disabled: false,
 };

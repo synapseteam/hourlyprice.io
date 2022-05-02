@@ -5,11 +5,29 @@ import ActOfWorkDoc from "../../components/ActOfWorkDoc/index";
 import Footer from "../../components/Footer";
 import { useLocalStorage } from "../../hooks";
 import { styles } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ActOfWorkPage({ isDark }) {
   const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);
   const [selectedAct, setSelectedAct] = useState(null);
+  const [isActUpdated, setIsActUpdated] = useState(false);
+  const [isActAdded, setIsActAdded] = useState(false);
+
+  useEffect(() => {
+    if (isActUpdated) {
+      setTimeout(() => {
+        setIsActUpdated(false);
+      }, 1800);
+    }
+  }, [isActUpdated]);
+
+  useEffect(() => {
+    if (isActAdded) {
+      setTimeout(() => {
+        setIsActAdded(false);
+      }, 1800);
+    }
+  }, [isActAdded]);
 
   const setSelectedActDoc = (docName) => {
     const selectedActOfWork = actOfWork.find(
@@ -19,18 +37,25 @@ export default function ActOfWorkPage({ isDark }) {
   };
 
   return (
-    <div css={styles.ActOfWorkDoc}>
+    <div css={styles.ActOfWorkPage}>
       <HeaderActOfWork
         isDark={isDark}
         actOfWork={actOfWork}
         setSelectedAct={setSelectedAct}
         setSelectedActDoc={setSelectedActDoc}
+        isActUpdated={isActUpdated}
+        isActAdded={isActAdded}
       />
       <ActOfWorkDoc
         actOfWork={actOfWork}
         selectedAct={selectedAct}
         setActOfWork={setActOfWork}
+        setIsActUpdated={setIsActUpdated}
+        setIsActAdded={setIsActAdded}
       />
+      <div css={styles.noPreviewMessage}>
+        Попередній перегляд не підтримується
+      </div>
       <Footer
         companyName="Synapse Team LLC"
         companyUrl="https://synapseteam.com"

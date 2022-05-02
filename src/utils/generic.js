@@ -38,7 +38,6 @@ export function handleTimeChange(e) {
   }
 
   e.target.value = minutesLimited;
-
   return minutesLimited;
 }
 

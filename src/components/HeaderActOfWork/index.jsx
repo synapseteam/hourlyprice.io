@@ -12,6 +12,8 @@ export default function HeaderActOfWork({
   isDark,
   actOfWork,
   setSelectedActDoc,
+  isActUpdated,
+  isActAdded,
 }) {
   return (
     <header css={headerStyles.header}>
@@ -21,6 +23,12 @@ export default function HeaderActOfWork({
           Рахунок-фактура
         </Link>
         <div css={styles.actOfWork}>
+          {isActUpdated && (
+            <div css={styles.actOfWorkUpdated}>Документ оновлено</div>
+          )}
+          {isActAdded && (
+            <div css={styles.actOfWorkUpdated}>Документ додано</div>
+          )}
           <Link css={styles.link} to={ROUTES.actOfWork}>
             Акт виконаних робіт
           </Link>
@@ -53,4 +61,6 @@ HeaderActOfWork.propTypes = {
   isDark: PropTypes.bool,
   actOfWork: PropTypes.array,
   setSelectedActDoc: PropTypes.func,
+  isActUpdated: PropTypes.bool,
+  isActAdded: PropTypes.bool,
 };

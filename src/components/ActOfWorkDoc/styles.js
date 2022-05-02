@@ -1,6 +1,11 @@
 import { css } from "@emotion/react";
 
 export const styles = {
+  ActOfWorkDoc: css`
+    @media (max-width: 820px) {
+      display: none;
+    }
+  `,
   actOfWork: css`
     display: flex;
     flex-direction: column;
@@ -11,23 +16,39 @@ export const styles = {
     line-height: 18px;
     height: 100%;
     width: 800px;
-    margin: 15px auto;
-    padding: 30px 80px;
+    margin: 15px auto 50px;
+    padding: 30px 80px 150px;
+    @media (max-width: 820px) {
+      display: none;
+    }
   `,
 
-  save: css`
+  save: (theme) => css`
+    background-color: ${theme.primary};
     display: flex;
     justify-content: space-between;
     margin: 15px auto;
-    padding: 0px 30px;
+    padding: 10px 30px;
     width: 800px;
-
-    input {
+    background-color: input {
       border: 1px solid black;
       margin-right: 10px;
     }
   `,
+  saveInput: (theme) => css`
+    border-bottom: 1px solid ${theme.senary};
+    background: none;
+    color: ${theme.senary};
+    font-size: 24px;
+  `,
+  buttons: css`
+    display: flex;
+    div:first-of-type {
+      margin-right: 10px;
+    }
+  `,
   saveButton: css`
+    width: 130px;
     padding: 0.5rem 0.7rem;
   `,
   saveButtonContainer: css`
@@ -56,8 +77,13 @@ export const styles = {
       justify-content: center;
       height: 100%;
       padding: 4px;
+      text
+    }
+    input{
+      text-align:center;
     }
   `,
+
   paragraphs: css`
     margin-top: 15px;
   `,
@@ -70,7 +96,6 @@ export const styles = {
     line-height: 18px;
     width: 100%;
     border: none;
-    height: 55px;
   `,
   textareaSmall: css`
     resize: none;
@@ -118,12 +143,28 @@ export const styles = {
     span {
       justify-content: flex-end;
     }
+    input {
+      text-align: center;
+    }
   `,
 
   info: css`
     display: flex;
     height: 300px;
     margin-top: 60px;
+  `,
+  infoField: css`
+    display: flex;
+    width: 95%;
+    white-space: nowrap;
+    input {
+      width: 100%;
+    }
+  `,
+  infoAddressField: css`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   `,
   infoTitleInput: css`
     margin: 15px 0px;

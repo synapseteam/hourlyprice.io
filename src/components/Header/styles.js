@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 export const styles = {
   header: (theme) => css`
-    background-color: ${theme.septenary};
+    background-color: ${theme.primary};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,7 +48,7 @@ export const styles = {
     cursor: pointer;
     height: 40px;
     @media (max-width: 420px) {
-      padding: 0rem 0.4rem;
+      display: none;
     }
   `,
   report: css`
@@ -91,7 +91,10 @@ export const styles = {
       right: 2px;
     }
   `,
-
+  arrowImg: css`
+    height: 25px;
+    transform: scaleX(-1);
+  `,
   invoiceXIconAnimation: css`
     animation-name: opacityChange;
     animation-duration: 2s;
