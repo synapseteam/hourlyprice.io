@@ -9,6 +9,9 @@ const initialState = {
   },
   isLoading: false,
   ratesRequestErr: false,
+  isEditMode: true,
+  isInvoiceItemAdded: false,
+  isInvoiceFull: false,
 };
 
 export const genericSlice = createSlice({
@@ -27,6 +30,15 @@ export const genericSlice = createSlice({
     clearFields: (state) => {
       state.fields = initialState.fields;
     },
+    toggleEditMode: (state) => {
+      state.isEditMode = !state.isEditMode;
+    },
+    setInvoiceItemAdded: (state, action) => {
+      state.isInvoiceItemAdded = action.payload;
+    },
+    setInvoiceFull: (state, action) => {
+      state.isInvoiceFull = action.payload;
+    },
   },
   extraReducers: {
     [fetchRates.pending]: (state) => {
@@ -42,5 +54,12 @@ export const genericSlice = createSlice({
   },
 });
 
-export const { modifyFields, toggleIsLoading, setRequestErr, clearFields } =
-  genericSlice.actions;
+export const {
+  modifyFields,
+  toggleIsLoading,
+  setRequestErr,
+  clearFields,
+  toggleEditMode,
+  setInvoiceItemAdded,
+  setInvoiceFull,
+} = genericSlice.actions;

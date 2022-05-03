@@ -1,26 +1,16 @@
 import { css } from "@emotion/react";
 
 export const styles = {
-  langContainer: (theme) => css`
-    position: absolute;
-    top: 0;
-    left: -200%;
-    background-color: ${theme.octonary};
-    border: ${theme.langListBorder};
+  langContainer: css`
     border-radius: 0.4rem;
   `,
-  langList: css`
-    display: flex;
-    flex-direction: column;
-    padding: 0.3rem;
-    margin: 0;
-  `,
-  langListItem: css`
-    list-style: none;
-    padding: 0.3rem;
-  `,
-  langListLink: (theme) => css`
-    text-decoration: none;
-    color: ${theme.senary};
+  langIcon: css`
+    width: 32px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:hover .langTooltip {
+      visibility: visible;
+    }
   `,
 };

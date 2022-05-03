@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { useState } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
-import { useState } from "react";
-
 import { store } from "store";
 import Header from "components/Header";
 import HeroTitle from "components/HeroTitle";
@@ -10,23 +9,26 @@ import PriceForm from "components/PriceForm";
 import Display from "components/Display";
 import ContentContainer from "components/ContentContainer";
 import Footer from "components/Footer";
-
-import { themeDark, themeLight } from "theme/index";
+import { themeDark, themeLight } from "theme";
 import { styles } from "./styles";
 
+const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
+
 function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(isDarkTheme);
 
   return (
     <div css={styles.app}>
       <Provider store={store}>
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
-          <Header setIsDark={setIsDark} />
+          <Header setIsDark={setIsDark} isDark={isDark} />
 
           <ContentContainer>
             <HeroTitle />
-            <Display />
-            <PriceForm />
+            <div css={styles.calculator}>
+              <Display />
+              <PriceForm />
+            </div>
           </ContentContainer>
 
           <Footer

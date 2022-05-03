@@ -84,3 +84,11 @@ export function transformRatesResponse(ratesResponse) {
     };
   });
 }
+
+export function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}

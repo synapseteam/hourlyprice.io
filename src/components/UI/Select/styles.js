@@ -6,7 +6,6 @@ export const styles = {
     flex-direction: column;
     font-size: 0.7rem;
     color: ${theme.labelColor};
-    margin-top: 0.8rem;
 
     &:first-of-type {
       margin-top: 0;
@@ -19,9 +18,7 @@ export const styles = {
     color: ${theme.denary};
     padding: 0.8rem 1rem;
     margin-top: 0.4rem;
-
     outline: none;
-
     appearance: none;
   `,
 };

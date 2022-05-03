@@ -9,6 +9,8 @@ export const styles = {
     padding: 0.5rem;
     background-color: ${theme.quinary};
     box-shadow: ${theme.footerShadow};
+    transition: background 0.5s;
+    margin-top: auto;
   `,
 
   footerText: css`

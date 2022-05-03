@@ -11,8 +11,11 @@ export const themeDark = {
   octonary: "#24274a",
   nonary: "#174f5e",
   denary: "#ffffff",
+  modalOverlay: "rgba(0, 0, 0, 0.5)",
 
   btnHoverColor: "#5cbabc",
+  btnDisabledColor: "#ffffff",
+  btnDisabledBgColor: "#528896",
   labelColor: "#5599ec",
   inputBackgroundColor: "#171d3d",
   inputBgColor: "#171d3d",
@@ -41,8 +44,11 @@ export const themeLight = {
   octonary: "#f1f3f4",
   nonary: "#dbdbdb",
   denary: "#171d3d",
+  modalOverlay: "rgba(0, 0, 0, 0.5)",
 
   btnHoverColor: "#d5d3d3",
+  btnDisabledColor: "#171d3d",
+  btnDisabledBgColor: "#bebebe",
   labelColor: "#24274a",
   inputBackgroundColor: "#ffffff",
   inputBgColor: "#ffffff",
@@ -53,7 +59,7 @@ export const themeLight = {
   footerBorderTop: "none",
   footerShadow: "-1px -1px 3px #ddd",
   headerShadow: "0 1px 3px #dbdbdb",
-  langListBorder: "none",
-  btnBorder: "none",
+  langListBorder: "1px solid #f1f3f4",
+  btnBorder: "1px solid #dbdbdb",
   inputBorder: "1px solid #dbdbdb",
 };
