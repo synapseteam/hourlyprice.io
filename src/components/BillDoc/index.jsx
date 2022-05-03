@@ -6,7 +6,7 @@
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import JsPDF from "jspdf";
-import { handleTimeChange } from "utils/generic";
+import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input";
 import { styles } from "./styles";
 import BaseDatePicker from "../UI/DatePicker";
@@ -254,13 +254,12 @@ export default function BillDoc({
 									width="70"
 									classname={styles.fieldBold}
 									disabled={!isEditMode}
-									type="number"
 									onChange={(e) => {
 										handleTimeChange(e);
 										setValue(
 											`details.${index}.sum`,
 											Number(formValues.details[index].price) *
-												Number(e.target.value),
+												convertStrTimeToNum(e.target.value),
 											{ shouldTouch: true }
 										);
 										setValue(`details.${index}.quantity`, e.target.value);
@@ -280,7 +279,7 @@ export default function BillDoc({
 										setValue(
 											`details.${index}.sum`,
 
-											Number(formValues.details[index].quantity) *
+											convertStrTimeToNum(formValues.details[index].quantity) *
 												Number(e.target.value),
 											{ shouldTouch: true }
 										);

@@ -54,6 +54,9 @@ export default function BillPage({ isDark }) {
 				setIsBillAdded={setIsBillAdded}
 				setIsBillUpdated={setIsBillUpdated}
 			/>
+			<div css={styles.noPreviewMessage}>
+				Попередній перегляд не підтримується
+			</div>
 			<Footer
 				companyName="Synapse Team LLC"
 				companyUrl="https://synapseteam.com"
