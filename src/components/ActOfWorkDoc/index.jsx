@@ -306,7 +306,7 @@ export default function ActOfWorkDoc({
                       classname={[styles.fieldBold, styles.textareaSmall]}
                       inputName={`details[${index}].title`}
                       register={register}
-                      maxLength={100}
+                      maxLength={70}
                       height="40"
                     />
                   </span>
@@ -379,7 +379,9 @@ export default function ActOfWorkDoc({
               return (
                 <div key={index} css={styles.heading}>
                   <span css={styles.column1}> {index + 1}</span>
-                  <span css={[styles.column2, styles.fieldBold]}>
+                  <span
+                    css={[styles.column2, styles.fieldBold, styles.noEditTitle]}
+                  >
                     {formValues.details[index].title}
                   </span>
                   <span css={[styles.column3, styles.fieldBold]}>

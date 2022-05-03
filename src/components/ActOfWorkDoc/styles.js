@@ -105,6 +105,9 @@ export const styles = {
     border: none;
     height: 100%;
   `,
+  noEditTitle: css`
+    font-size: 12px;
+  `,
   heading: css`
     position: relative;
     text-align: center;
@@ -194,6 +197,9 @@ export const styles = {
     width: 50%;
     flex-direction: column;
     line-height: 20px;
+    span {
+      padding-bottom: 3px;
+    }
   `,
 
   initials: css`

@@ -8,6 +8,7 @@ export default function TextArea({
   classname,
   width,
   height,
+  maxLength,
 }) {
   return (
     <textarea
@@ -19,6 +20,7 @@ export default function TextArea({
       }}
       {...register(inputName)}
       inputMode="decimal"
+      maxLength={maxLength}
       autoComplete="off"
     />
   );
@@ -29,5 +31,6 @@ TextArea.propTypes = {
   inputName: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
+  maxLength: PropTypes.number,
   classname: PropTypes.any,
 };
