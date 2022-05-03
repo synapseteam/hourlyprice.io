@@ -4,14 +4,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import uk from "date-fns/locale/uk";
 import { Global, css } from "@emotion/react";
 import PropTypes from "prop-types";
-import { useState } from "react";
 
 import { styles } from "./styles";
 
-export default function BaseDatePicker({ register, inputName, dateFormat }) {
-  const now = new Date();
-  const [startDate, setStartDate] = useState(now);
-
+export default function BaseDatePicker({
+  register,
+  selected,
+  onChange,
+  inputName,
+  dateFormat,
+}) {
   return (
     <>
       <Global
@@ -28,10 +30,10 @@ export default function BaseDatePicker({ register, inputName, dateFormat }) {
       <DatePicker
         css={styles.fieldDate}
         locale={uk}
-        selected={startDate}
+        selected={selected}
         dateFormat={dateFormat}
         {...register(inputName)}
-        onChange={(date) => setStartDate(date)}
+        onChange={onChange}
       />
     </>
   );
@@ -43,6 +45,8 @@ BaseDatePicker.defaultProps = {
 
 BaseDatePicker.propTypes = {
   register: PropTypes.func,
+  selected: PropTypes.any,
+  onChange: PropTypes.func,
   inputName: PropTypes.string,
   dateFormat: PropTypes.string,
 };

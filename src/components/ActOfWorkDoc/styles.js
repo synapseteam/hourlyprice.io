@@ -43,7 +43,7 @@ export const styles = {
   `,
   buttons: css`
     display: flex;
-    div:first-of-type {
+    div:not(:last-of-type) {
       margin-right: 10px;
     }
   `,
@@ -155,6 +155,7 @@ export const styles = {
   fieldBold: css`
     font-weight: bold;
   `,
+
   total: css`
     span {
       justify-content: flex-end;
@@ -166,7 +167,7 @@ export const styles = {
 
   info: css`
     display: flex;
-    height: 300px;
+    height: 350px;
     margin-top: 60px;
   `,
   infoField: css`
@@ -176,6 +177,9 @@ export const styles = {
     input {
       width: 100%;
     }
+  `,
+  infoFieldNoEdit: css`
+    white-space: normal;
   `,
   infoAddressField: css`
     display: flex;
@@ -189,7 +193,9 @@ export const styles = {
     display: flex;
     width: 50%;
     flex-direction: column;
+    line-height: 20px;
   `,
+
   initials: css`
     margin-top: auto;
   `,
