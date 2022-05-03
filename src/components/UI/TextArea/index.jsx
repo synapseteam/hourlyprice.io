@@ -4,41 +4,37 @@
  */
 
 import PropTypes from "prop-types";
-
 import { styles } from "./styles";
 
-export default function BaseInput({
+export default function TextArea({
 	register,
 	inputName,
 	classname,
 	width,
-	readOnly,
-	onChange,
+	height,
 	disabled,
-	type,
 }) {
 	return (
-		<input
-			css={[styles.input, classname]}
-			style={{ width: width + "px" }}
+		<textarea
+			css={[styles.textArea, classname]}
+			style={{
+				width: width + "px",
+				height: height + "px",
+				resize: "none",
+			}}
 			{...register(inputName)}
-			type={type}
 			inputMode="decimal"
 			autoComplete="off"
-			readOnly={readOnly}
-			onChange={onChange}
 			disabled={disabled}
 		/>
 	);
 }
 
-BaseInput.propTypes = {
+TextArea.propTypes = {
 	register: PropTypes.func,
 	inputName: PropTypes.string,
 	width: PropTypes.string,
-	onChange: PropTypes.func,
-	readOnly: PropTypes.bool,
+	height: PropTypes.string,
 	classname: PropTypes.any,
 	disabled: PropTypes.bool,
-	type: PropTypes.string,
 };

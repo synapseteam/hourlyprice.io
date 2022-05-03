@@ -6,19 +6,24 @@
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import JsPDF from "jspdf";
-import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
+import { handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input";
 import { styles } from "./styles";
 import BaseDatePicker from "../UI/DatePicker";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
-import TextAria from "../UI/TextAria";
+import TextArea from "../UI/TextArea";
+import CloseIcon from "../../assets/close.svg";
 
-export default function BillDoc({ selectedBill, setBillItems }) {
+export default function BillDoc({
+	selectedBill,
+	setBillItems,
+	setIsBillAdded,
+	setIsBillUpdated,
+}) {
 	const now = new Date();
 	const [orderTotal, setOrderTotal] = useState(0);
-
-	console.log(convertStrTimeToNum("10:00:00"));
+	const [isEditMode, setIsEditMode] = useState();
 
 	useEffect(() => {
 		selectedBill && reset(selectedBill);
@@ -33,13 +38,12 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 		details: [
 			{
 				title: "XXX XXXXXXXX XXXXXXXXX",
-				price: 100.0,
-				quantity: "10:00:00",
+				price: 100,
+				quantity: 10.0,
 				sum: 1000.0,
 			},
 		],
-		total: "Одна тисяча",
-		totalCents: "00",
+		total: "Одна тисяча гривень 00 копійок",
 		info: {
 			provider: {
 				title: "XXX XXXXXXXX XXXXXXXXX",
@@ -64,10 +68,17 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 	const formValues = getValues();
 	console.log(formValues);
 
+	const numberToString = require("number-to-cyrillic");
+	numberToString.convert(21);
+
+	const totalWritten = `${
+		numberToString.convert(orderTotal).convertedInteger
+	} гривень ${numberToString.convert(orderTotal).fractionalString} копійок`;
+
 	const calculateOrderTotal = () => {
 		if (formValues && formValues.details) {
 			const total = formValues.details.reduce(
-				(acc, curr) => Number(curr.total) + acc,
+				(acc, curr) => Number(curr.sum) + acc,
 				0
 			);
 			console.log(total, "total");
@@ -79,8 +90,7 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 		calculateOrderTotal();
 	}, [formValues.details]);
 
-	// const watchTotal = watch("details.sum");
-	console.log(orderTotal.toFixed);
+	console.log(orderTotal);
 
 	const generatePDF = () => {
 		const report = new JsPDF("p", "px", [936, 1300]);
@@ -97,6 +107,7 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 
 		if (!billItems) {
 			setBillItems([data]);
+			setIsBillAdded(true);
 		}
 		if (billItems) {
 			let index = null;
@@ -107,11 +118,12 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 			if (!itemExist) {
 				billItems.push(data);
 				setBillItems(billItems);
+				setIsBillAdded(true);
 			}
 			if (itemExist) {
 				billItems[index] = data;
-
 				setBillItems(billItems);
+				setIsBillUpdated(true);
 				console.log("item updated");
 			}
 		}
@@ -120,19 +132,21 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 	const addService = () => {
 		append({ title: "XXX XXXXXXXX XXXXXXXXX", price: 0, quantity: 0, sum: 0 });
 	};
+
 	return (
 		<div>
 			<div css={styles.save}>
 				<BaseInput register={register} inputName="docName" width="200" />
 				<div css={styles.saveButtons}>
 					<Button
-						onClick={generatePDF}
-						type="button"
+						onClick={() => setIsEditMode(!isEditMode)}
 						classname={styles.saveButton}
-						classnameContainer={styles.exportButton}
+						type="button"
+						classnameContainer={styles.saveButtonContainer}
 					>
-						Експортувати у PDF
+						{!isEditMode ? "Редагувати" : "Зберегти зміни"}
 					</Button>
+
 					<Button
 						classname={styles.saveButton}
 						classnameContainer={styles.saveButtonContainer}
@@ -140,6 +154,14 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 						form="billDoc"
 					>
 						Зберегти
+					</Button>
+					<Button
+						onClick={generatePDF}
+						type="button"
+						classname={styles.saveButton}
+						classnameContainer={styles.exportButtonContainer}
+					>
+						Експортувати у PDF
 					</Button>
 				</div>
 			</div>
@@ -151,6 +173,7 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 						inputName="billNumber"
 						width="80"
 						classname={styles.titleFieldBold}
+						disabled={!isEditMode}
 					/>
 					<span>від </span>
 					<BaseDatePicker
@@ -158,6 +181,7 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 						inputName="billDateFrom"
 						classname={styles.titleFieldBold}
 						dateFormat="dd.MM.yyyy"
+						disabled={!isEditMode}
 					/>
 				</div>
 				<div css={styles.infoContainer}>
@@ -172,13 +196,15 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 									inputName="info.provider.title"
 									width="250"
 									classname={styles.fieldBold}
+									disabled={!isEditMode}
 								/>
 							</div>
-							<TextAria
+							<TextArea
 								register={register}
 								inputName="info.provider.textField"
 								width="200"
 								height="70"
+								disabled={!isEditMode}
 							/>
 						</div>
 					</div>
@@ -187,11 +213,12 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 							<span>Покупець</span>
 						</div>
 						<div css={styles.infoContent}>
-							<TextAria
+							<TextArea
 								register={register}
 								inputName="info.buyer.textField"
 								width="200"
 								height="50s"
+								disabled={!isEditMode}
 							/>
 						</div>
 					</div>
@@ -214,8 +241,9 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 								<BaseInput
 									register={register}
 									inputName={`details[${index}].title`}
-									width="210"
+									width="200"
 									classname={styles.fieldBold}
+									disabled={!isEditMode}
 								/>
 							</div>
 							<div css={styles.fieldBold}>Година</div>
@@ -225,15 +253,18 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 									inputName={`details[${index}].quantity`}
 									width="70"
 									classname={styles.fieldBold}
+									disabled={!isEditMode}
+									type="number"
 									onChange={(e) => {
 										handleTimeChange(e);
 										setValue(
 											`details.${index}.sum`,
-											(
-												Number(formValues.details.index.quantity) *
-												convertStrTimeToNum(e.target.value)
-											).toFixed(2)
+											Number(formValues.details[index].price) *
+												Number(e.target.value),
+											{ shouldTouch: true }
 										);
+										setValue(`details.${index}.quantity`, e.target.value);
+										calculateOrderTotal();
 									}}
 								/>
 							</div>
@@ -243,15 +274,18 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 									inputName={`details[${index}].price`}
 									width="70"
 									classname={styles.fieldBold}
+									disabled={!isEditMode}
+									type="number"
 									onChange={(e) => {
-										handleTimeChange(e);
 										setValue(
 											`details.${index}.sum`,
-											(
-												Number(formValues.details.index.price) *
-												Number(e.target.value)
-											).toFixed(2)
+
+											Number(formValues.details[index].quantity) *
+												Number(e.target.value),
+											{ shouldTouch: true }
 										);
+										setValue(`details.${index}.price`, e.target.value);
+										calculateOrderTotal();
 									}}
 								/>
 							</div>
@@ -262,17 +296,30 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 									width="80"
 									readOnly={true}
 									classname={styles.fieldBold}
+									disabled={!isEditMode}
 								/>
 							</div>
-							<button
-								onClick={() => remove(index)}
-								css={styles.detailsRemoveBtn}
-							>
-								X
-							</button>
+
+							{isEditMode && (
+								<img
+									css={styles.detailsRemoveBtn}
+									onClick={() => remove(index)}
+									src={CloseIcon}
+									alt="remove"
+								/>
+							)}
 						</div>
 					))}
-					<Button onClick={addService}>Додати сервіс</Button>
+					{isEditMode && (
+						<Button
+							classname={styles.addButton}
+							classnameContainer={styles.addButtonContainer}
+							type="button"
+							onClick={addService}
+						>
+							Додати сервіс
+						</Button>
+					)}
 					<div css={styles.total}>
 						<div>
 							<span css={styles.fieldBold}>{orderTotal} грн.</span>
@@ -285,16 +332,7 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 				</div>
 				<div>
 					<div css={styles.totalText}>
-						<span>До сплати: 1000</span>
-
-						<span>гривень</span>
-						<BaseInput
-							register={register}
-							inputName="totalCents"
-							width="10"
-							classname={styles.fieldBold}
-						/>
-						<span>копійок, без ПДВ</span>
+						<span>До сплати: {totalWritten}, без ПДВ</span>
 					</div>
 				</div>
 
@@ -307,6 +345,7 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 						inputName="billAuthor"
 						width="300"
 						classname={styles.fieldBold}
+						disabled={!isEditMode}
 					/>
 				</div>
 			</form>
@@ -317,4 +356,6 @@ export default function BillDoc({ selectedBill, setBillItems }) {
 BillDoc.propTypes = {
 	selectedBill: PropTypes.object,
 	setBillItems: PropTypes.func,
+	setIsBillAdded: PropTypes.func,
+	setIsBillUpdated: PropTypes.func,
 };

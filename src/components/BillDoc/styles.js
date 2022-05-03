@@ -61,15 +61,16 @@ export const styles = {
 
 	details: css`
 		display: grid;
-		grid-template-columns: 10% 32% 15% 15% 13% 15%;
+		grid-template-columns: 10% 31% 15% 15% 14% 15%;
 		border: 1px solid black;
-		grid-gap: 1px;
-		background-color: black;
 		position: relative;
 
 		div {
 			padding: 10px;
 			background-color: white;
+		}
+		div:not(:last-child) {
+			border-right: 1px solid black;
 		}
 	`,
 
@@ -120,19 +121,32 @@ export const styles = {
 		padding: 10px;
 	`,
 	saveButtonContainer: css`
-		margin: 0;
+		margin: 0 5px;
+		min-width: fit-content;
 	`,
 	saveButtons: css`
 		display: flex;
 	`,
-	exportButton: css`
+	exportButtonContainer: css`
 		min-width: 200px;
-		margin: 0 10px;
+		margin: 0 0 0 5px;
 	`,
 
 	detailsRemoveBtn: css`
 		position: absolute;
 		right: -30px;
 		top: 25%;
+		border: none;
+		background-color: white;
+		cursor: pointer;
+	`,
+
+	addButtonContainer: css`
+		margin: 0;
+	`,
+	addButton: css`
+		background-color: #f1f3f4;
+		color: black;
+		border-radius: 0;
 	`,
 };
