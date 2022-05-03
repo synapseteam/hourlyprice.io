@@ -28,7 +28,7 @@ export default function Button({
 Button.propTypes = {
   formId: PropTypes.string,
   type: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   classname: PropTypes.any,

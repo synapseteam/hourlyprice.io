@@ -106,6 +106,7 @@ export const styles = {
     height: 100%;
   `,
   heading: css`
+    position: relative;
     text-align: center;
     display: flex;
     align-items: center;
@@ -122,19 +123,34 @@ export const styles = {
   `,
 
   column2: css`
-    min-width: 210px;
+    width: 230px;
   `,
   column3: css`
-    width: 100px;
+    width: 95px;
   `,
   column4: css`
-    width: 100px;
+    width: 95px;
   `,
   column5: css`
-    width: 100px;
+    width: 95px;
   `,
   column6: css`
-    width: 100px;
+    width: 95px;
+  `,
+  removeButton: css`
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(30px, -50%);
+    cursor: pointer;
+  `,
+  addButtonContainer: css`
+    margin: 0;
+  `,
+  addButton: css`
+    background-color: #f1f3f4;
+    color: black;
+    border-radius: 0;
   `,
   fieldBold: css`
     font-weight: bold;

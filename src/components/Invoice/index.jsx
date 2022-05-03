@@ -78,6 +78,7 @@ export const Invoice = () => {
   });
 
   const formValues = getValues();
+
   const calculateOrderTotal = () => {
     if (formValues && formValues.services) {
       const total = formValues.services.reduce(
