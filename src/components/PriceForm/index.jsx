@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Input from "components/UI/Input";
+import InputLabel from "components/UI/InputLabel";
 import Select from "components/UI/Select";
 import RatesInputSet from "components/PriceForm/RatesInputSet";
 import Button from "components/UI/Button";
@@ -163,7 +163,7 @@ export default function PriceForm() {
   return (
     <form css={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div css={styles.currency}>
-        <Input
+        <InputLabel
           inputName="price"
           register={register}
           labelName={t("labelPrice")}
@@ -181,7 +181,7 @@ export default function PriceForm() {
           errors={errors}
         />
       </div>
-      <Input
+      <InputLabel
         inputName="time"
         register={register}
         labelName={t("labelTime")}

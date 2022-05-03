@@ -2,10 +2,11 @@ import { css } from "@emotion/react";
 
 export const styles = {
   header: (theme) => css`
-    background-color: ${theme.septenary};
+    background-color: ${theme.primary};
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 55px;
     padding: 0.4rem;
     position: sticky;
     top: 0;
@@ -33,6 +34,18 @@ export const styles = {
     margin-bottom: 5px;
     @media (max-width: 420px) {
       padding: 0rem 0.1rem;
+    }
+  `,
+  actOfWork: css`
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 0.4rem;
+    padding: 0rem 0.8rem;
+    cursor: pointer;
+    height: 40px;
+    @media (max-width: 420px) {
+      display: none;
     }
   `,
   report: css`
@@ -75,7 +88,10 @@ export const styles = {
       right: 2px;
     }
   `,
-
+  arrowImg: css`
+    height: 25px;
+    transform: scaleX(-1);
+  `,
   invoiceXIconAnimation: css`
     animation-name: opacityChange;
     animation-duration: 2s;

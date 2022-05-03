@@ -1,40 +1,42 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { store } from "store";
-import Header from "components/Header";
-import HeroTitle from "components/HeroTitle";
-import PriceForm from "components/PriceForm";
-import Display from "components/Display";
-import ContentContainer from "components/ContentContainer";
-import Footer from "components/Footer";
+
+import HomePage from "pages/HomePage/index";
+import ActOfWorkPage from "pages/ActOfWork/index";
+import BillPage from "pages/Bill/index";
 import { themeDark, themeLight } from "theme";
+import { ROUTES } from "./utils/urls";
 import { styles } from "./styles";
 
-const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
-
 function App() {
-  const [isDark, setIsDark] = useState(isDarkTheme);
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
+    isDarkTheme !== null ? setIsDark(isDarkTheme) : setIsDark(true);
+  }, []);
 
   return (
     <div css={styles.app}>
       <Provider store={store}>
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
-          <Header setIsDark={setIsDark} isDark={isDark} />
-
-          <ContentContainer>
-            <HeroTitle />
-            <div css={styles.calculator}>
-              <Display />
-              <PriceForm />
-            </div>
-          </ContentContainer>
-
-          <Footer
-            companyName="Synapse Team LLC"
-            companyUrl="https://synapseteam.com"
-          />
+          <Routes>
+            <Route
+              path={ROUTES.home}
+              element={<HomePage isDark={isDark} setIsDark={setIsDark} />}
+            />
+            <Route
+              path={ROUTES.actOfWork}
+              element={<ActOfWorkPage isDark={isDark} setIsDark={setIsDark} />}
+            />
+            <Route
+              path={ROUTES.bill}
+              element={<BillPage isDark={isDark} setIsDark={setIsDark} />}
+            />
+          </Routes>
         </ThemeProvider>
       </Provider>
     </div>

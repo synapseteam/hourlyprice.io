@@ -6,12 +6,14 @@ export default function Button({
   type = "button",
   onClick,
   children,
-  disabled,
+  disabled = false,
+  classname,
+  classnameContainer,
 }) {
   return (
-    <div css={styles.buttonContainer}>
+    <div css={[styles.buttonContainer, classnameContainer]}>
       <button
-        css={styles.button}
+        css={[styles.button, classname]}
         type={type}
         color="red"
         onClick={onClick}
@@ -26,11 +28,9 @@ export default function Button({
 Button.propTypes = {
   formId: PropTypes.string,
   type: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
-};
-
-Button.defaultProps = {
-  disabled: false,
+  classname: PropTypes.any,
+  classnameContainer: PropTypes.any,
 };

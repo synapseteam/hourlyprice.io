@@ -6,7 +6,7 @@ export const styles = {
     cursor: pointer;
     margin: 0 16px;
     @media (max-width: 420px) {
-      margin: 0 8px;
+      margin: 0 4px;
     }
     &:hover {
       transform: scale(1.1);

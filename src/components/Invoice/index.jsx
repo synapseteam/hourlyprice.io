@@ -67,6 +67,7 @@ export const Invoice = () => {
       "Lorem Ipsum is simply.\n" +
       "Lorem Ipsum is simply dummy text of the printing and typesetting\n",
   };
+
   const { register, control, getValues, setValue, watch } = useForm({
     defaultValues,
     resolver: yupResolver(JsSchema),
@@ -91,6 +92,7 @@ export const Invoice = () => {
   useEffect(() => {
     calculateOrderTotal();
   }, [formValues.services]);
+
   useEffect(() => {
     const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
 

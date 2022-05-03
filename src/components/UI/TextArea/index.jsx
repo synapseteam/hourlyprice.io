@@ -1,37 +1,36 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
-
 import { styles } from "./styles";
 
-export default function BaseInput({
+export default function TextArea({
   register,
   inputName,
   classname,
-  onChange,
   width,
-  readOnly = false,
-  type = "text",
+  height,
+  maxLength,
 }) {
   return (
-    <input
-      css={[styles.input, classname]}
-      style={{ width: width + "px" }}
+    <textarea
+      css={[styles.textArea, classname]}
+      style={{
+        width: width + "px",
+        height: height + "px",
+        resize: "none",
+      }}
       {...register(inputName)}
-      type={type}
-      readOnly={readOnly}
       inputMode="decimal"
+      maxLength={maxLength}
       autoComplete="off"
-      onChange={onChange}
     />
   );
 }
 
-BaseInput.propTypes = {
+TextArea.propTypes = {
   register: PropTypes.func,
   inputName: PropTypes.string,
-  type: PropTypes.string,
   width: PropTypes.string,
+  height: PropTypes.string,
+  maxLength: PropTypes.number,
   classname: PropTypes.any,
-  onChange: PropTypes.func,
-  readOnly: PropTypes.bool,
 };

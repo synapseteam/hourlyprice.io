@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -6,6 +8,9 @@ import PropTypes from "prop-types";
 import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice-ticket.png";
 import RedXIcon from "../../assets/red-x.png";
+import ArrowIcon from "../../assets/arrow-right.png";
+import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
+
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
@@ -34,6 +39,7 @@ export default function Header({ setIsDark, isDark }) {
   const { width } = useWindowDimensions();
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [t] = useCustomTranslation();
+  const { i18n } = useTranslation();
 
   const toggleInvoiceModal = () => {
     if (!isInvoiceModalOpen) {
@@ -43,6 +49,7 @@ export default function Header({ setIsDark, isDark }) {
     }
     setIsInvoiceModalOpen(!isInvoiceModalOpen);
   };
+
   const generatePDF = () => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
@@ -86,6 +93,21 @@ export default function Header({ setIsDark, isDark }) {
     <header css={styles.header}>
       <Logo />
       <div css={styles.rightHandContainer}>
+        {i18n.language === "ua" && (
+          <Link
+            to="/act-of-work"
+            css={styles.actOfWork}
+            data-tip={"Акт виконаних робіт"}
+          >
+            {!isDark && (
+              <img css={styles.arrowImg} src={ArrowIcon} alt="arrow" />
+            )}
+            {isDark && (
+              <img css={styles.arrowImg} src={ArrowWhiteIcon} alt="arrow" />
+            )}
+            <ReactTooltip place="bottom" effect="solid" />
+          </Link>
+        )}
         <div
           data-tip={t("invoice")}
           css={invoiceStyles}
