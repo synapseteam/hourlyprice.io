@@ -9,6 +9,7 @@ export default function BaseInput({
   classname,
   onChange,
   width,
+                                    disabled,
   readOnly = false,
   type = "text",
 }) {
@@ -22,6 +23,7 @@ export default function BaseInput({
       inputMode="decimal"
       autoComplete="off"
       onChange={onChange}
+      disabled={disabled}
     />
   );
 }
@@ -34,4 +36,5 @@ BaseInput.propTypes = {
   classname: PropTypes.any,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
+	disabled: PropTypes.bool,
 };

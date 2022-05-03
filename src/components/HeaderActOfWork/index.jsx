@@ -14,14 +14,37 @@ export default function HeaderActOfWork({
   setSelectedActDoc,
   isActUpdated,
   isActAdded,
+	billItems,
+	setSelectedBillDoc,
+	isBillUpdated,
+	isBillAdded,
 }) {
   return (
     <header css={headerStyles.header}>
       <Logo />
       <div css={headerStyles.rightHandContainer}>
+        {isBillUpdated && (
+            <div css={styles.actOfWorkUpdated}>Документ оновлено</div>
+        )}
+        {isBillAdded && (
+            <div css={styles.actOfWorkUpdated}>Документ додано</div>
+        )}
         <Link css={styles.link} to={ROUTES.bill}>
           Рахунок-фактура
         </Link>
+        <div css={styles.dropdown} data-comp="list">
+          {billItems &&
+          billItems.map((item, index) => {
+            return (
+                <li
+                    onClick={() => setSelectedBillDoc(item.docName)}
+                    key={index}
+                >
+                  {item.docName}
+                </li>
+            );
+          })}
+        </div>
         <div css={styles.actOfWork}>
           {isActUpdated && (
             <div css={styles.actOfWorkUpdated}>Документ оновлено</div>
@@ -63,4 +86,8 @@ HeaderActOfWork.propTypes = {
   setSelectedActDoc: PropTypes.func,
   isActUpdated: PropTypes.bool,
   isActAdded: PropTypes.bool,
+	billItems: PropTypes.array,
+	setSelectedBillDoc: PropTypes.func,
+	isBillUpdated: PropTypes.bool,
+	isBillAdded: PropTypes.bool,
 };
