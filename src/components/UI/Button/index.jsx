@@ -9,6 +9,7 @@ export default function Button({
   disabled = false,
   classname,
   classnameContainer,
+  form,
 }) {
   return (
     <div css={[styles.buttonContainer, classnameContainer]}>
@@ -18,6 +19,7 @@ export default function Button({
         color="red"
         onClick={onClick}
         disabled={disabled}
+        form={form}
       >
         {children}
       </button>
@@ -33,4 +35,5 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   classname: PropTypes.any,
   classnameContainer: PropTypes.any,
+  form: PropTypes.any,
 };
