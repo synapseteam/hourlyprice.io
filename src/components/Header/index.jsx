@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import JsPDF from "jspdf";
-import InvoiceIcon from "../../assets/invoice-ticket.svg";
+import InvoiceIcon from "../../assets/invoice-ticket.png";
 import RedXIcon from "../../assets/red-x.png";
 import ArrowIcon from "../../assets/arrow-right.png";
 import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
