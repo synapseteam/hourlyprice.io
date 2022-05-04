@@ -7,7 +7,6 @@ export const styles = {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-
     > * {
       margin-top: 0.8rem;
     }

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const styles = {
-  loginPage: (theme) => css`
+  registrationPage: (theme) => css`
     background-color: ${theme.octonary};
     display: flex;
     flex-direction: column;
