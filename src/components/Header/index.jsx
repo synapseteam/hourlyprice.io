@@ -1,4 +1,8 @@
-/** @jsxImportSource @emotion/react */
+/**
+ * @format
+ * @jsxImportSource @emotion/react
+ */
+
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
@@ -9,8 +13,9 @@ import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice-ticket.png";
 import RedXIcon from "../../assets/red-x.png";
 import ArrowIcon from "../../assets/arrow-right.png";
+import LoginIcon from "../../assets/login.png";
+import LoginWhiteIcon from "../../assets/login-white.png";
 import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
-
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
 import LangList from "components/Header/LangList";
@@ -24,6 +29,7 @@ import {
 } from "features/generic";
 import { useWindowDimensions } from "../../hooks";
 import { useCustomTranslation } from "../../i18n";
+import { ROUTES } from "../../utils/urls";
 import Button from "components/UI/Button";
 import { styles } from "./styles";
 
@@ -93,32 +99,44 @@ export default function Header({ setIsDark, isDark }) {
     <header css={styles.header}>
       <Logo />
       <div css={styles.rightHandContainer}>
-        {i18n.language === "ua" && (
-          <Link
-            to="/act-of-work"
-            css={styles.actOfWork}
-            data-tip={"Акт виконаних робіт"}
-          >
-            {!isDark && (
-              <img css={styles.arrowImg} src={ArrowIcon} alt="arrow" />
-            )}
-            {isDark && (
-              <img css={styles.arrowImg} src={ArrowWhiteIcon} alt="arrow" />
-            )}
-            <ReactTooltip place="bottom" effect="solid" />
-          </Link>
-        )}
-        <div
-          data-tip={t("invoice")}
-          css={invoiceStyles}
-          onClick={toggleInvoiceModal}
-        >
-          <ReactTooltip place="bottom" effect="solid" />
-          <img src={RedXIcon} css={invoiceXIconStyles} />
-          <img src={InvoiceIcon} css={styles.invoiceIcon} />
+        <div css={styles.item}>
+          {i18n.language === "ua" && (
+            <Link
+              to={ROUTES.actOfWork}
+              css={styles.actOfWork}
+              data-tip={"Акт виконаних робіт"}
+            >
+              {!isDark && (
+                <img css={styles.arrowImg} src={ArrowIcon} alt="arrow" />
+              )}
+              {isDark && (
+                <img css={styles.arrowImg} src={ArrowWhiteIcon} alt="arrow" />
+              )}
+              <ReactTooltip place="bottom" effect="solid" />
+            </Link>
+          )}
         </div>
-        <ThemeSwitcher setIsDark={setIsDark} isDark={isDark} />
-        <LangList />
+        <div css={styles.item}>
+          <div
+            data-tip={t("invoice")}
+            css={invoiceStyles}
+            onClick={toggleInvoiceModal}
+          >
+            <ReactTooltip place="bottom" effect="solid" />
+            <img src={RedXIcon} css={invoiceXIconStyles} />
+            <img src={InvoiceIcon} css={styles.invoiceIcon} />
+          </div>
+        </div>
+        <div css={styles.item}>
+          <ThemeSwitcher setIsDark={setIsDark} isDark={isDark} />
+        </div>
+        <div css={styles.item}>
+          <LangList />
+        </div>
+        <Link to={ROUTES.login} css={styles.item}>
+          {!isDark && <img src={LoginIcon} css={styles.loginIcon} />}
+          {isDark && <img src={LoginWhiteIcon} css={styles.loginIcon} />}
+        </Link>
       </div>
       <ModalDialog isOpen={isInvoiceModalOpen} onClose={toggleInvoiceModal}>
         {width >= INVOICE_PREVIEW_SUPPORTED_RESOLUTION && (
