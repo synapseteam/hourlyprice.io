@@ -10,22 +10,28 @@ import Button from "components/UI/Button";
 import { styles } from "./styles";
 import InputLabel from "components/UI/InputLabel";
 
-const schema = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().email().required(),
-  password1: yup.string().min(6).max(15).required(),
-  password2: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
-});
-
 const Registration = () => {
   const [t] = useCustomTranslation();
+
+  const schema = yup.object().shape({
+    name: yup.string().required(t("nameError")),
+    email: yup.string().email(t("emailError")).required(t("requiredEmail")),
+    password1: yup
+      .string()
+      .min(6, t("passwordErrorMin"))
+      .max(15, t("passwordErrorMax"))
+      .required(t("requiredPassword")),
+    password2: yup
+      .string()
+      .oneOf([yup.ref("password1"), null], t("passwordErrorMatch")),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
+    mode: "onBlur",
     resolver: yupResolver(schema),
   });
 

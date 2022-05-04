@@ -10,18 +10,24 @@ import Button from "components/UI/Button";
 import { styles } from "./styles";
 import InputLabel from "components/UI/InputLabel";
 
-const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(6).max(15).required(),
-});
-
 const Login = () => {
   const [t] = useCustomTranslation();
+
+  const schema = yup.object().shape({
+    email: yup.string().email(t("emailError")).required(t("requiredEmail")),
+    password: yup
+      .string()
+      .min(6, t("passwordErrorMin"))
+      .max(15, t("passwordErrorMax"))
+      .required(t("requiredPassword")),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
+    mode: "onBlur",
     resolver: yupResolver(schema),
   });
 

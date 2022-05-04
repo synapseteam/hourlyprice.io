@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
 
-import { useCustomTranslation } from "i18n";
-
 import { styles } from "./styles";
 
 export default function InputLabel({
@@ -13,8 +11,6 @@ export default function InputLabel({
   inputName,
   errors,
 }) {
-  const [t] = useCustomTranslation();
-  console.log(errors);
   return (
     <>
       <label css={styles.label}>
@@ -29,7 +25,7 @@ export default function InputLabel({
           onChange={changeHandler}
         />
         {errors[inputName] && (
-          <p css={styles.error}>{t(inputName + "Error")}</p>
+          <p css={styles.error}>{errors[inputName].message}</p>
         )}
       </label>
     </>

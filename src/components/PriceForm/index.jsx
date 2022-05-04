@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import InputLabel from "components/UI/InputLabel";
 import Select from "components/UI/Select";
 import RatesInputSet from "components/PriceForm/RatesInputSet";
 import Button from "components/UI/Button";
-import { formSchema, ratesSources } from "configure";
+import { ratesSources } from "configure";
 import {
   convertStrTimeToNum,
   handleTimeChange,
@@ -30,6 +31,13 @@ import { MILISEC_IN_ONE_SEC } from "utils/constants";
 import { styles } from "./styles";
 
 export default function PriceForm() {
+  const [t] = useCustomTranslation();
+
+  const formSchema = yup.object().shape({
+    price: yup.number().typeError(t("priceError")).positive().required(),
+    time: yup.string().required(t("timeError")),
+    currency: yup.string().required().oneOf(["USD", "UAH", "EUR"]),
+  });
   const {
     register,
     handleSubmit,
@@ -38,8 +46,6 @@ export default function PriceForm() {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
-  const [t] = useCustomTranslation();
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
   const ratesSource = useSelector((state) => state.rates.ratesSource);
