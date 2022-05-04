@@ -4,8 +4,8 @@ import HeaderActOfWork from "../../components/HeaderActOfWork/index";
 import ActOfWorkDoc from "../../components/ActOfWorkDoc/index";
 import Footer from "../../components/Footer";
 import { useLocalStorage } from "../../hooks";
-import { styles } from "./styles";
 import { useEffect, useState } from "react";
+import { styles } from "./styles";
 
 export default function ActOfWorkPage({ isDark }) {
   const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);

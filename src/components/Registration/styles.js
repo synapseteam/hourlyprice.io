@@ -12,7 +12,6 @@ export const styles = {
     max-width: 500px;
     align-self: center;
     padding-top: 10px;
-
     > * {
       margin-top: 0.8rem;
     }
