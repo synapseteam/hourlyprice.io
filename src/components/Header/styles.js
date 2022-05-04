@@ -44,7 +44,6 @@ export const styles = {
     display: flex;
     align-items: center;
     border-radius: 0.4rem;
-    padding: 0rem 0.8rem;
     cursor: pointer;
     height: 40px;
     @media (max-width: 420px) {
@@ -53,6 +52,9 @@ export const styles = {
   `,
   report: css`
     height: 1200px;
+  `,
+  item: css`
+    margin: 0 5px;
   `,
   invoiceAnimation: (theme) => css`
     animation-name: colorChange;
@@ -73,7 +75,15 @@ export const styles = {
   invoiceIcon: css`
     height: 30px;
     width: 30px;
-    margin-left: 0.3rem;
+    z-index: 2;
+
+    @media (max-width: 420px) {
+      margin-left: 0rem;
+    }
+  `,
+  loginIcon: css`
+    height: 40px;
+    width: 40px;
     z-index: 2;
 
     @media (max-width: 420px) {
@@ -85,7 +95,6 @@ export const styles = {
     right: 9px;
     height: 30px;
     width: 30px;
-    margin-left: 0.3rem;
     opacity: 0;
     @media (max-width: 420px) {
       right: 2px;

@@ -5,7 +5,9 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { store } from "store";
 
-import HomePage from "pages/HomePage/index";
+import HomePage from "pages/Home/index";
+import LoginPage from "pages/Login/index";
+import RegistrationPage from "pages/Registration/index";
 import ActOfWorkPage from "pages/ActOfWork/index";
 import BillPage from "pages/Bill/index";
 import { themeDark, themeLight } from "theme";
@@ -35,6 +37,16 @@ function App() {
             <Route
               path={ROUTES.bill}
               element={<BillPage isDark={isDark} setIsDark={setIsDark} />}
+            />
+            <Route
+              path={ROUTES.login}
+              element={<LoginPage isDark={isDark} setIsDark={setIsDark} />}
+            />
+            <Route
+              path={ROUTES.registration}
+              element={
+                <RegistrationPage isDark={isDark} setIsDark={setIsDark} />
+              }
             />
           </Routes>
         </ThemeProvider>
