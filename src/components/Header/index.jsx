@@ -1,4 +1,8 @@
-/** @jsxImportSource @emotion/react */
+/**
+ * @format
+ * @jsxImportSource @emotion/react
+ */
+
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
@@ -10,6 +14,7 @@ import InvoiceIcon from "../../assets/invoice-ticket.png";
 import RedXIcon from "../../assets/red-x.png";
 import ArrowIcon from "../../assets/arrow-right.png";
 import LoginIcon from "../../assets/login.png";
+import LoginWhiteIcon from "../../assets/login-white.png";
 import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
@@ -129,7 +134,8 @@ export default function Header({ setIsDark, isDark }) {
           <LangList />
         </div>
         <Link to={ROUTES.login} css={styles.item}>
-          <img src={LoginIcon} css={styles.loginIcon} />
+          {!isDark && <img src={LoginIcon} css={styles.loginIcon} />}
+          {isDark && <img src={LoginWhiteIcon} css={styles.loginIcon} />}
         </Link>
       </div>
       <ModalDialog isOpen={isInvoiceModalOpen} onClose={toggleInvoiceModal}>
