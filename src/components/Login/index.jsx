@@ -15,7 +15,7 @@ const schema = yup.object().shape({
 	password: yup.string().min(6).max(15).required(),
 });
 
-const Login = (handleClick) => {
+const Login = () => {
 	const [t] = useCustomTranslation();
 	const {
 		register,
@@ -26,29 +26,23 @@ const Login = (handleClick) => {
 	});
 
 	const submitForm = (data) => {
-		handleClick(data.email, data.password);
+		console.log(data.email, data.password);
 	};
 
 	return (
 		<form onSubmit={handleSubmit(submitForm)} css={styles.form}>
 			<InputLabel
-				type="email"
-				name="email"
-				labelName={t("email")}
-				placeholder="email"
+				inputName="email"
 				register={register}
+				placeholder={t("email")}
 				errors={errors}
 			/>
-
 			<InputLabel
-				type="password"
-				name="password"
-				labelName={t("password")}
-				placeholder="password"
+				inputName="password"
 				register={register}
+				placeholder={t("password")}
 				errors={errors}
 			/>
-
 			<Button type="submit" css={styles.formButton}>
 				{t("signIn")}
 			</Button>

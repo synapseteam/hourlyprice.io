@@ -27,7 +27,9 @@ export const translationEN = {
 	exportToPDFText: "Export to PDF",
 	closeButtonText: "Close",
 	email: "Email",
+	emailError: "Email must be a valid ",
 	password: "Password",
+	passwordError: "Password must be at least 6 characters",
 	signIn: "Sign In",
 };
 
@@ -59,6 +61,8 @@ export const translationUA = {
 	exportToPDFText: "Експортувати в PDF",
 	closeButtonText: "Завершити",
 	email: "Email",
+	emailError: "Неправильний email",
 	password: "Пароль",
+	passwordError: "Пароль повинен бути не менше 6 символів",
 	signIn: "Увійти",
 };

@@ -21,5 +21,13 @@ export const styles = {
 			width: 47%;
 		}
 	`,
-	formButton: css``,
+	formInputError: css`
+		border-color: red !important;
+	`,
+	formError: css`
+		color: red;
+		font-size: 16px;
+		margin-top: 5px;
+		margin-bottom: 10px;
+	`,
 };
