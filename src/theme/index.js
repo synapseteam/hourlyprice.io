@@ -60,6 +60,6 @@ export const themeLight = {
   footerShadow: "-1px -1px 3px #ddd",
   headerShadow: "0 1px 3px #dbdbdb",
   langListBorder: "1px solid #f1f3f4",
-  btnBorder: "none",
+  btnBorder: "1px solid #dbdbdb",
   inputBorder: "1px solid #dbdbdb",
 };

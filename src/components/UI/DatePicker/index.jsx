@@ -1,8 +1,12 @@
-/** @jsxImportSource @emotion/react */
+/**
+ * @format
+ * @jsxImportSource @emotion/react
+ */
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import uk from "date-fns/locale/uk";
-import { Global, css } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 import PropTypes from "prop-types";
 
 import { styles } from "./styles";
@@ -13,6 +17,8 @@ export default function BaseDatePicker({
   onChange,
   inputName,
   dateFormat,
+                                           classname,
+                                           disabled,
 }) {
   return (
     <>
@@ -28,19 +34,20 @@ export default function BaseDatePicker({
         `}
       />
       <DatePicker
-        css={styles.fieldDate}
+        css={[styles.fieldDate, classname]}
         locale={uk}
         selected={selected}
         dateFormat={dateFormat}
         {...register(inputName)}
         onChange={onChange}
+        disabled={disabled}
       />
     </>
   );
 }
 
 BaseDatePicker.defaultProps = {
-  dateFormat: "dd MMMM yyyy",
+	dateFormat: "dd MMMM yyyy",
 };
 
 BaseDatePicker.propTypes = {
@@ -49,4 +56,6 @@ BaseDatePicker.propTypes = {
   onChange: PropTypes.func,
   inputName: PropTypes.string,
   dateFormat: PropTypes.string,
+	classname: PropTypes.any,
+	disabled: PropTypes.bool,
 };

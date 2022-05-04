@@ -246,6 +246,7 @@ export const styles = {
     color: #fff;
     height: 30px;
     cursor: pointer;
+    width: 100%;
     &:disabled {
       background: #4e7585;
       border: 1px solid #4e7585;
