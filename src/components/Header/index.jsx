@@ -4,10 +4,11 @@
  */
 
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { logout, reset } from "../../features/auth";
 import PropTypes from "prop-types";
 import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice-ticket.png";
@@ -15,6 +16,7 @@ import RedXIcon from "../../assets/red-x.png";
 import ArrowIcon from "../../assets/arrow-right.png";
 import LoginIcon from "../../assets/login.png";
 import LoginWhiteIcon from "../../assets/login-white.png";
+import LogoutIcon from "../../assets/logout.png";
 import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
 import Logo from "components/Header/Logo";
 import ThemeSwitcher from "components/Header/ThemeSwitcher";
@@ -35,6 +37,8 @@ import { styles } from "./styles";
 
 export default function Header({ setIsDark, isDark }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
   const isEditMode = useSelector((state) => state.generic.isEditMode);
   const isInvoiceItemAdded = useSelector(
     (state) => state.generic.isInvoiceItemAdded
@@ -68,6 +72,12 @@ export default function Header({ setIsDark, isDark }) {
 
   const handleToggleEditMode = () => {
     return dispatch(toggleEditMode());
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
   };
 
   useEffect(() => {
@@ -133,10 +143,17 @@ export default function Header({ setIsDark, isDark }) {
         <div css={styles.item}>
           <LangList />
         </div>
-        <Link to={ROUTES.login} css={styles.item}>
-          {!isDark && <img src={LoginIcon} css={styles.loginIcon} />}
-          {isDark && <img src={LoginWhiteIcon} css={styles.loginIcon} />}
-        </Link>
+        {user && (
+          <div css={styles.item} onClick={onLogout}>
+            <img src={LogoutIcon} css={styles.loginIcon} />
+          </div>
+        )}
+        {!user && (
+          <Link to={ROUTES.login} css={styles.item}>
+            {!isDark && <img src={LoginIcon} css={styles.loginIcon} />}
+            {isDark && <img src={LoginWhiteIcon} css={styles.loginIcon} />}
+          </Link>
+        )}
       </div>
       <ModalDialog isOpen={isInvoiceModalOpen} onClose={toggleInvoiceModal}>
         {width >= INVOICE_PREVIEW_SUPPORTED_RESOLUTION && (

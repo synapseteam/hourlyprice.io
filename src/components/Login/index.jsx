@@ -1,10 +1,13 @@
-/** @format */
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useCustomTranslation } from "i18n";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { login, reset } from "../../features/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
@@ -14,6 +17,8 @@ import { styles } from "./styles";
 
 const Login = () => {
   const [t] = useCustomTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const schema = yup.object().shape({
     email: yup.string().email(t("emailError")).required(t("requiredEmail")),
@@ -33,9 +38,33 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const submitForm = (data) => {
-    console.log(data.email, data.password);
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const submitForm = async (data) => {
+    const userData = {
+      ...data,
+    };
+
+    dispatch(login(userData));
   };
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <form onSubmit={handleSubmit(submitForm)} css={styles.form}>
