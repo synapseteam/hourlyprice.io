@@ -3,12 +3,14 @@
 
 import React from "react";
 import { useCustomTranslation } from "i18n";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
-import { styles } from "./styles";
+import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
+import { styles } from "./styles";
 
 const Login = () => {
   const [t] = useCustomTranslation();
@@ -52,6 +54,11 @@ const Login = () => {
         placeholder={t("passwordPlaceholder")}
         errors={errors}
       />
+      <div>
+        <Link css={styles.link} to={ROUTES.registration}>
+          {t("createNewAccount")}
+        </Link>
+      </div>
       <Button type="submit" css={styles.formButton}>
         {t("signIn")}
       </Button>

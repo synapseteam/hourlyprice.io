@@ -36,4 +36,10 @@ export const styles = {
     margin-top: 5px;
     margin-bottom: 10px;
   `,
+  haveAccount: (theme) => css`
+    color: ${theme.senary};
+  `,
+  link: (theme) => css`
+    color: ${theme.linkColor};
+  `,
 };

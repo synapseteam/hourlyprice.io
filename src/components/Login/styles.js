@@ -37,4 +37,7 @@ export const styles = {
     margin-top: 5px;
     margin-bottom: 10px;
   `,
+  link: (theme) => css`
+    color: ${theme.linkColor};
+  `,
 };
