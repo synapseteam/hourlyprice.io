@@ -53,6 +53,7 @@ const Login = () => {
         register={register}
         placeholder={t("passwordPlaceholder")}
         errors={errors}
+        type="password"
       />
       <div>
         <Link css={styles.link} to={ROUTES.registration}>
