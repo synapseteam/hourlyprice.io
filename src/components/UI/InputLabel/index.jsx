@@ -9,6 +9,7 @@ export default function InputLabel({
   placeholder,
   changeHandler,
   inputName,
+  type = "text",
   errors,
 }) {
   return (
@@ -18,7 +19,7 @@ export default function InputLabel({
         <input
           css={styles.input}
           {...register(inputName)}
-          type="text"
+          type={type}
           inputMode="decimal"
           placeholder={placeholder}
           autoComplete="off"
@@ -38,5 +39,6 @@ InputLabel.propTypes = {
   placeholder: PropTypes.string,
   changeHandler: PropTypes.func,
   inputName: PropTypes.string,
+  type: PropTypes.string,
   errors: PropTypes.object,
 };

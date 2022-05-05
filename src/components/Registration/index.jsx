@@ -3,12 +3,14 @@
 
 import React from "react";
 import { useCustomTranslation } from "i18n";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
-import { styles } from "./styles";
+import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
+import { styles } from "./styles";
 
 const Registration = () => {
   const [t] = useCustomTranslation();
@@ -61,17 +63,25 @@ const Registration = () => {
         labelName={t("password")}
         register={register}
         placeholder={t("passwordPlaceholder")}
+        type="password"
         errors={errors}
       />
       <InputLabel
         inputName="password2"
-        labelName={t("password")}
+        labelName={t("password2Label")}
         register={register}
         placeholder={t("password2Placeholder")}
+        type="password"
         errors={errors}
       />
+      <div>
+        <span css={styles.haveAccount}>{t("haveAccount1")} </span>
+        <Link css={styles.link} to={ROUTES.login}>
+          {t("signIn")}
+        </Link>
+      </div>
       <Button type="submit" css={styles.formButton}>
-        {t("signIn")}
+        {t("register")}
       </Button>
     </form>
   );
