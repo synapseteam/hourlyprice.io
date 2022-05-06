@@ -131,32 +131,36 @@ export default function BillDoc({
   return (
     <div>
       <div css={styles.save}>
-        <BaseInput register={register} inputName="docName" width="200" />
-        <div css={styles.saveButtons}>
+        <BaseInput
+          classname={styles.saveInput}
+          register={register}
+          inputName="docName"
+          width="250"
+        />
+        <div css={styles.buttons}>
           <Button
-            onClick={() => setIsEditMode(!isEditMode)}
             classname={styles.saveButton}
-            type="button"
             classnameContainer={styles.saveButtonContainer}
+            onClick={() => setIsEditMode(!isEditMode)}
           >
-            {!isEditMode ? "Редагувати" : "Зберегти зміни"}
+            {isEditMode ? "Зберегти зміни" : "Редагувати"}
           </Button>
 
           <Button
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
             type="submit"
-            form="billDoc"
+            disabled={isEditMode}
           >
             Зберегти
           </Button>
           <Button
-            onClick={generatePDF}
-            type="button"
             classname={styles.saveButton}
-            classnameContainer={styles.exportButtonContainer}
+            classnameContainer={styles.saveButtonContainer}
+            onClick={generatePDF}
+            disabled={isEditMode}
           >
-            Експортувати у PDF
+            Скачати pdf
           </Button>
         </div>
       </div>
