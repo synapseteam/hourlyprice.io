@@ -73,7 +73,7 @@ const Login = () => {
       <h1 css={styles.title}> {t("login")} </h1>
       <InputLabel
         inputName="email"
-        labelName={t("name")}
+        labelName={t("email")}
         register={register}
         placeholder={t("emailPlaceholder")}
         errors={errors}

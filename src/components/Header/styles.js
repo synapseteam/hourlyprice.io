@@ -82,7 +82,9 @@ export const styles = {
     height: 40px;
     width: 40px;
     z-index: 2;
-
+    :hover {
+      cursor: pointer;
+    }
     @media (max-width: 420px) {
       margin-left: 0rem;
     }
