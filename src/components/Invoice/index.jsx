@@ -346,10 +346,10 @@ export const Invoice = () => {
                     maxLength={45}
                     onChange={(e) => {
                       setValue(
-                        `details.${index}.total`,
+                        `services.${index}.total`,
                         (
                           Number(e.target.value) *
-                          convertStrTimeToNum(formValues.details[index].time)
+                          convertStrTimeToNum(formValues.services[index].time)
                         ).toFixed(2)
                       );
                       calculateOrderTotal();
