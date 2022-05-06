@@ -16,9 +16,10 @@ export default function BaseDatePicker({
   selected,
   onChange,
   inputName,
-  dateFormat,
-                                           classname,
-                                           disabled,
+  dateFormat = "dd MMMM yyyy",
+  width = 155,
+  classname,
+  disabled,
 }) {
   return (
     <>
@@ -28,7 +29,7 @@ export default function BaseDatePicker({
             width: auto;
             text-indent: 0px;
             input {
-              width: 155px;
+              width: ${width}px;
             }
           }
         `}
@@ -36,6 +37,7 @@ export default function BaseDatePicker({
       <DatePicker
         css={[styles.fieldDate, classname]}
         locale={uk}
+        ву
         selected={selected}
         dateFormat={dateFormat}
         {...register(inputName)}
@@ -46,16 +48,13 @@ export default function BaseDatePicker({
   );
 }
 
-BaseDatePicker.defaultProps = {
-	dateFormat: "dd MMMM yyyy",
-};
-
 BaseDatePicker.propTypes = {
   register: PropTypes.func,
   selected: PropTypes.any,
   onChange: PropTypes.func,
   inputName: PropTypes.string,
   dateFormat: PropTypes.string,
-	classname: PropTypes.any,
-	disabled: PropTypes.bool,
+  classname: PropTypes.any,
+  width: PropTypes.number,
+  disabled: PropTypes.bool,
 };
