@@ -10,24 +10,20 @@ import { DECIMAL_SIGNS_FOR_PRICE } from "utils/constants";
 import { styles } from "./styles";
 
 export default function Display() {
+  const [t] = useCustomTranslation();
   const { price, time, currency } = useSelector(
     (state) => state.generic.fields
   );
 
   const allCurrencies = useSelector((state) => state.rates.allCurrencies);
-
   const isLoading = useSelector((state) => state.generic.isLoading);
-
   const isRequestError = useSelector((state) => state.generic.ratesRequestErr);
-
-  const [t] = useCustomTranslation();
 
   const mainCurrencyData = allCurrencies.find((el) => el.name === currency) || {
     name: "",
     price: 0,
     symbol: "",
   };
-
   function formatSum(num) {
     return new Intl.NumberFormat("de-DE")
       .format(num.toFixed(DECIMAL_SIGNS_FOR_PRICE))
@@ -54,14 +50,11 @@ export default function Display() {
   }
 
   const basicRate = price / mainCurrencyData.rate;
-
   const mainCurrencySum = formatSum(time * price);
-
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
   return (
     <div css={styles.display}>
-      {isRequestError && <p>{t("badRequestApi")}</p>}
       <MainCurrencyDisplay
         currency={mainCurrencyData.symbol}
         sum={mainCurrencySum}
@@ -71,6 +64,8 @@ export default function Display() {
         subCurrenciesArr={subCurrenciesArr}
         isLoading={isLoading}
       />
+      {isRequestError && <p>{t("badRequestApi")}</p>}
+
       <SubCurrenciesRatesDisplay
         allCurrencies={allCurrencies}
         currency={currency}

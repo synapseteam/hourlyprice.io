@@ -7,8 +7,10 @@ export const styles = {
     align-items: center;
     border-top: ${theme.footerBorderTop};
     padding: 0.5rem;
-    background-color: ${theme.quinary};
+    background-color: ${theme.primary};
     box-shadow: ${theme.footerShadow};
+    transition: background 0.5s;
+    margin-top: auto;
   `,
 
   footerText: css`

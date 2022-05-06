@@ -7,5 +7,6 @@ export const styles = {
     line-height: 0.6;
     cursor: pointer;
     color: ${theme.senary};
+    text-decoration: none;
   `,
 };

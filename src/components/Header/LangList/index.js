@@ -1,52 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
-import uniqid from "uniqid";
+import ReactTooltip from "react-tooltip";
+import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18n";
-import ListItem from "./ListItem";
+import UaLangIcon from "../../../assets/lang-ua-icon.png";
+import UsLangIcon from "../../../assets/lang-us-icon.png";
 
 import { styles } from "./styles";
 
 export default function LangList() {
-  const [isListShown, setisListShown] = useState(false);
-  const [chosenLang, setChosenLang] = useState("EN");
-
-  const langChangeHandler = (e) => {
-    e.preventDefault();
-
-    if (!isListShown) {
-      setisListShown(() => true);
-    }
-
-    if (isListShown) {
-      const value = e.target.innerText.toLowerCase();
-      changeLanguage(value);
-      setisListShown(() => false);
-      setChosenLang(() => value.toUpperCase());
-    }
-  };
-
-  const locales = ["en", "ru", "ua"];
+  const { t, i18n } = useTranslation();
 
   return (
-    <div css={styles.langContainer}>
-      <ul css={styles.langList}>
-        {isListShown ? (
-          locales.map((el) => {
-            return (
-              <ListItem
-                key={uniqid()}
-                langChangeHandler={langChangeHandler}
-                localeString={el}
-              />
-            );
-          })
-        ) : (
-          <ListItem
-            langChangeHandler={langChangeHandler}
-            localeString={chosenLang}
-          />
-        )}
-      </ul>
+    <div css={styles.langContainer} data-tip={t("switchLang")}>
+      {i18n.language === "ua" && (
+        <img
+          onClick={() => changeLanguage("en")}
+          css={styles.langIcon}
+          src={UaLangIcon}
+          alt="ukraine flag"
+        />
+      )}
+      {i18n.language === "en" && (
+        <img
+          onClick={() => changeLanguage("ua")}
+          css={styles.langIcon}
+          src={UsLangIcon}
+          alt="us flag"
+        />
+      )}
+      <ReactTooltip place="bottom" effect="solid" />
     </div>
   );
 }

@@ -10,8 +10,9 @@ export const styles = {
 
     background-color: ${theme.quinary};
     color: ${theme.denary};
+    transition: background 0.5s;
 
-    @media (min-width: 720px) and (max-width: 919px) {
+    @media (min-width: 720px) and (max-width: 920px) {
       padding: 1rem 2rem;
       flex-direction: row;
       flex-wrap: wrap;

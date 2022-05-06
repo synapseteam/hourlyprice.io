@@ -6,13 +6,16 @@ export const styles = {
   `,
   title: css`
     font-style: italic;
-    line-height: 0.8;
+    line-height: 1;
     margin: 1.4rem 0 0 0;
+    @media (max-width: 720px) {
+      margin: 0;
+    }
   `,
   subTitle: css`
     font-size: 1rem;
     font-style: italic;
     font-weight: 400;
-    margin-bottom: 0.4rem;
+    margin-bottom: 1.8rem;
   `,
 };

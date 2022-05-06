@@ -38,7 +38,6 @@ export function handleTimeChange(e) {
   }
 
   e.target.value = minutesLimited;
-
   return minutesLimited;
 }
 
@@ -83,4 +82,12 @@ export function transformRatesResponse(ratesResponse) {
       rate: Number(rate),
     };
   });
+}
+
+export function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
 }
