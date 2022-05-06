@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
-import { ToastContainer, Zoom } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { store } from "store";
 
 import HomePage from "pages/Home/index";
@@ -29,7 +29,6 @@ function App() {
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
           <ToastContainer
             draggable={false}
-            transition={Zoom}
             autoClose={5000}
             position="top-right"
             pauseOnHover={false}

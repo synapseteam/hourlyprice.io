@@ -11,9 +11,9 @@ import { login, reset } from "../../features/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
-import Spinner from "components/UI/Spinner";
 import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
+import Spinner from "components/UI/Spinner";
 import { styles } from "./styles";
 
 const Login = () => {
@@ -49,6 +49,7 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
+      toast.info(t("successLogin"));
       navigate("/");
     }
 
@@ -72,7 +73,7 @@ const Login = () => {
       <h1 css={styles.title}> {t("login")} </h1>
       <InputLabel
         inputName="email"
-        labelName={t("email")}
+        labelName={t("name")}
         register={register}
         placeholder={t("emailPlaceholder")}
         errors={errors}

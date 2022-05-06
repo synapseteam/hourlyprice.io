@@ -54,6 +54,7 @@ const Registration = () => {
     }
 
     if (isSuccess || user) {
+      toast.info(t("successRegister"));
       navigate("/");
     }
 
@@ -61,7 +62,6 @@ const Registration = () => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const submitForm = (data) => {
-    console.log(data);
     const userData = {
       ...data,
     };
