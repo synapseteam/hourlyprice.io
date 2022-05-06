@@ -34,6 +34,7 @@ import { useCustomTranslation } from "../../i18n";
 import { ROUTES } from "../../utils/urls";
 import Button from "components/UI/Button";
 import { styles } from "./styles";
+import { toast } from "react-toastify";
 
 export default function Header({ setIsDark, isDark }) {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ export default function Header({ setIsDark, isDark }) {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
+    toast.info(t("logout"));
     navigate("/");
   };
 
