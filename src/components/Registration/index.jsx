@@ -12,6 +12,7 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { registration, reset } from "../../features/auth";
 import Button from "components/UI/Button";
+import Spinner from "components/UI/Spinner";
 import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import { styles } from "./styles";
@@ -69,7 +70,7 @@ const Registration = () => {
   };
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Spinner isLoading={isLoading} />;
   }
 
   return (
