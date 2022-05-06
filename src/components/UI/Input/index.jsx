@@ -8,37 +8,40 @@ import PropTypes from "prop-types";
 import { styles } from "./styles";
 
 export default function BaseInput({
-	register,
-	inputName,
-	classname,
-	onChange,
-	width,
-	disabled,
-	readOnly = false,
-	type = "text",
+  register,
+  inputName,
+  classname,
+  onChange,
+  width,
+  placeholder,
+  disabled,
+  readOnly = false,
+  type = "text",
 }) {
-	return (
-		<input
-			css={[styles.input, classname]}
-			style={{ width: width + "px" }}
-			{...register(inputName)}
-			type={type}
-			readOnly={readOnly}
-			inputMode="decimal"
-			autoComplete="off"
-			onChange={onChange}
-			disabled={disabled}
-		/>
-	);
+  return (
+    <input
+      {...register(inputName)}
+      css={[styles.input, classname]}
+      onChange={onChange}
+      style={{ width: width + "px" }}
+      placeholder={placeholder}
+      disabled={disabled}
+      readOnly={readOnly}
+      type={type}
+      inputMode="decimal"
+      autoComplete="off"
+    />
+  );
 }
 
 BaseInput.propTypes = {
-	register: PropTypes.func,
-	inputName: PropTypes.string,
-	type: PropTypes.string,
-	width: PropTypes.string,
-	classname: PropTypes.any,
-	onChange: PropTypes.func,
-	readOnly: PropTypes.bool,
-	disabled: PropTypes.bool,
+  register: PropTypes.func,
+  inputName: PropTypes.string,
+  classname: PropTypes.any,
+  onChange: PropTypes.func,
+  width: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  type: PropTypes.string,
 };
