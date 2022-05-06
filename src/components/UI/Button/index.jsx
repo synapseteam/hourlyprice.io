@@ -1,39 +1,22 @@
 /** @jsxImportSource @emotion/react */
+
 import PropTypes from "prop-types";
+import { useCustomTranslation } from "i18n";
+
 import { styles } from "./styles";
 
-export default function Button({
-  type = "button",
-  onClick,
-  children,
-  disabled = false,
-  classname,
-  classnameContainer,
-  form,
-}) {
+export default function ButtonSubmit() {
+  const [t] = useCustomTranslation();
+
   return (
-    <div css={[styles.buttonContainer, classnameContainer]}>
-      <button
-        css={[styles.button, classname]}
-        type={type}
-        color="red"
-        onClick={onClick}
-        disabled={disabled}
-        form={form}
-      >
-        {children}
+    <div css={styles.buttonContainer}>
+      <button css={styles.button} type="submit" color="red">
+        {t("btnResult").toUpperCase()}
       </button>
     </div>
   );
 }
 
-Button.propTypes = {
+ButtonSubmit.propTypes = {
   formId: PropTypes.string,
-  type: PropTypes.string,
-  children: PropTypes.any.isRequired,
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
-  classname: PropTypes.any,
-  classnameContainer: PropTypes.any,
-  form: PropTypes.any,
 };

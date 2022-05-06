@@ -18,10 +18,5 @@ export const styles = {
     &:hover {
       background-color: ${theme.btnHoverColor};
     }
-    &:disabled {
-      background-color: ${theme.btnDisabledBgColor};
-      color: ${theme.btnDisabledColor};
-      cursor: not-allowed;
-    }
   `,
 };

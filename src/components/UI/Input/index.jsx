@@ -1,47 +1,46 @@
-/**
- * @format
- * @jsxImportSource @emotion/react
- */
-
+/** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
+
+import { useCustomTranslation } from "i18n";
 
 import { styles } from "./styles";
 
-export default function BaseInput({
+export default function Input({
+  labelName,
   register,
-  inputName,
-  classname,
-  onChange,
-  width,
   placeholder,
-  disabled,
-  readOnly = false,
-  type = "text",
+  changeHandler,
+  inputName,
+  errors,
 }) {
+  const [t] = useCustomTranslation();
+
   return (
-    <input
-      {...register(inputName)}
-      css={[styles.input, classname]}
-      onChange={onChange}
-      style={{ width: width + "px" }}
-      placeholder={placeholder}
-      disabled={disabled}
-      readOnly={readOnly}
-      type={type}
-      inputMode="decimal"
-      autoComplete="off"
-    />
+    <>
+      <label css={styles.label}>
+        {labelName}:
+        <input
+          css={styles.input}
+          {...register(inputName)}
+          type="text"
+          inputMode="decimal"
+          placeholder={placeholder}
+          autoComplete="off"
+          onChange={changeHandler}
+        />
+        {errors[inputName] && (
+          <p css={styles.error}>{t(inputName + "Error")}</p>
+        )}
+      </label>
+    </>
   );
 }
 
-BaseInput.propTypes = {
+Input.propTypes = {
+  labelName: PropTypes.string,
   register: PropTypes.func,
-  inputName: PropTypes.string,
-  classname: PropTypes.any,
-  onChange: PropTypes.func,
-  width: PropTypes.string,
   placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  type: PropTypes.string,
+  changeHandler: PropTypes.func,
+  inputName: PropTypes.string,
+  errors: PropTypes.object,
 };
