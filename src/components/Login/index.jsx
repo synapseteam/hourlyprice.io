@@ -11,6 +11,7 @@ import { login, reset } from "../../features/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
+import Spinner from "components/UI/Spinner";
 import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import { styles } from "./styles";
@@ -63,7 +64,7 @@ const Login = () => {
   };
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Spinner isLoading={isLoading} />;
   }
 
   return (
@@ -71,7 +72,7 @@ const Login = () => {
       <h1 css={styles.title}> {t("login")} </h1>
       <InputLabel
         inputName="email"
-        labelName={t("name")}
+        labelName={t("email")}
         register={register}
         placeholder={t("emailPlaceholder")}
         errors={errors}
