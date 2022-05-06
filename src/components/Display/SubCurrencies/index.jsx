@@ -10,6 +10,7 @@ import { styles } from "./styles";
 const initialSubCurrenciesArr = [
   { name: "EUR", value: "0.00" },
   { name: "UAH", value: "0.00" },
+  { name: "RUB", value: "0.00" },
 ];
 
 export default function SubCurrenciesDisplay({

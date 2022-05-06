@@ -15,8 +15,5 @@ export const styles = {
     padding: 2.4rem 1rem;
     margin: 0;
     font-size: 3rem;
-    @media (max-width: 420px) {
-      padding: 2.4rem 0rem;
-    }
   `,
 };
