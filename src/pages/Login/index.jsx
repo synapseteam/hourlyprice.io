@@ -3,8 +3,10 @@
 
 import PropTypes from "prop-types";
 import Header from "../../components/Header/index";
+
 import Footer from "../../components/Footer";
 import Login from "../../components/Login";
+
 import { styles } from "./styles";
 
 export default function LoginPage({ isDark, setIsDark }) {
