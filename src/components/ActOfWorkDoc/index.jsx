@@ -29,6 +29,7 @@ export default function ActOfWorkDoc({
     actNumber: "22-1904_6125",
     actDateNumber: "2_17-02/2022",
     actDateTo: Date.parse(now),
+    actDate: Date.parse(now),
     clientСompany: "«СІНАПС ТІМ»",
     clientTextBlock:
       "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»  , Україна, в особі директора  Барботкіна Романа Романовича, який діє на підставі Статуту, (надалі - “Замовник”) що діє від імені Замовника, з одного боку, та",
@@ -41,7 +42,7 @@ export default function ActOfWorkDoc({
         units: "Година",
         price: 10.5,
         quantity: "10:30",
-        total: "105.00",
+        total: "110.25",
       },
     ],
     cost: "105 (сто п'ять грн. 00 коп.)",
@@ -101,8 +102,6 @@ export default function ActOfWorkDoc({
     }
   };
 
-  const formValues = getValues();
-
   const numberToString = require("number-to-cyrillic");
   numberToString.convert(21);
 
@@ -120,8 +119,20 @@ export default function ActOfWorkDoc({
     control,
   });
 
+  const formValues = getValues();
+
   const addService = () => {
-    append({ title: "", price: 0, time: 0, total: 0 });
+    const lastItem =
+      formValues.details.length !== 0
+        ? formValues.details[formValues.details.length - 1]
+        : defaultValues.details[0];
+    append({
+      title: lastItem.title,
+      units: lastItem.units,
+      price: lastItem.price,
+      quantity: lastItem.quantity,
+      total: lastItem.total,
+    });
   };
 
   const calculateOrderTotal = () => {
@@ -149,8 +160,9 @@ export default function ActOfWorkDoc({
     month: "long",
   };
 
-  const milToString = new Date(formValues.actDateTo);
-  const actDateToTitleString = milToString.toLocaleDateString(
+  const milToStringTitleDate = new Date(formValues.actDateTo);
+
+  const actDateToTitleString = milToStringTitleDate.toLocaleDateString(
     "uk-UA",
     optionsDate
   );
@@ -159,7 +171,8 @@ export default function ActOfWorkDoc({
     actDateToTitleString.length - 3
   );
 
-  const actDateToSubtitleString = milToString.toLocaleDateString(
+  const milToStringSubtitleDate = new Date(formValues.actDate);
+  const actDateToSubtitleString = milToStringSubtitleDate.toLocaleDateString(
     "uk-UA",
     optionsDate
   );
@@ -169,6 +182,7 @@ export default function ActOfWorkDoc({
 
   const actDateToSubtitleStringFormat = `«${actDateToSubtitleStringSplit[0]}» ${actDateToSubtitleStringSplit[1]} ${actDateToSubtitleStringSplit[2]} року`;
   const watchActDateTo = watch("actDateTo");
+  const watchActDate = watch("actDate");
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={styles.ActOfWorkDoc}>
       <div css={styles.save}>
@@ -232,10 +246,10 @@ export default function ActOfWorkDoc({
               <div>
                 <BaseDatePicker
                   register={register}
-                  selected={watchActDateTo}
-                  inputName="actDateTo"
+                  selected={watchActDate}
+                  inputName="actDate"
                   dateFormat="«dd» MMMM yyyy року"
-                  onChange={(date) => setValue("actDateTo", date.getTime())}
+                  onChange={(date) => setValue("actDate", date.getTime())}
                 />
               </div>
             </div>

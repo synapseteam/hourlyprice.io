@@ -230,7 +230,23 @@ export const styles = {
   bigTextarea: css`
     min-height: 150px;
   `,
+  buttons: css`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-size-adjust: 80%;
+    & button {
+      text-transform: uppercase;
+    }
+    @media (max-width: 920px) {
+      display: none;
+    }
+  `,
   button: css`
+    margin: 0px 10px;
+    width: 35%;
+  `,
+  removeButton: css`
     background-color: #24274a;
     border: 1px solid #171d3d;
     border-radius: 2px;

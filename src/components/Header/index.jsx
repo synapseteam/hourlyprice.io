@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { logout, reset } from "../../features/auth";
 import PropTypes from "prop-types";
-import JsPDF from "jspdf";
 import InvoiceIcon from "../../assets/invoice-ticket.png";
 import RedXIcon from "../../assets/red-x.png";
 import ArrowIcon from "../../assets/arrow-right.png";
@@ -24,15 +23,10 @@ import LangList from "components/Header/LangList";
 import ModalDialog from "components/ModalDialog";
 import Invoice from "components/Invoice";
 import { INVOICE_PREVIEW_SUPPORTED_RESOLUTION } from "../../configure";
-import {
-  toggleEditMode,
-  setInvoiceItemAdded,
-  setInvoiceFull,
-} from "features/generic";
+import { setInvoiceItemAdded, setInvoiceFull } from "features/generic";
 import { useWindowDimensions } from "../../hooks";
 import { useCustomTranslation } from "../../i18n";
 import { ROUTES } from "../../utils/urls";
-import Button from "components/UI/Button";
 import { styles } from "./styles";
 import { toast } from "react-toastify";
 
@@ -40,7 +34,6 @@ export default function Header({ setIsDark, isDark }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const isEditMode = useSelector((state) => state.generic.isEditMode);
   const isInvoiceItemAdded = useSelector(
     (state) => state.generic.isInvoiceItemAdded
   );
@@ -59,20 +52,6 @@ export default function Header({ setIsDark, isDark }) {
       document.body.classList.remove("modal-open");
     }
     setIsInvoiceModalOpen(!isInvoiceModalOpen);
-  };
-
-  const generatePDF = () => {
-    const report = new JsPDF("p", "px", [936, 1300]);
-    report.viewerPreferences({ CenterWindow: true }, true);
-    report
-      .html(document.querySelector("#report"), { margin: [20, 10, 10, 50] })
-      .then(() => {
-        report.save("report.pdf");
-      });
-  };
-
-  const handleToggleEditMode = () => {
-    return dispatch(toggleEditMode());
   };
 
   const onLogout = () => {
@@ -168,18 +147,6 @@ export default function Header({ setIsDark, isDark }) {
             {t("noPreviewSupportedMessage")}
           </span>
         )}
-        <div css={styles.buttons}>
-          <div css={styles.button}>
-            <Button onClick={handleToggleEditMode} type="button">
-              {isEditMode ? t("save") : t("edit")}
-            </Button>
-          </div>
-          <div css={styles.button}>
-            <Button onClick={generatePDF} type="button" disabled={isEditMode}>
-              {t("exportToPDFText")}
-            </Button>
-          </div>
-        </div>
       </ModalDialog>
     </header>
   );

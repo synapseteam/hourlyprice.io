@@ -133,20 +133,4 @@ export const styles = {
     margin: 50px 20px;
     text-align: center;
   `,
-  buttons: css`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    text-size-adjust: 80%;
-    & button {
-      text-transform: uppercase;
-    }
-    @media (max-width: 920px) {
-      display: none;
-    }
-  `,
-  button: css`
-    margin: 0px 10px;
-    width: 35%;
-  `,
 };
