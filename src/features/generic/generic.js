@@ -9,7 +9,6 @@ const initialState = {
   },
   isLoading: false,
   ratesRequestErr: false,
-  isEditMode: true,
   isInvoiceItemAdded: false,
   isInvoiceFull: false,
 };
@@ -29,9 +28,6 @@ export const genericSlice = createSlice({
     },
     clearFields: (state) => {
       state.fields = initialState.fields;
-    },
-    toggleEditMode: (state) => {
-      state.isEditMode = !state.isEditMode;
     },
     setInvoiceItemAdded: (state, action) => {
       state.isInvoiceItemAdded = action.payload;
@@ -59,7 +55,6 @@ export const {
   toggleIsLoading,
   setRequestErr,
   clearFields,
-  toggleEditMode,
   setInvoiceItemAdded,
   setInvoiceFull,
 } = genericSlice.actions;

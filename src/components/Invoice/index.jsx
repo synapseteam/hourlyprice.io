@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18n";
-import { useSelector } from "react-redux";
+import JsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import BaseDatePicker from "../UI/DatePicker/index";
 import { useForm, useFieldArray } from "react-hook-form";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import BaseInput from "../UI/Input/index";
+import Button from "components/UI/Button";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCustomTranslation } from "../../i18n";
 import LogoUa from "../../assets/ukraine-heart.png";
@@ -19,11 +18,9 @@ export const Invoice = () => {
   const [t] = useCustomTranslation();
   const { i18n } = useTranslation();
   const now = new Date();
-  const isEditMode = useSelector((state) => state.generic.isEditMode);
+  const [isEditMode, setIsEditMode] = useState(true);
   const [orderTotal, setOrderTotal] = useState(0);
   const [chosenCurrencySign, setChosenCurrencySign] = useState("$");
-  const [isAddServiceButtonDisabled, setIsAddServiceButtonDisabled] =
-    useState(false);
 
   useEffect(() => {
     const currency = JSON.parse(localStorage.getItem("currency"));
@@ -33,17 +30,6 @@ export const Invoice = () => {
       currency === "UAH" && setChosenCurrencySign("₴");
     }
   }, []);
-
-  const JsSchema = Yup.object().shape({
-    services: Yup.array().of(
-      Yup.object().shape({
-        title: Yup.string(),
-        price: Yup.number(),
-        time: Yup.number(),
-        total: Yup.number(),
-      })
-    ),
-  });
 
   const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
   const defaultValues = {
@@ -59,6 +45,14 @@ export const Invoice = () => {
     billToColumn3: "column3",
     invoiceDate: now,
     dueDate: weekFromNow,
+    details: [
+      {
+        title: "Development services",
+        price: 10.5,
+        quantity: "10:30",
+        total: "110.25",
+      },
+    ],
     notes: "Thanks for your business",
     wireTransferDetails:
       "Lorem Ipsum is simply dummy text\n" +
@@ -68,20 +62,26 @@ export const Invoice = () => {
       "Lorem Ipsum is simply dummy text of the printing and typesetting\n",
   };
 
-  const { register, control, getValues, setValue, watch } = useForm({
-    defaultValues,
-    resolver: yupResolver(JsSchema),
-  });
-  const { fields, append, remove } = useFieldArray({
-    name: "services",
+  useEffect(() => {
+    const invoiceDoc = JSON.parse(localStorage.getItem("invoiceDoc"));
+
+    reset(invoiceDoc);
+  }, []);
+
+  const { register, control, handleSubmit, getValues, reset, setValue, watch } =
+    useForm({
+      defaultValues,
+    });
+  const { append, remove } = useFieldArray({
+    name: "details",
     control,
   });
 
   const formValues = getValues();
 
   const calculateOrderTotal = () => {
-    if (formValues && formValues.services) {
-      const total = formValues.services.reduce(
+    if (formValues && formValues.details) {
+      const total = formValues.details.reduce(
         (acc, curr) => Number(curr.total) + acc,
         0
       );
@@ -91,65 +91,20 @@ export const Invoice = () => {
 
   useEffect(() => {
     calculateOrderTotal();
-  }, [formValues.services]);
-
-  useEffect(() => {
-    const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-
-    invoiceItems &&
-      invoiceItems.length < 10 &&
-      invoiceItems.forEach((item) => {
-        append({
-          title: item.title ? item.title : "No description",
-          price: item.price,
-          time: item.time,
-          total: item.price * item.time,
-        });
-      });
-
-    if (invoiceItems && invoiceItems.length > 9) {
-      setIsAddServiceButtonDisabled(true);
-    }
-  }, []);
-
-  const watchAllFields = watch(["services"]);
-
-  useEffect(() => {
-    localStorage.setItem("invoiceItems", JSON.stringify(watchAllFields[0]));
-  }, [watchAllFields]);
+  }, [formValues.details]);
 
   const addService = () => {
-    const invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-    const invoiceObj = {
-      description: "",
-      price: "",
-      time: "",
-      total: "",
-    };
-    if (!invoiceItems) {
-      let invoiceArray = [];
-      append({ title: "", price: "", time: "", total: "" });
-
-      invoiceArray.push(invoiceObj);
-      localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
-    }
-    if (invoiceItems && invoiceItems.length < 10) {
-      append({ title: "", price: "", time: "", total: "" });
-
-      invoiceItems.push(invoiceObj);
-      localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
-    }
-    if (invoiceItems && invoiceItems.length > 9) {
-      setIsAddServiceButtonDisabled(true);
-    }
-  };
-
-  const removeService = (index) => {
-    let invoiceItems = JSON.parse(localStorage.getItem("invoiceItems"));
-    invoiceItems.splice(index, 1);
-    localStorage.setItem("invoiceItems", JSON.stringify(invoiceItems));
-    remove(index);
-    setIsAddServiceButtonDisabled(false);
+    const lastItem =
+      formValues.details.length !== 0
+        ? formValues.details[formValues.details.length - 1]
+        : defaultValues.details[0];
+    append({
+      title: lastItem.title,
+      units: lastItem.units,
+      price: lastItem.price,
+      quantity: lastItem.quantity,
+      total: lastItem.total,
+    });
   };
 
   const generalInfoStyles = [
@@ -163,12 +118,27 @@ export const Invoice = () => {
 
   const logoStyles = [styles.logo, isEditMode && styles.logoEdit];
 
-  const watchInvoiceDate = watch("invoiceDate");
-  const watchDueDate = watch("dueDate");
+  const watchInvoiceDate = new Date(watch("invoiceDate"));
 
+  const watchDueDate = new Date(watch("dueDate"));
+
+  const onSubmit = (data) => {
+    setIsEditMode(!isEditMode);
+    localStorage.setItem("invoiceDoc", JSON.stringify(data));
+  };
+
+  const generatePDF = () => {
+    const report = new JsPDF("p", "px", [936, 1300]);
+    report.viewerPreferences({ CenterWindow: true }, true);
+    report
+      .html(document.querySelector("#report"), { margin: [20, 10, 10, 50] })
+      .then(() => {
+        report.save("report.pdf");
+      });
+  };
   return (
     <>
-      <form>
+      <form id="invoice-form" onSubmit={handleSubmit(onSubmit)}>
         <div css={styles.actionPanel}></div>
         <div css={styles.invoice}>
           <div css={[styles.row, styles.invoiceHeadingRow]}>
@@ -313,7 +283,7 @@ export const Invoice = () => {
               {isEditMode && <span css={styles.headingColumn5}>&nbsp;</span>}
             </div>
 
-            {fields.map((item, index) => (
+            {formValues.details.map((item, index) => (
               <div key={index} css={[styles.row, styles.headingRow]}>
                 <span
                   css={[
@@ -328,7 +298,7 @@ export const Invoice = () => {
                   <BaseInput
                     register={register}
                     classname={styles.field}
-                    inputName={`services[${index}].title`}
+                    inputName={`details[${index}].title`}
                     disabled={!isEditMode}
                     placeholder={t("decriptionPlaceholder")}
                     maxLength={45}
@@ -339,17 +309,18 @@ export const Invoice = () => {
                   <BaseInput
                     register={register}
                     classname={[styles.field, styles.serviceInput]}
-                    inputName={`services[${index}].price`}
+                    inputName={`details[${index}].price`}
                     placeholder="0.0"
                     disabled={!isEditMode}
-                    type="number"
                     maxLength={45}
                     onChange={(e) => {
                       setValue(
-                        `services.${index}.total`,
+                        `details.${index}.total`,
                         (
                           Number(e.target.value) *
-                          convertStrTimeToNum(formValues.services[index].time)
+                          convertStrTimeToNum(
+                            formValues.details[index].quantity
+                          )
                         ).toFixed(2)
                       );
                       calculateOrderTotal();
@@ -360,16 +331,16 @@ export const Invoice = () => {
                   <BaseInput
                     register={register}
                     classname={[styles.field, styles.serviceInput]}
-                    inputName={`services[${index}].time`}
+                    inputName={`details[${index}].quantity`}
                     disabled={!isEditMode}
                     maxLength={45}
                     placeholder={t("timePlaceholder")}
                     onChange={(e) => {
                       handleTimeChange(e);
                       setValue(
-                        `services.${index}.total`,
+                        `details.${index}.total`,
                         (
-                          Number(formValues.services[index].price) *
+                          Number(formValues.details[index].price) *
                           convertStrTimeToNum(e.target.value)
                         ).toFixed(2)
                       );
@@ -388,7 +359,7 @@ export const Invoice = () => {
                   <BaseInput
                     register={register}
                     classname={[styles.field, styles.serviceInput]}
-                    inputName={`services[${index}].total`}
+                    inputName={`details[${index}].total`}
                     disabled={!isEditMode}
                     readOnly={true}
                     placeholder="0.0"
@@ -398,9 +369,9 @@ export const Invoice = () => {
 
                 {isEditMode && (
                   <button
-                    css={styles.button}
+                    css={styles.removeButton}
                     type="button"
-                    onClick={() => removeService(index)}
+                    onClick={() => remove(index)}
                   >
                     {t("remove")}
                   </button>
@@ -409,12 +380,7 @@ export const Invoice = () => {
             ))}
 
             {isEditMode && (
-              <button
-                css={styles.addButton}
-                type="button"
-                disabled={isAddServiceButtonDisabled}
-                onClick={addService}
-              >
+              <button css={styles.addButton} type="button" onClick={addService}>
                 {t("addService")}
               </button>
             )}
@@ -439,7 +405,7 @@ export const Invoice = () => {
                 css={[styles.field, styles.textarea, styles.notesTextArea]}
                 disabled={!isEditMode}
                 maxLength={250}
-                {...register("notes", { required: true })}
+                {...register("notes")}
               />
             </span>
             <span css={styles.text}>
@@ -449,11 +415,30 @@ export const Invoice = () => {
               css={[styles.field, styles.textarea, styles.bigTextarea]}
               disabled={!isEditMode}
               maxLength={250}
-              {...register("wireTransferDetails", { required: true })}
+              {...register("wireTransferDetails")}
             />
           </div>
         </div>
       </form>
+      <div css={styles.buttons}>
+        <div css={styles.button}>
+          {isEditMode && (
+            <Button type="submit" form="invoice-form">
+              {t("save")}
+            </Button>
+          )}
+          {!isEditMode && (
+            <Button onClick={() => setIsEditMode(!isEditMode)} type="button">
+              {t("edit")}
+            </Button>
+          )}
+        </div>
+        <div css={styles.button}>
+          <Button onClick={generatePDF} type="button" disabled={isEditMode}>
+            {t("exportToPDFText")}
+          </Button>
+        </div>
+      </div>
     </>
   );
 };

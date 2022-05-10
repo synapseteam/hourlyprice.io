@@ -5,7 +5,7 @@ export const translationEN = {
   heroSubTitle: "<citation>Time is money</citation> as Benjamin Franklin Said.",
   labelPrice: "Price",
   timePlaceholder: "HH:MM",
-  decriptionPlaceholder: "Job Description",
+  decriptionPlaceholder: "Job description",
   labelTime: "Time",
   labelCurrency: "Currency",
   labelExchangeRate: "Exchange rate",
