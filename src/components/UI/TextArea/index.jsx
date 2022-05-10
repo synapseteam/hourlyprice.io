@@ -9,8 +9,7 @@ export default function TextArea({
   width,
   height,
   maxLength,
-                                     disabled,
-
+  disabled,
 }) {
   return (
     <textarea
@@ -36,5 +35,5 @@ TextArea.propTypes = {
   height: PropTypes.string,
   maxLength: PropTypes.number,
   classname: PropTypes.any,
-    disabled: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
