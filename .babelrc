@@ -1,21 +1,37 @@
-{"presets": [
+{
+  "presets": [
     ["@babel/preset-env"],
     [
-        "@babel/preset-react",
-        {
-            "runtime": "automatic",
-            "importSource": "react"
-        }
-    ]
-],
-    "env": {
-      "test": {
-        "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime", "@emotion/babel-plugin"]
-      },
-      "production": {
-        "plugins": ["@emotion"]
-      },
-     
+      "@babel/preset-react",
+      {
+        "runtime": "automatic",
+        "importSource": "react"
+      }
+    ],
+    ["@babel/preset-typescript"]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-typescript",
+        [
+          "next/babel",
+          {
+            "preset-env": {
+              "modules": "commonjs"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        "@babel/plugin-transform-modules-commonjs",
+        "@babel/plugin-transform-runtime",
+        "@emotion/babel-plugin"
+      ]
     },
-    "plugins": ["@emotion"],
-  }
+    "production": {
+      "plugins": ["@emotion"]
+    }
+  },
+  "plugins": ["@emotion"]
+}

@@ -1,8 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { styles } from "./styles";
 
-export default function TextArea({
+interface ITextArea {
+  register: (text: string) => void;
+  inputName: string;
+  width: string;
+  height: string;
+  maxLength: number;
+  classname: string;
+  disabled: boolean;
+}
+
+const TextArea: FC<ITextArea> = ({
   register,
   inputName,
   classname,
@@ -10,7 +20,7 @@ export default function TextArea({
   height,
   maxLength,
   disabled,
-}) {
+}) => {
   return (
     <textarea
       css={[styles.textArea, classname]}
@@ -26,14 +36,15 @@ export default function TextArea({
       disabled={disabled}
     />
   );
-}
-
-TextArea.propTypes = {
-  register: PropTypes.func,
-  inputName: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  maxLength: PropTypes.number,
-  classname: PropTypes.any,
-  disabled: PropTypes.bool,
 };
+
+TextArea.defaultProps = {
+  inputName: "textArea",
+  width: "200",
+  height: "200",
+  maxLength: 50,
+  classname: "textArea",
+  disabled: false,
+};
+
+export default TextArea;
