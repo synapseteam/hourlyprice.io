@@ -20,7 +20,7 @@ const Button: React.FC<Props> = ({
   classname,
   classnameContainer,
   form,
-}) => {
+}): JSX.Element => {
   return (
     <div css={[styles.buttonContainer, classnameContainer]}>
       <button

@@ -8,7 +8,10 @@ import { useEffect, useState } from "react";
 import { styles } from "./styles";
 
 export default function ActOfWorkPage({ isDark }) {
-  const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);
+  const [actOfWork, setActOfWork] = useLocalStorage({
+    key: "actOfWorkDocs",
+    initialState: [],
+  });
   const [selectedAct, setSelectedAct] = useState(null);
   const [isActUpdated, setIsActUpdated] = useState(false);
   const [isActAdded, setIsActAdded] = useState(false);
