@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["@emotion/react/types/css-prop"],
     "baseUrl": "src/",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

@@ -3,11 +3,23 @@
  * @jsxImportSource @emotion/react
  */
 
-import PropTypes from "prop-types";
-
+import { SerializedStyles } from "@emotion/react";
+import { UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 
-export default function BaseInput({
+interface Props {
+  register: UseFormRegister<any>;
+  inputName: string;
+  classname: SerializedStyles;
+  onChange: () => void;
+  width: number;
+  placeholder: string;
+  disabled: boolean;
+  readOnly?: boolean;
+  type: string;
+}
+
+const BaseInput: React.FC<Props> = ({
   register,
   inputName,
   classname,
@@ -17,7 +29,7 @@ export default function BaseInput({
   disabled,
   readOnly = false,
   type = "text",
-}) {
+}): JSX.Element => {
   return (
     <input
       {...register(inputName)}
@@ -32,16 +44,6 @@ export default function BaseInput({
       autoComplete="off"
     />
   );
-}
-
-BaseInput.propTypes = {
-  register: PropTypes.func,
-  inputName: PropTypes.string,
-  classname: PropTypes.any,
-  onChange: PropTypes.func,
-  width: PropTypes.string,
-  placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  type: PropTypes.string,
 };
+
+export default BaseInput;
