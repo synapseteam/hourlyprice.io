@@ -2,11 +2,10 @@ import { css } from "@emotion/react";
 
 export const styles = {
   label: (theme) => css`
-    display: flex;
-    flex-direction: column;
     font-size: 0.7rem;
     color: ${theme.labelColor};
-
+    display: flex;
+    flex-direction: column;
     &:first-of-type {
       margin-top: 0;
     }

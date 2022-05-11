@@ -1,12 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import uniqid from "uniqid";
-import PropTypes from "prop-types";
+import { FC, ChangeEvent } from "react";
 
 import { errorsMessages } from "configure";
 
 import { styles } from "./styles";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-export default function Select({
+interface IProps {
+  labelName: string;
+  inputName: string;
+  register: UseFormRegister<FieldValues>;
+  changeHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
+  optionsArr: string[];
+  value: string[];
+  errors: FieldErrors<FieldValues>;
+}
+
+const Select: FC<IProps> = ({
   labelName,
   inputName,
   register,
@@ -14,7 +25,7 @@ export default function Select({
   optionsArr,
   value,
   errors,
-}) {
+}) => {
   return (
     <>
       <label css={styles.label}>
@@ -32,19 +43,10 @@ export default function Select({
               </option>
             ))}
         </select>
-        {errors[inputName] && <p>{errorsMessages[inputName]}</p>}
+        {errors[inputName] && <p>error</p>}
       </label>
     </>
   );
-}
-
-Select.propTypes = {
-  labelName: PropTypes.string,
-  register: PropTypes.func,
-  placeholder: PropTypes.string,
-  changeHandler: PropTypes.func,
-  inputName: PropTypes.string,
-  errors: PropTypes.object,
-  value: PropTypes.string,
-  optionsArr: PropTypes.arrayOf(PropTypes.string),
 };
+
+export default Select;
