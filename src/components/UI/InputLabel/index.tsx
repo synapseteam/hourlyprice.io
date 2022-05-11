@@ -1,9 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
 
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 
-export default function InputLabel({
+interface Props {
+  labelName: string;
+  register: UseFormRegister<FieldValues>;
+  placeholder: string;
+  changeHandler: () => void;
+  inputName: string;
+  type?: string;
+  errors: FieldErrors<FieldValues>;
+}
+
+const InputLabel: React.FC<Props> = ({
   labelName,
   register,
   placeholder,
@@ -11,7 +21,7 @@ export default function InputLabel({
   inputName,
   type = "text",
   errors,
-}) {
+}): JSX.Element => {
   return (
     <>
       <label css={styles.label}>
@@ -31,14 +41,6 @@ export default function InputLabel({
       </label>
     </>
   );
-}
-
-InputLabel.propTypes = {
-  labelName: PropTypes.string,
-  register: PropTypes.func,
-  placeholder: PropTypes.string,
-  changeHandler: PropTypes.func,
-  inputName: PropTypes.string,
-  type: PropTypes.string,
-  errors: PropTypes.object,
 };
+
+export default InputLabel;

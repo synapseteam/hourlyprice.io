@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useTheme } from "@emotion/react";
+import { FC } from "react";
+import { useTheme, Theme } from "@emotion/react";
 import ContentLoader from "react-content-loader";
-import PropTypes from "prop-types";
 
 import {
   CANVAS_WIDTH_M,
@@ -18,8 +18,13 @@ import {
 
 import { styles } from "./styles";
 
-const SkeletonLoader = ({ size, ...props }) => {
-  const theme = useTheme();
+interface ISceletonLoader {
+  size: string;
+  props: Record<string, unknown>;
+}
+
+const SkeletonLoader: FC<ISceletonLoader> = ({ size, ...props }) => {
+  const theme: Theme = useTheme();
 
   const canvasWidth = size === "l" ? CANVAS_WIDTH_L : CANVAS_WIDTH_M;
   const canvasHeight = size === "l" ? CANVAS_HEIGHT_L : CANVAS_HEIGHT_M;
@@ -34,8 +39,8 @@ const SkeletonLoader = ({ size, ...props }) => {
       width={skeletonWidth}
       height={skeletonHeight}
       viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
-      backgroundColor={theme.skeletonBg}
-      foregroundColor={theme.skeletonFg}
+      backgroundColor={theme.color.skeletonBg}
+      foregroundColor={theme.color.skeletonFg}
       {...props}
       css={
         size === "l" ? styles.bigLoaderContainer : styles.smallLoaderContainer
@@ -53,12 +58,7 @@ const SkeletonLoader = ({ size, ...props }) => {
   );
 };
 
-SkeletonLoader.propTypes = {
-  size: PropTypes.string.isRequired,
-  props: PropTypes.object,
-};
-
-SkeletonLoader.defaulProps = {
+SkeletonLoader.defaultProps = {
   size: "m",
 };
 
