@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { FC } from "react";
+import { FC } from "react";
 import { styles } from "./styles";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface ITextArea {
-  register: (text: string) => void;
+  register: UseFormRegister<FieldValues>;
   inputName: string;
   width: string;
   height: string;

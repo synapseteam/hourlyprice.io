@@ -24,6 +24,7 @@ module.exports = {
     quotes: ["error", "double"],
     "no-console": "off",
     "@typescript-eslint/no-var-requires": 0,
+    "react/prop-types": 0,
     // "no-magic-numbers": "error",
   },
 };

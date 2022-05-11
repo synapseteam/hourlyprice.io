@@ -4,8 +4,8 @@
 import PropTypes from "prop-types";
 import Header from "../../components/Header/index";
 
-import Footer from "../../components/Footer";
-import Login from "../../components/Login";
+import Footer from "../../components/Footer/index";
+import Login from "../../components/Login/index";
 
 import { styles } from "./styles";
 

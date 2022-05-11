@@ -13,27 +13,27 @@ import Footer from "../../components/Footer";
 import { styles } from "./styles";
 
 export default function HomePage({ isDark, setIsDark }) {
-	return (
-		<>
-			<Header isDark={isDark} setIsDark={setIsDark} />
+  return (
+    <>
+      <Header isDark={isDark} setIsDark={setIsDark} />
 
-			<ContentContainer>
-				<HeroTitle />
-				<div css={styles.calculator}>
-					<Display />
-					<PriceForm />
-				</div>
-			</ContentContainer>
+      <ContentContainer>
+        <HeroTitle />
+        <div css={styles.calculator}>
+          <Display />
+          <PriceForm />
+        </div>
+      </ContentContainer>
 
-			<Footer
-				companyName="Synapse Team LLC"
-				companyUrl="https://synapseteam.com"
-			/>
-		</>
-	);
+      <Footer
+        companyName="Synapse Team LLC"
+        companyUrl="https://synapseteam.com"
+      />
+    </>
+  );
 }
 
 HomePage.propTypes = {
-	setIsDark: PropTypes.func.isRequired,
-	isDark: PropTypes.bool,
+  setIsDark: PropTypes.func.isRequired,
+  isDark: PropTypes.bool,
 };
