@@ -2,8 +2,6 @@
 import uniqid from "uniqid";
 import { FC, ChangeEvent } from "react";
 
-import { errorsMessages } from "configure";
-
 import { styles } from "./styles";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
