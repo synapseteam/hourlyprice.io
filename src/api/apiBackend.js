@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const API_URL = "https://back.hourlyprice.io/api/";
+const baseUrl = "https://back.hourlyprice.io/";
+export const urlApi = "api";
+
+const GENERIC_URL = `${baseUrl}${urlApi}`;
 
 // Register user
 const register = async (userData) => {
-  const response = await axios.post(API_URL + "register", userData);
+  const response = await axios.post(`${GENERIC_URL}/register`, userData);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -15,7 +18,7 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
-  const response = await axios.post(API_URL + "login", userData);
+  const response = await axios.post(`${GENERIC_URL}/login`, userData);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
