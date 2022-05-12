@@ -10,13 +10,13 @@ import { styles } from "./styles";
 interface Props {
   register: UseFormRegister<any>;
   inputName: string;
-  classname: SerializedStyles;
-  onChange: () => void;
-  width: number;
-  placeholder: string;
-  disabled: boolean;
+  classname?: SerializedStyles | SerializedStyles[];
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  width?: number;
+  placeholder?: string;
+  disabled?: boolean;
   readOnly?: boolean;
-  type: string;
+  type?: string;
 }
 
 const BaseInput: React.FC<Props> = ({

@@ -8,18 +8,27 @@ import TextArea from "../UI/TextArea/index";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { styles } from "./styles";
+import { IActDoc } from "typescript/interfaces";
 
-export default function ActOfWorkDoc({
+interface Props {
+  selectedAct: null;
+  setActOfWork: (initialState: IActDoc[]) => void;
+  setIsActUpdated: Dispatch<SetStateAction<boolean>>;
+  setIsActAdded: Dispatch<SetStateAction<boolean>>;
+}
+
+const ActOfWorkDoc: React.FC<Props> = ({
   selectedAct,
   setActOfWork,
   setIsActUpdated,
   setIsActAdded,
-}) {
+}): JSX.Element => {
   const [isEditMode, setIsEditMode] = useState(true);
   const [orderTotal, setOrderTotal] = useState(0);
   const now = new Date();
+  console.log(now);
   useEffect(() => {
     selectedAct && reset(selectedAct);
   }, [selectedAct]);
@@ -28,8 +37,8 @@ export default function ActOfWorkDoc({
     docName: "test1",
     actNumber: "22-1904_6125",
     actDateNumber: "2_17-02/2022",
-    actDateTo: Date.parse(now),
-    actDate: Date.parse(now),
+    actDateTo: Date.parse(now.toDateString()),
+    actDate: Date.parse(now.toDateString()),
     clientСompany: "«СІНАПС ТІМ»",
     clientTextBlock:
       "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»  , Україна, в особі директора  Барботкіна Романа Романовича, який діє на підставі Статуту, (надалі - “Замовник”) що діє від імені Замовника, з одного боку, та",
@@ -76,8 +85,8 @@ export default function ActOfWorkDoc({
       defaultValues: selectedAct ? selectedAct : defaultValues,
     });
 
-  const onSubmit = (data) => {
-    const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs"));
+  const onSubmit = (data: IActDoc) => {
+    const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs")!);
 
     if (!actOfWork) {
       setActOfWork([data]);
@@ -85,7 +94,7 @@ export default function ActOfWorkDoc({
     }
     if (actOfWork) {
       let index = null;
-      const itemExist = actOfWork.find((item, i) => {
+      const itemExist = actOfWork.find((item: IActDoc, i: number) => {
         if (item.docName === data.docName) index = i;
         return item.docName === data.docName;
       });
@@ -95,6 +104,7 @@ export default function ActOfWorkDoc({
         setIsActAdded(true);
       }
       if (itemExist) {
+        console.log(index);
         actOfWork[index] = data;
         setActOfWork(actOfWork);
         setIsActUpdated(true);
@@ -109,7 +119,9 @@ export default function ActOfWorkDoc({
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
-      .html(document.querySelector("#actOfWork"), { margin: [20, 10, 10, 50] })
+      .html(document.getElementById("#actOfWork")!, {
+        margin: [20, 10, 10, 50],
+      })
       .then(() => {
         report.save("actOfWork.pdf");
       });
@@ -341,7 +353,7 @@ export default function ActOfWorkDoc({
                         setValue(
                           `details.${index}.total`,
                           (
-                            Number(e.target.value) *
+                            Number((e.target as HTMLTextAreaElement).value) *
                             convertStrTimeToNum(
                               formValues.details[index].quantity
                             )
@@ -356,13 +368,15 @@ export default function ActOfWorkDoc({
                       classname={styles.fieldBold}
                       register={register}
                       inputName={`details[${index}].quantity`}
-                      onChange={(e) => {
+                      onChange={(e: React.FormEvent<HTMLInputElement>) => {
                         handleTimeChange(e);
                         setValue(
                           `details.${index}.total`,
                           (
                             Number(formValues.details[index].price) *
-                            convertStrTimeToNum(e.target.value)
+                            convertStrTimeToNum(
+                              (e.target as HTMLTextAreaElement).value
+                            )
                           ).toFixed(2)
                         );
                         calculateOrderTotal();
@@ -664,11 +678,6 @@ export default function ActOfWorkDoc({
       </div>
     </form>
   );
-}
-
-ActOfWorkDoc.propTypes = {
-  selectedAct: PropTypes.object,
-  setActOfWork: PropTypes.func,
-  setIsActUpdated: PropTypes.func,
-  setIsActAdded: PropTypes.func,
 };
+
+export default ActOfWorkDoc;
