@@ -7,6 +7,9 @@ export const styles = {
     flex-direction: column;
     min-height: 100vh;
   `,
+  contentContainer: css`
+    display: flex;
+  `,
 
   noPreviewMessage: (theme) => css`
     display: none;

@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 import { useLocalStorage } from "../../hooks";
 import { useEffect, useState } from "react";
 import { styles } from "./styles";
+import SideMenu from "../../components/SideMenu";
 
 export default function ActOfWorkPage({ isDark }) {
   const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);
@@ -46,13 +47,16 @@ export default function ActOfWorkPage({ isDark }) {
         isActUpdated={isActUpdated}
         isActAdded={isActAdded}
       />
-      <ActOfWorkDoc
-        actOfWork={actOfWork}
-        selectedAct={selectedAct}
-        setActOfWork={setActOfWork}
-        setIsActUpdated={setIsActUpdated}
-        setIsActAdded={setIsActAdded}
-      />
+      <div css={styles.contentContainer}>
+        <SideMenu />
+        <ActOfWorkDoc
+          actOfWork={actOfWork}
+          selectedAct={selectedAct}
+          setActOfWork={setActOfWork}
+          setIsActUpdated={setIsActUpdated}
+          setIsActAdded={setIsActAdded}
+        />
+      </div>
       <div css={styles.noPreviewMessage}>
         Попередній перегляд не підтримується
       </div>

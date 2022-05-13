@@ -3,6 +3,12 @@
 import { css } from "@emotion/react";
 
 export const styles = {
+  BillDocContainer: css`
+    @media (max-width: 820px) {
+      display: none;
+    }
+    margin: 0 auto;
+  `,
   billDoc: css`
     display: flex;
     flex-direction: column;

@@ -6,10 +6,10 @@ interface Props {
   type?: "button" | "reset" | "submit";
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   children: JSX.Element[] | JSX.Element;
-  disabled: boolean;
+  disabled?: boolean;
   classname: SerializedStyles;
-  classnameContainer: SerializedStyles;
-  form: string;
+  classnameContainer?: SerializedStyles;
+  form?: string;
 }
 
 const Button: React.FC<Props> = ({
