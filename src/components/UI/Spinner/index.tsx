@@ -13,11 +13,7 @@ const Spinner: FC<ISpinner> = ({ isLoading }) => {
 
   return (
     <div css={styles.loader}>
-      <ClipLoader
-        color={theme.color.skeletonBg}
-        loading={isLoading}
-        size={150}
-      />
+      <ClipLoader color={theme.skeletonBg} loading={isLoading} size={150} />
     </div>
   );
 };
