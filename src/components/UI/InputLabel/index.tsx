@@ -6,8 +6,8 @@ import { styles } from "./styles";
 interface Props {
   labelName: string;
   register: UseFormRegister<FieldValues>;
-  placeholder: string;
-  changeHandler: () => void;
+  placeholder?: string;
+  changeHandler?: () => void;
   inputName: string;
   type?: string;
   errors: FieldErrors<FieldValues>;

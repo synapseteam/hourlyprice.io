@@ -40,7 +40,7 @@ export const ModalDialog = ({
 export default ModalDialog;
 
 ModalDialog.propTypes = {
-  isOpen: PropTypes.bool,
+  isOpen: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   title: PropTypes.string,
   intro: PropTypes.string,

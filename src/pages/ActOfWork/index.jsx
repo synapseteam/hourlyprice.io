@@ -1,10 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
 import HeaderActOfWork from "../../components/HeaderActOfWork/index";
+import ModalDialog from "components/ModalDialog";
 import ActOfWorkDoc from "../../components/ActOfWorkDoc/index";
 import Footer from "../../components/Footer";
 import { useLocalStorage } from "../../hooks";
 import { useEffect, useState } from "react";
+import ClientForm from "components/ClientForm";
+import Button from "components/UI/Button";
 import { styles } from "./styles";
 
 export default function ActOfWorkPage({ isDark }) {
@@ -12,6 +15,7 @@ export default function ActOfWorkPage({ isDark }) {
   const [selectedAct, setSelectedAct] = useState(null);
   const [isActUpdated, setIsActUpdated] = useState(false);
   const [isActAdded, setIsActAdded] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     if (isActUpdated) {
@@ -35,9 +39,17 @@ export default function ActOfWorkPage({ isDark }) {
     );
     setSelectedAct(selectedActOfWork);
   };
-
+  const closeModal = () => {
+    setModalType("");
+  };
   return (
     <div css={styles.ActOfWorkPage}>
+      <Button onClick={() => setModalType("client")} type="button">
+        open
+      </Button>
+      <ModalDialog isOpen={modalType} onClose={closeModal}>
+        <ClientForm />
+      </ModalDialog>
       <HeaderActOfWork
         isDark={isDark}
         actOfWork={actOfWork}
