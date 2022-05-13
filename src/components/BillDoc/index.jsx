@@ -129,7 +129,7 @@ export default function BillDoc({
   };
 
   return (
-    <div>
+    <div css={styles.BillDocContainer}>
       <div css={styles.save}>
         <BaseInput
           classname={styles.saveInput}

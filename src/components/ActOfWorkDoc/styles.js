@@ -5,6 +5,7 @@ export const styles = {
     @media (max-width: 820px) {
       display: none;
     }
+    margin: 0 auto;
   `,
   actOfWork: css`
     display: flex;
