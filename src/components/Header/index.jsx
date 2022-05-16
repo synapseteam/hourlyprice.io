@@ -27,8 +27,8 @@ import { setInvoiceItemAdded, setInvoiceFull } from "features/generic";
 import { useWindowDimensions } from "../../hooks";
 import { useCustomTranslation } from "../../i18n";
 import { ROUTES } from "../../utils/urls";
-import { styles } from "./styles";
 import { toast } from "react-toastify";
+import { styles } from "./styles";
 
 export default function Header({ setIsDark, isDark }) {
   const dispatch = useDispatch();

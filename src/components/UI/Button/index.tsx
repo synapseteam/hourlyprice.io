@@ -4,10 +4,10 @@ import { styles } from "./styles";
 
 interface Props {
   type?: "button" | "reset" | "submit";
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  children: JSX.Element[] | JSX.Element;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: string | JSX.Element[] | JSX.Element;
   disabled?: boolean;
-  classname: SerializedStyles;
+  classname?: SerializedStyles;
   classnameContainer?: SerializedStyles;
   form?: string;
 }

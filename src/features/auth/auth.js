@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../api/apiBackend";
+import urlApi from "../../api/apiBackend";
 
 // Get user from localStorage
 const user = JSON.parse(localStorage.getItem("user"));
@@ -14,7 +15,7 @@ const initialState = {
 
 // Register user
 export const registration = createAsyncThunk(
-  "auth/register",
+  `${urlApi}/auth/register`,
   async (user, thunkAPI) => {
     try {
       return await authService.register(user);
@@ -31,19 +32,24 @@ export const registration = createAsyncThunk(
 );
 
 // Login user
-export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-  try {
-    return await authService.login(user);
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const login = createAsyncThunk(
+  `${urlApi}/auth/login`,
+  async (user, thunkAPI) => {
+    try {
+      return await authService.login(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
-export const logout = createAsyncThunk("auth/logout", async () => {
+export const logout = createAsyncThunk(`${urlApi}/auth/logout`, async () => {
   await authService.logout();
 });
 

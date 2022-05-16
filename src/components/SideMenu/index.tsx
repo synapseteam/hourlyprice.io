@@ -1,17 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useState } from "react";
-import { styles } from "./styles";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import Accordion from "../Accordion";
 import Button from "components/UI/Button";
+import { styles } from "./styles";
 
-const SideMenu: FC = () => {
+interface Props {
+  setModalType: Dispatch<SetStateAction<string>>;
+}
+const SideMenu: FC<Props> = ({ setModalType }) => {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
-
-  const toggleModal = () => {
-    console.log("modal open");
-  };
 
   return (
     <div css={styles.SideMenu}>
@@ -23,7 +22,7 @@ const SideMenu: FC = () => {
       >
         <Button
           disabled={false}
-          onClick={toggleModal}
+          onClick={() => setModalType("clientModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
@@ -38,7 +37,7 @@ const SideMenu: FC = () => {
       >
         <Button
           disabled={false}
-          onClick={toggleModal}
+          onClick={() => setModalType("executorModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >

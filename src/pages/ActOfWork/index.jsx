@@ -1,18 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import PropTypes from "prop-types";
 import HeaderActOfWork from "../../components/HeaderActOfWork/index";
+import ModalDialog from "components/ModalDialog";
 import ActOfWorkDoc from "../../components/ActOfWorkDoc/index";
 import Footer from "../../components/Footer";
 import { useLocalStorage } from "../../hooks";
 import { useEffect, useState } from "react";
-import { styles } from "./styles";
+import ClientForm from "components/ClientForm";
 import SideMenu from "../../components/SideMenu";
+import { styles } from "./styles";
 
 export default function ActOfWorkPage({ isDark }) {
   const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);
   const [selectedAct, setSelectedAct] = useState(null);
   const [isActUpdated, setIsActUpdated] = useState(false);
   const [isActAdded, setIsActAdded] = useState(false);
+  const [modalType, setModalType] = useState("");
+
+  useEffect(() => {
+    if (modalType) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [modalType]);
 
   useEffect(() => {
     if (isActUpdated) {
@@ -36,9 +47,15 @@ export default function ActOfWorkPage({ isDark }) {
     );
     setSelectedAct(selectedActOfWork);
   };
-
+  const closeModal = () => {
+    setModalType("");
+  };
   return (
     <div css={styles.ActOfWorkPage}>
+      <ModalDialog isOpen={modalType} onClose={closeModal}>
+        {modalType === "clientModal" && <ClientForm type={modalType} />}
+        {modalType === "executorModal" && <ClientForm type={modalType} />}
+      </ModalDialog>
       <HeaderActOfWork
         isDark={isDark}
         actOfWork={actOfWork}
@@ -48,7 +65,7 @@ export default function ActOfWorkPage({ isDark }) {
         isActAdded={isActAdded}
       />
       <div css={styles.contentContainer}>
-        <SideMenu />
+        <SideMenu setModalType={setModalType} />
         <ActOfWorkDoc
           actOfWork={actOfWork}
           selectedAct={selectedAct}

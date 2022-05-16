@@ -4,14 +4,16 @@ import { FC, ChangeEvent } from "react";
 
 import { styles } from "./styles";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { IOption } from "typescript/interfaces";
 
 interface IProps {
   labelName: string;
   inputName: string;
   register: UseFormRegister<FieldValues>;
   changeHandler: (event: ChangeEvent<HTMLSelectElement>) => void;
-  optionsArr: string[];
-  value: string[];
+  optionsArr: IOption[];
+  defaultValue?: string;
+  value: string;
   errors: FieldErrors<FieldValues>;
 }
 
@@ -21,6 +23,7 @@ const Select: FC<IProps> = ({
   register,
   changeHandler,
   optionsArr,
+  defaultValue,
   value,
   errors,
 }) => {
@@ -32,12 +35,13 @@ const Select: FC<IProps> = ({
           css={styles.select}
           {...register(inputName)}
           onChange={changeHandler}
+          defaultValue={defaultValue}
           value={value}
         >
           {optionsArr &&
-            optionsArr.map((name) => (
-              <option key={uniqid()} value={name}>
-                {name}
+            optionsArr.map((item) => (
+              <option key={uniqid()} value={item.value}>
+                {item.label}
               </option>
             ))}
         </select>
