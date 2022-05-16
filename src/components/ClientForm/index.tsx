@@ -1,18 +1,26 @@
+/** @jsxImportSource @emotion/react */
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Select from "components/UI/Select";
 import InputLabel from "components/UI/InputLabel";
 import { useCustomTranslation } from "i18n";
-import { ROUTES } from "../../utils/urls";
 import { useForm } from "react-hook-form";
 import { styles } from "./styles";
 import Button from "components/UI/Button";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+
+const entityTypeOptions = [
+  { value: "physicalPerson", label: "Фізична особа" },
+  { value: "business", label: "Підприємство" },
+];
 
 interface Props {
-  type?: "button" | "reset" | "submit";
+  type?: "clientModal" | "executorModal";
 }
 
-const ClientForm: React.FC<Props> = (): JSX.Element => {
+const ClientForm: React.FC<Props> = ({ type }): JSX.Element => {
+  const [entityType, setEntityType] = useState("physicalPerson");
+
   const [t] = useCustomTranslation();
 
   const schema = yup.object().shape({
@@ -23,6 +31,7 @@ const ClientForm: React.FC<Props> = (): JSX.Element => {
     tel: yup.string().required(),
     bank: yup.string().required(),
     account: yup.string().required(),
+    entityType: yup.string().required(),
   });
 
   const {
@@ -37,66 +46,98 @@ const ClientForm: React.FC<Props> = (): JSX.Element => {
   const submitForm = async (data: any) => {
     console.log(data);
   };
-  //   Адреса: Україна, 58000, Чернівецька обл., місто Чернівці, вул. Небесної сотні, буд.4А
-  //   Реєстраційний номер облікової картки платника податків: 1122334455
-  //   E-mail: test@synapseteam.com
-  //   Телефон: +38068111111
-  //   Назва банку: AT Super Банк
-  //   Рахунок: UA11111111111111111111111
+
   return (
     <form onSubmit={handleSubmit(submitForm)} css={styles.form}>
-      <h1 css={styles.title}>Замовник</h1>
-      <InputLabel
-        inputName="name"
-        labelName={t("name")}
-        register={register}
-        placeholder={t("emailPlaceholder")}
-        errors={errors}
-      />
-      <InputLabel
-        inputName="address"
-        labelName={t("address")}
-        register={register}
-        placeholder={t("emailPlaceholder")}
-        errors={errors}
-      />
-      <InputLabel
-        inputName="reg"
-        labelName={t("reg")}
-        register={register}
-        placeholder={t("emailPlaceholder")}
-        errors={errors}
-      />
-      <InputLabel
-        inputName="email"
-        labelName={t("email")}
-        register={register}
-        placeholder={t("emailPlaceholder")}
-        errors={errors}
-      />
+      {type === "clientModal" && <h1 css={styles.title}>Замовник</h1>}
+      {type === "executorModal" && <h1 css={styles.title}>Клієнт</h1>}
+      <div css={styles.item}>
+        <InputLabel
+          inputName="name"
+          labelName={t("name")}
+          register={register}
+          classname={styles.input}
+          placeholder={t("emailPlaceholder")}
+          errors={errors}
+        />
+        <InputLabel
+          inputName="email"
+          labelName={t("email")}
+          register={register}
+          classname={styles.input}
+          placeholder={t("emailPlaceholder")}
+          errors={errors}
+        />
+      </div>
+      <div css={styles.itemSmall}>
+        <InputLabel
+          inputName="tel"
+          labelName="Номер телефону"
+          register={register}
+          classname={styles.input}
+          placeholder="Введіть номер телефону"
+          errors={errors}
+        />
+        {entityType === "physicalPerson" && (
+          <InputLabel
+            inputName="reg"
+            labelName="РНОКПП"
+            register={register}
+            classname={styles.input}
+            placeholder="Введіть РНОКПП"
+            errors={errors}
+          />
+        )}
+        {entityType === "business" && (
+          <InputLabel
+            inputName="reg"
+            labelName="ЄДРПОУ"
+            register={register}
+            classname={styles.input}
+            placeholder="Введіть ЄДРПОУ"
+            errors={errors}
+          />
+        )}
+        <Select
+          labelName="Тип сутності"
+          inputName="entityType"
+          register={register}
+          changeHandler={(e) => setEntityType(e.currentTarget.value)}
+          value={entityType}
+          optionsArr={entityTypeOptions}
+          errors={errors}
+        />
+      </div>
 
-      <InputLabel
-        inputName="tel"
-        labelName={t("tel")}
-        register={register}
-        placeholder={t("passwordPlaceholder")}
-        errors={errors}
-      />
-      <InputLabel
-        inputName="bank"
-        labelName={t("bank")}
-        register={register}
-        placeholder={t("emailPlaceholder")}
-        errors={errors}
-      />
-      <InputLabel
-        inputName="account"
-        labelName={t("account")}
-        register={register}
-        placeholder={t("emailPlaceholder")}
-        errors={errors}
-      />
-      <Button type="submit">{t("signIn")}</Button>
+      <div css={styles.item}>
+        <InputLabel
+          inputName="bank"
+          labelName="Назва банку"
+          register={register}
+          classname={styles.input}
+          placeholder="Введіть назву банку"
+          errors={errors}
+        />
+        <InputLabel
+          inputName="account"
+          labelName="Рахунок"
+          register={register}
+          classname={styles.input}
+          placeholder="Введіть рахунок"
+          errors={errors}
+        />
+      </div>
+      <div css={styles.itemLarge}>
+        <InputLabel
+          inputName="address"
+          labelName="Адреса"
+          classname={styles.input}
+          register={register}
+          placeholder="Введіть адресу"
+          errors={errors}
+        />
+      </div>
+      <Button type="submit">Зберегти</Button>
     </form>
   );
 };

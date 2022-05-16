@@ -7,9 +7,8 @@ import Footer from "../../components/Footer";
 import { useLocalStorage } from "../../hooks";
 import { useEffect, useState } from "react";
 import ClientForm from "components/ClientForm";
-import Button from "components/UI/Button";
-import { styles } from "./styles";
 import SideMenu from "../../components/SideMenu";
+import { styles } from "./styles";
 
 export default function ActOfWorkPage({ isDark }) {
   const [actOfWork, setActOfWork] = useLocalStorage("actOfWorkDocs", []);
@@ -17,6 +16,14 @@ export default function ActOfWorkPage({ isDark }) {
   const [isActUpdated, setIsActUpdated] = useState(false);
   const [isActAdded, setIsActAdded] = useState(false);
   const [modalType, setModalType] = useState("");
+
+  useEffect(() => {
+    if (modalType) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [modalType]);
 
   useEffect(() => {
     if (isActUpdated) {
@@ -45,11 +52,9 @@ export default function ActOfWorkPage({ isDark }) {
   };
   return (
     <div css={styles.ActOfWorkPage}>
-      <Button onClick={() => setModalType("client")} type="button">
-        open
-      </Button>
       <ModalDialog isOpen={modalType} onClose={closeModal}>
-        <ClientForm />
+        {modalType === "clientModal" && <ClientForm type={modalType} />}
+        {modalType === "executorModal" && <ClientForm type={modalType} />}
       </ModalDialog>
       <HeaderActOfWork
         isDark={isDark}
@@ -60,7 +65,7 @@ export default function ActOfWorkPage({ isDark }) {
         isActAdded={isActAdded}
       />
       <div css={styles.contentContainer}>
-        <SideMenu />
+        <SideMenu setModalType={setModalType} />
         <ActOfWorkDoc
           actOfWork={actOfWork}
           selectedAct={selectedAct}

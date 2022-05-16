@@ -3,29 +3,57 @@
 import { css } from "@emotion/react";
 export const styles = {
   form: css`
-    margin-top: 0.2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 0.2rem;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
     align-self: center;
     padding-top: 10px;
 
-    > * {
+    > * {S
       margin-top: 0.8rem;
     }
     &:first-of-type {
       margin-top: 0rem;
     }
-
-    @media (min-width: 720px) {
-      width: 47%;
+  `,
+  title: css`
+    margin: 0rem;
+    text-align: center;
+  `,
+  item: css`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.8rem;
+    label {
+      width: 48%;
     }
   `,
-  title: (theme) => css`
-    text-align: center;
-    color: ${theme.senary};
+  itemLarge: css`
+    width: 100%;
+    margin-top: 0.8rem;
+    label {
+      width: 100%;
+    }
+  `,
+  itemSmall: css`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+    label {
+      width: 36%;
+      &:last-child {
+        width: 20%;
+      }
+    }
+  `,
+  input: css`
+    background: white;
+    border: 1px solid #dbdbdb;
+    color: #171d3d;
   `,
   formInputError: css`
     border-color: red !important;
