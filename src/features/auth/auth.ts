@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../../api/apiBackend";
 
 type User = {
-  email: string | null;
-  token: string | null;
-  id: string | null;
+  email: string;
+  token: string;
+  id: string;
 };
 
 type AuthState = {
@@ -89,6 +89,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
+      state.user = null;
     },
     [login.pending.type]: (state) => {
       state.isLoading = true;
@@ -102,6 +103,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
+      state.user = null;
     },
     [logout.fulfilled.type]: (state) => {
       state.user = null;

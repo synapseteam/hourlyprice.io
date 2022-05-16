@@ -39,8 +39,8 @@ const SkeletonLoader: FC<ISceletonLoader> = ({ size, ...props }) => {
       width={skeletonWidth}
       height={skeletonHeight}
       viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}
-      backgroundColor={theme.color.skeletonBg}
-      foregroundColor={theme.color.skeletonFg}
+      backgroundColor={theme.skeletonBg}
+      foregroundColor={theme.skeletonFg}
       {...props}
       css={
         size === "l" ? styles.bigLoaderContainer : styles.smallLoaderContainer
