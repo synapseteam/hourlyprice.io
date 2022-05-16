@@ -5,11 +5,11 @@ import { styles } from "./styles";
 interface Props {
   type?: "button" | "reset" | "submit";
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  children: JSX.Element[] | JSX.Element;
-  disabled: boolean;
-  classname: SerializedStyles;
-  classnameContainer: SerializedStyles;
-  form: string;
+  children: JSX.Element[] | JSX.Element | string;
+  disabled?: boolean;
+  classname?: SerializedStyles;
+  classnameContainer?: SerializedStyles;
+  form?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -20,7 +20,7 @@ const Button: React.FC<Props> = ({
   classname,
   classnameContainer,
   form,
-}) => {
+}): JSX.Element => {
   return (
     <div css={[styles.buttonContainer, classnameContainer]}>
       <button
