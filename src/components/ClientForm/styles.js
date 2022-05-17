@@ -50,6 +50,17 @@ export const styles = {
       }
     }
   `,
+  itemName: css`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+    label {
+      width: 22%;
+      &:last-child {
+        width: 30%;
+      }
+    }
+  `,
   input: css`
     background: white;
     border: 1px solid #dbdbdb;
