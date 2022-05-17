@@ -89,7 +89,7 @@ export const styles = {
     margin-top: 15px;
   `,
   indent: css`
-    text-indent: 30px;
+    text-indent: 50px;
   `,
   textarea: css`
     resize: none;

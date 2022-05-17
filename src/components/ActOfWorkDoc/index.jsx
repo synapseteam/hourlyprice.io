@@ -27,15 +27,9 @@ export default function ActOfWorkDoc({
   const defaultValues = {
     docName: "test1",
     actNumber: "22-1904_6125",
-    actDateNumber: "2_17-02/2022",
-    actDateTo: Date.parse(now),
+    contractNumber: "2_17-02/2022",
+    contractDateFrom: Date.parse(now),
     actDate: Date.parse(now),
-    clientСompany: "«СІНАПС ТІМ»",
-    clientTextBlock:
-      "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»  , Україна, в особі директора  Барботкіна Романа Романовича, який діє на підставі Статуту, (надалі - “Замовник”) що діє від імені Замовника, з одного боку, та",
-    executorTextBlock:
-      "Фізична особа-підприємець Іван Іванович Тест, реєстраційний номер облікової картки платника податків 1122334455 (надалі “Виконавець”), з іншого боку, підписали цей акт приймання-передачі наданих послуг по Договору № 2_17-02/2022 від 01 лютого 2022 р. про наступне:",
-    clientСompanyDirector: "Барботкіна Романа Романовича",
     details: [
       {
         title: "Послуги веб розробки: React та налаштування компонентів",
@@ -48,7 +42,10 @@ export default function ActOfWorkDoc({
     cost: "105 (сто п'ять грн. 00 коп.)",
     info: {
       client: {
-        name: "ТОВАРИСТВО З ОБЗЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»",
+        companyName: "ТОВАРИСТВО З ОБЗЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»",
+        name: "Роман",
+        surname: "Барботкін",
+        patronym: "Романович",
         address:
           "Україна, 69091, Запорізька обл., місто Запоріжжя, вул. Дунайська, буд.35",
         reg: "42772269",
@@ -56,10 +53,11 @@ export default function ActOfWorkDoc({
         tel: "+380992688071",
         bank: "ЗАПОРІЗЬКЕ РУ АТ КБ 'ПРИВІТБАНК'",
         account: "UA913133990000026001055756583",
-        initials: "Р.Р. Барботкін",
       },
       executor: {
-        name: "Іван Іванович Тест",
+        name: "Тест",
+        surname: "Тест",
+        patronym: "Тестович",
         address:
           "Україна, 58000, Чернівецька обл., місто Чернівці, вул. Небесної сотні, буд.4А",
         reg: "1122334455",
@@ -67,7 +65,6 @@ export default function ActOfWorkDoc({
         tel: "+38068111111",
         bank: "AT Super Банк",
         account: "UA11111111111111111111111",
-        initials: "І.І. Тест",
       },
     },
   };
@@ -160,8 +157,7 @@ export default function ActOfWorkDoc({
     month: "long",
   };
 
-  const milToStringTitleDate = new Date(formValues.actDateTo);
-
+  const milToStringTitleDate = new Date(formValues.contractDateFrom);
   const actDateToTitleString = milToStringTitleDate.toLocaleDateString(
     "uk-UA",
     optionsDate
@@ -170,7 +166,6 @@ export default function ActOfWorkDoc({
     0,
     actDateToTitleString.length - 3
   );
-
   const milToStringSubtitleDate = new Date(formValues.actDate);
   const actDateToSubtitleString = milToStringSubtitleDate.toLocaleDateString(
     "uk-UA",
@@ -181,8 +176,22 @@ export default function ActOfWorkDoc({
     .split(" ");
 
   const actDateToSubtitleStringFormat = `«${actDateToSubtitleStringSplit[0]}» ${actDateToSubtitleStringSplit[1]} ${actDateToSubtitleStringSplit[2]} року`;
-  const watchActDateTo = watch("actDateTo");
+
+  const watchContractDateFrom = watch("contractDateFrom");
   const watchActDate = watch("actDate");
+
+  const clientInitials = `${formValues.info.client.name.charAt(
+    0
+  )}.${formValues.info.client.patronym.charAt(0)}. ${
+    formValues.info.client.surname
+  }`;
+
+  const executorInitials = `${formValues.info.executor.name.charAt(
+    0
+  )}.${formValues.info.executor.patronym.charAt(0)}. ${
+    formValues.info.executor.surname
+  }`;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={styles.ActOfWorkDoc}>
       <div css={styles.save}>
@@ -230,15 +239,17 @@ export default function ActOfWorkDoc({
               №
               <BaseInput
                 register={register}
-                inputName="actDateNumber"
+                inputName="contractNumber"
                 width="95"
               />
               від{" "}
               <BaseDatePicker
                 register={register}
-                selected={watchActDateTo}
-                inputName="actDateTo"
-                onChange={(date) => setValue("actDateTo", date.getTime())}
+                selected={watchContractDateFrom}
+                inputName="contractDateFrom"
+                onChange={(date) =>
+                  setValue("contractDateFrom", date.getTime())
+                }
               />
             </div>
             <div css={styles.subtitle}>
@@ -258,9 +269,9 @@ export default function ActOfWorkDoc({
         {!isEditMode && (
           <div>
             <div css={styles.title}>
-              Акт приймання-передачі №{formValues.actNumber} {""}
-              наданих послуг до договору
-              <br />№ {formValues.actDateNumber} від {""}
+              {`Акт приймання-передачі №${formValues.actNumber}
+              наданих послуг до договору`}
+              <br />№ {formValues.contractNumber} від
               {actDateToTitleStringFormat}
             </div>
             <div css={styles.subtitle}>
@@ -269,37 +280,30 @@ export default function ActOfWorkDoc({
             </div>
           </div>
         )}
-        {isEditMode && (
-          <div css={styles.paragraphs}>
-            <TextArea
-              classname={[styles.textarea, styles.indent]}
-              height="55"
-              register={register}
-              inputName="clientTextBlock"
-            />
-            <TextArea
-              classname={[styles.textarea, styles.indent]}
-              register={register}
-              height="75"
-              inputName="executorTextBlock"
-            />
-
-            <div css={[styles.paragraphs, styles.indent]}>
-              Виконавець здав, а Замовник прийняв послуги по розробці
-              програмного забезпечення в наступній кількості та вартості:
-            </div>
-          </div>
-        )}
-        {!isEditMode && (
+        <div css={styles.paragraphs}>
           <div css={[styles.paragraphs, styles.indent]}>
-            <div>{formValues.clientTextBlock}</div>
-            <div>{formValues.executorTextBlock}</div>
-            <div css={[styles.paragraphs, styles.indent]}>
+            <div>
+              {`${formValues.info.client.companyName}, Україна, 
+              в особі директора ${formValues.info.client.surname} 
+              ${formValues.info.client.name} ${formValues.info.client.patronym}, 
+              який діє на підставі Статуту, (надалі - “Замовник”) що діє від
+              імені Замовника, з одного боку, та`}
+            </div>
+            <div>
+              {`Фізична особа-підприємець ${formValues.info.executor.surname} 
+              ${formValues.info.executor.name} ${formValues.info.executor.patronym} 
+              реєстраційний номер облікової картки платника податків 
+              ${formValues.info.executor.reg} (надалі “Виконавець”), 
+              з іншого боку, підписали цей акт
+              приймання-передачі наданих послуг по Договору № ${formValues.contractNumber} від ${actDateToTitleString} про наступне:`}
+            </div>
+            <div css={styles.paragraphs}>
               Виконавець здав, а Замовник прийняв послуги по розробці
               програмного забезпечення в наступній кількості та вартості:
             </div>
           </div>
-        )}
+        </div>
+
         <div css={styles.details}>
           <div css={styles.heading}>
             <span css={styles.column1}>№</span>
@@ -436,230 +440,121 @@ export default function ActOfWorkDoc({
           </div>
         </div>
         <div css={[styles.paragraphs, styles.fieldBold, styles.indent]}>
-          Загальна вартість наданих послуг складає{totalWritten}, без ПДВ.
           <div>
-            Послуги надані вчасно та повному об’ємі. Сторони не мають претензій
-            одна до одної з приводу якості наданих послуг.
+            {`Загальна вартість наданих послуг складає ${totalWritten}, без ПДВ.`}
+          </div>
+          <div>
+            {`Послуги надані вчасно та повному об’ємі. Сторони не мають претензій
+            одна до одної з приводу якості наданих послуг.`}
           </div>
         </div>
         <div css={styles.info}>
-          {isEditMode && (
-            <div css={styles.item}>
-              <div>
-                <div css={styles.fieldBold}>Замовник</div>
-                <BaseInput
-                  register={register}
-                  classname={[styles.fieldBold, styles.infoTitleInput]}
-                  inputName="info.client.name"
-                />
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoField}>
-                  <span css={styles.fieldBold}>Адреса:</span>
-                  <BaseInput
-                    register={register}
-                    inputName="info.client.address"
-                  />
-                </div>
-              </div>
-
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>ЄДРПОУ:</span>
-                <BaseInput register={register} inputName="info.client.reg" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>E-mail:</span>
-                <BaseInput register={register} inputName="info.client.email" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>Телефон:</span>
-                <BaseInput register={register} inputName="info.client.tel" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>Назва банку:</span>
-                <BaseInput register={register} inputName="info.client.bank" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>Рахунок:</span>
-                <BaseInput
-                  register={register}
-                  inputName="info.client.account"
-                />
-              </div>
-              <div css={styles.initials}>
-                <span css={styles.fieldBold}>_______________</span>
-                <BaseInput
-                  register={register}
-                  classname={styles.fieldBold}
-                  inputName="info.client.initials"
-                />
+          <div css={styles.item}>
+            <div>
+              <div css={styles.fieldBold}>Замовник</div>
+              <div css={[styles.fieldBold, styles.infoTitleInput]}>
+                {formValues.info.client.companyName}
               </div>
             </div>
-          )}
-          {!isEditMode && (
-            <div css={styles.item}>
-              <div>
-                <div css={styles.fieldBold}>Замовник</div>
-                <div css={[styles.fieldBold, styles.infoTitleInput]}>
-                  {formValues.info.client.name}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Адреса:</span>
-                  {formValues.info.client.address}
-                </div>
-              </div>
-
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>ЄДРПОУ: </span> &nbsp;
-                  {formValues.info.client.reg}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>E-mail: </span>
-                  {formValues.info.client.email}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Телефон: </span>
-                  {formValues.info.client.tel}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Назва банку: </span>
-                  {formValues.info.client.bank}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Рахунок: </span>
-                  {formValues.info.client.account}
-                </div>
-              </div>
-              <div css={[styles.initials, styles.fieldBold]}>
-                <span css={styles.fieldBold}>_______________ </span>
-                {formValues.info.client.initials}
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Адреса:</span>
+                {formValues.info.client.address}
               </div>
             </div>
-          )}
-          {isEditMode && (
-            <div css={styles.item}>
+
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>ЄДРПОУ: </span> &nbsp;
+                {formValues.info.client.reg}
+              </div>
+            </div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>E-mail: </span>
+                {formValues.info.client.email}
+              </div>
+            </div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Телефон: </span>
+                {formValues.info.client.tel}
+              </div>
+            </div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Назва банку: </span>
+                {formValues.info.client.bank}
+              </div>
+            </div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Рахунок: </span>
+                {formValues.info.client.account}
+              </div>
+            </div>
+            <div css={[styles.initials, styles.fieldBold]}>
+              <span css={styles.fieldBold}>_______________ </span>
+              {clientInitials}
+            </div>
+          </div>
+
+          <div css={styles.item}>
+            <div>
               <div css={styles.fieldBold}>Виконавець</div>
-              <BaseInput
-                register={register}
-                classname={[styles.fieldBold, styles.infoTitleInput]}
-                inputName="info.executor.name"
-              />
+              <div css={[styles.fieldBold, styles.infoTitleInput]}>
+                {formValues.info.executor.surname}{" "}
+                {formValues.info.executor.name}{" "}
+                {formValues.info.executor.patronym}
+              </div>
+            </div>
 
+            <div css={styles.infoField}>
               <div css={styles.infoField}>
-                <div css={styles.infoField}>
-                  <span css={styles.fieldBold}>Адреса:</span>
-                  <BaseInput
-                    register={register}
-                    inputName="info.executor.address"
-                  />
+                <div css={styles.infoFieldNoEdit}>
+                  <span css={styles.fieldBold}>Адреса: </span>
+                  {formValues.info.executor.address}
                 </div>
               </div>
+            </div>
 
-              <div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>
                   Реєстраційний номер облікової картки платника податків:
-                </span>
-                <BaseInput register={register} inputName="info.executor.reg" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>E-mail:</span>
-                <BaseInput
-                  register={register}
-                  inputName="info.executor.email"
-                />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>Телефон:</span>
-                <BaseInput register={register} inputName="info.executor.tel" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>Назва банку:</span>
-                <BaseInput register={register} inputName="info.executor.tel" />
-              </div>
-              <div css={styles.infoField}>
-                <span css={styles.fieldBold}>Рахунок:</span>
-                <BaseInput
-                  register={register}
-                  inputName="info.executor.account"
-                />
-              </div>
-              <div css={styles.initials}>
-                <span css={styles.fieldBold}>_______________</span>
-                <BaseInput
-                  register={register}
-                  classname={styles.fieldBold}
-                  inputName="info.executor.initials"
-                />
+                </span>{" "}
+                {formValues.info.executor.reg}
               </div>
             </div>
-          )}
-          {!isEditMode && (
-            <div css={styles.item}>
-              <div>
-                <div css={styles.fieldBold}>Виконавець</div>
-                <div css={[styles.fieldBold, styles.infoTitleInput]}>
-                  {formValues.info.executor.name}
-                </div>
-              </div>
-
-              <div css={styles.infoField}>
-                <div css={styles.infoField}>
-                  <div css={styles.infoFieldNoEdit}>
-                    <span css={styles.fieldBold}>Адреса: </span>
-                    {formValues.info.executor.address}
-                  </div>
-                </div>
-              </div>
-
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>
-                    Реєстраційний номер облікової картки платника податків:
-                  </span>{" "}
-                  {formValues.info.executor.reg}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>E-mail: </span>
-                  {formValues.info.executor.email}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Телефон: </span>
-                  {formValues.info.executor.tel}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Назва банку: </span>
-                  {formValues.info.executor.bank}
-                </div>
-              </div>
-              <div css={styles.infoField}>
-                <div css={styles.infoFieldNoEdit}>
-                  <span css={styles.fieldBold}>Рахунок: </span>
-                  {formValues.info.executor.account}
-                </div>
-              </div>
-              <div css={[styles.initials, styles.fieldBold]}>
-                <span css={styles.fieldBold}>_______________ </span>
-                {formValues.info.executor.initials}
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>E-mail: </span>
+                {formValues.info.executor.email}
               </div>
             </div>
-          )}
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Телефон: </span>
+                {formValues.info.executor.tel}
+              </div>
+            </div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Назва банку: </span>
+                {formValues.info.executor.bank}
+              </div>
+            </div>
+            <div css={styles.infoField}>
+              <div css={styles.infoFieldNoEdit}>
+                <span css={styles.fieldBold}>Рахунок: </span>
+                {formValues.info.executor.account}
+              </div>
+            </div>
+            <div css={[styles.initials, styles.fieldBold]}>
+              <span css={styles.fieldBold}>_______________ </span>
+              {executorInitials}
+            </div>
+          </div>
         </div>
       </div>
     </form>
