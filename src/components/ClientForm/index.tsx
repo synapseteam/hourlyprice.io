@@ -25,6 +25,8 @@ const ClientForm: React.FC<Props> = ({ type }): JSX.Element => {
 
   const schema = yup.object().shape({
     name: yup.string().required(),
+    surname: yup.string().required(),
+    patronym: yup.string().required(),
     address: yup.string().required(),
     reg: yup.string().required(),
     email: yup.string().email(t("emailError")).required(t("requiredEmail")),
@@ -51,13 +53,29 @@ const ClientForm: React.FC<Props> = ({ type }): JSX.Element => {
     <form onSubmit={handleSubmit(submitForm)} css={styles.form}>
       {type === "clientModal" && <h1 css={styles.title}>Замовник</h1>}
       {type === "executorModal" && <h1 css={styles.title}>Клієнт</h1>}
-      <div css={styles.item}>
+      <div css={styles.itemName}>
         <InputLabel
-          inputName="name"
-          labelName={t("name")}
+          inputName="surname"
+          labelName="Прізвище"
           register={register}
           classname={styles.input}
-          placeholder={t("emailPlaceholder")}
+          placeholder="Введіть Прізвище"
+          errors={errors}
+        />
+        <InputLabel
+          inputName="name"
+          labelName="Ім’я"
+          register={register}
+          classname={styles.input}
+          placeholder="Введіть ім’я"
+          errors={errors}
+        />
+        <InputLabel
+          inputName="patronym"
+          labelName="По батькові"
+          register={register}
+          classname={styles.input}
+          placeholder="Введіть по батькові"
           errors={errors}
         />
         <InputLabel
