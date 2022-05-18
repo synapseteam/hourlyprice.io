@@ -199,6 +199,26 @@ export default function ActOfWorkDoc({
     formValues.info.executor.surname
   }`;
 
+  const clientText = formValues.info.client.companyName
+    ? `${formValues.info.client.companyName}, Україна, 
+  в особі директора ${formValues.info.client.surname} 
+  ${formValues.info.client.name} ${formValues.info.client.patronym}, 
+  який діє на підставі Статуту, `
+    : `Фізична особа-підприємець ${formValues.info.client.surname} 
+    ${formValues.info.client.name} ${formValues.info.client.patronym} 
+    реєстраційний номер облікової картки платника податків 
+    ${formValues.info.client.reg}`;
+
+  const executorText = formValues.info.executor.companyName
+    ? `${formValues.info.executor.companyName}, Україна, 
+    в особі директора ${formValues.info.executor.surname} 
+    ${formValues.info.executor.name} ${formValues.info.executor.patronym}, 
+    який діє на підставі Статуту, `
+    : `Фізична особа-підприємець ${formValues.info.executor.surname} 
+    ${formValues.info.executor.name} ${formValues.info.executor.patronym} 
+    реєстраційний номер облікової картки платника податків 
+    ${formValues.info.executor.reg}`;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={styles.ActOfWorkDoc}>
       <div css={styles.save}>
@@ -290,17 +310,10 @@ export default function ActOfWorkDoc({
         <div css={styles.paragraphs}>
           <div css={[styles.paragraphs, styles.indent]}>
             <div>
-              {`${formValues.info.client.companyName}, Україна, 
-              в особі директора ${formValues.info.client.surname} 
-              ${formValues.info.client.name} ${formValues.info.client.patronym}, 
-              який діє на підставі Статуту, (надалі - “Замовник”) що діє від
-              імені Замовника, з одного боку, та`}
+              {`${clientText}, (надалі - “Замовник”) що діє від імені Замовника, з одного боку, та`}
             </div>
             <div>
-              {`Фізична особа-підприємець ${formValues.info.executor.surname} 
-              ${formValues.info.executor.name} ${formValues.info.executor.patronym} 
-              реєстраційний номер облікової картки платника податків 
-              ${formValues.info.executor.reg} (надалі “Виконавець”), 
+              {`${executorText} (надалі “Виконавець”), 
               з іншого боку, підписали цей акт
               приймання-передачі наданих послуг по Договору № ${formValues.contractNumber} від ${actDateToTitleString} про наступне:`}
             </div>

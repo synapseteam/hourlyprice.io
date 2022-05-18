@@ -21,6 +21,11 @@ const SideMenu: FC<Props> = ({ setModalType, isDark, setSelectedUser }) => {
     setModalType("clientModal");
   };
 
+  const onAddUser = () => {
+    setSelectedUser(undefined);
+    setModalType("clientModal");
+  };
+
   return (
     <div css={styles.SideMenu}>
       <Accordion
@@ -31,7 +36,7 @@ const SideMenu: FC<Props> = ({ setModalType, isDark, setSelectedUser }) => {
       >
         <Button
           disabled={false}
-          onClick={() => setModalType("clientModal")}
+          onClick={onAddUser}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
