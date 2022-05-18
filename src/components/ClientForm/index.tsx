@@ -24,17 +24,20 @@ const ClientForm: React.FC<Props> = ({ type, selectedUser }): JSX.Element => {
 
   const [t] = useCustomTranslation();
 
+  const requiredText = "Поле обов'язкове для заповнення";
+
   const schema = yup.object().shape({
-    name: yup.string().required(),
-    surname: yup.string().required(),
-    patronym: yup.string().required(),
-    address: yup.string().required(),
-    reg: yup.string().required(),
+    name: yup.string().required(requiredText),
+    surname: yup.string().required(requiredText),
+    patronym: yup.string().required(requiredText),
+    address: yup.string().required(requiredText),
+    reg: yup.string().required(requiredText),
     email: yup.string().email(t("emailError")).required(t("requiredEmail")),
-    tel: yup.string().required(),
-    bank: yup.string().required(),
-    account: yup.string().required(),
-    entityType: yup.string().required(),
+    tel: yup.string().required(requiredText),
+    bank: yup.string().required(requiredText),
+    account: yup.string().required(requiredText),
+    entityType: yup.string().required(requiredText),
+    companyName: yup.string().required(requiredText),
   });
 
   const {
@@ -157,6 +160,18 @@ const ClientForm: React.FC<Props> = ({ type, selectedUser }): JSX.Element => {
           errors={errors}
         />
       </div>
+      {entityType === "business" && (
+        <div css={styles.itemLarge}>
+          <InputLabel
+            inputName="companyName"
+            labelName="Назва компанії"
+            classname={styles.input}
+            register={register}
+            placeholder="Введіть назву компанії"
+            errors={errors}
+          />
+        </div>
+      )}
       <Button type="submit">Зберегти</Button>
     </form>
   );
