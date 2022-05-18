@@ -18,6 +18,7 @@ export default function BillPage({ isDark }) {
   const [isBillUpdated, setIsBillUpdated] = useState(false);
   const [isBillAdded, setIsBillAdded] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [selectedUser, setSelectedUser] = useState();
 
   useEffect(() => {
     if (modalType) {
@@ -59,8 +60,13 @@ export default function BillPage({ isDark }) {
         isBillUpdated={isBillUpdated}
       />
       <div css={styles.contentContainer}>
-        <SideMenu setModalType={setModalType} isDark={isDark} />
+        <SideMenu
+          setModalType={setModalType}
+          isDark={isDark}
+          setSelectedUser={setSelectedUser}
+        />
         <BillDoc
+          selectedUser={selectedUser}
           selectedBill={selectedBill}
           setBillItems={setBillItems}
           setIsBillAdded={setIsBillAdded}

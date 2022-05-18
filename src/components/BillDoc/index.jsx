@@ -20,14 +20,19 @@ export default function BillDoc({
   setBillItems,
   setIsBillAdded,
   setIsBillUpdated,
+  selectedUser,
 }) {
   const now = new Date();
   const [orderTotal, setOrderTotal] = useState(0);
   const [isEditMode, setIsEditMode] = useState();
 
   useEffect(() => {
-    selectedBill && reset(selectedBill);
-  }, [selectedBill]);
+    selectedUser &&
+      reset({
+        ...defaultValues,
+        info: { ...defaultValues.info, client: selectedUser },
+      });
+  }, [selectedUser]);
 
   const defaultValues = {
     docName: "test1",
@@ -49,6 +54,16 @@ export default function BillDoc({
         title: "XXX XXXXXXXX XXXXXXXXX",
         textField:
           "XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX",
+        account: "1234567890-34567890",
+        address: "Pivdenna str. 15",
+        bank: "PrivatBank",
+        email: "test23@gmail.com",
+        entityType: "physicalPerson",
+        name: "Test",
+        patronym: "Testovich",
+        reg: "123345",
+        surname: "Testenko",
+        tel: "0661111111",
       },
       buyer: {
         textField: "XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX",
