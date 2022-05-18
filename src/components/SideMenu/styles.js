@@ -5,6 +5,9 @@ export const styles = {
     width: 250px;
     background-color: ${theme.primary};
     color: ${theme.denary};
+    @media (max-width: 1080px) {
+      display: none;
+    }
   `,
 
   addButton: css`
