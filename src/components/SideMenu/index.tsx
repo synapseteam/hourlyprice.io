@@ -9,15 +9,21 @@ import { styles } from "./styles";
 interface Props {
   setModalType: Dispatch<SetStateAction<string>>;
   isDark: boolean;
+  setSelectedFields: any;
   setSelectedUser: any;
 }
-const SideMenu: FC<Props> = ({ setModalType, isDark, setSelectedUser }) => {
+const SideMenu: FC<Props> = ({
+  setModalType,
+  isDark,
+  setSelectedFields,
+  setSelectedUser,
+}) => {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
 
   const onOpenModal = (item: Record<any, any>) => {
-    setSelectedUser(item);
+    setSelectedFields(item);
     setModalType("clientModal");
   };
 

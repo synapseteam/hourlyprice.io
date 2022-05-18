@@ -17,6 +17,7 @@ export default function ActOfWorkPage({ isDark }) {
   const [isActAdded, setIsActAdded] = useState(false);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState();
+  const [selectedFields, setSelectedFields] = useState();
 
   useEffect(() => {
     if (modalType) {
@@ -55,7 +56,7 @@ export default function ActOfWorkPage({ isDark }) {
     <div css={styles.ActOfWorkPage}>
       <ModalDialog isOpen={modalType} onClose={closeModal}>
         {modalType === "clientModal" && (
-          <ClientForm type={modalType} selectedUser={selectedUser} />
+          <ClientForm type={modalType} selectedFields={selectedFields} />
         )}
         {modalType === "executorModal" && <ClientForm type={modalType} />}
       </ModalDialog>
@@ -71,6 +72,7 @@ export default function ActOfWorkPage({ isDark }) {
         <SideMenu
           setModalType={setModalType}
           isDark={isDark}
+          setSelectedFields={setSelectedFields}
           setSelectedUser={setSelectedUser}
         />
         <ActOfWorkDoc
