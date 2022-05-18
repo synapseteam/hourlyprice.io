@@ -3,6 +3,7 @@ import { Dispatch, FC, SetStateAction, useState } from "react";
 import Accordion from "../Accordion";
 import Button from "components/UI/Button";
 import SideMenuItem from "./SideMenuItem";
+import UsersArr from "mock/users.json";
 import { styles } from "./styles";
 
 interface Props {
@@ -31,9 +32,18 @@ const SideMenu: FC<Props> = ({ setModalType, isDark }) => {
           <span>Додати</span>
         </Button>
         <ul css={styles.list}>
-          <li>
-            <SideMenuItem isDark={isDark} />
-          </li>
+          {UsersArr &&
+            UsersArr.map((item) => (
+              <li key={item.id}>
+                <SideMenuItem
+                  isDark={isDark}
+                  name={item.name}
+                  surname={item.surname}
+                  patronym={item.patronym}
+                  toggleModal={() => setModalType("clientModal")}
+                />
+              </li>
+            ))}
         </ul>
       </Accordion>
       <Accordion
@@ -50,6 +60,20 @@ const SideMenu: FC<Props> = ({ setModalType, isDark }) => {
         >
           <span>Додати</span>
         </Button>
+        <ul css={styles.list}>
+          {UsersArr &&
+            UsersArr.map((item) => (
+              <li key={item.id}>
+                <SideMenuItem
+                  isDark={isDark}
+                  name={item.name}
+                  surname={item.surname}
+                  patronym={item.patronym}
+                  toggleModal={() => setModalType("executorModal")}
+                />
+              </li>
+            ))}
+        </ul>
       </Accordion>
       <Accordion
         isOpen={isOpen3}

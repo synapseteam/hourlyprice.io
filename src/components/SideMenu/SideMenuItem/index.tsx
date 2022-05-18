@@ -8,9 +8,18 @@ import { styles } from "./styles";
 interface ISideMenuItem {
   toggleModal?: MouseEventHandler<HTMLButtonElement>;
   isDark: boolean;
+  surname: string;
+  name: string;
+  patronym: string;
 }
 
-const SideMenuItem: FC<ISideMenuItem> = ({ toggleModal, isDark }) => {
+const SideMenuItem: FC<ISideMenuItem> = ({
+  toggleModal,
+  isDark,
+  surname,
+  name,
+  patronym,
+}) => {
   return (
     <div css={styles.SideMenuItem}>
       <Button
@@ -18,7 +27,10 @@ const SideMenuItem: FC<ISideMenuItem> = ({ toggleModal, isDark }) => {
         classname={styles.button}
         classnameContainer={styles.buttonContainer}
       >
-        <span css={styles.buttonText}>Surname S.P.</span>
+        <span css={styles.buttonText}>
+          {`${surname} ${name.charAt(0).toUpperCase()}.
+          ${patronym.charAt(0).toUpperCase()}.`}
+        </span>
       </Button>
       <Button
         type="button"

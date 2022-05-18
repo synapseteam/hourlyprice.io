@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "account": "1234567890-34567890",
+    "address": "Pivdenna str. 15",
+    "bank": "PrivatBank",
+    "email": "test23@gmail.com",
+    "entityType": "physicalPerson",
+    "name": "Test",
+    "patronym": "Testovich",
+    "reg": "123345",
+    "surname": "Testenko",
+    "tel": "0661111111"
+  },
+  {
+    "id": 2,
+    "account": "1234567890",
+    "address": "Pivnichns str. 10",
+    "bank": "MonoBank",
+    "email": "test23@gmail.com",
+    "entityType": "physicalPerson",
+    "name": "Євген",
+    "patronym": "Петрович",
+    "reg": "123345",
+    "surname": "Бйрактар",
+    "tel": "0661111111"
+  },
+  {
+    "id": 3,
+    "account": "2345678765432123456",
+    "address": "Ukrainska str. 345",
+    "bank": "PrivatBank",
+    "email": "shevchenko@mail.com",
+    "entityType": "business",
+    "name": "Тарас",
+    "patronym": "Григорович",
+    "reg": "654321",
+    "surname": "Шевченко",
+    "tel": "0991111111"
+  },
+  {
+    "id": 4,
+    "account": "9489759385",
+    "address": "Shevchenka str. 345",
+    "bank": "MonoBank",
+    "email": "franko@mail.com",
+    "entityType": "business",
+    "name": "Іван",
+    "patronym": "Якович",
+    "reg": "65432341",
+    "surname": "Франко",
+    "tel": "0674545455"
+  }
+]
