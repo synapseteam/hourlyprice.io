@@ -16,9 +16,10 @@ const entityTypeOptions = [
 
 interface Props {
   type?: "clientModal" | "executorModal";
+  selectedUser?: any;
 }
 
-const ClientForm: React.FC<Props> = ({ type }): JSX.Element => {
+const ClientForm: React.FC<Props> = ({ type, selectedUser }): JSX.Element => {
   const [entityType, setEntityType] = useState("physicalPerson");
 
   const [t] = useCustomTranslation();
@@ -43,6 +44,7 @@ const ClientForm: React.FC<Props> = ({ type }): JSX.Element => {
   } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
+    defaultValues: selectedUser && selectedUser,
   });
 
   const submitForm = async (data: any) => {

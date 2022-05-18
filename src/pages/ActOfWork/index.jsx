@@ -16,6 +16,7 @@ export default function ActOfWorkPage({ isDark }) {
   const [isActUpdated, setIsActUpdated] = useState(false);
   const [isActAdded, setIsActAdded] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [selectedUser, setSelectedUser] = useState();
 
   useEffect(() => {
     if (modalType) {
@@ -53,7 +54,9 @@ export default function ActOfWorkPage({ isDark }) {
   return (
     <div css={styles.ActOfWorkPage}>
       <ModalDialog isOpen={modalType} onClose={closeModal}>
-        {modalType === "clientModal" && <ClientForm type={modalType} />}
+        {modalType === "clientModal" && (
+          <ClientForm type={modalType} selectedUser={selectedUser} />
+        )}
         {modalType === "executorModal" && <ClientForm type={modalType} />}
       </ModalDialog>
       <HeaderActOfWork
@@ -65,8 +68,13 @@ export default function ActOfWorkPage({ isDark }) {
         isActAdded={isActAdded}
       />
       <div css={styles.contentContainer}>
-        <SideMenu setModalType={setModalType} isDark={isDark} />
+        <SideMenu
+          setModalType={setModalType}
+          isDark={isDark}
+          setSelectedUser={setSelectedUser}
+        />
         <ActOfWorkDoc
+          selectedUser={selectedUser}
           actOfWork={actOfWork}
           selectedAct={selectedAct}
           setActOfWork={setActOfWork}

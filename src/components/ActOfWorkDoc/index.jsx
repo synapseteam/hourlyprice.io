@@ -16,13 +16,20 @@ export default function ActOfWorkDoc({
   setActOfWork,
   setIsActUpdated,
   setIsActAdded,
+  selectedUser,
 }) {
   const [isEditMode, setIsEditMode] = useState(true);
   const [orderTotal, setOrderTotal] = useState(0);
   const now = new Date();
   useEffect(() => {
-    selectedAct && reset(selectedAct);
-  }, [selectedAct]);
+    selectedUser &&
+      reset({
+        ...defaultValues,
+        info: { ...defaultValues.info, client: selectedUser },
+      });
+  }, [selectedUser]);
+
+  console.log(selectedUser);
 
   const defaultValues = {
     docName: "test1",

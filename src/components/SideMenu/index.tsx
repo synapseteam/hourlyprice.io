@@ -9,11 +9,17 @@ import { styles } from "./styles";
 interface Props {
   setModalType: Dispatch<SetStateAction<string>>;
   isDark: boolean;
+  setSelectedUser: any;
 }
-const SideMenu: FC<Props> = ({ setModalType, isDark }) => {
+const SideMenu: FC<Props> = ({ setModalType, isDark, setSelectedUser }) => {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
+
+  const onOpenModal = (item: Record<any, any>) => {
+    setSelectedUser(item);
+    setModalType("clientModal");
+  };
 
   return (
     <div css={styles.SideMenu}>
@@ -40,7 +46,8 @@ const SideMenu: FC<Props> = ({ setModalType, isDark }) => {
                   name={item.name}
                   surname={item.surname}
                   patronym={item.patronym}
-                  toggleModal={() => setModalType("clientModal")}
+                  onClick={() => setSelectedUser(item)}
+                  toggleModal={() => onOpenModal(item)}
                 />
               </li>
             ))}
@@ -70,6 +77,7 @@ const SideMenu: FC<Props> = ({ setModalType, isDark }) => {
                   surname={item.surname}
                   patronym={item.patronym}
                   toggleModal={() => setModalType("executorModal")}
+                  onClick={() => setSelectedUser(item)}
                 />
               </li>
             ))}

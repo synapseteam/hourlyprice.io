@@ -11,6 +11,7 @@ interface ISideMenuItem {
   surname: string;
   name: string;
   patronym: string;
+  onClick: any;
 }
 
 const SideMenuItem: FC<ISideMenuItem> = ({
@@ -19,6 +20,7 @@ const SideMenuItem: FC<ISideMenuItem> = ({
   surname,
   name,
   patronym,
+  onClick,
 }) => {
   return (
     <div css={styles.SideMenuItem}>
@@ -26,6 +28,7 @@ const SideMenuItem: FC<ISideMenuItem> = ({
         type="button"
         classname={styles.button}
         classnameContainer={styles.buttonContainer}
+        onClick={onClick}
       >
         <span css={styles.buttonText}>
           {`${surname} ${name.charAt(0).toUpperCase()}.
