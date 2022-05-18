@@ -17,4 +17,9 @@ export const styles = {
     margin: 0 auto;
     width: 200px;
   `,
+
+  list: css`
+    list-style: none;
+    padding: 0 10px;
+  `,
 };

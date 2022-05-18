@@ -65,7 +65,7 @@ export default function ActOfWorkPage({ isDark }) {
         isActAdded={isActAdded}
       />
       <div css={styles.contentContainer}>
-        <SideMenu setModalType={setModalType} />
+        <SideMenu setModalType={setModalType} isDark={isDark} />
         <ActOfWorkDoc
           actOfWork={actOfWork}
           selectedAct={selectedAct}

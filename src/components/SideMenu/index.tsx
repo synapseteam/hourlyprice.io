@@ -2,12 +2,14 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import Accordion from "../Accordion";
 import Button from "components/UI/Button";
+import SideMenuItem from "./SideMenuItem";
 import { styles } from "./styles";
 
 interface Props {
   setModalType: Dispatch<SetStateAction<string>>;
+  isDark: boolean;
 }
-const SideMenu: FC<Props> = ({ setModalType }) => {
+const SideMenu: FC<Props> = ({ setModalType, isDark }) => {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
@@ -28,6 +30,11 @@ const SideMenu: FC<Props> = ({ setModalType }) => {
         >
           <span>Додати</span>
         </Button>
+        <ul css={styles.list}>
+          <li>
+            <SideMenuItem isDark={isDark} />
+          </li>
+        </ul>
       </Accordion>
       <Accordion
         isOpen={isOpen2}
