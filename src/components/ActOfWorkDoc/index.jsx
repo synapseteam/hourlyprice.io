@@ -29,8 +29,6 @@ export default function ActOfWorkDoc({
       });
   }, [selectedUser]);
 
-  console.log(selectedUser);
-
   const defaultValues = {
     docName: "test1",
     actNumber: "22-1904_6125",
@@ -49,7 +47,7 @@ export default function ActOfWorkDoc({
     cost: "105 (сто п'ять грн. 00 коп.)",
     info: {
       client: {
-        companyName: "ТОВАРИСТВО З ОБЗЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»",
+        companyName: "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «СІНАПС ТІМ»",
         name: "Роман",
         surname: "Барботкін",
         patronym: "Романович",
@@ -199,12 +197,13 @@ export default function ActOfWorkDoc({
     formValues.info.executor.surname
   }`;
 
-  const clientText = formValues.info.client.companyName
-    ? `${formValues.info.client.companyName}, Україна, 
+  const clientText =
+    selectedUser?.entityType === "business"
+      ? `${formValues.info.client.companyName}, Україна, 
   в особі директора ${formValues.info.client.surname} 
   ${formValues.info.client.name} ${formValues.info.client.patronym}, 
   який діє на підставі Статуту, `
-    : `Фізична особа-підприємець ${formValues.info.client.surname} 
+      : `Фізична особа-підприємець ${formValues.info.client.surname} 
     ${formValues.info.client.name} ${formValues.info.client.patronym} 
     реєстраційний номер облікової картки платника податків 
     ${formValues.info.client.reg}`;
