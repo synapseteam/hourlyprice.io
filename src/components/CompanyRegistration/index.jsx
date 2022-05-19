@@ -17,22 +17,14 @@ import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import { styles } from "./styles";
 
-const Registration = () => {
+const CompanyRegistration = () => {
   const [t] = useCustomTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const schema = yup.object().shape({
-    name: yup.string().required(t("nameError")),
-    email: yup.string().email(t("emailError")).required(t("requiredEmail")),
-    password: yup
-      .string()
-      .min(6, t("passwordErrorMin"))
-      .max(15, t("passwordErrorMax"))
-      .required(t("requiredPassword")),
-    password_confirmation: yup
-      .string()
-      .oneOf([yup.ref("password"), null], t("passwordErrorMatch")),
+    companyName: yup.string().required(t("nameError")),
+    reg: yup.string().required(t("regError")),
   });
 
   const {
@@ -54,19 +46,15 @@ const Registration = () => {
     }
 
     if (isSuccess || user) {
-      toast.info(t("successRegisterCompany"));
-      navigate("/companyRegistration");
+      toast.info(t("successRegister"));
+      navigate("/");
     }
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const submitForm = (data) => {
-    const userData = {
-      ...data,
-    };
-
-    dispatch(registration(userData));
+    console.log(data);
   };
 
   if (isLoading) {
@@ -75,48 +63,26 @@ const Registration = () => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)} css={styles.form}>
-      <h1 css={styles.title}> {t("registration")} </h1>
+      <h1 css={styles.title}> {t("registrationCompany")} </h1>
       <InputLabel
-        inputName="name"
-        labelName={t("name")}
+        inputName="companyName"
+        labelName={t("companyName")}
         register={register}
-        placeholder={t("namePlaceholder")}
+        placeholder={t("companyNamePlaceholder")}
         errors={errors}
       />
       <InputLabel
-        inputName="email"
-        labelName={t("email")}
+        inputName="reg"
+        labelName={t("reg")}
         register={register}
-        placeholder={t("emailPlaceholder")}
+        placeholder={t("regPlaceholder")}
         errors={errors}
       />
-      <InputLabel
-        inputName="password"
-        labelName={t("password")}
-        register={register}
-        placeholder={t("passwordPlaceholder")}
-        type="password"
-        errors={errors}
-      />
-      <InputLabel
-        inputName="password_confirmation"
-        labelName={t("password2Label")}
-        register={register}
-        placeholder={t("password2Placeholder")}
-        type="password"
-        errors={errors}
-      />
-      <div>
-        <span css={styles.haveAccount}>{t("haveAccount1")} </span>
-        <Link css={styles.link} to={ROUTES.login}>
-          {t("signIn")}
-        </Link>
-      </div>
       <Button type="submit" css={styles.formButton}>
-        {t("register")}
+        {t("registerCompany")}
       </Button>
     </form>
   );
 };
 
-export default Registration;
+export default CompanyRegistration;
