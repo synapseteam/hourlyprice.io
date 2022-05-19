@@ -23,33 +23,7 @@ export const styles = {
     margin: 0rem;
     text-align: center;
   `,
-  item: css`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 0.8rem;
-    label {
-      width: 48%;
-    }
-  `,
-  itemLarge: css`
-    width: 100%;
-    margin-top: 0.8rem;
-    label {
-      width: 100%;
-    }
-  `,
-  itemSmall: css`
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.8rem;
-    label {
-      width: 36%;
-      &:last-child {
-        width: 20%;
-      }
-    }
-  `,
+
   itemName: css`
     display: flex;
     justify-content: space-between;
@@ -65,6 +39,11 @@ export const styles = {
     background: white;
     border: 1px solid #dbdbdb;
     color: #171d3d;
+    color: #24274a;
+  `,
+  inputLabel: css`
+    margin-top: 10px;
+    color: #24274a;
   `,
   formInputError: css`
     border-color: red !important;
