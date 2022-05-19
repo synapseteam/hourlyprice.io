@@ -1,49 +1,31 @@
 /** @format */
 
 import { css } from "@emotion/react";
+
 export const styles = {
   form: css`
+    margin-top: 0.2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 0.2rem;
     width: 100%;
-    max-width: 700px;
+    max-width: 500px;
     align-self: center;
     padding-top: 10px;
-
-    > * {S
+    > * {
       margin-top: 0.8rem;
     }
     &:first-of-type {
       margin-top: 0rem;
     }
-  `,
-  title: css`
-    margin: 0rem;
-    text-align: center;
-  `,
 
-  itemName: css`
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.8rem;
-    label {
-      width: 22%;
-      &:last-child {
-        width: 30%;
-      }
+    @media (min-width: 720px) {
+      width: 47%;
     }
   `,
-  input: css`
-    background: white;
-    border: 1px solid #dbdbdb;
-    color: #171d3d;
-    color: #24274a;
-  `,
-  inputLabel: css`
-    margin-top: 10px;
-    color: #24274a;
+  title: (theme) => css`
+    text-align: center;
+    color: ${theme.senary};
   `,
   formInputError: css`
     border-color: red !important;
@@ -53,6 +35,9 @@ export const styles = {
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 10px;
+  `,
+  haveAccount: (theme) => css`
+    color: ${theme.senary};
   `,
   link: (theme) => css`
     color: ${theme.linkColor};

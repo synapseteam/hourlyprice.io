@@ -28,7 +28,7 @@ const SideMenu: FC<Props> = ({
   };
 
   const onAddUser = () => {
-    setSelectedUser(undefined);
+    setSelectedFields(undefined);
     setModalType("clientModal");
   };
 

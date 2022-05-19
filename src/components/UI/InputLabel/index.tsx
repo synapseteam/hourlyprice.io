@@ -8,6 +8,7 @@ interface Props {
   labelName: string;
   register: UseFormRegister<FieldValues>;
   classname?: SerializedStyles;
+  classnameLabel?: SerializedStyles;
   placeholder?: string;
   changeHandler?: () => void;
   inputName: string;
@@ -19,6 +20,7 @@ const InputLabel: React.FC<Props> = ({
   labelName,
   register,
   classname,
+  classnameLabel,
   placeholder,
   changeHandler,
   inputName,
@@ -26,7 +28,7 @@ const InputLabel: React.FC<Props> = ({
   errors,
 }): JSX.Element => {
   return (
-    <label css={styles.label}>
+    <label css={[styles.label, classnameLabel]}>
       {labelName}
       <input
         css={[styles.input, classname]}
