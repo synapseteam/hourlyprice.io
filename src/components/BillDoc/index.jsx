@@ -12,7 +12,6 @@ import { styles } from "./styles";
 import BaseDatePicker from "../UI/DatePicker";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
-import TextArea from "../UI/TextArea";
 import CloseIcon from "../../assets/close.svg";
 
 export default function BillDoc({
@@ -30,15 +29,15 @@ export default function BillDoc({
     selectedUser &&
       reset({
         ...defaultValues,
-        info: { ...defaultValues.info, client: selectedUser },
+        info: { ...defaultValues.info, provider: selectedUser },
       });
   }, [selectedUser]);
 
   const defaultValues = {
     docName: "test1",
     billNumber: "XXXXXX",
-    billDateFrom: now,
-    billDate: now,
+    billDateFrom: Date.parse(now),
+    billDate: Date.parse(now),
     billAuthor: "XXX XXXXXXXX XXXXXXXXX",
     details: [
       {
@@ -51,26 +50,32 @@ export default function BillDoc({
     total: "Одна тисяча гривень 00 копійок",
     info: {
       provider: {
-        title: "XXX XXXXXXXX XXXXXXXXX",
-        textField:
-          "XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX",
-        account: "1234567890-34567890",
-        address: "Pivdenna str. 15",
-        bank: "PrivatBank",
-        email: "test23@gmail.com",
-        entityType: "physicalPerson",
-        name: "Test",
-        patronym: "Testovich",
-        reg: "123345",
-        surname: "Testenko",
-        tel: "0661111111",
+        account: "XXXXXXXXXXXXXXXX",
+        address: "XXXXXXXXXXXXXXXX",
+        bank: "XXXXXXXXXXXXXXXX",
+        email: "XXXXXXXXXXXXXXXX",
+        entityType: "XXXXXXXXXXXXXXXX",
+        name: "XXXXXXXXXXXXXXXX",
+        patronym: "XXXXXXXXXXXXXXXX",
+        reg: "XXXXXXXXXXXXXXXX",
+        surname: "XXXXXXXXXXXXXXXX",
+        tel: "XXXXXXXXXXXXXXXX",
       },
       buyer: {
-        textField: "XXX XXXXXXXX XXXXXXXXX XXX XXXXXXXX XXXXXXXXX",
+        account: "XXXXXXXXXXXXXXXX",
+        address: "XXXXXXXXXXXXXXXX",
+        bank: "XXXXXXXXXXXXXXXX",
+        email: "XXXXXXXXXXXXXXXX",
+        entityType: "XXXXXXXXXXXXXXXX",
+        name: "XXXXXXXXXXXXXXXX",
+        patronym: "XXXXXXXXXXXXXXXX",
+        reg: "XXXXXXXXXXXXXXXX",
+        surname: "XXXXXXXXXXXXXXXX",
+        tel: "XXXXXXXXXXXXXXXX",
       },
     },
   };
-  const { register, handleSubmit, reset, getValues, setValue, control } =
+  const { register, handleSubmit, reset, getValues, setValue, control, watch } =
     useForm({
       defaultValues: selectedBill ? selectedBill : defaultValues,
     });
@@ -81,6 +86,8 @@ export default function BillDoc({
   });
 
   const formValues = getValues();
+
+  const watchBillDateFrom = watch("billDateFrom");
 
   const numberToString = require("number-to-cyrillic");
   numberToString.convert(21);
@@ -192,9 +199,11 @@ export default function BillDoc({
           <span>від </span>
           <BaseDatePicker
             register={register}
+            selected={watchBillDateFrom}
             inputName="billDateFrom"
             classname={styles.titleFieldBold}
             dateFormat="dd.MM.yyyy"
+            onChange={(date) => setValue("billDateFrom", date.getTime())}
             disabled={!isEditMode}
           />
         </div>
@@ -205,21 +214,88 @@ export default function BillDoc({
             </div>
             <div css={styles.infoContent}>
               <div css={styles.infoTitleInput}>
-                <BaseInput
-                  register={register}
-                  inputName="info.provider.title"
-                  width="250"
-                  classname={styles.fieldBold}
-                  disabled={!isEditMode}
-                />
+                <span css={styles.fieldBold}>
+                  {selectedUser?.entityType === "business"
+                    ? `ТОВ ${formValues.info.provider.companyName}`
+                    : `ФОП ${formValues.info.provider.surname} 
+                  ${formValues.info.provider.name} 
+                  ${formValues.info.provider.patronym}`}
+                </span>
               </div>
-              <TextArea
-                register={register}
-                inputName="info.provider.textField"
-                width="200"
-                height="70"
-                disabled={!isEditMode}
-              />
+              <div>
+                <div css={styles.info}>
+                  <div css={styles.fieldBold}>
+                    <span>Адреса: </span>
+                  </div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.provider.address"
+                    width="250"
+                    disabled={!isEditMode}
+                  />
+                </div>
+                <div css={styles.info}>
+                  <div css={styles.fieldBold}>
+                    {selectedUser?.entityType === "business" ? (
+                      <span>ЄДРПОУ: </span>
+                    ) : (
+                      <span style={{ maxWidth: "100px" }}>
+                        Реєстраційний номер облікової картки платника податків:{" "}
+                      </span>
+                    )}
+                    <BaseInput
+                      register={register}
+                      inputName="info.provider.reg"
+                      width="250"
+                      disabled={!isEditMode}
+                    />
+                  </div>
+                </div>
+                <div css={styles.info}>
+                  <div css={styles.fieldBold}>
+                    <span>E-mail: </span>
+                  </div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.provider.email"
+                    width="250"
+                    disabled={!isEditMode}
+                  />
+                </div>
+                <div css={styles.info}>
+                  <div css={styles.fieldBold}>
+                    <span>Телефон: </span>
+                  </div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.provider.tel"
+                    width="250"
+                    disabled={!isEditMode}
+                  />
+                </div>
+                <div css={styles.info}>
+                  <div css={styles.fieldBold}>
+                    <span>Назва банку: </span>
+                  </div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.provider.bank"
+                    width="250"
+                    disabled={!isEditMode}
+                  />
+                </div>
+                <div css={styles.info}>
+                  <div css={styles.fieldBold}>
+                    <span>Рахунок: </span>
+                  </div>
+                  <BaseInput
+                    register={register}
+                    inputName="info.provider.account"
+                    width="250"
+                    disabled={!isEditMode}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div css={styles.info}>
@@ -227,13 +303,18 @@ export default function BillDoc({
               <span>Покупець</span>
             </div>
             <div css={styles.infoContent}>
-              <TextArea
-                register={register}
-                inputName="info.buyer.textField"
-                width="200"
-                height="50s"
-                disabled={!isEditMode}
-              />
+              <span>
+                {selectedUser?.entityType === "business"
+                  ? `ТОВ ${formValues.info.buyer.companyName}`
+                  : `ФОП ${formValues.info.buyer.surname} 
+                  ${formValues.info.buyer.name} 
+                  ${formValues.info.buyer.patronym}`}
+              </span>
+              <span>
+                {selectedUser?.entityType === "business"
+                  ? `ЄДРПОУ ${formValues.info.buyer.reg}`
+                  : `Реєстраційний номер облікової картки платника податків: ${formValues.info.buyer.reg}`}
+              </span>
             </div>
           </div>
         </div>
@@ -353,13 +434,13 @@ export default function BillDoc({
           <div css={styles.billAuthorTitle}>
             <span css={styles.fieldBold}>Рахунок виписав (ла)</span>
           </div>
-          <BaseInput
-            register={register}
-            inputName="billAuthor"
-            width="300"
-            classname={styles.fieldBold}
-            disabled={!isEditMode}
-          />
+          <span css={styles.fieldBold}>
+            {selectedUser?.entityType === "business"
+              ? `ТОВ ${formValues.info.provider.companyName}`
+              : `ФОП ${formValues.info.provider.surname} 
+                  ${formValues.info.provider.name} 
+                  ${formValues.info.provider.patronym}`}
+          </span>
         </div>
       </form>
     </div>

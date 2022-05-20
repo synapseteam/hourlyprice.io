@@ -16,7 +16,6 @@ export const styles = {
     color: black;
     font-size: 14px;
     line-height: 18px;
-    height: 100%;
     width: 800px;
     margin: 10px auto;
     padding: 80px 50px;
