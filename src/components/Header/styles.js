@@ -47,10 +47,31 @@ export const styles = {
       display: none;
     }
   `,
+  accountDropdown: (theme) => css`
+    position: absolute;
+    top: 50px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: ${theme.primary};
+    width: 250px;
+    padding: 20px 20px 40px;
+    z-index: 3;
+    & > * {
+      padding: 10px 0px;
+      color: ${theme.denary};
+      font-size: 18px;
+      text-decoration: none;
+      :hover {
+        text-decoration: underline;
+      }
+    }
+  `,
   report: css`
     height: 1200px;
   `,
   item: css`
+    position: relative;
     margin: 0 5px;
   `,
   invoiceAnimation: (theme) => css`
