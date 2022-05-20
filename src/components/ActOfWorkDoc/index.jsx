@@ -477,7 +477,7 @@ export default function ActOfWorkDoc({
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
-                <span css={styles.fieldBold}>Адреса:</span>
+                <span css={styles.fieldBold}>Адреса: </span>
                 {formValues.info.client.address}
               </div>
             </div>
