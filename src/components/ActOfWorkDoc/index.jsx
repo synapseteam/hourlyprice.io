@@ -246,6 +246,7 @@ export default function ActOfWorkDoc({
           />
           <span>
             <Button
+              type="submit"
               classname={styles.editButton}
               classnameContainer={styles.editButtonContainer}
               onClick={onFinishEdit}
