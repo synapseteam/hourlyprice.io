@@ -37,7 +37,7 @@ export default function HeaderActOfWork({
           <Link css={styles.link} to={ROUTES.bill}>
             Рахунок-фактура
           </Link>
-          <div css={styles.dropdown} data-comp="list">
+          <div css={styles.dropdown} data-comp="hover">
             {billItems &&
               billItems.map((item, index) => {
                 return (
@@ -62,7 +62,7 @@ export default function HeaderActOfWork({
           <Link css={styles.link} to={ROUTES.actOfWork}>
             Акт виконаних робіт
           </Link>
-          <div css={styles.dropdown} data-comp="list">
+          <div css={styles.dropdown} data-comp="hover">
             {actOfWork &&
               actOfWork.map((item) => {
                 return (

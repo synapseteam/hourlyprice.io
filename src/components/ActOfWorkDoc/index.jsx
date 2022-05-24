@@ -8,19 +8,34 @@ import TextArea from "../UI/TextArea/index";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { styles } from "./styles";
 
 export default function ActOfWorkDoc({
-  selectedAct,
   setActOfWork,
   setIsActUpdated,
   setIsActAdded,
   selectedUser,
 }) {
-  const [isEditMode, setIsEditMode] = useState(true);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [isDocUpdated, setIsDocUpdated] = useState(false);
+  const [isEditInputShown, setIsEditInputShown] = useState(false);
+  const [editInputName, setEditInputName] = useState("");
+  const [editInputPosition, setEditInputPosition] = useState([]);
+  const [editedValue, setEditedValue] = useState("");
+
   const now = new Date();
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", alertUser);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", alertUser);
+  //   };
+  // }, []);
+  // const alertUser = (e) => {
+  //   e.preventDefault();
+  //   e.returnValue = "";
+  // };
+
   useEffect(() => {
     selectedUser &&
       reset({
@@ -31,6 +46,7 @@ export default function ActOfWorkDoc({
 
   const defaultValues = {
     docName: "test1",
+    city: "м. Запоріжжя",
     actNumber: "22-1904_6125",
     contractNumber: "2_17-02/2022",
     contractDateFrom: Date.parse(now),
@@ -73,10 +89,18 @@ export default function ActOfWorkDoc({
       },
     },
   };
-  const { register, control, handleSubmit, getValues, watch, setValue, reset } =
-    useForm({
-      defaultValues: selectedAct ? selectedAct : defaultValues,
-    });
+  const {
+    register,
+    control,
+    handleSubmit,
+    getValues,
+    watch,
+    setValue,
+    formState: { isDirty },
+    reset,
+  } = useForm({
+    defaultValues: defaultValues,
+  });
 
   const onSubmit = (data) => {
     const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs"));
@@ -124,16 +148,12 @@ export default function ActOfWorkDoc({
   const formValues = getValues();
 
   const addService = () => {
-    const lastItem =
-      formValues.details.length !== 0
-        ? formValues.details[formValues.details.length - 1]
-        : defaultValues.details[0];
     append({
-      title: lastItem.title,
-      units: lastItem.units,
-      price: lastItem.price,
-      quantity: lastItem.quantity,
-      total: lastItem.total,
+      title: "",
+      units: "",
+      price: "",
+      quantity: "",
+      total: "",
     });
   };
 
@@ -155,33 +175,6 @@ export default function ActOfWorkDoc({
     numberToString.convert(orderTotal).convertedInteger
   } грн. ${numberToString.convert(orderTotal).fractionalString} коп.)`;
 
-  const optionsDate = {
-    day: "2-digit",
-    weekday: undefined,
-    year: "numeric",
-    month: "long",
-  };
-
-  const milToStringTitleDate = new Date(formValues.contractDateFrom);
-  const actDateToTitleString = milToStringTitleDate.toLocaleDateString(
-    "uk-UA",
-    optionsDate
-  );
-  const actDateToTitleStringFormat = actDateToTitleString.substring(
-    0,
-    actDateToTitleString.length - 3
-  );
-  const milToStringSubtitleDate = new Date(formValues.actDate);
-  const actDateToSubtitleString = milToStringSubtitleDate.toLocaleDateString(
-    "uk-UA",
-    optionsDate
-  );
-  const actDateToSubtitleStringSplit = actDateToSubtitleString
-    .substring(0, actDateToSubtitleString.length - 3)
-    .split(" ");
-
-  const actDateToSubtitleStringFormat = `«${actDateToSubtitleStringSplit[0]}» ${actDateToSubtitleStringSplit[1]} ${actDateToSubtitleStringSplit[2]} року`;
-
   const watchContractDateFrom = watch("contractDateFrom");
   const watchActDate = watch("actDate");
 
@@ -197,29 +190,72 @@ export default function ActOfWorkDoc({
     formValues.info.executor.surname
   }`;
 
-  const clientText =
-    selectedUser?.entityType === "business"
-      ? `${formValues.info.client.companyName}, Україна, 
-  в особі директора ${formValues.info.client.surname} 
-  ${formValues.info.client.name} ${formValues.info.client.patronym}, 
-  який діє на підставі Статуту, `
-      : `Фізична особа-підприємець ${formValues.info.client.surname} 
-    ${formValues.info.client.name} ${formValues.info.client.patronym} 
-    реєстраційний номер облікової картки платника податків 
-    ${formValues.info.client.reg}`;
+  const onStartEdit = (e, value) => {
+    if (!isEditInputShown) {
+      setIsEditInputShown(true);
+      setEditInputName(value);
+      setEditInputPosition([
+        e.currentTarget.offsetLeft,
+        e.currentTarget.offsetTop - 35,
+      ]);
+    }
+  };
 
-  const executorText = formValues.info.executor.companyName
-    ? `${formValues.info.executor.companyName}, Україна, 
-    в особі директора ${formValues.info.executor.surname} 
-    ${formValues.info.executor.name} ${formValues.info.executor.patronym}, 
-    який діє на підставі Статуту, `
-    : `Фізична особа-підприємець ${formValues.info.executor.surname} 
-    ${formValues.info.executor.name} ${formValues.info.executor.patronym} 
-    реєстраційний номер облікової картки платника податків 
-    ${formValues.info.executor.reg}`;
+  const onChangeEdit = (e) => {
+    setEditedValue(e.currentTarget.value);
+  };
 
+  const onFinishEdit = () => {
+    setEditInputName();
+    setValue(
+      editInputName,
+      editedValue !== "" ? editedValue : getValues(editInputName),
+      { shouldDirty: true }
+    );
+    setEditedValue("");
+    setIsEditInputShown(false);
+  };
+
+  const optionsDate = {
+    day: "2-digit",
+    weekday: undefined,
+    year: "numeric",
+    month: "long",
+  };
+  const milToStringTitleDate = new Date(formValues.contractDateFrom);
+  const actDateToTitleString = milToStringTitleDate.toLocaleDateString(
+    "uk-UA",
+    optionsDate
+  );
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={styles.ActOfWorkDoc}>
+      {isEditInputShown && (
+        <span
+          css={styles.editInput}
+          style={{
+            position: "absolute",
+            left: editInputPosition[0],
+            top: editInputPosition[1],
+          }}
+        >
+          <BaseInput
+            register={register}
+            width={250}
+            inputName={editInputName}
+            onChange={(e) => onChangeEdit(e)}
+          />
+          <span>
+            <Button
+              classname={styles.editButton}
+              classnameContainer={styles.editButtonContainer}
+              onClick={onFinishEdit}
+            >
+              ✓
+            </Button>
+          </span>
+        </span>
+      )}
+
       <div css={styles.save}>
         <BaseInput
           classname={styles.saveInput}
@@ -231,15 +267,8 @@ export default function ActOfWorkDoc({
           <Button
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
-            onClick={() => setIsEditMode(!isEditMode)}
-          >
-            {isEditMode ? "Зберегти зміни" : "Редагувати"}
-          </Button>
-          <Button
-            classname={styles.saveButton}
-            classnameContainer={styles.saveButtonContainer}
             type="submit"
-            disabled={isEditMode}
+            disabled={!isDirty}
           >
             Зберегти
           </Button>
@@ -248,73 +277,211 @@ export default function ActOfWorkDoc({
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
             onClick={generatePDF}
-            disabled={isEditMode}
           >
             Скачати pdf
           </Button>
         </div>
       </div>
       <div css={styles.actOfWork} id="actOfWork">
-        {isEditMode && (
-          <div>
-            <div css={styles.title}>
-              Акт приймання-передачі №
-              <BaseInput register={register} inputName="actNumber" width="95" />
-              наданих послуг до договору
-              <br />
-              №
-              <BaseInput
-                register={register}
-                inputName="contractNumber"
-                width="95"
-              />
-              від{" "}
+        <div>
+          <div css={styles.title}>
+            Акт приймання-передачі №
+            <span
+              onClick={(e) => onStartEdit(e, "actNumber")}
+              data-comp="hover"
+            >
+              {formValues.actNumber}
+            </span>{" "}
+            наданих послуг до договору
+            <br />№
+            <span
+              onClick={(e) => onStartEdit(e, "contractNumber")}
+              data-comp="hover"
+            >
+              {formValues.contractNumber}
+            </span>{" "}
+            {formValues.contractNumber} від{" "}
+            <BaseDatePicker
+              register={register}
+              selected={watchContractDateFrom}
+              inputName="contractDateFrom"
+              onChange={(date) =>
+                setValue("contractDateFrom", date.getTime(), {
+                  shouldDirty: true,
+                })
+              }
+            />
+          </div>
+          <div css={styles.subtitle}>
+            <div onClick={(e) => onStartEdit(e, "city")}>{formValues.city}</div>
+            <div>
               <BaseDatePicker
                 register={register}
-                selected={watchContractDateFrom}
-                inputName="contractDateFrom"
+                selected={watchActDate}
+                inputName="actDate"
+                dateFormat="«dd» MMMM yyyy року"
                 onChange={(date) =>
-                  setValue("contractDateFrom", date.getTime())
+                  setValue("actDate", date.getTime(), { shouldDirty: true })
                 }
               />
             </div>
-            <div css={styles.subtitle}>
-              <div>м. Запоріжжя</div>
-              <div>
-                <BaseDatePicker
-                  register={register}
-                  selected={watchActDate}
-                  inputName="actDate"
-                  dateFormat="«dd» MMMM yyyy року"
-                  onChange={(date) => setValue("actDate", date.getTime())}
-                />
-              </div>
-            </div>
           </div>
-        )}
-        {!isEditMode && (
-          <div>
-            <div css={styles.title}>
-              {`Акт приймання-передачі №${formValues.actNumber}
-              наданих послуг до договору`}
-              <br />№ {formValues.contractNumber} від
-              {actDateToTitleStringFormat}
-            </div>
-            <div css={styles.subtitle}>
-              <div>м. Запоріжжя</div>
-              <div>{actDateToSubtitleStringFormat}</div>
-            </div>
-          </div>
-        )}
+        </div>
         <div css={styles.paragraphs}>
           <div css={[styles.paragraphs, styles.indent]}>
             <div>
-              {`${clientText}, (надалі - “Замовник”) що діє від імені Замовника, з одного боку, та`}
+              {selectedUser?.entityType === "business" && (
+                <>
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.companyName")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.companyName}
+                  </span>{" "}
+                  , Україна, в особі директора{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.surname")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.surname}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.name")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.name}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.patronym")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.patronym}
+                  </span>{" "}
+                  який діє на підставі Статуту,
+                </>
+              )}
+              {selectedUser?.entityType !== "business" && (
+                <>
+                  Фізична особа-підприємець{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.surname")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.surname}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.name")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.name}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.patronym")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.patronym}
+                  </span>{" "}
+                  реєстраційний номер облікової картки платника податків{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.client.reg")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.client.reg}
+                  </span>{" "}
+                </>
+              )}
+              , (надалі - <strong>“Замовник”</strong> ) що діє від імені
+              Замовника, з одного боку, та
             </div>
             <div>
-              {`${executorText} (надалі “Виконавець”), 
-              з іншого боку, підписали цей акт
-              приймання-передачі наданих послуг по Договору № ${formValues.contractNumber} від ${actDateToTitleString} про наступне:`}
+              {formValues.info.executor.companyName && (
+                <>
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.companyName")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.companyName}
+                  </span>{" "}
+                  , Україна, в особі директора
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.surname")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.surname}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.name")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.name}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.patronym")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.patronym}
+                  </span>{" "}
+                  який діє на підставі Статуту,{" "}
+                </>
+              )}
+              {!formValues.info.executor.companyName && (
+                <>
+                  Фізична особа-підприємець{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.surname")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.surname}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.name")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.name}
+                  </span>{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.patronym")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.patronym}
+                  </span>{" "}
+                  реєстраційний номер облікової картки платника податків{" "}
+                  <span
+                    css={styles.fieldBold}
+                    onClick={(e) => onStartEdit(e, "info.executor.reg")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.reg}
+                  </span>{" "}
+                </>
+              )}
+              (надалі <strong>“Виконавець”</strong> ), з іншого боку, підписали
+              цей акт приймання-передачі наданих послуг по договору{" "}
+              <strong> № </strong>
+              <span
+                css={styles.fieldBold}
+                onClick={(e) => onStartEdit(e, "contractNumber")}
+                data-comp="hover"
+              >
+                {formValues.contractNumber}
+              </span>{" "}
+              <strong> від {actDateToTitleString} </strong>
+              про наступне:
             </div>
             <div css={styles.paragraphs}>
               Виконавець здав, а Замовник прийняв послуги по розробці
@@ -333,127 +500,92 @@ export default function ActOfWorkDoc({
             <span css={styles.column6}>Вартість, грн., без ПДВ</span>
           </div>
 
-          {isEditMode &&
-            formValues.details.map((item, index) => {
-              return (
-                <div key={index} css={styles.heading}>
-                  <span css={styles.column1}> {index + 1}</span>
-                  <span css={styles.column2}>
-                    <TextArea
-                      classname={[styles.fieldBold, styles.textareaSmall]}
-                      inputName={`details[${index}].title`}
-                      register={register}
-                      maxLength={70}
-                      height="40"
-                    />
-                  </span>
-                  <span css={styles.column3}>
-                    <BaseInput
-                      classname={styles.fieldBold}
-                      register={register}
-                      inputName={`details[${index}].units`}
-                    />
-                  </span>
-                  <span css={styles.column4}>
-                    <BaseInput
-                      classname={styles.fieldBold}
-                      register={register}
-                      inputName={`details[${index}].price`}
-                      type="number"
-                      onChange={(e) => {
-                        setValue(
-                          `details.${index}.total`,
-                          (
-                            Number(e.target.value) *
-                            convertStrTimeToNum(
-                              formValues.details[index].quantity
-                            )
-                          ).toFixed(2)
-                        );
-                        calculateOrderTotal();
-                      }}
-                    />
-                  </span>
-                  <span css={styles.column5}>
-                    <BaseInput
-                      classname={styles.fieldBold}
-                      register={register}
-                      inputName={`details[${index}].quantity`}
-                      onChange={(e) => {
-                        handleTimeChange(e);
-                        setValue(
-                          `details.${index}.total`,
-                          (
-                            Number(formValues.details[index].price) *
-                            convertStrTimeToNum(e.target.value)
-                          ).toFixed(2)
-                        );
-                        calculateOrderTotal();
-                      }}
-                    />
-                  </span>
-                  <span css={styles.column6}>
-                    <BaseInput
-                      register={register}
-                      classname={styles.fieldBold}
-                      inputName={`details[${index}].total`}
-                      readOnly
-                    />
-                  </span>
-                  {isEditMode && (
-                    <img
-                      css={styles.removeButton}
-                      onClick={() => remove(index)}
-                      src={CloseIcon}
-                      alt="remove"
-                    />
-                  )}
-                </div>
-              );
-            })}
-          {!isEditMode &&
-            formValues.details.map((item, index) => {
-              return (
-                <div key={index} css={styles.heading}>
-                  <span css={styles.column1}> {index + 1}</span>
-                  <span
-                    css={[styles.column2, styles.fieldBold, styles.noEditTitle]}
-                  >
-                    {formValues.details[index].title}
-                  </span>
-                  <span css={[styles.column3, styles.fieldBold]}>
-                    {formValues.details[index].units}
-                  </span>
-                  <span css={[styles.column4, styles.fieldBold]}>
-                    {formValues.details[index].price}
-                  </span>
-                  <span css={[styles.column5, styles.fieldBold]}>
-                    {formValues.details[index].quantity}
-                  </span>
-                  <span css={[styles.column6, styles.fieldBold]}>
-                    {formValues.details[index].total}
-                  </span>
-                  {isEditMode && (
-                    <img
-                      css={styles.removeButton}
-                      onClick={() => remove(index)}
-                      src={CloseIcon}
-                      alt="remove"
-                    />
-                  )}
-                </div>
-              );
-            })}
-          {isEditMode && (
-            <Button
-              classname={styles.addButton}
-              classnameContainer={styles.addButtonContainer}
-              type="button"
-              onClick={addService}
-            >
-              Додати сервіс
-            </Button>
-          )}
+          {formValues.details.map((item, index) => {
+            return (
+              <div key={index} css={styles.heading}>
+                <span css={styles.column1}> {index + 1}</span>
+                <span css={styles.column2}>
+                  <TextArea
+                    classname={[styles.fieldBold, styles.textareaSmall]}
+                    inputName={`details[${index}].title`}
+                    register={register}
+                    maxLength={70}
+                    height="40"
+                  />
+                </span>
+                <span css={styles.column3}>
+                  <BaseInput
+                    classname={styles.fieldBold}
+                    register={register}
+                    inputName={`details[${index}].units`}
+                  />
+                </span>
+                <span css={styles.column4}>
+                  <BaseInput
+                    classname={styles.fieldBold}
+                    register={register}
+                    inputName={`details[${index}].price`}
+                    type="number"
+                    onChange={(e) => {
+                      setValue(
+                        `details.${index}.total`,
+                        (
+                          Number(e.target.value) *
+                          convertStrTimeToNum(
+                            formValues.details[index].quantity
+                          )
+                        ).toFixed(2),
+                        { shouldDirty: true }
+                      );
+                      calculateOrderTotal();
+                    }}
+                  />
+                </span>
+                <span css={styles.column5}>
+                  <BaseInput
+                    classname={styles.fieldBold}
+                    register={register}
+                    inputName={`details[${index}].quantity`}
+                    onChange={(e) => {
+                      handleTimeChange(e);
+                      setValue(
+                        `details.${index}.total`,
+                        (
+                          Number(formValues.details[index].price) *
+                          convertStrTimeToNum(e.target.value)
+                        ).toFixed(2),
+                        { shouldDirty: true }
+                      );
+                      calculateOrderTotal();
+                    }}
+                  />
+                </span>
+                <span css={styles.column6}>
+                  <BaseInput
+                    register={register}
+                    classname={styles.fieldBold}
+                    inputName={`details[${index}].total`}
+                    readOnly
+                  />
+                </span>
+                <img
+                  css={styles.removeButton}
+                  onClick={() => remove(index)}
+                  src={CloseIcon}
+                  alt="remove"
+                />
+              </div>
+            );
+          })}
+
+          <Button
+            classname={styles.addButton}
+            classnameContainer={styles.addButtonContainer}
+            type="button"
+            onClick={addService}
+          >
+            Додати сервіс
+          </Button>
           <div css={styles.total}>
             <span css={styles.fieldBold}>{orderTotal}</span>
           </div>
@@ -471,45 +603,79 @@ export default function ActOfWorkDoc({
           <div css={styles.item}>
             <div>
               <div css={styles.fieldBold}>Замовник</div>
-              <div css={[styles.fieldBold, styles.infoTitleInput]}>
+              <div
+                css={[styles.fieldBold, styles.infoTitleInput]}
+                onClick={(e) => onStartEdit(e, "info.client.companyName")}
+                data-comp="hover"
+              >
                 {formValues.info.client.companyName}
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Адреса: </span>
-                {formValues.info.client.address}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.client.address")}
+                  data-comp="hover"
+                >
+                  {formValues.info.client.address}
+                </span>
               </div>
             </div>
 
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>ЄДРПОУ: </span> &nbsp;
-                {formValues.info.client.reg}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.client.reg")}
+                  data-comp="hover"
+                >
+                  {formValues.info.client.reg}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>E-mail: </span>
-                {formValues.info.client.email}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.client.email")}
+                  data-comp="hover"
+                >
+                  {formValues.info.client.email}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Телефон: </span>
-                {formValues.info.client.tel}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.client.tel")}
+                  data-comp="hover"
+                >
+                  {formValues.info.client.tel}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Назва банку: </span>
-                {formValues.info.client.bank}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.client.bank")}
+                  data-comp="hover"
+                >
+                  {formValues.info.client.bank}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Рахунок: </span>
-                {formValues.info.client.account}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.client.account")}
+                  data-comp="hover"
+                >
+                  {formValues.info.client.account}
+                </span>
               </div>
             </div>
             <div css={[styles.initials, styles.fieldBold]}>
@@ -522,9 +688,24 @@ export default function ActOfWorkDoc({
             <div>
               <div css={styles.fieldBold}>Виконавець</div>
               <div css={[styles.fieldBold, styles.infoTitleInput]}>
-                {formValues.info.executor.surname}{" "}
-                {formValues.info.executor.name}{" "}
-                {formValues.info.executor.patronym}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.surname")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.surname}{" "}
+                </span>
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.name")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.name}{" "}
+                </span>
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.patronym")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.patronym}
+                </span>
               </div>
             </div>
 
@@ -532,7 +713,12 @@ export default function ActOfWorkDoc({
               <div css={styles.infoField}>
                 <div css={styles.infoFieldNoEdit}>
                   <span css={styles.fieldBold}>Адреса: </span>
-                  {formValues.info.executor.address}
+                  <span
+                    onClick={(e) => onStartEdit(e, "info.executor.address")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.executor.address}
+                  </span>
                 </div>
               </div>
             </div>
@@ -542,31 +728,56 @@ export default function ActOfWorkDoc({
                 <span css={styles.fieldBold}>
                   Реєстраційний номер облікової картки платника податків:
                 </span>{" "}
-                {formValues.info.executor.reg}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.reg")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.reg}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>E-mail: </span>
-                {formValues.info.executor.email}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.email")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.email}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Телефон: </span>
-                {formValues.info.executor.tel}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.tel")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.tel}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Назва банку: </span>
-                {formValues.info.executor.bank}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.bank")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.bank}
+                </span>
               </div>
             </div>
             <div css={styles.infoField}>
               <div css={styles.infoFieldNoEdit}>
                 <span css={styles.fieldBold}>Рахунок: </span>
-                {formValues.info.executor.account}
+                <span
+                  onClick={(e) => onStartEdit(e, "info.executor.account")}
+                  data-comp="hover"
+                >
+                  {formValues.info.executor.account}
+                </span>
               </div>
             </div>
             <div css={[styles.initials, styles.fieldBold]}>
