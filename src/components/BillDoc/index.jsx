@@ -8,11 +8,12 @@ import { useForm, useFieldArray } from "react-hook-form";
 import JsPDF from "jspdf";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input";
-import { styles } from "./styles";
 import BaseDatePicker from "../UI/DatePicker";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
 import CloseIcon from "../../assets/close.svg";
+import { styles } from "./styles";
+import { styles as editInputStyles } from "../ActOfWorkDoc/styles";
 
 export default function BillDoc({
   selectedBill,
@@ -23,7 +24,10 @@ export default function BillDoc({
 }) {
   const now = new Date();
   const [orderTotal, setOrderTotal] = useState(0);
-  const [isEditMode, setIsEditMode] = useState();
+  const [isEditInputShown, setIsEditInputShown] = useState(false);
+  const [editInputName, setEditInputName] = useState("");
+  const [editInputPosition, setEditInputPosition] = useState([]);
+  const [editedValue, setEditedValue] = useState("");
 
   useEffect(() => {
     selectedUser &&
@@ -75,10 +79,18 @@ export default function BillDoc({
       },
     },
   };
-  const { register, handleSubmit, reset, getValues, setValue, control, watch } =
-    useForm({
-      defaultValues: selectedBill ? selectedBill : defaultValues,
-    });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    setValue,
+    control,
+    formState: { isDirty },
+    watch,
+  } = useForm({
+    defaultValues: selectedBill ? selectedBill : defaultValues,
+  });
 
   const { remove, append } = useFieldArray({
     name: "details",
@@ -150,6 +162,32 @@ export default function BillDoc({
     append({ title: "XXX XXXXXXXX XXXXXXXXX", price: 0, quantity: 0, sum: 0 });
   };
 
+  const onStartEdit = (e, value) => {
+    if (!isEditInputShown) {
+      setIsEditInputShown(true);
+      setEditInputName(value);
+      setEditInputPosition([
+        e.currentTarget.offsetLeft,
+        e.currentTarget.offsetTop - 35,
+      ]);
+    }
+  };
+
+  const onChangeEdit = (e) => {
+    setEditedValue(e.currentTarget.value);
+  };
+
+  const onFinishEdit = () => {
+    setEditInputName();
+    setValue(
+      editInputName,
+      editedValue !== "" ? editedValue : getValues(editInputName),
+      { shouldDirty: true }
+    );
+    setEditedValue("");
+    setIsEditInputShown(false);
+  };
+
   return (
     <div css={styles.BillDocContainer}>
       <div css={styles.save}>
@@ -163,16 +201,8 @@ export default function BillDoc({
           <Button
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
-            onClick={() => setIsEditMode(!isEditMode)}
-          >
-            {isEditMode ? "Зберегти зміни" : "Редагувати"}
-          </Button>
-
-          <Button
-            classname={styles.saveButton}
-            classnameContainer={styles.saveButtonContainer}
             type="submit"
-            disabled={isEditMode}
+            disabled={!isDirty}
           >
             Зберегти
           </Button>
@@ -180,22 +210,49 @@ export default function BillDoc({
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
             onClick={generatePDF}
-            disabled={isEditMode}
           >
             Скачати pdf
           </Button>
         </div>
       </div>
       <form css={styles.billDoc} onSubmit={handleSubmit(onSubmit)} id="billDoc">
+        {isEditInputShown && (
+          <span
+            css={editInputStyles.editInput}
+            style={{
+              position: "absolute",
+              left: editInputPosition[0],
+              top: editInputPosition[1],
+            }}
+          >
+            <BaseInput
+              register={register}
+              width={250}
+              inputName={editInputName}
+              onChange={(e) => onChangeEdit(e)}
+            />
+            <span>
+              <Button
+                type="submit"
+                classname={editInputStyles.editButton}
+                classnameContainer={editInputStyles.editButtonContainer}
+                onClick={onFinishEdit}
+              >
+                ✓
+              </Button>
+            </span>
+          </span>
+        )}
+
         <div css={styles.title}>
           <span>Рахунок-фактура №22-</span>
-          <BaseInput
-            register={register}
-            inputName="billNumber"
-            width="80"
-            classname={styles.titleFieldBold}
-            disabled={!isEditMode}
-          />
+          <span
+            css={styles.titleFieldBold}
+            onClick={(e) => onStartEdit(e, "billNumber")}
+            data-comp="hover"
+          >
+            {formValues.billNumber}
+          </span>{" "}
           <span>від </span>
           <BaseDatePicker
             register={register}
@@ -204,7 +261,6 @@ export default function BillDoc({
             classname={styles.titleFieldBold}
             dateFormat="dd.MM.yyyy"
             onChange={(date) => setValue("billDateFrom", date.getTime())}
-            disabled={!isEditMode}
           />
         </div>
         <div css={styles.infoContainer}>
@@ -224,76 +280,85 @@ export default function BillDoc({
               </div>
               <div>
                 <div css={styles.info}>
-                  <div css={styles.fieldBold}>
-                    <span>Адреса: </span>
-                  </div>
-                  <BaseInput
-                    register={register}
-                    inputName="info.provider.address"
-                    width="250"
-                    disabled={!isEditMode}
-                  />
+                  <div>
+                    <span css={styles.fieldBold}>Адреса:</span>{" "}
+                    <span
+                      onClick={(e) => onStartEdit(e, "info.provider.address")}
+                      data-comp="hover"
+                    >
+                      {formValues.info.provider.address}
+                    </span>{" "}
+                  </div>{" "}
                 </div>
                 <div css={styles.info}>
-                  <div css={styles.fieldBold}>
+                  <div>
                     {selectedUser?.entityType === "business" ? (
-                      <span>ЄДРПОУ: </span>
+                      <span css={styles.fieldBold}>ЄДРПОУ: </span>
                     ) : (
-                      <span style={{ maxWidth: "100px" }}>
+                      <span
+                        css={styles.fieldBold}
+                        style={{ maxWidth: "100px" }}
+                      >
                         Реєстраційний номер облікової картки платника податків:{" "}
                       </span>
                     )}
-                    <BaseInput
-                      register={register}
-                      inputName="info.provider.reg"
-                      width="250"
-                      disabled={!isEditMode}
-                    />
+                    <span
+                      onClick={(e) => onStartEdit(e, "info.provider.reg")}
+                      data-comp="hover"
+                    >
+                      {formValues.info.provider.reg}
+                    </span>
                   </div>
                 </div>
                 <div css={styles.info}>
-                  <div css={styles.fieldBold}>
-                    <span>E-mail: </span>
+                  <div>
+                    <span css={styles.fieldBold}>E-mail: </span>
+                    <span
+                      onClick={(e) => onStartEdit(e, "info.provider.email")}
+                      data-comp="hover"
+                    >
+                      {formValues.info.provider.email}
+                    </span>{" "}
                   </div>
-                  <BaseInput
-                    register={register}
-                    inputName="info.provider.email"
-                    width="250"
-                    disabled={!isEditMode}
-                  />
                 </div>
                 <div css={styles.info}>
-                  <div css={styles.fieldBold}>
-                    <span>Телефон: </span>
+                  <div>
+                    <span css={styles.fieldBold}>Телефон: </span>
+                    <span
+                      onClick={(e) => onStartEdit(e, "info.provider.tel")}
+                      data-comp="hover"
+                    >
+                      {formValues.info.provider.tel}
+                    </span>{" "}
                   </div>
-                  <BaseInput
-                    register={register}
-                    inputName="info.provider.tel"
-                    width="250"
-                    disabled={!isEditMode}
-                  />
                 </div>
                 <div css={styles.info}>
-                  <div css={styles.fieldBold}>
-                    <span>Назва банку: </span>
+                  <div>
+                    <span css={styles.fieldBold}>Назва банку: </span>
+                    <span
+                      onClick={(e) => onStartEdit(e, "info.provider.bank")}
+                      data-comp="hover"
+                    >
+                      {formValues.info.provider.bank}
+                    </span>{" "}
                   </div>
-                  <BaseInput
-                    register={register}
-                    inputName="info.provider.bank"
-                    width="250"
-                    disabled={!isEditMode}
-                  />
                 </div>
                 <div css={styles.info}>
-                  <div css={styles.fieldBold}>
-                    <span>Рахунок: </span>
+                  <div>
+                    <span css={styles.fieldBold}>Рахунок: </span>
+                    <span
+                      onClick={(e) => onStartEdit(e, "info.provider.bank")}
+                      data-comp="hover"
+                    >
+                      {formValues.info.provider.bank}
+                    </span>{" "}
                   </div>
-                  <BaseInput
-                    register={register}
-                    inputName="info.provider.account"
-                    width="250"
-                    disabled={!isEditMode}
-                  />
+                  <span
+                    onClick={(e) => onStartEdit(e, "info.provider.account")}
+                    data-comp="hover"
+                  >
+                    {formValues.info.provider.account}
+                  </span>{" "}
                 </div>
               </div>
             </div>
@@ -338,7 +403,6 @@ export default function BillDoc({
                   inputName={`details[${index}].title`}
                   width="200"
                   classname={styles.fieldBold}
-                  disabled={!isEditMode}
                 />
               </div>
               <div css={styles.fieldBold}>Година</div>
@@ -348,7 +412,6 @@ export default function BillDoc({
                   inputName={`details[${index}].quantity`}
                   width="70"
                   classname={styles.fieldBold}
-                  disabled={!isEditMode}
                   onChange={(e) => {
                     handleTimeChange(e);
                     setValue(
@@ -368,7 +431,6 @@ export default function BillDoc({
                   inputName={`details[${index}].price`}
                   width="70"
                   classname={styles.fieldBold}
-                  disabled={!isEditMode}
                   type="number"
                   onChange={(e) => {
                     setValue(
@@ -390,30 +452,25 @@ export default function BillDoc({
                   width="80"
                   readOnly={true}
                   classname={styles.fieldBold}
-                  disabled={!isEditMode}
                 />
               </div>
 
-              {isEditMode && (
-                <img
-                  css={styles.detailsRemoveBtn}
-                  onClick={() => remove(index)}
-                  src={CloseIcon}
-                  alt="remove"
-                />
-              )}
+              <img
+                css={styles.detailsRemoveBtn}
+                onClick={() => remove(index)}
+                src={CloseIcon}
+                alt="remove"
+              />
             </div>
           ))}
-          {isEditMode && (
-            <Button
-              classname={styles.addButton}
-              classnameContainer={styles.addButtonContainer}
-              type="button"
-              onClick={addService}
-            >
-              Додати сервіс
-            </Button>
-          )}
+          <Button
+            classname={styles.addButton}
+            classnameContainer={styles.addButtonContainer}
+            type="button"
+            onClick={addService}
+          >
+            Додати сервіс
+          </Button>
           <div css={styles.total}>
             <div>
               <span css={styles.fieldBold}>{orderTotal} грн.</span>

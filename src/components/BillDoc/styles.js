@@ -19,6 +19,24 @@ export const styles = {
     width: 800px;
     margin: 10px auto;
     padding: 80px 50px;
+
+    &:hover [data-comp="hover"] {
+      background-color: #dfdfdf;
+      transition: 0.3s;
+      input {
+        background-color: #dfdfdf;
+        transition: 0.3s;
+      }
+    }
+    [data-comp="hover"] {
+      transition: 0.3s;
+      &:hover {
+        cursor: pointer;
+      }
+      input {
+        transition: 0.3s;
+      }
+    }
   `,
 
   title: css`

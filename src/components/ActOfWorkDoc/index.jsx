@@ -18,7 +18,6 @@ export default function ActOfWorkDoc({
   selectedUser,
 }) {
   const [orderTotal, setOrderTotal] = useState(0);
-  const [isDocUpdated, setIsDocUpdated] = useState(false);
   const [isEditInputShown, setIsEditInputShown] = useState(false);
   const [editInputName, setEditInputName] = useState("");
   const [editInputPosition, setEditInputPosition] = useState([]);
@@ -227,6 +226,7 @@ export default function ActOfWorkDoc({
     "uk-UA",
     optionsDate
   );
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={styles.ActOfWorkDoc}>
       {isEditInputShown && (
