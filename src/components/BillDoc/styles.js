@@ -19,6 +19,24 @@ export const styles = {
     width: 800px;
     margin: 10px auto;
     padding: 80px 50px;
+
+    &:hover [data-comp="hover"] {
+      background-color: #dfdfdf;
+      transition: 0.3s;
+      input {
+        background-color: #dfdfdf;
+        transition: 0.3s;
+      }
+    }
+    [data-comp="hover"] {
+      transition: 0.3s;
+      &:hover {
+        cursor: pointer;
+      }
+      input {
+        transition: 0.3s;
+      }
+    }
   `,
 
   title: css`
@@ -107,39 +125,6 @@ export const styles = {
   billAuthorTitle: css`
     margin-bottom: 15px;
   `,
-
-  save: (theme) => css`
-    background-color: ${theme.primary};
-    display: flex;
-    justify-content: space-between;
-    margin: 15px auto;
-    padding: 10px 30px;
-    width: 800px;
-    background-color: input {
-      border: 1px solid black;
-      margin-right: 10px;
-    }
-  `,
-  saveInput: (theme) => css`
-    border-bottom: 1px solid ${theme.senary};
-    background: none;
-    color: ${theme.senary};
-    font-size: 24px;
-  `,
-  buttons: css`
-    display: flex;
-    div:not(:last-of-type) {
-      margin-right: 10px;
-    }
-  `,
-  saveButton: css`
-    width: 130px;
-    padding: 0.5rem 0.7rem;
-  `,
-  saveButtonContainer: css`
-    margin: 0;
-  `,
-
   detailsRemoveBtn: css`
     position: absolute;
     right: -30px;

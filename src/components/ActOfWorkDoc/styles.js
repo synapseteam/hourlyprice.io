@@ -99,6 +99,18 @@ export const styles = {
     width: 130px;
     padding: 0.5rem 0.7rem;
   `,
+  copyButtonIcon: css`
+    height: 27px;
+    padding: 0;
+  `,
+  copyButton: css`
+    height: 34px;
+    padding: 2px 5px;
+  `,
+  copyButtonContainer: css`
+    margin: 0;
+    padding: 0;
+  `,
   saveButtonContainer: css`
     margin: 0;
   `,
