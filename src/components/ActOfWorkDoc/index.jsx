@@ -4,8 +4,12 @@ import PropTypes from "prop-types";
 import { useForm, useFieldArray } from "react-hook-form";
 import BaseDatePicker from "../UI/DatePicker/index";
 import CloseIcon from "../../assets/close.svg";
+import CopyIcon from "../../assets/copy-black.png";
+import ReactTooltip from "react-tooltip";
+import CopyIconWhite from "../../assets/copy-white.png";
 import TextArea from "../UI/TextArea/index";
 import BaseInput from "../UI/Input/index";
+import { useTheme } from "@emotion/react";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import { useEffect, useState, useRef } from "react";
@@ -23,17 +27,9 @@ export default function ActOfWorkDoc({
   const [editInputPosition, setEditInputPosition] = useState([]);
   const [editedValue, setEditedValue] = useState("");
 
+  const theme = useTheme();
+
   const now = new Date();
-  // useEffect(() => {
-  //   window.addEventListener("beforeunload", alertUser);
-  //   return () => {
-  //     window.removeEventListener("beforeunload", alertUser);
-  //   };
-  // }, []);
-  // const alertUser = (e) => {
-  //   e.preventDefault();
-  //   e.returnValue = "";
-  // };
 
   useEffect(() => {
     selectedUser &&
@@ -101,30 +97,22 @@ export default function ActOfWorkDoc({
     defaultValues: defaultValues,
   });
 
-  const onSubmit = (data) => {
-    const actOfWork = JSON.parse(localStorage.getItem("actOfWorkDocs"));
+  useEffect(() => {
+    if (isDirty) {
+      window.addEventListener("beforeunload", alertUser);
+    }
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, [isDirty]);
 
-    if (!actOfWork) {
-      setActOfWork([data]);
-      setIsActAdded(true);
-    }
-    if (actOfWork) {
-      let index = null;
-      const itemExist = actOfWork.find((item, i) => {
-        if (item.docName === data.docName) index = i;
-        return item.docName === data.docName;
-      });
-      if (!itemExist) {
-        actOfWork.push(data);
-        setActOfWork(actOfWork);
-        setIsActAdded(true);
-      }
-      if (itemExist) {
-        actOfWork[index] = data;
-        setActOfWork(actOfWork);
-        setIsActUpdated(true);
-      }
-    }
+  const alertUser = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
+
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   const numberToString = require("number-to-cyrillic");
@@ -273,13 +261,24 @@ export default function ActOfWorkDoc({
           >
             Зберегти
           </Button>
-
           <Button
             classname={styles.saveButton}
             classnameContainer={styles.saveButtonContainer}
             onClick={generatePDF}
           >
             Скачати pdf
+          </Button>
+          <ReactTooltip place="bottom" effect="solid" />
+          <Button
+            classnameContainer={styles.copyButtonContainer}
+            classname={styles.copyButton}
+            dataTip={"Скопіювати дані з рахунок-фактури"}
+          >
+            <img
+              css={styles.copyButtonIcon}
+              src={theme.name === "dark" ? CopyIconWhite : CopyIcon}
+              alt="copy"
+            />
           </Button>
         </div>
       </div>

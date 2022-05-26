@@ -11,9 +11,13 @@ import BaseInput from "../UI/Input";
 import BaseDatePicker from "../UI/DatePicker";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
+import ReactTooltip from "react-tooltip";
+import CopyIcon from "../../assets/copy-black.png";
+import CopyIconWhite from "../../assets/copy-white.png";
+import { useTheme } from "@emotion/react";
 import CloseIcon from "../../assets/close.svg";
 import { styles } from "./styles";
-import { styles as editInputStyles } from "../ActOfWorkDoc/styles";
+import { styles as actOfWorkStyles } from "../ActOfWorkDoc/styles";
 
 export default function BillDoc({
   selectedBill,
@@ -22,12 +26,14 @@ export default function BillDoc({
   setIsBillUpdated,
   selectedUser,
 }) {
-  const now = new Date();
   const [orderTotal, setOrderTotal] = useState(0);
   const [isEditInputShown, setIsEditInputShown] = useState(false);
   const [editInputName, setEditInputName] = useState("");
   const [editInputPosition, setEditInputPosition] = useState([]);
   const [editedValue, setEditedValue] = useState("");
+
+  const theme = useTheme();
+  const now = new Date();
 
   useEffect(() => {
     selectedUser &&
@@ -92,6 +98,20 @@ export default function BillDoc({
     defaultValues: selectedBill ? selectedBill : defaultValues,
   });
 
+  useEffect(() => {
+    if (isDirty) {
+      window.addEventListener("beforeunload", alertUser);
+    }
+    return () => {
+      window.removeEventListener("beforeunload", alertUser);
+    };
+  }, [isDirty]);
+
+  const alertUser = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
+
   const { remove, append } = useFieldArray({
     name: "details",
     control,
@@ -133,29 +153,7 @@ export default function BillDoc({
   };
 
   const onSubmit = (data) => {
-    const billItems = JSON.parse(localStorage.getItem("billDocs"));
-
-    if (!billItems) {
-      setBillItems([data]);
-      setIsBillAdded(true);
-    }
-    if (billItems) {
-      let index = null;
-      const itemExist = billItems.find((item, i) => {
-        if (item.docName === data.docName) index = i;
-        return item.docName === data.docName;
-      });
-      if (!itemExist) {
-        billItems.push(data);
-        setBillItems(billItems);
-        setIsBillAdded(true);
-      }
-      if (itemExist) {
-        billItems[index] = data;
-        setBillItems(billItems);
-        setIsBillUpdated(true);
-      }
-    }
+    console.log(data);
   };
 
   const addService = () => {
@@ -190,35 +188,47 @@ export default function BillDoc({
 
   return (
     <div css={styles.BillDocContainer}>
-      <div css={styles.save}>
+      <div css={actOfWorkStyles.save}>
         <BaseInput
-          classname={styles.saveInput}
+          classname={actOfWorkStyles.saveInput}
           register={register}
           inputName="docName"
           width="250"
         />
-        <div css={styles.buttons}>
+        <div css={actOfWorkStyles.buttons}>
           <Button
-            classname={styles.saveButton}
-            classnameContainer={styles.saveButtonContainer}
+            classname={actOfWorkStyles.saveButton}
+            classnameContainer={actOfWorkStyles.saveButtonContainer}
             type="submit"
             disabled={!isDirty}
           >
             Зберегти
           </Button>
           <Button
-            classname={styles.saveButton}
-            classnameContainer={styles.saveButtonContainer}
+            classname={actOfWorkStyles.saveButton}
+            classnameContainer={actOfWorkStyles.saveButtonContainer}
             onClick={generatePDF}
           >
             Скачати pdf
+          </Button>
+          <Button
+            classnameContainer={actOfWorkStyles.copyButtonContainer}
+            classname={actOfWorkStyles.copyButton}
+            dataTip={"Скопіювати дані з акту виконаних робіт"}
+          >
+            <img
+              css={actOfWorkStyles.copyButtonIcon}
+              src={theme.name === "dark" ? CopyIconWhite : CopyIcon}
+              alt="copy"
+            />
+            <ReactTooltip place="bottom" effect="solid" />
           </Button>
         </div>
       </div>
       <form css={styles.billDoc} onSubmit={handleSubmit(onSubmit)} id="billDoc">
         {isEditInputShown && (
           <span
-            css={editInputStyles.editInput}
+            css={actOfWorkStyles.editInput}
             style={{
               position: "absolute",
               left: editInputPosition[0],
@@ -234,8 +244,8 @@ export default function BillDoc({
             <span>
               <Button
                 type="submit"
-                classname={editInputStyles.editButton}
-                classnameContainer={editInputStyles.editButtonContainer}
+                classname={actOfWorkStyles.editButton}
+                classnameContainer={actOfWorkStyles.editButtonContainer}
                 onClick={onFinishEdit}
               >
                 ✓
@@ -260,7 +270,9 @@ export default function BillDoc({
             inputName="billDateFrom"
             classname={styles.titleFieldBold}
             dateFormat="dd.MM.yyyy"
-            onChange={(date) => setValue("billDateFrom", date.getTime())}
+            onChange={(date) =>
+              setValue("billDateFrom", date.getTime(), { shouldDirty: true })
+            }
           />
         </div>
         <div css={styles.infoContainer}>

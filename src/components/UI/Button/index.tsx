@@ -10,6 +10,7 @@ interface Props {
   classname?: SerializedStyles;
   classnameContainer?: SerializedStyles;
   form?: string;
+  dataTip?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<Props> = ({
   classname,
   classnameContainer,
   form,
+  dataTip,
 }) => {
   return (
     <div css={[styles.buttonContainer, classnameContainer]}>
@@ -30,6 +32,7 @@ const Button: React.FC<Props> = ({
         onClick={onClick}
         disabled={disabled}
         form={form}
+        data-tip={dataTip}
       >
         {children}
       </button>
