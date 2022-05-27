@@ -27,10 +27,12 @@ import { setInvoiceItemAdded, setInvoiceFull } from "features/generic";
 import { useWindowDimensions } from "../../hooks";
 import { useCustomTranslation } from "../../i18n";
 import { ROUTES } from "../../utils/urls";
-import { styles } from "./styles";
 import { toast } from "react-toastify";
+import { styles } from "./styles";
 
 export default function Header({ setIsDark, isDark }) {
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -130,10 +132,31 @@ export default function Header({ setIsDark, isDark }) {
           </div>
         )}
         {!user && (
-          <Link to={ROUTES.login} css={styles.item}>
-            {!isDark && <img src={LoginIcon} css={styles.loginIcon} />}
-            {isDark && <img src={LoginWhiteIcon} css={styles.loginIcon} />}
-          </Link>
+          <div css={styles.item}>
+            {!isDark && (
+              <img
+                onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
+                src={LoginIcon}
+                css={styles.loginIcon}
+              />
+            )}
+            {isDark && (
+              <img
+                onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
+                src={LoginWhiteIcon}
+                css={styles.loginIcon}
+              />
+            )}
+            {isAccountDropdownOpen && (
+              <div css={styles.accountDropdown}>
+                <Link to={ROUTES.login}>{t("login")}</Link>
+                <Link to={ROUTES.registration}>{t("registration")}</Link>
+                <Link to={ROUTES.companyRegistration}>
+                  {t("registrationCompany")}
+                </Link>
+              </div>
+            )}
+          </div>
         )}
       </div>
       <ModalDialog isOpen={isInvoiceModalOpen} onClose={toggleInvoiceModal}>

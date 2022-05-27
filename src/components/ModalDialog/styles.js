@@ -18,7 +18,7 @@ export const styles = {
     position: fixed;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-height: 500px;
+    max-height: 580px;
     width: 912px;
     background: #fff;
     z-index: 5;

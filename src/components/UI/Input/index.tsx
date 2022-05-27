@@ -4,19 +4,21 @@
  */
 
 import { SerializedStyles } from "@emotion/react";
+import { CSSProperties } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 
 interface Props {
   register: UseFormRegister<any>;
+  onChange: () => void;
   inputName: string;
-  classname?: SerializedStyles | SerializedStyles[];
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  classname?: SerializedStyles;
   width?: number;
   placeholder?: string;
   disabled?: boolean;
   readOnly?: boolean;
   type?: string;
+  step?: string;
 }
 
 const BaseInput: React.FC<Props> = ({
@@ -29,6 +31,7 @@ const BaseInput: React.FC<Props> = ({
   disabled,
   readOnly = false,
   type = "text",
+  step = "any",
 }): JSX.Element => {
   return (
     <input
@@ -42,6 +45,7 @@ const BaseInput: React.FC<Props> = ({
       type={type}
       inputMode="decimal"
       autoComplete="off"
+      step={step}
     />
   );
 };

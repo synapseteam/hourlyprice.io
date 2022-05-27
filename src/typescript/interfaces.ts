@@ -36,3 +36,7 @@ export interface IActInfoUser {
   reg: string
   tel: string
 }
+export interface IOption {
+  value: string | number;
+  label: string;
+}

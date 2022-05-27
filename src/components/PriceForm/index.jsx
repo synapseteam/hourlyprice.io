@@ -54,12 +54,13 @@ export default function PriceForm() {
   );
   const { price, time } = useSelector((state) => state.generic.fields);
 
-  const allCurrenciesNames = allCurrencies.map((el) => el.name);
+  const allCurrenciesNames = allCurrencies.map((el) => {
+    return { label: el.name, value: el.name };
+  });
 
   const dispatch = useDispatch();
-
   const [chosenCurrency, setChosenCurrency] = useState("USD");
-  const [chosenRatesSource, setChosenRatesSource] = useState("MasterCard");
+  const [chosenRatesSource, setChosenRatesSource] = useState("masterCard");
 
   const [keepAPIRatesCache, setkeepAPIRatesCache] = useState(true);
 
@@ -97,10 +98,10 @@ export default function PriceForm() {
   }
 
   useEffect(() => {
-    if (ratesSource === "Manual") {
+    if (ratesSource === "manual") {
       setkeepAPIRatesCache(() => false);
     }
-    if (ratesSource === "MasterCard") {
+    if (ratesSource === "masterCard") {
       setkeepAPIRatesCache(() => true);
     }
   }, [ratesSource]);
@@ -116,11 +117,11 @@ export default function PriceForm() {
 
     const time = convertStrTimeToNum(timeString);
 
-    if (ratesSource === "MasterCard") {
+    if (ratesSource === "masterCard") {
       updateRatesIfCacheExpired();
     }
 
-    if (ratesSource === "Manual") {
+    if (ratesSource === "manual") {
       const newRates = transformRatesResponse(manualRates);
       dispatch(setManualRates2(newRates));
     }
@@ -204,7 +205,7 @@ export default function PriceForm() {
         optionsArr={ratesSources}
         errors={errors}
       />
-      {chosenRatesSource === "Manual" && (
+      {chosenRatesSource === "manual" && (
         <RatesInputSet
           register={register}
           allCurrencies={allCurrencies}

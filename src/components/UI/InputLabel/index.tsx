@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
+import { SerializedStyles } from "@emotion/react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 
 interface Props {
   labelName: string;
   register: UseFormRegister<FieldValues>;
-  placeholder: string;
-  changeHandler: () => void;
+  classname?: SerializedStyles;
+  classnameLabel?: SerializedStyles;
+  placeholder?: string;
+  changeHandler?: () => void;
   inputName: string;
   type?: string;
   errors: FieldErrors<FieldValues>;
@@ -16,6 +19,8 @@ interface Props {
 const InputLabel: React.FC<Props> = ({
   labelName,
   register,
+  classname,
+  classnameLabel,
   placeholder,
   changeHandler,
   inputName,
@@ -23,23 +28,21 @@ const InputLabel: React.FC<Props> = ({
   errors,
 }): JSX.Element => {
   return (
-    <>
-      <label css={styles.label}>
-        {labelName}
-        <input
-          css={styles.input}
-          {...register(inputName)}
-          type={type}
-          inputMode="decimal"
-          placeholder={placeholder}
-          autoComplete="off"
-          onChange={changeHandler}
-        />
-        {errors[inputName] && (
-          <p css={styles.error}>{errors[inputName].message}</p>
-        )}
-      </label>
-    </>
+    <label css={[styles.label, classnameLabel]}>
+      {labelName}
+      <input
+        css={[styles.input, classname]}
+        {...register(inputName)}
+        type={type}
+        inputMode="decimal"
+        placeholder={placeholder}
+        autoComplete="off"
+        onChange={changeHandler}
+      />
+      {errors[inputName] && (
+        <p css={styles.error}>{errors[inputName].message}</p>
+      )}
+    </label>
   );
 };
 

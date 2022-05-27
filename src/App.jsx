@@ -9,6 +9,7 @@ import { store } from "./store/index";
 import HomePage from "./pages/Home/index";
 import LoginPage from "./pages/Login/index";
 import RegistrationPage from "./pages/Registration/index";
+import CompanyRegistrationPage from "./pages/CompanyRegistration/index";
 import ActOfWorkPage from "./pages/ActOfWork/index";
 import BillPage from "./pages/Bill/index";
 import { themeDark, themeLight } from "theme";
@@ -56,6 +57,15 @@ function App() {
               path={ROUTES.registration}
               element={
                 <RegistrationPage isDark={isDark} setIsDark={setIsDark} />
+              }
+            />
+            <Route
+              path={ROUTES.companyRegistration}
+              element={
+                <CompanyRegistrationPage
+                  isDark={isDark}
+                  setIsDark={setIsDark}
+                />
               }
             />
           </Routes>

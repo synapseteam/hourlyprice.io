@@ -10,7 +10,7 @@ const initialState = {
     { name: "UAH", rate: 1, symbol: "₴" },
   ],
   updatedAt: "",
-  ratesSource: "MasterCard",
+  ratesSource: "masterCard",
 };
 
 export const fetchRates = createAsyncThunk("rates/fetchRates", async () => {
@@ -28,7 +28,7 @@ export const ratesSlice = createSlice({
     },
     setManualRates: (state, action) => {
       state.allCurrencies = action.payload;
-      state.ratesSource = "Manual";
+      state.ratesSource = "manual";
     },
   },
   extraReducers: {

@@ -4,12 +4,13 @@ import { styles } from "./styles";
 
 interface Props {
   type?: "button" | "reset" | "submit";
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  children: JSX.Element[] | JSX.Element | string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: string | JSX.Element[] | JSX.Element;
   disabled?: boolean;
   classname?: SerializedStyles;
   classnameContainer?: SerializedStyles;
   form?: string;
+  dataTip?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<Props> = ({
   classname,
   classnameContainer,
   form,
+  dataTip,
 }): JSX.Element => {
   return (
     <div css={[styles.buttonContainer, classnameContainer]}>
@@ -30,6 +32,7 @@ const Button: React.FC<Props> = ({
         onClick={onClick}
         disabled={disabled}
         form={form}
+        data-tip={dataTip}
       >
         {children}
       </button>

@@ -17,19 +17,21 @@ export default function BaseDatePicker({
   onChange,
   inputName,
   dateFormat = "dd MMMM yyyy",
-  width = 155,
+  width = 170,
   classname,
   disabled,
 }) {
   return (
-    <>
+    <span data-comp="hover">
       <Global
         styles={css`
           .react-datepicker-wrapper {
             width: auto;
             text-indent: 0px;
+            cursor: pointer;
             input {
               width: ${width}px;
+              cursor: pointer;
             }
           }
         `}
@@ -37,14 +39,13 @@ export default function BaseDatePicker({
       <DatePicker
         css={[styles.fieldDate, classname]}
         locale={uk}
-        ву
         selected={selected}
         dateFormat={dateFormat}
         {...register(inputName)}
         onChange={onChange}
         disabled={disabled}
       />
-    </>
+    </span>
   );
 }
 

@@ -9,16 +9,24 @@ import { useLocalStorage } from "../../hooks";
 import HeaderActOfWork from "../../components/HeaderActOfWork/index";
 import Footer from "../../components/Footer";
 import BillDoc from "../../components/BillDoc";
+import SideMenu from "../../components/SideMenu";
 import { styles } from "./styles";
 
 export default function BillPage({ isDark }) {
-  const [billItems, setBillItems] = useLocalStorage({
-    key: "billDocs",
-    initialState: [],
-  });
+  const [billItems, setBillItems] = useLocalStorage("billDocs", []);
   const [selectedBill, setSelectedBill] = useState(null);
   const [isBillUpdated, setIsBillUpdated] = useState(false);
   const [isBillAdded, setIsBillAdded] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [selectedUser, setSelectedUser] = useState();
+
+  useEffect(() => {
+    if (modalType) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [modalType]);
 
   useEffect(() => {
     if (isBillUpdated) {
@@ -51,12 +59,21 @@ export default function BillPage({ isDark }) {
         isBillAdded={isBillAdded}
         isBillUpdated={isBillUpdated}
       />
-      <BillDoc
-        selectedBill={selectedBill}
-        setBillItems={setBillItems}
-        setIsBillAdded={setIsBillAdded}
-        setIsBillUpdated={setIsBillUpdated}
-      />
+      <div css={styles.contentContainer}>
+        <SideMenu
+          setModalType={setModalType}
+          isDark={isDark}
+          setSelectedUser={setSelectedUser}
+        />
+        <BillDoc
+          selectedUser={selectedUser}
+          selectedBill={selectedBill}
+          setBillItems={setBillItems}
+          setIsBillAdded={setIsBillAdded}
+          setIsBillUpdated={setIsBillUpdated}
+        />
+      </div>
+
       <div css={styles.noPreviewMessage}>
         Попередній перегляд не підтримується
       </div>

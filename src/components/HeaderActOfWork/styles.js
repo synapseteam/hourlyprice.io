@@ -6,7 +6,7 @@ export const styles = {
   `,
   actOfWork: css`
     position: relative;
-    &:hover [data-comp="list"] {
+    &:hover [data-comp="hover"] {
       display: block;
     }
   `,

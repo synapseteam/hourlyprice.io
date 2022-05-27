@@ -17,7 +17,10 @@ export const errorsMessages = {
 //limit frame for updating rates using API. If user made new request within specified timeframe (in seconds) data will requested from state, state not updated using API/
 export const ratesUpdatingTimeFrame = SEC_IN_MINUTE * MIN_STORE_CACHE;
 
-export const ratesSources = ["MasterCard", "Manual"];
+export const ratesSources = [
+  { value: "masterCard", label: "MasterCard" },
+  { value: "manual", label: "Manual" },
+];
 
 export const currenciesSymbols = [
   { name: "USD", symbol: "$" },

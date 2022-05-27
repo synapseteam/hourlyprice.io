@@ -2,9 +2,12 @@ import { css } from "@emotion/react";
 
 export const styles = {
   ActOfWorkDoc: css`
+    position: relative;
     @media (max-width: 820px) {
       display: none;
     }
+
+    margin: 0 auto;
   `,
   actOfWork: css`
     display: flex;
@@ -14,10 +17,27 @@ export const styles = {
     align-self: stretch;
     font-size: 14px;
     line-height: 18px;
-    height: 100%;
     width: 800px;
     margin: 15px auto 50px;
     padding: 30px 80px 150px;
+
+    &:hover [data-comp="hover"] {
+      background-color: #dfdfdf;
+      transition: 0.3s;
+      input {
+        background-color: #dfdfdf;
+        transition: 0.3s;
+      }
+    }
+    [data-comp="hover"] {
+      transition: 0.3s;
+      &:hover {
+        cursor: pointer;
+      }
+      input {
+        transition: 0.3s;
+      }
+    }
     @media (max-width: 820px) {
       display: none;
     }
@@ -41,6 +61,34 @@ export const styles = {
     color: ${theme.senary};
     font-size: 24px;
   `,
+  editInput: (theme) => css`
+    display: flex;
+    border: 1px solid black;
+    background: #f6f6f6;
+    color: ${theme.senary};
+    z-index: 5;
+    input {
+      background: #f6f6f6;
+      &:hover [data-comp="hover"] {
+        background-color: #dfdfdf;
+        transition: 0.3s;
+      }
+    }
+    :hover [data-comp="hover"] {
+      background-color: #dfdfdf;
+      transition: 0.3s;
+    }
+  `,
+  editButton: css`
+    width: 25px;
+    height: 25px;
+    margin: 2px;
+    padding: 1px;
+    border-radius: 0;
+  `,
+  editButtonContainer: css`
+    margin: 0px;
+  `,
   buttons: css`
     display: flex;
     div:not(:last-of-type) {
@@ -50,6 +98,18 @@ export const styles = {
   saveButton: css`
     width: 130px;
     padding: 0.5rem 0.7rem;
+  `,
+  copyButtonIcon: css`
+    height: 27px;
+    padding: 0;
+  `,
+  copyButton: css`
+    height: 34px;
+    padding: 2px 5px;
+  `,
+  copyButtonContainer: css`
+    margin: 0;
+    padding: 0;
   `,
   saveButtonContainer: css`
     margin: 0;
@@ -88,7 +148,7 @@ export const styles = {
     margin-top: 15px;
   `,
   indent: css`
-    text-indent: 30px;
+    text-indent: 50px;
   `,
   textarea: css`
     resize: none;
@@ -172,6 +232,7 @@ export const styles = {
     display: flex;
     height: 350px;
     margin-top: 60px;
+    justify-content: space-between;
   `,
   infoField: css`
     display: flex;
@@ -194,7 +255,8 @@ export const styles = {
   `,
   item: css`
     display: flex;
-    width: 50%;
+    width: 49%;
+
     flex-direction: column;
     line-height: 20px;
     span {

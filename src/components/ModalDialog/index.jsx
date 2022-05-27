@@ -21,13 +21,14 @@ export const ModalDialog = ({
   children,
   title = "",
   onClose,
+  className,
 }) => {
   if (!isOpen) return null;
 
   return createPortal(
     <>
       <div css={styles.overlay} onClick={onClose} />
-      <div css={styles.modal} className={"show"}>
+      <div css={[styles.modal, className]} className={"show"}>
         {title && <h1 css={styles.title}>{title}</h1>}
         {children && <div css={styles.content}>{children}</div>}
         <img src={CloseIcon} css={styles.closeButton} onClick={onClose} />
@@ -40,7 +41,7 @@ export const ModalDialog = ({
 export default ModalDialog;
 
 ModalDialog.propTypes = {
-  isOpen: PropTypes.bool,
+  isOpen: PropTypes.any,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   title: PropTypes.string,
   intro: PropTypes.string,
