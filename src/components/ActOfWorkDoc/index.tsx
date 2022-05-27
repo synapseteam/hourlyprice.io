@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import JsPDF from "jspdf";
-import { useForm, useFieldArray, UseFormReturn } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import BaseDatePicker from "../UI/DatePicker/index";
 import CloseIcon from "../../assets/close.svg";
 import CopyIcon from "../../assets/copy-black.png";
@@ -10,7 +10,7 @@ import TextArea from "../UI/TextArea/index";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
-import { useEffect, useState, useRef, SyntheticEvent } from "react";
+import { useEffect, useState } from "react";
 import { styles } from "./styles";
 import { IActDoc, IActInfoUser } from "typescript/interfaces";
 interface Props {

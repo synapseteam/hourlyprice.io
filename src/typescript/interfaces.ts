@@ -2,14 +2,15 @@
 
 export interface IActDoc {
   docName: string
-  city: string
+  city?: string
   actNumber: string
-  contractNumber: string
+  contractNumber?: string
   contractDateFrom: number
   actDate: number
   cost: string
   details: IActDetails[]
   info: IActInfo
+  billAuthor?: string
 }
 export interface IActDetails {
   price: number

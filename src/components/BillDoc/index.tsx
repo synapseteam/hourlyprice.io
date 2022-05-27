@@ -10,7 +10,6 @@ import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input";
 import BaseDatePicker from "../UI/DatePicker";
 import Button from "../UI/Button";
-import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
 import CopyIcon from "../../assets/copy-black.png";
 import CopyIconWhite from "../../assets/copy-white.png";
@@ -18,19 +17,18 @@ import { useTheme } from "@emotion/react";
 import CloseIcon from "../../assets/close.svg";
 import { styles } from "./styles";
 import { styles as actOfWorkStyles } from "../ActOfWorkDoc/styles";
+import { IActDoc, IActInfoUser } from "typescript/interfaces";
 
-export default function BillDoc({
-  selectedBill,
-  setBillItems,
-  setIsBillAdded,
-  setIsBillUpdated,
-  selectedUser,
-}) {
-  const [orderTotal, setOrderTotal] = useState(0);
-  const [isEditInputShown, setIsEditInputShown] = useState(false);
-  const [editInputName, setEditInputName] = useState("");
-  const [editInputPosition, setEditInputPosition] = useState([]);
-  const [editedValue, setEditedValue] = useState("");
+interface Props {
+  selectedUser: IActInfoUser;
+  isDark: boolean;
+}
+const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
+  const [orderTotal, setOrderTotal] = useState<number>(0);
+  const [isEditInputShown, setIsEditInputShown] = useState<boolean>(false);
+  const [editInputName, setEditInputName] = useState<any>("");
+  const [editInputPosition, setEditInputPosition] = useState<number[]>([]);
+  const [editedValue, setEditedValue] = useState<string>("");
 
   const theme = useTheme();
   const now = new Date();
@@ -39,27 +37,28 @@ export default function BillDoc({
     selectedUser &&
       reset({
         ...defaultValues,
-        info: { ...defaultValues.info, provider: selectedUser },
+        info: { ...defaultValues.info, client: selectedUser },
       });
   }, [selectedUser]);
 
-  const defaultValues = {
+  const defaultValues: IActDoc = {
     docName: "test1",
-    billNumber: "XXXXXX",
-    billDateFrom: Date.parse(now),
-    billDate: Date.parse(now),
+    actNumber: "XXXXXX",
+    contractDateFrom: Date.parse(now.toString()),
+    actDate: Date.parse(now.toString()),
     billAuthor: "XXX XXXXXXXX XXXXXXXXX",
     details: [
       {
         title: "XXX XXXXXXXX XXXXXXXXX",
+        units: "Година",
         price: 100,
-        quantity: 10.0,
-        sum: 1000.0,
+        quantity: "10.0",
+        total: "1000.0",
       },
     ],
-    total: "Одна тисяча гривень 00 копійок",
+    cost: "Одна тисяча гривень 00 копійок",
     info: {
-      provider: {
+      client: {
         account: "XXXXXXXXXXXXXXXX",
         address: "XXXXXXXXXXXXXXXX",
         bank: "XXXXXXXXXXXXXXXX",
@@ -71,7 +70,7 @@ export default function BillDoc({
         surname: "XXXXXXXXXXXXXXXX",
         tel: "XXXXXXXXXXXXXXXX",
       },
-      buyer: {
+      executor: {
         account: "XXXXXXXXXXXXXXXX",
         address: "XXXXXXXXXXXXXXXX",
         bank: "XXXXXXXXXXXXXXXX",
@@ -95,7 +94,7 @@ export default function BillDoc({
     formState: { isDirty },
     watch,
   } = useForm({
-    defaultValues: selectedBill ? selectedBill : defaultValues,
+    defaultValues: defaultValues,
   });
 
   useEffect(() => {
@@ -107,7 +106,7 @@ export default function BillDoc({
     };
   }, [isDirty]);
 
-  const alertUser = (e) => {
+  const alertUser = (e: BeforeUnloadEvent) => {
     e.preventDefault();
     e.returnValue = "";
   };
@@ -119,7 +118,7 @@ export default function BillDoc({
 
   const formValues = getValues();
 
-  const watchBillDateFrom = watch("billDateFrom");
+  const watchBillDateFrom = watch("contractDateFrom");
 
   const numberToString = require("number-to-cyrillic");
   numberToString.convert(21);
@@ -131,7 +130,7 @@ export default function BillDoc({
   const calculateOrderTotal = () => {
     if (formValues && formValues.details) {
       const total = formValues.details.reduce(
-        (acc, curr) => Number(curr.sum) + acc,
+        (acc, curr) => Number(curr.total) + acc,
         0
       );
       setOrderTotal(total);
@@ -146,21 +145,30 @@ export default function BillDoc({
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
-      .html(document.querySelector("#billDoc"), { margin: [20, 10, 10, 50] })
+      .html(document.getElementById("#billDoc")!, { margin: [20, 10, 10, 50] })
       .then(() => {
         report.save("bill.pdf");
       });
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IActDoc) => {
     console.log(data);
   };
 
   const addService = () => {
-    append({ title: "XXX XXXXXXXX XXXXXXXXX", price: 0, quantity: 0, sum: 0 });
+    append({
+      title: "XXX XXXXXXXX XXXXXXXXX",
+      price: 0,
+      units: "",
+      quantity: "",
+      total: "",
+    });
   };
 
-  const onStartEdit = (e, value) => {
+  const onStartEdit = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    value: string
+  ) => {
     if (!isEditInputShown) {
       setIsEditInputShown(true);
       setEditInputName(value);
@@ -171,12 +179,12 @@ export default function BillDoc({
     }
   };
 
-  const onChangeEdit = (e) => {
+  const onChangeEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedValue(e.currentTarget.value);
   };
 
   const onFinishEdit = () => {
-    setEditInputName();
+    setEditInputName("");
     setValue(
       editInputName,
       editedValue !== "" ? editedValue : getValues(editInputName),
@@ -193,7 +201,7 @@ export default function BillDoc({
           classname={actOfWorkStyles.saveInput}
           register={register}
           inputName="docName"
-          width="250"
+          width={250}
         />
         <div css={actOfWorkStyles.buttons}>
           <Button
@@ -218,7 +226,7 @@ export default function BillDoc({
           >
             <img
               css={actOfWorkStyles.copyButtonIcon}
-              src={theme.name === "dark" ? CopyIconWhite : CopyIcon}
+              src={isDark ? CopyIconWhite : CopyIcon}
               alt="copy"
             />
             <ReactTooltip place="bottom" effect="solid" />
@@ -258,20 +266,22 @@ export default function BillDoc({
           <span>Рахунок-фактура №22-</span>
           <span
             css={styles.titleFieldBold}
-            onClick={(e) => onStartEdit(e, "billNumber")}
+            onClick={(e) => onStartEdit(e, "actNumber")}
             data-comp="hover"
           >
-            {formValues.billNumber}
+            {formValues.actNumber}
           </span>{" "}
           <span>від </span>
           <BaseDatePicker
             register={register}
             selected={watchBillDateFrom}
-            inputName="billDateFrom"
+            inputName="contractDateFrom"
             classname={styles.titleFieldBold}
             dateFormat="dd.MM.yyyy"
             onChange={(date) =>
-              setValue("billDateFrom", date.getTime(), { shouldDirty: true })
+              setValue("contractDateFrom", date.getTime(), {
+                shouldDirty: true,
+              })
             }
           />
         </div>
@@ -284,10 +294,10 @@ export default function BillDoc({
               <div css={styles.infoTitleInput}>
                 <span css={styles.fieldBold}>
                   {selectedUser?.entityType === "business"
-                    ? `ТОВ ${formValues.info.provider.companyName}`
-                    : `ФОП ${formValues.info.provider.surname} 
-                  ${formValues.info.provider.name} 
-                  ${formValues.info.provider.patronym}`}
+                    ? `ТОВ ${formValues.info.client.companyName}`
+                    : `ФОП ${formValues.info.client.surname} 
+                  ${formValues.info.client.name} 
+                  ${formValues.info.client.patronym}`}
                 </span>
               </div>
               <div>
@@ -295,10 +305,10 @@ export default function BillDoc({
                   <div>
                     <span css={styles.fieldBold}>Адреса:</span>{" "}
                     <span
-                      onClick={(e) => onStartEdit(e, "info.provider.address")}
+                      onClick={(e) => onStartEdit(e, "info.client.address")}
                       data-comp="hover"
                     >
-                      {formValues.info.provider.address}
+                      {formValues.info.client.address}
                     </span>{" "}
                   </div>{" "}
                 </div>
@@ -315,10 +325,10 @@ export default function BillDoc({
                       </span>
                     )}
                     <span
-                      onClick={(e) => onStartEdit(e, "info.provider.reg")}
+                      onClick={(e) => onStartEdit(e, "info.client.reg")}
                       data-comp="hover"
                     >
-                      {formValues.info.provider.reg}
+                      {formValues.info.client.reg}
                     </span>
                   </div>
                 </div>
@@ -326,10 +336,10 @@ export default function BillDoc({
                   <div>
                     <span css={styles.fieldBold}>E-mail: </span>
                     <span
-                      onClick={(e) => onStartEdit(e, "info.provider.email")}
+                      onClick={(e) => onStartEdit(e, "info.client.email")}
                       data-comp="hover"
                     >
-                      {formValues.info.provider.email}
+                      {formValues.info.client.email}
                     </span>{" "}
                   </div>
                 </div>
@@ -337,10 +347,10 @@ export default function BillDoc({
                   <div>
                     <span css={styles.fieldBold}>Телефон: </span>
                     <span
-                      onClick={(e) => onStartEdit(e, "info.provider.tel")}
+                      onClick={(e) => onStartEdit(e, "info.client.tel")}
                       data-comp="hover"
                     >
-                      {formValues.info.provider.tel}
+                      {formValues.info.client.tel}
                     </span>{" "}
                   </div>
                 </div>
@@ -348,10 +358,10 @@ export default function BillDoc({
                   <div>
                     <span css={styles.fieldBold}>Назва банку: </span>
                     <span
-                      onClick={(e) => onStartEdit(e, "info.provider.bank")}
+                      onClick={(e) => onStartEdit(e, "info.client.bank")}
                       data-comp="hover"
                     >
-                      {formValues.info.provider.bank}
+                      {formValues.info.client.bank}
                     </span>{" "}
                   </div>
                 </div>
@@ -359,17 +369,17 @@ export default function BillDoc({
                   <div>
                     <span css={styles.fieldBold}>Рахунок: </span>
                     <span
-                      onClick={(e) => onStartEdit(e, "info.provider.bank")}
+                      onClick={(e) => onStartEdit(e, "info.client.bank")}
                       data-comp="hover"
                     >
-                      {formValues.info.provider.bank}
+                      {formValues.info.client.bank}
                     </span>{" "}
                   </div>
                   <span
-                    onClick={(e) => onStartEdit(e, "info.provider.account")}
+                    onClick={(e) => onStartEdit(e, "info.client.account")}
                     data-comp="hover"
                   >
-                    {formValues.info.provider.account}
+                    {formValues.info.client.account}
                   </span>{" "}
                 </div>
               </div>
@@ -382,15 +392,15 @@ export default function BillDoc({
             <div css={styles.infoContent}>
               <span>
                 {selectedUser?.entityType === "business"
-                  ? `ТОВ ${formValues.info.buyer.companyName}`
-                  : `ФОП ${formValues.info.buyer.surname} 
-                  ${formValues.info.buyer.name} 
-                  ${formValues.info.buyer.patronym}`}
+                  ? `ТОВ ${formValues.info.executor.companyName}`
+                  : `ФОП ${formValues.info.executor.surname} 
+                  ${formValues.info.executor.name} 
+                  ${formValues.info.executor.patronym}`}
               </span>
               <span>
                 {selectedUser?.entityType === "business"
-                  ? `ЄДРПОУ ${formValues.info.buyer.reg}`
-                  : `Реєстраційний номер облікової картки платника податків: ${formValues.info.buyer.reg}`}
+                  ? `ЄДРПОУ ${formValues.info.executor.reg}`
+                  : `Реєстраційний номер облікової картки платника податків: ${formValues.info.executor.reg}`}
               </span>
             </div>
           </div>
@@ -413,24 +423,33 @@ export default function BillDoc({
                 <BaseInput
                   register={register}
                   inputName={`details[${index}].title`}
-                  width="200"
+                  width={200}
                   classname={styles.fieldBold}
                 />
               </div>
-              <div css={styles.fieldBold}>Година</div>
+              <div css={styles.fieldBold}>
+                <BaseInput
+                  classname={styles.fieldBold}
+                  width={70}
+                  register={register}
+                  inputName={`details[${index}].units`}
+                />
+              </div>
               <div>
                 <BaseInput
                   register={register}
                   inputName={`details[${index}].quantity`}
-                  width="70"
+                  width={70}
                   classname={styles.fieldBold}
                   onChange={(e) => {
                     handleTimeChange(e);
                     setValue(
-                      `details.${index}.sum`,
-                      Number(formValues.details[index].price) *
-                        convertStrTimeToNum(e.target.value),
-                      { shouldTouch: true }
+                      `details.${index}.total`,
+                      (
+                        Number(formValues.details[index].price) *
+                        convertStrTimeToNum(e.target.value)
+                      ).toFixed(2),
+                      { shouldDirty: true }
                     );
                     setValue(`details.${index}.quantity`, e.target.value);
                     calculateOrderTotal();
@@ -441,18 +460,20 @@ export default function BillDoc({
                 <BaseInput
                   register={register}
                   inputName={`details[${index}].price`}
-                  width="70"
+                  width={70}
                   classname={styles.fieldBold}
                   type="number"
                   onChange={(e) => {
                     setValue(
-                      `details.${index}.sum`,
-
-                      convertStrTimeToNum(formValues.details[index].quantity) *
-                        Number(e.target.value),
-                      { shouldTouch: true }
+                      `details.${index}.total`,
+                      (
+                        convertStrTimeToNum(
+                          formValues.details[index].quantity
+                        ) * Number(e.target.value)
+                      ).toFixed(2),
+                      { shouldDirty: true }
                     );
-                    setValue(`details.${index}.price`, e.target.value);
+                    setValue(`details.${index}.price`, Number(e.target.value));
                     calculateOrderTotal();
                   }}
                 />
@@ -460,8 +481,8 @@ export default function BillDoc({
               <div>
                 <BaseInput
                   register={register}
-                  inputName={`details[${index}].sum`}
-                  width="80"
+                  inputName={`details[${index}].total`}
+                  width={80}
                   readOnly={true}
                   classname={styles.fieldBold}
                 />
@@ -505,20 +526,15 @@ export default function BillDoc({
           </div>
           <span css={styles.fieldBold}>
             {selectedUser?.entityType === "business"
-              ? `ТОВ ${formValues.info.provider.companyName}`
-              : `ФОП ${formValues.info.provider.surname} 
-                  ${formValues.info.provider.name} 
-                  ${formValues.info.provider.patronym}`}
+              ? `ТОВ ${formValues.info.client.companyName}`
+              : `ФОП ${formValues.info.client.surname} 
+                  ${formValues.info.client.name} 
+                  ${formValues.info.client.patronym}`}
           </span>
         </div>
       </form>
     </div>
   );
-}
-
-BillDoc.propTypes = {
-  selectedBill: PropTypes.object,
-  setBillItems: PropTypes.func,
-  setIsBillAdded: PropTypes.func,
-  setIsBillUpdated: PropTypes.func,
 };
+
+export default BillDoc;

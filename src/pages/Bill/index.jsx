@@ -66,6 +66,7 @@ export default function BillPage({ isDark }) {
           setSelectedUser={setSelectedUser}
         />
         <BillDoc
+          isDark={isDark}
           selectedUser={selectedUser}
           selectedBill={selectedBill}
           setBillItems={setBillItems}
