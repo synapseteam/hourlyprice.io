@@ -85,6 +85,7 @@ export default function ActOfWorkPage({ isDark }) {
           setActOfWork={setActOfWork}
           setIsActUpdated={setIsActUpdated}
           setIsActAdded={setIsActAdded}
+          isDark={isDark}
         />
       </div>
       <div css={styles.noPreviewMessage}>

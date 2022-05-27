@@ -4,15 +4,14 @@
  */
 
 import { SerializedStyles } from "@emotion/react";
-import { CSSProperties } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 
 interface Props {
   register: UseFormRegister<any>;
-  onChange: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
-  classname?: SerializedStyles;
+  classname?: SerializedStyles | ((theme: any) => SerializedStyles);
   width?: number;
   placeholder?: string;
   disabled?: boolean;

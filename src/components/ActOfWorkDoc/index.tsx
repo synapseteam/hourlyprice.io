@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import JsPDF from "jspdf";
-import PropTypes from "prop-types";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, UseFormReturn } from "react-hook-form";
 import BaseDatePicker from "../UI/DatePicker/index";
 import CloseIcon from "../../assets/close.svg";
 import CopyIcon from "../../assets/copy-black.png";
@@ -9,28 +8,25 @@ import ReactTooltip from "react-tooltip";
 import CopyIconWhite from "../../assets/copy-white.png";
 import TextArea from "../UI/TextArea/index";
 import BaseInput from "../UI/Input/index";
-import { useTheme } from "@emotion/react";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, SyntheticEvent } from "react";
 import { styles } from "./styles";
-import { IActDoc } from "typescript/interfaces";
+import { IActDoc, IActInfoUser } from "typescript/interfaces";
+interface Props {
+  selectedUser: IActInfoUser;
+  isDark: boolean;
+}
 
-export default function ActOfWorkDoc({
-  setActOfWork,
-  setIsActUpdated,
-  setIsActAdded,
-  selectedUser,
-}) {
-  const [orderTotal, setOrderTotal] = useState(0);
-  const [isEditInputShown, setIsEditInputShown] = useState(false);
-  const [editInputName, setEditInputName] = useState("");
-  const [editInputPosition, setEditInputPosition] = useState([]);
-  const [editedValue, setEditedValue] = useState("");
-
-  const theme = useTheme();
+const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
+  const [orderTotal, setOrderTotal] = useState<number>(0);
+  const [isEditInputShown, setIsEditInputShown] = useState<boolean>(false);
+  const [editInputName, setEditInputName] = useState<any>("");
+  const [editInputPosition, setEditInputPosition] = useState<number[]>([]);
+  const [editedValue, setEditedValue] = useState<string>("");
 
   const now = new Date();
+
   useEffect(() => {
     selectedUser &&
       reset({
@@ -39,13 +35,13 @@ export default function ActOfWorkDoc({
       });
   }, [selectedUser]);
 
-  const defaultValues = {
+  const defaultValues: IActDoc = {
     docName: "test1",
     city: "м. Запоріжжя",
     actNumber: "22-1904_6125",
     contractNumber: "2_17-02/2022",
-    contractDateFrom: Date.parse(now),
-    actDate: Date.parse(now),
+    contractDateFrom: Date.parse(now.toString()),
+    actDate: Date.parse(now.toString()),
     details: [
       {
         title: "Послуги веб розробки: React та налаштування компонентів",
@@ -106,12 +102,12 @@ export default function ActOfWorkDoc({
     };
   }, [isDirty]);
 
-  const alertUser = (e) => {
+  const alertUser = (e: BeforeUnloadEvent) => {
     e.preventDefault();
     e.returnValue = "";
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IActDoc) => {
     console.log(data);
   };
 
@@ -140,7 +136,7 @@ export default function ActOfWorkDoc({
     append({
       title: "",
       units: "",
-      price: "",
+      price: 0,
       quantity: "",
       total: "",
     });
@@ -179,7 +175,10 @@ export default function ActOfWorkDoc({
     formValues.info.executor.surname
   }`;
 
-  const onStartEdit = (e, value) => {
+  const onStartEdit = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    value: string
+  ): void => {
     if (!isEditInputShown) {
       setIsEditInputShown(true);
       setEditInputName(value);
@@ -190,12 +189,12 @@ export default function ActOfWorkDoc({
     }
   };
 
-  const onChangeEdit = (e) => {
+  const onChangeEdit = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEditedValue(e.currentTarget.value);
   };
 
-  const onFinishEdit = () => {
-    setEditInputName();
+  const onFinishEdit = (): void => {
+    setEditInputName("");
     setValue(
       editInputName,
       editedValue !== "" ? editedValue : getValues(editInputName),
@@ -205,7 +204,7 @@ export default function ActOfWorkDoc({
     setIsEditInputShown(false);
   };
 
-  const optionsDate = {
+  const optionsDate: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     weekday: undefined,
     year: "numeric",
@@ -232,7 +231,9 @@ export default function ActOfWorkDoc({
             register={register}
             width={250}
             inputName={editInputName}
-            onChange={(e) => onChangeEdit(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChangeEdit(e)
+            }
           />
           <span>
             <Button
@@ -252,7 +253,7 @@ export default function ActOfWorkDoc({
           classname={styles.saveInput}
           register={register}
           inputName="docName"
-          width="250"
+          width={250}
         />
         <div css={styles.buttons}>
           <Button
@@ -278,7 +279,7 @@ export default function ActOfWorkDoc({
           >
             <img
               css={styles.copyButtonIcon}
-              src={theme.name === "dark" ? CopyIconWhite : CopyIcon}
+              src={isDark ? CopyIconWhite : CopyIcon}
               alt="copy"
             />
           </Button>
@@ -791,6 +792,6 @@ export default function ActOfWorkDoc({
       </div>
     </form>
   );
-}
+};
 
 export default ActOfWorkDoc;

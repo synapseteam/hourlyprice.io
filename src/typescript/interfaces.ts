@@ -1,17 +1,14 @@
 
 
 export interface IActDoc {
-  actDate: number
-  actDateNumber: string
-  actDateTo: number
+  docName: string
+  city: string
   actNumber: string
-  clientTextBlock: string
-  clientСompany: string
-  clientСompanyDirector: string
+  contractNumber: string
+  contractDateFrom: number
+  actDate: number
   cost: string
   details: IActDetails[]
-  docName: string
-  executorTextBlock: string
   info: IActInfo
 }
 export interface IActDetails {
@@ -27,14 +24,17 @@ export interface IActInfo {
   executor: IActInfoUser
 }
 export interface IActInfoUser {
-  account: string
-  address: string
-  bank: string
-  email: string
-  initials: string
+  companyName?: string
   name: string
+  surname: string
+  patronym: string
+  address: string
   reg: string
+  email: string
   tel: string
+  bank: string
+  account: string
+  entityType?: string
 }
 export interface IOption {
   value: string | number;

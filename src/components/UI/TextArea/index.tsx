@@ -2,15 +2,16 @@
 import { FC } from "react";
 import { styles } from "./styles";
 import { FieldValues, UseFormRegister } from "react-hook-form";
+import { SerializedStyles } from "@emotion/react";
 
 interface ITextArea {
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<any>;
   inputName: string;
-  width: string;
-  height: string;
-  maxLength: number;
-  classname: string;
-  disabled: boolean;
+  width?: string;
+  height?: string;
+  maxLength?: number;
+  classname?: SerializedStyles | SerializedStyles[];
+  disabled?: boolean;
 }
 
 const TextArea: FC<ITextArea> = ({
@@ -37,15 +38,6 @@ const TextArea: FC<ITextArea> = ({
       disabled={disabled}
     />
   );
-};
-
-TextArea.defaultProps = {
-  inputName: "textArea",
-  width: "200",
-  height: "200",
-  maxLength: 50,
-  classname: "textArea",
-  disabled: false,
 };
 
 export default TextArea;
