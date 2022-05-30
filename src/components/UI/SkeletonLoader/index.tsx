@@ -20,7 +20,7 @@ import { styles } from "./styles";
 
 interface ISceletonLoader {
   size: string;
-  props: Record<string, unknown>;
+  props?: Record<string, unknown>;
 }
 
 const SkeletonLoader: FC<ISceletonLoader> = ({ size, ...props }) => {

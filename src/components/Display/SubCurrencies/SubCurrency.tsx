@@ -1,15 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
 
 import SkeletonLoader from "components/UI/SkeletonLoader";
 
 import { styles } from "./styles";
 
-export default function SubCurrency({
+interface IProps {
+  name: string;
+  value: string | number;
+  isLoading: boolean;
+}
+const SubCurrency: React.FC<IProps> = ({
   name = "USD",
   value = "0.00",
   isLoading = false,
-}) {
+}): JSX.Element => {
   return (
     <div css={styles.subCurrencyContainer}>
       <div css={styles.subCurrencyTitlte}>{name}</div>
@@ -18,10 +22,6 @@ export default function SubCurrency({
       </div>
     </div>
   );
-}
-
-SubCurrency.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  isLoading: PropTypes.bool,
 };
+
+export default SubCurrency;

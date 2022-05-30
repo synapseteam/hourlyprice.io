@@ -1,14 +1,20 @@
 /** @jsxImportSource @emotion/react */
+import { ICurrency, IOption } from "typescript/interfaces";
 import uniqid from "uniqid";
-import PropTypes from "prop-types";
 
 import { DECIMAL_SIGNS_FOR_RATES } from "utils/constants";
 
 import { styles } from "./styles";
 
-export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
+interface IProps {
+  allCurrencies: ICurrency[];
+  currency: any;
+}
+const SubCurrenciesRatesDisplay: React.FC<IProps> = ({
+  allCurrencies,
+  currency,
+}): JSX.Element => {
   const basicRate = allCurrencies.find((el) => el.name === currency)?.rate;
-
   const subCurrenciesRatesArr = allCurrencies
     .filter((el) => el.name !== currency && el.rate)
     .map((el) => ({
@@ -20,7 +26,7 @@ export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
   const lastElIndex = subCurrenciesRatesArr.length - 1;
   return (
     <div css={styles.ratesContainer}>
-      {subCurrenciesRatesArr.map((el, i) => {
+      {subCurrenciesRatesArr.map((el, i: number) => {
         return (
           <p css={styles.rateText} key={uniqid()}>
             {`${el.symbol}${el.crossRate}`}
@@ -30,9 +36,6 @@ export default function SubCurrenciesRatesDisplay({ allCurrencies, currency }) {
       })}
     </div>
   );
-}
-
-SubCurrenciesRatesDisplay.propTypes = {
-  allCurrencies: PropTypes.arrayOf(PropTypes.object),
-  currency: PropTypes.string,
 };
+
+export default SubCurrenciesRatesDisplay;

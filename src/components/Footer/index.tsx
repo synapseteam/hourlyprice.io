@@ -1,12 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 
 import { styles } from "./styles";
 
-export default function Footer({
+interface IProps {
+  companyName: string;
+  companyUrl: string;
+}
+const Footer: React.FC<IProps> = ({
   companyName = "Synapse Team LLC",
   companyUrl = "https://synapseteam.com",
-}) {
+}): JSX.Element => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -21,9 +25,6 @@ export default function Footer({
       </p>
     </footer>
   );
-}
-
-Footer.propTypes = {
-  companyName: PropTypes.string,
-  companyUrl: PropTypes.string,
 };
+
+export default Footer;

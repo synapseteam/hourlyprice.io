@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
 
 import { useCustomTranslation } from "i18n";
 import SkeletonLoader from "components/UI/SkeletonLoader";
@@ -8,11 +7,17 @@ import { styles } from "./styles";
 
 const initSum = 0.0;
 
-export default function MainCurrencyDisplay({
+interface IProps {
+  sum: number;
+  currency: string;
+  isLoading: boolean;
+}
+
+const MainCurrencyDisplay: React.FC<IProps> = ({
   sum = initSum,
   currency = "USD",
   isLoading = false,
-}) {
+}): JSX.Element => {
   const [t] = useCustomTranslation();
   return (
     <>
@@ -26,10 +31,6 @@ export default function MainCurrencyDisplay({
       </div>
     </>
   );
-}
-
-MainCurrencyDisplay.propTypes = {
-  sum: PropTypes.string,
-  currency: PropTypes.string,
-  isLoading: PropTypes.bool,
 };
+
+export default MainCurrencyDisplay;

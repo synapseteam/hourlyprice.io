@@ -11,8 +11,8 @@ import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import { useEffect, useState } from "react";
-import { styles } from "./styles";
 import { IActDoc, IActInfoUser } from "typescript/interfaces";
+import { styles } from "./styles";
 interface Props {
   selectedUser: IActInfoUser;
   isDark: boolean;

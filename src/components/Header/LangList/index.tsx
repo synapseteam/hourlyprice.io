@@ -7,7 +7,7 @@ import UsLangIcon from "../../../assets/lang-us-icon.png";
 
 import { styles } from "./styles";
 
-export default function LangList() {
+const LangList: React.FC = (): JSX.Element => {
   const { t, i18n } = useTranslation();
 
   return (
@@ -31,4 +31,6 @@ export default function LangList() {
       <ReactTooltip place="bottom" effect="solid" />
     </div>
   );
-}
+};
+
+export default LangList;
