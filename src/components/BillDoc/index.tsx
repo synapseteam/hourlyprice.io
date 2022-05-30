@@ -427,14 +427,12 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
                   classname={styles.fieldBold}
                 />
               </div>
-              <div css={styles.fieldBold}>
-                <BaseInput
-                  classname={styles.fieldBold}
-                  width={70}
-                  register={register}
-                  inputName={`details[${index}].units`}
-                />
-              </div>
+              <BaseInput
+                classname={styles.fieldBold}
+                width={70}
+                register={register}
+                inputName={`details[${index}].units`}
+              />
               <div>
                 <BaseInput
                   register={register}

@@ -5,7 +5,7 @@ const { useState, useCallback } = require("react");
 export const useLocalStorage = (
   key: string,
   initialState: []
-): [IActDoc, () => void] => {
+): [IActDoc[], () => void] => {
   const serializedInitialState = JSON.stringify(initialState);
   let storageValue = initialState;
   try {
