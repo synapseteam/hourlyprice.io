@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCustomTranslation } from "i18n";
 import SkeletonLoader from "components/UI/SkeletonLoader";
 
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 const initSum = 0.0;
 
@@ -18,7 +18,7 @@ const MainCurrencyDisplay: React.FC<IProps> = ({
   currency = "USD",
   isLoading = false,
 }): JSX.Element => {
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
   return (
     <>
       <h2 css={styles.title}>{t("totalPrice")}</h2>

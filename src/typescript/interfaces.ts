@@ -41,7 +41,7 @@ export interface IOption {
 
 export interface ICurrency {
   name: string;
-  rate: number;
+  rate?: number;
   symbol: string;
 }
 

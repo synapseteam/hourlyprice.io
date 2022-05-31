@@ -4,7 +4,6 @@
 import { FC, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useNavigate } from "react-router-dom";
-import { useCustomTranslation } from "i18n";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,10 +14,11 @@ import Button from "components/UI/Button";
 import Spinner from "components/UI/Spinner";
 import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
+import { useTranslation } from "react-i18next";
 import { styles } from "./styles";
 
 const Registration: FC = (): JSX.Element => {
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

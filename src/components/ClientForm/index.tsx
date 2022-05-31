@@ -3,11 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Select from "components/UI/Select";
 import InputLabel from "components/UI/InputLabel";
-import { useCustomTranslation } from "i18n";
 import { useForm } from "react-hook-form";
 import { styles } from "./styles";
 import Button from "components/UI/Button";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const entityTypeOptions = [
   { value: "physicalPerson", name: "Фізична особа" },
@@ -22,7 +22,7 @@ interface Props {
 const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
   const [entityType, setEntityType] = useState("physicalPerson");
 
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
 
   const requiredText = "Поле обов'язкове для заповнення";
 
