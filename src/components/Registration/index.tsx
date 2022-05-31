@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { registration, reset } from "../../features/auth";
+import { IResponseData } from "typescript/interfaces";
 import Button from "components/UI/Button";
 import Spinner from "components/UI/Spinner";
 import { ROUTES } from "../../utils/urls";
@@ -62,8 +63,10 @@ const Registration: FC = (): JSX.Element => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const submitForm: SubmitHandler<FieldValues> = (data) => {
-    const userData = {
+    const userData: IResponseData = {
       ...data,
+      user: undefined,
+      access_token: "",
     };
 
     dispatch(registration(userData));

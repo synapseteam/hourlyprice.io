@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../../api/apiBackend";
+import { IResponseData } from "typescript/interfaces";
 
 type User = {
   email: string;
@@ -30,7 +31,7 @@ const initialState: AuthState = {
 // Register user
 export const registration = createAsyncThunk<
   User,
-  Record<string, string>,
+  IResponseData,
   { rejectValue: string }
 >("auth/register", async (user, thunkAPI) => {
   try {
@@ -47,7 +48,7 @@ export const registration = createAsyncThunk<
 // Login user
 export const login = createAsyncThunk<
   User,
-  Record<string, string>,
+  IResponseData,
   { rejectValue: string }
 >("auth/login", async (user, thunkAPI) => {
   try {

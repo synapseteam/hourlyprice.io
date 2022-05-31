@@ -9,7 +9,7 @@ import {
   SIGNS_FOR_MINUTES_FORMAT,
 } from "utils/constants";
 
-export function convertStrTimeToNum(timeString: string) {
+export function convertStrTimeToNum(timeString: string): number {
   const normalizedTime = timeString.split(":");
   const [hours, minutes] = normalizedTime;
 
@@ -22,7 +22,7 @@ export function convertStrTimeToNum(timeString: string) {
   return Number(hours) + Number(minutesConvertedTrunced);
 }
 
-export function handleTimeChange(e: ChangeEvent<HTMLInputElement>) {
+export function handleTimeChange(e: ChangeEvent<HTMLInputElement>): string {
   const { value } = e.target;
 
   const updatedValue = value.replace(",", ":").replace(/[^0-9^:]/gim, "");
@@ -70,7 +70,9 @@ export function handlePriceChange(e: ChangeEvent<HTMLInputElement>): string {
   return updatedValue;
 }
 
-export function transformRatesResponse(ratesResponse: { [s: string]: string } | ICurrency[]): ICurrency[] {
+export function transformRatesResponse(
+  ratesResponse: { [s: string]: string } | ICurrency[]
+): ICurrency[] {
   const ratesToArr = Object.entries(ratesResponse);
   return ratesToArr.map((currency) => {
     const [name, rate] = currency;

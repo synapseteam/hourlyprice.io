@@ -8,6 +8,7 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../../features/auth";
+import { IResponseData } from "typescript/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
@@ -57,8 +58,10 @@ const Login: FC = (): JSX.Element => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const submitForm: SubmitHandler<FieldValues> = async (data) => {
-    const userData = {
+    const userData: IResponseData = {
       ...data,
+      user: undefined,
+      access_token: "",
     };
 
     dispatch(login(userData));

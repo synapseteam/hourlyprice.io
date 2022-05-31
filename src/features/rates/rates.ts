@@ -4,14 +4,14 @@ import { ratesDataAPI } from "api/api";
 import { transformRatesResponse } from "utils/generic";
 import { ICurrency } from "typescript/interfaces";
 
-type Rates = {
+type RatesState = {
   allCurrencies: ICurrency[];
   updatedAt: string;
   ratesSource: string;
   newRates?: any;
 };
 
-const initialState: Rates = {
+const initialState: RatesState = {
   allCurrencies: [
     { name: "USD", rate: 1, symbol: "$" },
     { name: "EUR", rate: 1, symbol: "€" },
@@ -21,7 +21,7 @@ const initialState: Rates = {
   ratesSource: "masterCard",
 };
 
-export const fetchRates = createAsyncThunk<Rates>(
+export const fetchRates = createAsyncThunk<Record<string, string>>(
   "rates/fetchRates",
   async () => {
     const data = await ratesDataAPI.getRates();
@@ -32,7 +32,7 @@ export const ratesSlice = createSlice({
   name: "rates",
   initialState,
   reducers: {
-    setNewRates: (state, action: PayloadAction<Rates>) => {
+    setNewRates: (state, action: PayloadAction<RatesState>) => {
       state.allCurrencies = action.payload.newRates;
       state.ratesSource = action.payload.ratesSource;
       state.updatedAt = String(new Date());
