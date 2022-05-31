@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useState, useEffect, FC, ChangeEvent } from "react";
+import { useAppDispatch, useAppSelector } from "store/hooks";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -30,7 +30,7 @@ import { MILISEC_IN_ONE_SEC } from "utils/constants";
 
 import { styles } from "./styles";
 
-export default function PriceForm() {
+const PriceForm: FC = (): JSX.Element => {
   const [t] = useCustomTranslation();
 
   const formSchema = yup.object().shape({
@@ -43,22 +43,22 @@ export default function PriceForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<FieldValues>({
     resolver: yupResolver(formSchema),
   });
 
-  const allCurrencies = useSelector((state) => state.rates.allCurrencies);
-  const ratesSource = useSelector((state) => state.rates.ratesSource);
-  const timeStampCurrenciesUpdated = useSelector(
+  const allCurrencies = useAppSelector((state) => state.rates.allCurrencies);
+  const ratesSource = useAppSelector((state) => state.rates.ratesSource);
+  const timeStampCurrenciesUpdated = useAppSelector(
     (state) => state.rates.updatedAt
   );
-  const { price, time } = useSelector((state) => state.generic.fields);
+  const { price, time } = useAppSelector((state) => state.generic.fields);
 
   const allCurrenciesNames = allCurrencies.map((el) => {
     return { name: el.name, value: el.name };
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [chosenCurrency, setChosenCurrency] = useState("USD");
   const [chosenRatesSource, setChosenRatesSource] = useState("masterCard");
 
@@ -71,8 +71,8 @@ export default function PriceForm() {
     }
   }, []);
 
-  function handleListChange(e) {
-    const { name, value } = e.target;
+  function handleListChange(event: ChangeEvent<HTMLSelectElement>) {
+    const { name, value } = event.target;
     if (name === "currency") {
       setChosenCurrency(() => value);
       localStorage.setItem("currency", JSON.stringify(value));
@@ -87,7 +87,8 @@ export default function PriceForm() {
   function updateRatesIfCacheExpired() {
     const timeStampNow = new Date();
     const timePassAfterRatesUpdated =
-      (timeStampNow - timeStampCurrenciesUpdated) / MILISEC_IN_ONE_SEC;
+      (Number(timeStampNow) - Number(timeStampCurrenciesUpdated)) /
+      MILISEC_IN_ONE_SEC;
 
     if (
       timePassAfterRatesUpdated >= ratesUpdatingTimeFrame ||
@@ -106,7 +107,7 @@ export default function PriceForm() {
     }
   }, [ratesSource]);
 
-  const onSubmit = ({
+  const onSubmit: SubmitHandler<FieldValues> = ({
     price,
     time: timeString,
     currency,
@@ -145,7 +146,7 @@ export default function PriceForm() {
       time: time,
     };
     if (!invoiceItems) {
-      let invoiceArray = [];
+      const invoiceArray = [];
       invoiceArray.push(invoiceObj);
       localStorage.setItem("invoiceItems", JSON.stringify(invoiceArray));
       dispatch(clearFields());
@@ -210,7 +211,7 @@ export default function PriceForm() {
           register={register}
           allCurrencies={allCurrencies}
           chosenCurrency={chosenCurrency}
-          errors={errors}
+          error={errors}
         />
       )}
       <div css={styles.buttons}>
@@ -225,4 +226,6 @@ export default function PriceForm() {
       </div>
     </form>
   );
-}
+};
+
+export default PriceForm;

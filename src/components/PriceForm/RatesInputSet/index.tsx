@@ -1,13 +1,24 @@
 /** @jsxImportSource @emotion/react */
+import { FC } from "react";
+import { ICurrency } from "typescript/interfaces";
 import uniqid from "uniqid";
-import PropTypes from "prop-types";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 import { handlePriceChange } from "utils/generic";
 
 import { styles } from "./styles";
 
-export default function RatesInputSet({ register, allCurrencies }) {
-  const allCurrenciesNames = allCurrencies.map((el) => ({ name: el.name }));
+interface IRatesInputSet {
+  register: UseFormRegister<FieldValues>;
+  chosenCurrency: string;
+  allCurrencies: ICurrency[];
+  error: Record<string, string>;
+}
+
+const RatesInputSet: FC<IRatesInputSet> = ({ register, allCurrencies }) => {
+  const allCurrenciesNames = allCurrencies.map((el: { name: string }) => ({
+    name: el.name,
+  }));
 
   return (
     <div css={styles.ratesInputsContainer}>
@@ -27,11 +38,6 @@ export default function RatesInputSet({ register, allCurrencies }) {
       })}
     </div>
   );
-}
-
-RatesInputSet.propTypes = {
-  register: PropTypes.func.isRequired,
-  chosenCurrency: PropTypes.string.isRequired,
-  allCurrencies: PropTypes.arrayOf(PropTypes.object),
-  erorrs: PropTypes.object,
 };
+
+export default RatesInputSet;

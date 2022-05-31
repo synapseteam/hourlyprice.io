@@ -1,7 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchRates } from "features/rates";
 
-const initialState = {
+type genericFields = {
+  price: string;
+  time: string | number;
+  currency: string;
+};
+
+type genericState = {
+  fields: genericFields;
+  isLoading: boolean;
+  ratesRequestErr: boolean;
+  isInvoiceItemAdded: boolean;
+  isInvoiceFull: boolean;
+};
+
+const initialState: genericState = {
   fields: {
     price: "",
     time: "",
@@ -17,34 +31,34 @@ export const genericSlice = createSlice({
   name: "generic",
   initialState,
   reducers: {
-    modifyFields: (state, action) => {
+    modifyFields: (state, action: PayloadAction<genericFields>) => {
       state.fields = action.payload;
     },
     toggleIsLoading: (state) => {
       state.isLoading = !state.isLoading;
     },
-    setRequestErr: (state, action) => {
+    setRequestErr: (state, action: PayloadAction<boolean>) => {
       state.ratesRequestErr = action.payload;
     },
     clearFields: (state) => {
       state.fields = initialState.fields;
     },
-    setInvoiceItemAdded: (state, action) => {
+    setInvoiceItemAdded: (state, action: PayloadAction<boolean>) => {
       state.isInvoiceItemAdded = action.payload;
     },
-    setInvoiceFull: (state, action) => {
+    setInvoiceFull: (state, action: PayloadAction<boolean>) => {
       state.isInvoiceFull = action.payload;
     },
   },
   extraReducers: {
-    [fetchRates.pending]: (state) => {
+    [fetchRates.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [fetchRates.rejected]: (state) => {
+    [fetchRates.rejected.type]: (state) => {
       state.ratesRequestErr = true;
       state.isLoading = false;
     },
-    [fetchRates.fulfilled]: (state) => {
+    [fetchRates.fulfilled.type]: (state) => {
       state.isLoading = false;
     },
   },

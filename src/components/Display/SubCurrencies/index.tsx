@@ -21,8 +21,6 @@ const SubCurrenciesDisplay: React.FC<IProps> = ({
   subCurrenciesArr = initialSubCurrenciesArr,
   isLoading,
 }): JSX.Element => {
-  console.log("initial: ", initialSubCurrenciesArr);
-  console.log(subCurrenciesArr);
   return (
     <div css={styles.mainContainer}>
       {subCurrenciesArr.map((el) => (

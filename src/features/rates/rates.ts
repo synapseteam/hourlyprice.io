@@ -21,7 +21,7 @@ const initialState: Rates = {
   ratesSource: "masterCard",
 };
 
-export const fetchRates = createAsyncThunk<Rates, Record<string, string>>(
+export const fetchRates = createAsyncThunk<Rates>(
   "rates/fetchRates",
   async () => {
     const data = await ratesDataAPI.getRates();

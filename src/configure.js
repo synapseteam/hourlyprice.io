@@ -18,8 +18,8 @@ export const errorsMessages = {
 export const ratesUpdatingTimeFrame = SEC_IN_MINUTE * MIN_STORE_CACHE;
 
 export const ratesSources = [
-  { value: "masterCard", label: "MasterCard" },
-  { value: "manual", label: "Manual" },
+  { value: "masterCard", name: "MasterCard" },
+  { value: "manual", name: "Manual" },
 ];
 
 export const currenciesSymbols = [
