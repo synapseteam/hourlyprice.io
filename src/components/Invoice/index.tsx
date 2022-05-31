@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { useTranslation } from "react-i18next";
-import { changeLanguage } from "i18n";
 import JsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import BaseDatePicker from "../UI/DatePicker/index";
@@ -9,14 +8,14 @@ import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import "react-datepicker/dist/react-datepicker.css";
-import { useCustomTranslation } from "../../i18n";
 import LogoUa from "../../assets/ukraine-heart.png";
 import LogoUs from "../../assets/us-heart.png";
+import { changeLanguage } from "i18next";
 import { styles } from "./styles";
+import { IInvoice } from "typescript/interfaces";
 
-export const Invoice = () => {
-  const [t] = useCustomTranslation();
-  const { i18n } = useTranslation();
+const Invoice: React.FC = (): JSX.Element => {
+  const { t, i18n } = useTranslation();
   const now = new Date();
   const [isEditMode, setIsEditMode] = useState(true);
   const [orderTotal, setOrderTotal] = useState(0);
@@ -32,7 +31,8 @@ export const Invoice = () => {
   }, []);
 
   const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
-  const defaultValues = {
+
+  const defaultValues: IInvoice = {
     invoice: "Invoice",
     teamName: "Synapse Team LLC",
     code: "USREOU Code: 42772269",
@@ -64,7 +64,6 @@ export const Invoice = () => {
 
   useEffect(() => {
     const invoiceDoc = JSON.parse(localStorage.getItem("invoiceDoc"));
-
     reset(invoiceDoc);
   }, []);
 
@@ -79,7 +78,7 @@ export const Invoice = () => {
 
   const formValues = getValues();
 
-  const calculateOrderTotal = () => {
+  const calculateOrderTotal = (): void => {
     if (formValues && formValues.details) {
       const total = formValues.details.reduce(
         (acc, curr) => Number(curr.total) + acc,
@@ -93,17 +92,12 @@ export const Invoice = () => {
     calculateOrderTotal();
   }, [formValues.details]);
 
-  const addService = () => {
-    const lastItem =
-      formValues.details.length !== 0
-        ? formValues.details[formValues.details.length - 1]
-        : defaultValues.details[0];
+  const addService = (): void => {
     append({
-      title: lastItem.title,
-      units: lastItem.units,
-      price: lastItem.price,
-      quantity: lastItem.quantity,
-      total: lastItem.total,
+      title: "",
+      price: 0,
+      quantity: "",
+      total: "",
     });
   };
 
@@ -112,7 +106,7 @@ export const Invoice = () => {
     !isEditMode && styles.generalInfoColumnNoEdit,
   ];
 
-  const switchLang = (lang) => {
+  const switchLang = (lang: string): void => {
     if (isEditMode) changeLanguage(lang);
   };
 
@@ -122,16 +116,16 @@ export const Invoice = () => {
 
   const watchDueDate = new Date(watch("dueDate"));
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IInvoice): void => {
     setIsEditMode(!isEditMode);
     localStorage.setItem("invoiceDoc", JSON.stringify(data));
   };
 
-  const generatePDF = () => {
+  const generatePDF = (): void => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
-      .html(document.querySelector("#report"), { margin: [20, 10, 10, 50] })
+      .html(document.getElementById("#report")!, { margin: [20, 10, 10, 50] })
       .then(() => {
         report.save("report.pdf");
       });

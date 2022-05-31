@@ -1,28 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import { SerializedStyles } from "@emotion/serialize";
 import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
 import CloseIcon from "../../assets/close.svg";
-import { useCustomTranslation } from "../../i18n";
 import { styles } from "./styles";
 
-const ModalCloseButton = ({ onClick }) => {
-  const [t] = useCustomTranslation();
+interface IProps {
+  isOpen: boolean;
+  children: JSX.Element;
+  title: string;
+  onClose: () => void;
+  className: SerializedStyles;
+}
 
-  return (
-    <span css={styles.closeButton} onClick={onClick}>
-      {t("closeButtonText")}
-    </span>
-  );
-};
-
-export const ModalDialog = ({
+export const ModalDialog: React.FC<IProps> = ({
   isOpen = false,
   children,
   title = "",
   onClose,
   className,
-}) => {
+}): JSX.Element => {
   if (!isOpen) return null;
 
   return createPortal(
@@ -39,15 +35,3 @@ export const ModalDialog = ({
 };
 
 export default ModalDialog;
-
-ModalDialog.propTypes = {
-  isOpen: PropTypes.any,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
-  title: PropTypes.string,
-  intro: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-};
-
-ModalCloseButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};

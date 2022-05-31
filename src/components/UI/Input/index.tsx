@@ -11,13 +11,17 @@ interface Props {
   register: UseFormRegister<any>;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
-  classname?: SerializedStyles | ((theme: any) => SerializedStyles);
+  classname?:
+    | SerializedStyles
+    | SerializedStyles[]
+    | ((theme: any) => SerializedStyles);
   width?: number;
   placeholder?: string;
   disabled?: boolean;
   readOnly?: boolean;
   type?: string;
   step?: string;
+  maxLength?: number;
 }
 
 const BaseInput: React.FC<Props> = ({

@@ -2,23 +2,27 @@
 import ReactTooltip from "react-tooltip";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@iconify/react";
-import { useTheme } from "@emotion/react";
-import PropTypes from "prop-types";
-
+import { Dispatch, SetStateAction } from "react";
 import { styles } from "./styles";
 
-export default function ThemeSwitcher({ setIsDark, isDark }) {
+interface IProps {
+  setIsDark: Dispatch<SetStateAction<boolean>>;
+  isDark: boolean;
+}
+const ThemeSwitcher: React.FC<IProps> = ({
+  setIsDark,
+  isDark,
+}): JSX.Element => {
   const { t } = useTranslation();
-  const theme = useTheme();
 
-  function handleThemeSwitcherClick() {
+  const handleThemeSwitcherClick = (): void => {
     localStorage.setItem("isDark", JSON.stringify(!isDark));
     setIsDark(!isDark);
-  }
+  };
 
   return (
     <div data-tip={t("changeTheme")}>
-      {theme.name === "dark" ? (
+      {isDark ? (
         <Icon
           css={styles.icon}
           icon="emojione:light-bulb"
@@ -34,9 +38,6 @@ export default function ThemeSwitcher({ setIsDark, isDark }) {
       <ReactTooltip place="bottom" effect="solid" />
     </div>
   );
-}
-
-ThemeSwitcher.propTypes = {
-  setIsDark: PropTypes.func.isRequired,
-  isDark: PropTypes.bool,
 };
+
+export default ThemeSwitcher;
