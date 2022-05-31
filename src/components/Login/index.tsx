@@ -2,7 +2,6 @@
 
 import { FC, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
-import { useCustomTranslation } from "i18n";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -15,10 +14,11 @@ import Button from "components/UI/Button";
 import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import Spinner from "components/UI/Spinner";
+import { useTranslation } from "react-i18next";
 import { styles } from "./styles";
 
 const Login: FC = (): JSX.Element => {
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

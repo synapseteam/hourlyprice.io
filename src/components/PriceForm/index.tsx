@@ -16,7 +16,6 @@ import {
   handlePriceChange,
 } from "utils/generic";
 import { ratesUpdatingTimeFrame } from "configure";
-import { useCustomTranslation } from "i18n";
 import { transformRatesResponse } from "utils/generic";
 import { modifyFields, setRequestErr } from "features/generic";
 import { fetchRates } from "features/rates";
@@ -29,9 +28,10 @@ import {
 import { MILISEC_IN_ONE_SEC } from "utils/constants";
 
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 const PriceForm: FC = (): JSX.Element => {
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
 
   const formSchema = yup.object().shape({
     price: yup.number().typeError(t("priceError")).positive().required(),

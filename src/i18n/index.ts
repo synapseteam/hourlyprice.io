@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import detector from "i18next-browser-languagedetector";
-import { useTranslation, initReactI18next, Trans } from "react-i18next";
+import { useTranslation, initReactI18next, Trans, TFunction } from "react-i18next";
 import { translationEN, translationUA } from "i18n/translations";
 
 i18n
@@ -15,12 +15,8 @@ i18n
     interpolation: { escapeValue: false },
   });
 
-export const useCustomTranslation = () => {
-  const { t } = useTranslation();
 
-  return [t, Trans];
-};
 
-export function changeLanguage(lang) {
+export function changeLanguage(lang: string) {
   return i18n.changeLanguage(lang);
 }

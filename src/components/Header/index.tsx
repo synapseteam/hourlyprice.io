@@ -24,7 +24,6 @@ import Invoice from "components/Invoice";
 import { INVOICE_PREVIEW_SUPPORTED_RESOLUTION } from "../../configure";
 import { setInvoiceItemAdded, setInvoiceFull } from "features/generic";
 import { useWindowDimensions } from "../../hooks";
-import { useCustomTranslation } from "../../i18n";
 import { ROUTES } from "../../utils/urls";
 import { toast } from "react-toastify";
 import { styles } from "./styles";
@@ -48,7 +47,7 @@ const Header: FC<IProps> = ({ setIsDark, isDark }): JSX.Element => {
 
   const { width } = useWindowDimensions();
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
   const { i18n } = useTranslation();
 
   const toggleInvoiceModal = () => {

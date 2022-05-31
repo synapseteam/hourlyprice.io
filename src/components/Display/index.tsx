@@ -5,13 +5,13 @@ import { useAppSelector } from "store/hooks";
 import SubCurrenciesDisplay from "components/Display/SubCurrencies";
 import MainCurrencyDisplay from "components/Display/MainCurrency/";
 import SubCurrenciesRatesDisplay from "components/Display/SubCurrenciesRates";
-import { useCustomTranslation } from "i18n";
 import { DECIMAL_SIGNS_FOR_PRICE } from "utils/constants";
 
 import { styles } from "./styles";
+import { useTranslation } from "react-i18next";
 
 const Display: FC = (): JSX.Element => {
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
   const { price, time, currency } = useAppSelector(
     (state) => state.generic.fields
   );
