@@ -2,14 +2,13 @@
  * @format
  * @jsxImportSource @emotion/react
  */
-
+import { FC, Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "store/hooks";
 import { useEffect, useState } from "react";
 import { logout, reset } from "../../features/auth";
-import PropTypes from "prop-types";
 import InvoiceIcon from "../../assets/invoice-ticket.png";
 import RedXIcon from "../../assets/red-x.png";
 import ArrowIcon from "../../assets/arrow-right.png";
@@ -30,17 +29,22 @@ import { ROUTES } from "../../utils/urls";
 import { toast } from "react-toastify";
 import { styles } from "./styles";
 
-export default function Header({ setIsDark, isDark }) {
+interface IProps {
+  setIsDark: Dispatch<SetStateAction<boolean>>;
+  isDark: boolean;
+}
+
+const Header: FC<IProps> = ({ setIsDark, isDark }): JSX.Element => {
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-  const isInvoiceItemAdded = useSelector(
+  const { user } = useAppSelector((state) => state.auth);
+  const isInvoiceItemAdded = useAppSelector(
     (state) => state.generic.isInvoiceItemAdded
   );
 
-  const isInvoiceFull = useSelector((state) => state.generic.isInvoiceFull);
+  const isInvoiceFull = useAppSelector((state) => state.generic.isInvoiceFull);
 
   const { width } = useWindowDimensions();
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
@@ -173,9 +177,6 @@ export default function Header({ setIsDark, isDark }) {
       </ModalDialog>
     </header>
   );
-}
-
-Header.propTypes = {
-  setIsDark: PropTypes.func.isRequired,
-  isDark: PropTypes.bool,
 };
+
+export default Header;

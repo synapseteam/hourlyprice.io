@@ -6,10 +6,10 @@ import { styles } from "./styles";
 
 interface IProps {
   isOpen: boolean;
-  children: JSX.Element;
-  title: string;
+  children?: JSX.Element | JSX.Element[];
+  title?: string;
   onClose: () => void;
-  className: SerializedStyles;
+  className?: SerializedStyles;
 }
 
 export const ModalDialog: React.FC<IProps> = ({
