@@ -1,4 +1,6 @@
 import { currenciesSymbols } from "configure";
+import { ChangeEvent } from "react";
+import { ICurrency } from "typescript/interfaces";
 import {
   ZERO_VAL,
   MINUTES_IN_HOUR,
@@ -7,21 +9,21 @@ import {
   SIGNS_FOR_MINUTES_FORMAT,
 } from "utils/constants";
 
-export function convertStrTimeToNum(timeString) {
+export function convertStrTimeToNum(timeString: string) {
   const normalizedTime = timeString.split(":");
-
+  console.log(timeString);
   const [hours, minutes] = normalizedTime;
 
   if (!minutes) return Number(hours);
 
   const minutesConvertedTrunced =
     // eslint-disable-next-line no-magic-numbers
-    Math.floor((minutes / MINUTES_IN_HOUR) * 1000) / 1000; //1000 used as multyplier and divider to convert decimal number to the integer and getting a proper Math.floor result.
+    Math.floor((Number(minutes) / MINUTES_IN_HOUR) * 1000) / 1000; //1000 used as multyplier and divider to convert decimal number to the integer and getting a proper Math.floor result.
 
   return Number(hours) + Number(minutesConvertedTrunced);
 }
 
-export function handleTimeChange(e) {
+export function handleTimeChange(e: ChangeEvent<HTMLInputElement>) {
   const { value } = e.target;
 
   const updatedValue = value.replace(",", ":").replace(/[^0-9^:]/gim, "");
@@ -41,7 +43,7 @@ export function handleTimeChange(e) {
   return minutesLimited;
 }
 
-export function handlePriceChange(e) {
+export function handlePriceChange(e: ChangeEvent<HTMLInputElement>): string {
   const { value, name } = e.target;
 
   const updatedValue = value.replace(",", ".").replace(/[^0-9^.]/, "");
@@ -69,22 +71,26 @@ export function handlePriceChange(e) {
   return updatedValue;
 }
 
-export function transformRatesResponse(ratesResponse) {
+export function transformRatesResponse(ratesResponse: { [s: string]: string } | ICurrency[]): ICurrency[] {
   const ratesToArr = Object.entries(ratesResponse);
   return ratesToArr.map((currency) => {
     const [name, rate] = currency;
-    const { symbol } =
-      currenciesSymbols.find((currencyObj) => currencyObj.name === name) || "$";
+    const { symbol } = currenciesSymbols.find(
+      (currencyObj) => currencyObj.name === name
+    );
 
     return {
       name,
-      symbol,
+      symbol: symbol ? symbol : "$",
       rate: Number(rate),
     };
   });
 }
 
-export function getWindowDimensions() {
+export function getWindowDimensions(): {
+  width: number;
+  height: number;
+} {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,

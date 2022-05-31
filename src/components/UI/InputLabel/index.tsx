@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { SerializedStyles } from "@emotion/react";
+import { ChangeEvent } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 

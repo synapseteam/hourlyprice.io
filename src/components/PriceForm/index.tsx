@@ -71,7 +71,7 @@ const PriceForm: FC = (): JSX.Element => {
     }
   }, []);
 
-  function handleListChange(event: ChangeEvent<HTMLSelectElement>) {
+  function handleListChange(event: ChangeEvent<HTMLSelectElement>): void {
     const { name, value } = event.target;
     if (name === "currency") {
       setChosenCurrency(() => value);
@@ -176,7 +176,7 @@ const PriceForm: FC = (): JSX.Element => {
           register={register}
           labelName={t("labelPrice")}
           placeholder="0.0"
-          changeHandler={handlePriceChange}
+          changeHandler={() => handlePriceChange}
           errors={errors}
         />
         <Select
@@ -194,7 +194,7 @@ const PriceForm: FC = (): JSX.Element => {
         register={register}
         labelName={t("labelTime")}
         placeholder={t("timePlaceholder")}
-        changeHandler={handleTimeChange}
+        changeHandler={() => handleTimeChange}
         errors={errors}
       />
       <Select

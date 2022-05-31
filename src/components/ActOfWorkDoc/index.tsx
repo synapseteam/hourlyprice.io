@@ -118,7 +118,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
-      .html(document.getElementById("#actOfWork")!, {
+      .html(document.getElementById("#actOfWork"), {
         margin: [20, 10, 10, 50],
       })
       .then(() => {

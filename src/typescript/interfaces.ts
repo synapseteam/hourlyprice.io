@@ -43,7 +43,6 @@ export interface ICurrency {
   name: string;
   rate: number;
   symbol: string;
-
 }
 
 export interface IInvoice {
@@ -69,4 +68,13 @@ export interface IInvoiceDetails {
   price: number
   quantity: string
   total: string
+}
+
+export interface IRoutes {
+  home: string,
+  actOfWork: string,
+  bill: string,
+  login: string,
+  registration: string,
+  companyRegistration: string,
 }
