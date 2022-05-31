@@ -7,7 +7,6 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../../features/auth";
-import { IResponseData } from "typescript/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "components/UI/Button";
@@ -16,6 +15,7 @@ import InputLabel from "components/UI/InputLabel";
 import Spinner from "components/UI/Spinner";
 import { useTranslation } from "react-i18next";
 import { styles } from "./styles";
+import { User } from "typescript/types";
 
 const Login: FC = (): JSX.Element => {
   const [t] = useTranslation();
@@ -58,10 +58,11 @@ const Login: FC = (): JSX.Element => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const submitForm: SubmitHandler<FieldValues> = async (data) => {
-    const userData: IResponseData = {
+    const userData: User = {
       ...data,
-      user: undefined,
-      access_token: "",
+      email: "",
+      token: "",
+      id: "",
     };
 
     dispatch(login(userData));

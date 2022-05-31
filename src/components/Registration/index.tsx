@@ -10,13 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { registration, reset } from "../../features/auth";
-import { IResponseData } from "typescript/interfaces";
 import Button from "components/UI/Button";
 import Spinner from "components/UI/Spinner";
 import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import { useTranslation } from "react-i18next";
 import { styles } from "./styles";
+import { User } from "typescript/types";
 
 const Registration: FC = (): JSX.Element => {
   const [t] = useTranslation();
@@ -63,10 +63,11 @@ const Registration: FC = (): JSX.Element => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const submitForm: SubmitHandler<FieldValues> = (data) => {
-    const userData: IResponseData = {
+    const userData: User = {
       ...data,
-      user: undefined,
-      access_token: "",
+      email: "",
+      token: "",
+      id: "",
     };
 
     dispatch(registration(userData));
