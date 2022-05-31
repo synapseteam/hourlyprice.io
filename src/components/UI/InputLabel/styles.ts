@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  label: (theme: Theme) => css`
+  label: (theme: Theme): SerializedStyles => css`
     display: flex;
     flex-direction: column;
     font-size: 0.7rem;
@@ -10,7 +10,7 @@ export const styles = {
   error: css`
     margin: 0.3rem 0 0;
   `,
-  input: (theme: Theme) => css`
+  input: (theme: Theme): SerializedStyles => css`
     background: ${theme.inputBgColor};
     border: ${theme.inputBorder};
     border-radius: 0.3rem;

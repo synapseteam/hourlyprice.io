@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
@@ -17,7 +17,7 @@ import { ROUTES } from "./utils/urls";
 import "react-toastify/dist/ReactToastify.css";
 import { styles } from "./styles";
 
-function App() {
+const App: FC = (): JSX.Element => {
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     const isDarkTheme = JSON.parse(localStorage.getItem("isDark"));
@@ -73,6 +73,6 @@ function App() {
       </Provider>
     </div>
   );
-}
+};
 
 export default App;

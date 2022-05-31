@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  ratesContainer: (theme: Theme) => css`
+  ratesContainer: (theme: Theme): SerializedStyles => css`
     background-color: ${theme.quaternary};
     width: 100%;
     position: absolute;
@@ -14,7 +14,7 @@ export const styles = {
     font-size: 0.8rem;
     line-height: 0.5;
   `,
-  ratesDelimiter: (theme: Theme) => css`
+  ratesDelimiter: (theme: Theme): SerializedStyles => css`
     color: ${theme.secondary};
     margin: 0 0.6rem;
   `,

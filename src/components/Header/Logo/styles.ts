@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  logo: (theme: Theme) => css`
+  logo: (theme: Theme): SerializedStyles => css`
     font-weight: 600;
     font-size: 1.1rem;
     line-height: 0.6;

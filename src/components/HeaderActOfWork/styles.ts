@@ -1,4 +1,4 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
   arrow: css`
@@ -10,7 +10,7 @@ export const styles = {
       display: block;
     }
   `,
-  actOfWorkUpdated: (theme: Theme) => css`
+  actOfWorkUpdated: (theme: Theme): SerializedStyles => css`
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -40,7 +40,7 @@ export const styles = {
     }
   `,
 
-  dropdown: (theme: Theme) => css`
+  dropdown: (theme: Theme): SerializedStyles => css`
     display: none;
     background-color: ${theme.primary};
     position: absolute;
@@ -57,7 +57,7 @@ export const styles = {
     }
   `,
 
-  link: (theme: Theme) => css`
+  link: (theme: Theme): SerializedStyles => css`
     padding: 20px 10px;
     text-decoration: none;
     color: ${theme.senary};

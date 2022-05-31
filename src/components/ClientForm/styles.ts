@@ -1,6 +1,6 @@
 /** @format */
 
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 export const styles = {
   form: css`
     display: flex;
@@ -54,7 +54,7 @@ export const styles = {
     margin-top: 5px;
     margin-bottom: 10px;
   `,
-  link: (theme: Theme) => css`
+  link: (theme: Theme): SerializedStyles => css`
     color: ${theme.linkColor};
   `,
 };

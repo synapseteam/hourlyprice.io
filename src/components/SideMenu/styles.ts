@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  SideMenu: (theme: Theme) => css`
+  SideMenu: (theme: Theme): SerializedStyles => css`
     width: 250px;
     background-color: ${theme.primary};
     color: ${theme.denary};

@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  registrationPage: (theme: Theme) => css`
+  registrationPage: (theme: Theme): SerializedStyles => css`
     background-color: ${theme.quinary};
     display: flex;
     flex-direction: column;

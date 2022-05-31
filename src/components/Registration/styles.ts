@@ -1,6 +1,6 @@
 /** @format */
 
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
   form: css`
@@ -23,7 +23,7 @@ export const styles = {
       width: 47%;
     }
   `,
-  title: (theme: Theme) => css`
+  title: (theme: Theme): SerializedStyles => css`
     text-align: center;
     color: ${theme.senary};
   `,
@@ -36,10 +36,10 @@ export const styles = {
     margin-top: 5px;
     margin-bottom: 10px;
   `,
-  haveAccount: (theme: Theme) => css`
+  haveAccount: (theme: Theme): SerializedStyles => css`
     color: ${theme.senary};
   `,
-  link: (theme: Theme) => css`
+  link: (theme: Theme): SerializedStyles => css`
     color: ${theme.linkColor};
   `,
 };

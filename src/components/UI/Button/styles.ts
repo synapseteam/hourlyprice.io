@@ -1,11 +1,11 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
   buttonContainer: css`
     width: 100%;
     margin: 1.2rem 0 0.4rem;
   `,
-  button: (theme: Theme) => css`
+  button: (theme: Theme): SerializedStyles => css`
     border: ${theme.btnBorder};
     border-radius: 0.4rem;
     background-color: ${theme.nonary};

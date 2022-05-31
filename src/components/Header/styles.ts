@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  header: (theme: Theme) => css`
+  header: (theme: Theme): SerializedStyles => css`
     background-color: ${theme.primary};
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@ export const styles = {
     align-items: center;
     justify-content: center;
   `,
-  invoice: (theme: Theme) => css`
+  invoice: (theme: Theme): SerializedStyles => css`
     position: relative;
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@ export const styles = {
       display: none;
     }
   `,
-  accountDropdown: (theme: Theme) => css`
+  accountDropdown: (theme: Theme): SerializedStyles => css`
     position: absolute;
     top: 50px;
     right: 0;
@@ -74,7 +74,7 @@ export const styles = {
     position: relative;
     margin: 0 5px;
   `,
-  invoiceAnimation: (theme: Theme) => css`
+  invoiceAnimation: (theme: Theme): SerializedStyles => css`
     animation-name: colorChange;
     animation-duration: 2s;
     @keyframes colorChange {

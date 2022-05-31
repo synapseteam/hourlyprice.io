@@ -1,4 +1,4 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
   mainContainer: css`
@@ -14,7 +14,7 @@ export const styles = {
     flex-direction: column;
     align-items: center;
   `,
-  subCurrencyTitlte: (theme: Theme) => css`
+  subCurrencyTitlte: (theme: Theme): SerializedStyles => css`
     color: ${theme.secondary};
     font-size: 0.8rem;
   `,

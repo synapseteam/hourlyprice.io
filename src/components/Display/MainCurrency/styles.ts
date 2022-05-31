@@ -1,14 +1,14 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
   title: css`
     margin: 0;
   `,
-  mainContainer: (theme: Theme) => css`
+  mainContainer: (theme: Theme): SerializedStyles => css`
     border-bottom: 1px solid ${theme.tertiary};
     min-height: 6.8rem;
   `,
-  sum: (theme: Theme) => css`
+  sum: (theme: Theme): SerializedStyles => css`
     color: ${theme.secondary};
     font-weight: 700;
     line-height: 0.7;

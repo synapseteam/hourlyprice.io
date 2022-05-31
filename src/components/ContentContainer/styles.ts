@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  contentContainer: (theme: Theme) => css`
+  contentContainer: (theme: Theme): SerializedStyles => css`
     width: 100%;
     padding: 1rem 1rem;
     display: flex;

@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
+import { css, Theme, SerializedStyles } from "@emotion/react";
 
 export const styles = {
-  ActOfWorkPage: (theme: Theme) => css`
+  ActOfWorkPage: (theme: Theme): SerializedStyles => css`
     background-color: ${theme.octonary};
     display: flex;
     flex-direction: column;
@@ -11,7 +11,7 @@ export const styles = {
     display: flex;
   `,
 
-  noPreviewMessage: (theme: Theme) => css`
+  noPreviewMessage: (theme: Theme): SerializedStyles => css`
     display: none;
     font-size: 28px;
     line-height: 36px;
