@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IResponseData } from "typescript/interfaces";
 
 const baseUrl = "https://back.hourlyprice.io/";
 export const urlApi = "api";
@@ -6,7 +7,7 @@ export const urlApi = "api";
 const GENERIC_URL = `${baseUrl}${urlApi}`;
 
 // Register user
-const register = async (userData) => {
+const register = async (userData: IResponseData) => {
   const response = await axios.post(`${GENERIC_URL}/register`, userData);
 
   if (response.data) {
@@ -17,7 +18,7 @@ const register = async (userData) => {
 };
 
 // Login user
-const login = async (userData) => {
+const login = async (userData: IResponseData) => {
   const response = await axios.post(`${GENERIC_URL}/login`, userData);
 
   if (response.data) {
@@ -28,7 +29,7 @@ const login = async (userData) => {
 };
 
 // Logout user
-const logout = () => {
+const logout = (): void => {
   localStorage.removeItem("user");
 };
 
