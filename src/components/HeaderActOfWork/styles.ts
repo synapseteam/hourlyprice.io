@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
   arrow: css`
@@ -10,7 +10,7 @@ export const styles = {
       display: block;
     }
   `,
-  actOfWorkUpdated: (theme) => css`
+  actOfWorkUpdated: (theme: Theme) => css`
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -40,7 +40,7 @@ export const styles = {
     }
   `,
 
-  dropdown: (theme) => css`
+  dropdown: (theme: Theme) => css`
     display: none;
     background-color: ${theme.primary};
     position: absolute;
@@ -57,7 +57,7 @@ export const styles = {
     }
   `,
 
-  link: (theme) => css`
+  link: (theme: Theme) => css`
     padding: 20px 10px;
     text-decoration: none;
     color: ${theme.senary};

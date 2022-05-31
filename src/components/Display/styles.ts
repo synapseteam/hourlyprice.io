@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  display: (theme) => css`
+  display: (theme: Theme) => css`
     background-color: ${theme.primary};
     border-radius: 0.4rem;
     position: relative;

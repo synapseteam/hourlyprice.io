@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useCustomTranslation } from "i18n";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../../features/auth";
@@ -16,9 +16,9 @@ import InputLabel from "components/UI/InputLabel";
 import Spinner from "components/UI/Spinner";
 import { styles } from "./styles";
 
-const Login = () => {
+const Login: FC = (): JSX.Element => {
   const [t] = useCustomTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
@@ -34,12 +34,12 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FieldValues>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
 
@@ -56,7 +56,7 @@ const Login = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const submitForm = async (data) => {
+  const submitForm: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
     };
@@ -91,9 +91,7 @@ const Login = () => {
           {t("createNewAccount")}
         </Link>
       </div>
-      <Button type="submit" css={styles.formButton}>
-        {t("signIn")}
-      </Button>
+      <Button type="submit">{t("signIn")}</Button>
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
   ActOfWorkDoc: css`
@@ -43,7 +43,7 @@ export const styles = {
     }
   `,
 
-  save: (theme) => css`
+  save: (theme: Theme) => css`
     background-color: ${theme.primary};
     display: flex;
     justify-content: space-between;
@@ -55,13 +55,13 @@ export const styles = {
       margin-right: 10px;
     }
   `,
-  saveInput: (theme) => css`
+  saveInput: (theme: Theme) => css`
     border-bottom: 1px solid ${theme.senary};
     background: none;
     color: ${theme.senary};
     font-size: 24px;
   `,
-  editInput: (theme) => css`
+  editInput: (theme: Theme) => css`
     display: flex;
     border: 1px solid black;
     background: #f6f6f6;

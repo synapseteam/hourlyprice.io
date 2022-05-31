@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  footer: (theme) => css`
+  footer: (theme: Theme) => css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +17,7 @@ export const styles = {
     font-weight: 500;
     font-size: 0.9rem;
   `,
-  footerLink: (theme) => css`
+  footerLink: (theme: Theme) => css`
     text-decoration: none;
     color: ${theme.senary};
   `,

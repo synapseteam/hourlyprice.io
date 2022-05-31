@@ -1,7 +1,7 @@
 /** @format */
 /** @jsxImportSource @emotion/react */
 
-import PropTypes from "prop-types";
+import { FC, Dispatch, SetStateAction } from "react";
 import Header from "../../components/Header/index";
 
 import Footer from "../../components/Footer/index";
@@ -9,7 +9,12 @@ import Login from "../../components/Login/index";
 
 import { styles } from "./styles";
 
-export default function LoginPage({ isDark, setIsDark }) {
+interface IProps {
+  setIsDark: Dispatch<SetStateAction<boolean>>;
+  isDark: boolean;
+}
+
+const LoginPage: FC<IProps> = ({ isDark, setIsDark }): JSX.Element => {
   return (
     <div css={styles.loginPage}>
       <Header isDark={isDark} setIsDark={setIsDark} />
@@ -20,9 +25,6 @@ export default function LoginPage({ isDark, setIsDark }) {
       />
     </div>
   );
-}
-
-LoginPage.propTypes = {
-  setIsDark: PropTypes.func.isRequired,
-  isDark: PropTypes.bool,
 };
+
+export default LoginPage;

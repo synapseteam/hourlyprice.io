@@ -1,14 +1,14 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
   title: css`
     margin: 0;
   `,
-  mainContainer: (theme) => css`
+  mainContainer: (theme: Theme) => css`
     border-bottom: 1px solid ${theme.tertiary};
     min-height: 6.8rem;
   `,
-  sum: (theme) => css`
+  sum: (theme: Theme) => css`
     color: ${theme.secondary};
     font-weight: 700;
     line-height: 0.7;

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
   ratesInputsContainer: css`
@@ -7,7 +7,7 @@ export const styles = {
     width: 100%;
   `,
 
-  ratesInput: (theme) => css`
+  ratesInput: (theme: Theme) => css`
     background-color: ${theme.inputBgColor};
     border: ${theme.inputBorder};
     border-radius: 0.3rem;

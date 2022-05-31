@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  SideMenu: (theme) => css`
+  SideMenu: (theme: Theme) => css`
     width: 250px;
     background-color: ${theme.primary};
     color: ${theme.denary};

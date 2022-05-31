@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  label: (theme) => css`
+  label: (theme: Theme) => css`
     font-size: 0.7rem;
     color: ${theme.labelColor};
     display: flex;
@@ -10,7 +10,7 @@ export const styles = {
       margin-top: 0;
     }
   `,
-  select: (theme) => css`
+  select: (theme: Theme) => css`
     background: ${theme.inputBgColor};
     border: ${theme.inputBorder};
     border-radius: 0.3rem;

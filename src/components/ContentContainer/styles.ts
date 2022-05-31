@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  contentContainer: (theme) => css`
+  contentContainer: (theme: Theme) => css`
     width: 100%;
     padding: 1rem 1rem;
     display: flex;

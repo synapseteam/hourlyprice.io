@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  overlay: (theme) => css`
+  overlay: (theme: Theme) => css`
     position: absolute;
     top: 0;
     left: 0;

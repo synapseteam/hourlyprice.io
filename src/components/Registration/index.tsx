@@ -1,12 +1,12 @@
 /** @format */
 /** @jsxImportSource @emotion/react */
 
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useNavigate } from "react-router-dom";
 import { useCustomTranslation } from "i18n";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -17,10 +17,10 @@ import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import { styles } from "./styles";
 
-const Registration = () => {
+const Registration: FC = (): JSX.Element => {
   const [t] = useCustomTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
     name: yup.string().required(t("nameError")),
@@ -39,12 +39,12 @@ const Registration = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FieldValues>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
 
@@ -61,7 +61,7 @@ const Registration = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const submitForm = (data) => {
+  const submitForm: SubmitHandler<FieldValues> = (data) => {
     const userData = {
       ...data,
     };
@@ -112,9 +112,7 @@ const Registration = () => {
           {t("signIn")}
         </Link>
       </div>
-      <Button type="submit" css={styles.formButton}>
-        {t("register")}
-      </Button>
+      <Button type="submit">{t("register")}</Button>
     </form>
   );
 };

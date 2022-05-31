@@ -1,7 +1,9 @@
-import { css } from "@emotion/react";
+/** @format */
+
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  ActOfWorkPage: (theme) => css`
+  BillDoc: (theme: Theme) => css`
     background-color: ${theme.octonary};
     display: flex;
     flex-direction: column;
@@ -10,8 +12,7 @@ export const styles = {
   contentContainer: css`
     display: flex;
   `,
-
-  noPreviewMessage: (theme) => css`
+  noPreviewMessage: (theme: Theme) => css`
     display: none;
     font-size: 28px;
     line-height: 36px;
