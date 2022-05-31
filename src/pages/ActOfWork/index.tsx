@@ -1,23 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
+import { FC, Dispatch, SetStateAction } from "react";
 import HeaderActOfWork from "../../components/HeaderActOfWork/index";
 import ModalDialog from "components/ModalDialog";
 import ActOfWorkDoc from "../../components/ActOfWorkDoc/index";
 import Footer from "../../components/Footer";
-import { useLocalStorage } from "../../hooks";
 import { useEffect, useState } from "react";
 import ClientForm from "components/ClientForm";
 import SideMenu from "../../components/SideMenu";
 import { styles } from "./styles";
 
-export default function ActOfWorkPage({ isDark }) {
-  const [actOfWork, setActOfWork] = useLocalStorage({
-    key: "actOfWorkDocs",
-    initialState: [],
-  });
-  const [selectedAct, setSelectedAct] = useState(null);
+interface IProps {
+  isDark: boolean;
+  setIsDark: Dispatch<SetStateAction<boolean>>;
+}
+
+const ActOfWorkPage: FC<IProps> = ({ isDark }): JSX.Element => {
   const [isActUpdated, setIsActUpdated] = useState(false);
   const [isActAdded, setIsActAdded] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState();
   const [selectedFields, setSelectedFields] = useState();
@@ -46,18 +46,13 @@ export default function ActOfWorkPage({ isDark }) {
     }
   }, [isActAdded]);
 
-  const setSelectedActDoc = (docName) => {
-    const selectedActOfWork = actOfWork.find(
-      (item) => item.docName === docName
-    );
-    setSelectedAct(selectedActOfWork);
-  };
   const closeModal = () => {
+    setIsOpenModal(false);
     setModalType("");
   };
   return (
     <div css={styles.ActOfWorkPage}>
-      <ModalDialog isOpen={modalType} onClose={closeModal}>
+      <ModalDialog isOpen={isOpenModal} onClose={closeModal}>
         {modalType === "clientModal" && (
           <ClientForm type={modalType} selectedFields={selectedFields} />
         )}
@@ -65,11 +60,10 @@ export default function ActOfWorkPage({ isDark }) {
       </ModalDialog>
       <HeaderActOfWork
         isDark={isDark}
-        actOfWork={actOfWork}
-        setSelectedAct={setSelectedAct}
-        setSelectedActDoc={setSelectedActDoc}
         isActUpdated={isActUpdated}
         isActAdded={isActAdded}
+        isBillUpdated={false}
+        isBillAdded={false}
       />
       <div css={styles.contentContainer}>
         <SideMenu
@@ -78,14 +72,7 @@ export default function ActOfWorkPage({ isDark }) {
           setSelectedFields={setSelectedFields}
           setSelectedUser={setSelectedUser}
         />
-        <ActOfWorkDoc
-          selectedUser={selectedUser}
-          actOfWork={actOfWork}
-          selectedAct={selectedAct}
-          setActOfWork={setActOfWork}
-          setIsActUpdated={setIsActUpdated}
-          setIsActAdded={setIsActAdded}
-        />
+        <ActOfWorkDoc selectedUser={selectedUser} isDark={false} />
       </div>
       <div css={styles.noPreviewMessage}>
         Попередній перегляд не підтримується
@@ -96,8 +83,6 @@ export default function ActOfWorkPage({ isDark }) {
       />
     </div>
   );
-}
-
-ActOfWorkPage.propTypes = {
-  isDark: PropTypes.bool,
 };
+
+export default ActOfWorkPage;

@@ -3,22 +3,27 @@
  * @jsxImportSource @emotion/react
  */
 
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useLocalStorage } from "../../hooks";
+import { useState, useEffect, FC, Dispatch, SetStateAction } from "react";
 import HeaderActOfWork from "../../components/HeaderActOfWork/index";
 import Footer from "../../components/Footer";
 import BillDoc from "../../components/BillDoc";
 import SideMenu from "../../components/SideMenu";
+import ModalDialog from "components/ModalDialog";
+import ClientForm from "components/ClientForm";
 import { styles } from "./styles";
 
-export default function BillPage({ isDark }) {
-  const [billItems, setBillItems] = useLocalStorage("billDocs", []);
-  const [selectedBill, setSelectedBill] = useState(null);
+interface IProps {
+  isDark: boolean;
+  setIsDark: Dispatch<SetStateAction<boolean>>;
+}
+
+const BillPage: FC<IProps> = ({ isDark }): JSX.Element => {
   const [isBillUpdated, setIsBillUpdated] = useState(false);
   const [isBillAdded, setIsBillAdded] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const [selectedUser, setSelectedUser] = useState();
+  const [selectedFields, setSelectedFields] = useState();
 
   useEffect(() => {
     if (modalType) {
@@ -44,35 +49,34 @@ export default function BillPage({ isDark }) {
     }
   }, [isBillAdded]);
 
-  const setSelectedBillDoc = (docName) => {
-    const selectedBill = billItems.find((item) => item.docName === docName);
-    setSelectedBill(selectedBill);
+  const closeModal = () => {
+    setIsOpenModal(false);
+    setModalType("");
   };
 
   return (
     <div css={styles.BillDoc}>
+      <ModalDialog isOpen={isOpenModal} onClose={closeModal}>
+        {modalType === "clientModal" && (
+          <ClientForm type={modalType} selectedFields={selectedFields} />
+        )}
+        {modalType === "executorModal" && <ClientForm type={modalType} />}
+      </ModalDialog>
       <HeaderActOfWork
         isDark={isDark}
-        billItems={billItems}
-        setBillItems={setBillItems}
-        setSelectedBillDoc={setSelectedBillDoc}
         isBillAdded={isBillAdded}
         isBillUpdated={isBillUpdated}
+        isActUpdated={false}
+        isActAdded={false}
       />
       <div css={styles.contentContainer}>
         <SideMenu
           setModalType={setModalType}
           isDark={isDark}
           setSelectedUser={setSelectedUser}
+          setSelectedFields={setSelectedFields}
         />
-        <BillDoc
-          isDark={isDark}
-          selectedUser={selectedUser}
-          selectedBill={selectedBill}
-          setBillItems={setBillItems}
-          setIsBillAdded={setIsBillAdded}
-          setIsBillUpdated={setIsBillUpdated}
-        />
+        <BillDoc isDark={isDark} selectedUser={selectedUser} />
       </div>
 
       <div css={styles.noPreviewMessage}>
@@ -84,9 +88,6 @@ export default function BillPage({ isDark }) {
       />
     </div>
   );
-}
-
-BillPage.propTypes = {
-  setIsDark: PropTypes.func.isRequired,
-  isDark: PropTypes.bool,
 };
+
+export default BillPage;

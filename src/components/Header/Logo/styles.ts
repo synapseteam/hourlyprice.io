@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 export const styles = {
-  logo: (theme) => css`
+  logo: (theme: Theme) => css`
     font-weight: 600;
     font-size: 1.1rem;
     line-height: 0.6;
