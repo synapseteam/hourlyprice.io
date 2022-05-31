@@ -8,8 +8,8 @@ import { styles } from "./styles";
 import { IOption } from "typescript/interfaces";
 
 const initialSubCurrenciesArr: IOption[] = [
-  { label: "EUR", value: "0.00" },
-  { label: "UAH", value: "0.00" },
+  { name: "EUR", value: "0.00" },
+  { name: "UAH", value: "0.00" },
 ];
 
 interface IProps {
@@ -21,11 +21,13 @@ const SubCurrenciesDisplay: React.FC<IProps> = ({
   subCurrenciesArr = initialSubCurrenciesArr,
   isLoading,
 }): JSX.Element => {
+  console.log("initial: ", initialSubCurrenciesArr);
+  console.log(subCurrenciesArr);
   return (
     <div css={styles.mainContainer}>
       {subCurrenciesArr.map((el) => (
         <SubCurrency
-          name={el.label}
+          name={el.name}
           value={el.value || ZERO_VAL}
           key={uniqid()}
           isLoading={isLoading}

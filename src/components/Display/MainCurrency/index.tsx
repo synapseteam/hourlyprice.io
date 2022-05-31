@@ -8,7 +8,7 @@ import { styles } from "./styles";
 const initSum = 0.0;
 
 interface IProps {
-  sum: number;
+  sum: string;
   currency: string;
   isLoading: boolean;
 }

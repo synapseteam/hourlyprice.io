@@ -46,7 +46,7 @@ const Select: FC<IProps> = ({
           {optionsArr &&
             optionsArr.map((item) => (
               <option key={uniqid()} value={item.value}>
-                {item.label}
+                {item.name}
               </option>
             ))}
         </select>

@@ -10,8 +10,8 @@ import Button from "components/UI/Button";
 import { useState } from "react";
 
 const entityTypeOptions = [
-  { value: "physicalPerson", label: "Фізична особа" },
-  { value: "business", label: "Підприємство" },
+  { value: "physicalPerson", name: "Фізична особа" },
+  { value: "business", name: "Підприємство" },
 ];
 
 interface Props {

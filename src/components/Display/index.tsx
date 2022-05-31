@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { useSelector } from "react-redux";
+import { FC } from "react";
+import { useAppSelector } from "store/hooks";
 
 import SubCurrenciesDisplay from "components/Display/SubCurrencies";
 import MainCurrencyDisplay from "components/Display/MainCurrency/";
@@ -9,28 +10,33 @@ import { DECIMAL_SIGNS_FOR_PRICE } from "utils/constants";
 
 import { styles } from "./styles";
 
-export default function Display() {
+const Display: FC = (): JSX.Element => {
   const [t] = useCustomTranslation();
-  const { price, time, currency } = useSelector(
+  const { price, time, currency } = useAppSelector(
     (state) => state.generic.fields
   );
 
-  const allCurrencies = useSelector((state) => state.rates.allCurrencies);
-  const isLoading = useSelector((state) => state.generic.isLoading);
-  const isRequestError = useSelector((state) => state.generic.ratesRequestErr);
+  const allCurrencies = useAppSelector((state) => state.rates.allCurrencies);
+  const isLoading = useAppSelector((state) => state.generic.isLoading);
+  const isRequestError = useAppSelector(
+    (state) => state.generic.ratesRequestErr
+  );
 
   const mainCurrencyData = allCurrencies.find((el) => el.name === currency) || {
     name: "",
-    price: 0,
+    rate: 0,
     symbol: "",
   };
-  function formatSum(num) {
+
+  // TODO check any
+  function formatSum(num: any) {
     return new Intl.NumberFormat("de-DE")
       .format(num.toFixed(DECIMAL_SIGNS_FOR_PRICE))
       .replace(".", " ");
   }
 
-  function generateSubCurrenciesArr(arr, basicRate) {
+  // TODO check any
+  function generateSubCurrenciesArr(arr: any[], basicRate: number) {
     const subCurrencyInitial = arr.filter((el) => el.name !== currency);
     if (!currency) {
       return subCurrencyInitial.map((el) => {
@@ -44,13 +50,13 @@ export default function Display() {
     return subCurrencyInitial.map((el) => {
       return {
         name: el.name,
-        value: el.rate ? formatSum(el.rate * basicRate * time) : "--",
+        value: el.rate ? formatSum(el.rate * basicRate * Number(time)) : "--",
       };
     });
   }
 
-  const basicRate = price / mainCurrencyData.rate;
-  const mainCurrencySum = formatSum(time * price);
+  const basicRate = Number(price) / mainCurrencyData.rate;
+  const mainCurrencySum = formatSum(Number(time) * Number(price));
   const subCurrenciesArr = generateSubCurrenciesArr(allCurrencies, basicRate);
 
   return (
@@ -72,4 +78,6 @@ export default function Display() {
       />
     </div>
   );
-}
+};
+
+export default Display;

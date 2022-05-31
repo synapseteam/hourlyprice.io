@@ -13,7 +13,6 @@ import Button from "../UI/Button";
 import ReactTooltip from "react-tooltip";
 import CopyIcon from "../../assets/copy-black.png";
 import CopyIconWhite from "../../assets/copy-white.png";
-import { useTheme } from "@emotion/react";
 import CloseIcon from "../../assets/close.svg";
 import { styles } from "./styles";
 import { styles as actOfWorkStyles } from "../ActOfWorkDoc/styles";
@@ -30,7 +29,6 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
   const [editInputPosition, setEditInputPosition] = useState<number[]>([]);
   const [editedValue, setEditedValue] = useState<string>("");
 
-  const theme = useTheme();
   const now = new Date();
 
   useEffect(() => {

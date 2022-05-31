@@ -2211,8 +2211,6 @@
   resolved "https://registry.yarnpkg.com/@types/raf/-/raf-3.4.0.tgz#2b72cbd55405e071f1c4d29992638e022b20acc2"
   integrity sha512-taW5/WYqo36N7V39oYyHP9Ipfd5pNFvGTIQsNGj86xV88YQ7GnI30/yMfKDF7Zgin0m3e+ikX88FvImnK4RjGw==
 
-<<<<<<< HEAD
-=======
 "@types/react-collapse@^5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@types/react-collapse/-/react-collapse-5.0.1.tgz#078ea1ad15e00ba2063f2e4d8d6760c9375a2023"
@@ -2220,7 +2218,6 @@
   dependencies:
     "@types/react" "*"
 
->>>>>>> develop
 "@types/react-datepicker@^4.4.1":
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-datepicker/-/react-datepicker-4.4.1.tgz#b79aaccee265ab4c64ba8eecfea73fd4c29d1b2d"

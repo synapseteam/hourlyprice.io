@@ -55,7 +55,7 @@ export default function PriceForm() {
   const { price, time } = useSelector((state) => state.generic.fields);
 
   const allCurrenciesNames = allCurrencies.map((el) => {
-    return { label: el.name, value: el.name };
+    return { name: el.name, value: el.name };
   });
 
   const dispatch = useDispatch();
