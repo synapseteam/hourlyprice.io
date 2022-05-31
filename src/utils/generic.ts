@@ -11,7 +11,6 @@ import {
 
 export function convertStrTimeToNum(timeString: string) {
   const normalizedTime = timeString.split(":");
-  console.log(timeString);
   const [hours, minutes] = normalizedTime;
 
   if (!minutes) return Number(hours);
