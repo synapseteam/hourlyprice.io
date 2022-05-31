@@ -78,3 +78,16 @@ export interface IRoutes {
   registration: string,
   companyRegistration: string,
 }
+
+export interface IResponseUser {
+  id: number;
+  email: string;
+  email_verified_at: any;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IResponseData {
+  user: IResponseUser;
+  access_token: string;
+}
