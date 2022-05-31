@@ -12,7 +12,7 @@ type AuthState = {
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
-  message: string | unknown;
+  message: string;
 };
 
 // Get user from localStorage

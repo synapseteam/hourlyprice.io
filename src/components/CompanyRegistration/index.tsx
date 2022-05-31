@@ -1,11 +1,11 @@
 /** @format */
 /** @jsxImportSource @emotion/react */
 
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useNavigate } from "react-router-dom";
 import { useCustomTranslation } from "i18n";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -15,10 +15,10 @@ import Spinner from "components/UI/Spinner";
 import InputLabel from "components/UI/InputLabel";
 import { styles } from "./styles";
 
-const CompanyRegistration = () => {
+const CompanyRegistration: FC = (): JSX.Element => {
   const [t] = useCustomTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
     companyName: yup.string().required(t("nameError")),
@@ -29,12 +29,12 @@ const CompanyRegistration = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FieldValues>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
 
@@ -51,7 +51,7 @@ const CompanyRegistration = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const submitForm = (data) => {
+  const submitForm: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
 
@@ -76,9 +76,7 @@ const CompanyRegistration = () => {
         placeholder={t("regPlaceholder")}
         errors={errors}
       />
-      <Button type="submit" css={styles.formButton}>
-        {t("registerCompany")}
-      </Button>
+      <Button type="submit">{t("registerCompany")}</Button>
     </form>
   );
 };
