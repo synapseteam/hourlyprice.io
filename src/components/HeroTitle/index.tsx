@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { useCustomTranslation } from "i18n";
-
+import { useTranslation, Trans } from "react-i18next";
 import { styles } from "./styles";
 
-export default function HeroTitle() {
-  const [t, Trans] = useCustomTranslation();
+const HeroTitle: React.FC = (): JSX.Element => {
+  const [t] = useTranslation();
 
   return (
     <div css={styles.container}>
@@ -14,4 +13,5 @@ export default function HeroTitle() {
       </h3>
     </div>
   );
-}
+};
+export default HeroTitle;

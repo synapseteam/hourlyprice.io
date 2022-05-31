@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ICurrency, IOption } from "typescript/interfaces";
+import { ICurrency } from "typescript/interfaces";
 import uniqid from "uniqid";
 
 import { DECIMAL_SIGNS_FOR_RATES } from "utils/constants";

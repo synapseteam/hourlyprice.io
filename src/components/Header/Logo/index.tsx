@@ -5,14 +5,18 @@ import { ROUTES } from "../../../utils/urls";
 
 import { styles } from "./styles";
 
-export default function Logo({ logoText = "hourlyprice.io" }) {
+interface IProps {
+  logoText?: string;
+}
+
+const Logo: React.FC<IProps> = ({
+  logoText = "hourlyprice.io",
+}): JSX.Element => {
   return (
     <Link to={ROUTES.home} css={styles.logo}>
       {logoText}
     </Link>
   );
-}
-
-Logo.propTypes = {
-  logoText: PropTypes.string,
 };
+
+export default Logo;

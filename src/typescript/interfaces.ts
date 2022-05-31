@@ -43,4 +43,30 @@ export interface ICurrency {
   name: string;
   rate: number;
   symbol: string;
+
+}
+
+export interface IInvoice {
+  invoice: string
+  teamName: string
+  code: string
+  location: string
+  email: string
+  invoiceNumber: string
+  agreementNumber: string
+  billToColumn1: string
+  billToColumn2: string
+  billToColumn3: string
+  invoiceDate: Date
+  dueDate: Date
+  details: IInvoiceDetails[],
+  notes: string,
+  wireTransferDetails: string
+}
+
+export interface IInvoiceDetails {
+  title: string
+  price: number
+  quantity: string
+  total: string
 }

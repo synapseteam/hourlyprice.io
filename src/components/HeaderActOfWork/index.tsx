@@ -3,16 +3,29 @@
  * @jsxImportSource @emotion/react
  */
 
-import PropTypes from "prop-types";
 import Logo from "components/Header/Logo";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/urls";
 import ArrowIcon from "../../assets/arrow-right.png";
 import ArrowWhiteIcon from "../../assets/arrow-right-white.png";
 import { styles as headerStyles } from "../Header/styles";
+import { IActDoc } from "typescript/interfaces";
+import { Dispatch } from "react";
 import { styles } from "./styles";
 
-export default function HeaderActOfWork({
+interface IProps {
+  isDark: boolean;
+  actOfWork: IActDoc[];
+  setSelectedActDoc: Dispatch<string>;
+  isActUpdated: boolean;
+  isActAdded: boolean;
+  billItems: IActDoc[];
+  setSelectedBillDoc: Dispatch<string>;
+  isBillUpdated: boolean;
+  isBillAdded: boolean;
+}
+
+const HeaderActOfWork: React.FC<IProps> = ({
   isDark,
   actOfWork,
   setSelectedActDoc,
@@ -22,7 +35,7 @@ export default function HeaderActOfWork({
   setSelectedBillDoc,
   isBillUpdated,
   isBillAdded,
-}) {
+}): JSX.Element => {
   return (
     <header css={headerStyles.header}>
       <Logo />
@@ -85,16 +98,6 @@ export default function HeaderActOfWork({
       </div>
     </header>
   );
-}
-
-HeaderActOfWork.propTypes = {
-  isDark: PropTypes.bool,
-  actOfWork: PropTypes.array,
-  setSelectedActDoc: PropTypes.func,
-  isActUpdated: PropTypes.bool,
-  isActAdded: PropTypes.bool,
-  billItems: PropTypes.array,
-  setSelectedBillDoc: PropTypes.func,
-  isBillUpdated: PropTypes.bool,
-  isBillAdded: PropTypes.bool,
 };
+
+export default HeaderActOfWork;

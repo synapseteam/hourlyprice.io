@@ -5,15 +5,13 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCustomTranslation } from "i18n";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { registration, reset } from "../../features/auth";
+import { reset } from "../../features/auth";
 import Button from "components/UI/Button";
 import Spinner from "components/UI/Spinner";
-import { ROUTES } from "../../utils/urls";
 import InputLabel from "components/UI/InputLabel";
 import { styles } from "./styles";
 
