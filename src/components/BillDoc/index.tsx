@@ -148,8 +148,7 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      .html(document.getElementById("#billDoc")!, { margin: [20, 10, 10, 50] })
+      .html(document.getElementById("#billDoc"), { margin: [20, 10, 10, 50] })
       .then(() => {
         report.save("bill.pdf");
       });
