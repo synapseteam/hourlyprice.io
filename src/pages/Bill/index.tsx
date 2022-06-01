@@ -11,6 +11,7 @@ import SideMenu from "../../components/SideMenu";
 import ModalDialog from "components/ModalDialog";
 import ClientForm from "components/ClientForm";
 import { styles } from "./styles";
+import { IActInfoUser } from "typescript/interfaces";
 
 interface IProps {
   isDark: boolean;
@@ -22,9 +23,8 @@ const BillPage: FC<IProps> = ({ isDark }): JSX.Element => {
   const [isBillAdded, setIsBillAdded] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalType, setModalType] = useState("");
-  const [selectedUser, setSelectedUser] = useState();
-  const [selectedFields, setSelectedFields] = useState();
-
+  const [selectedUser, setSelectedUser] = useState<IActInfoUser>();
+  const [selectedFields, setSelectedFields] = useState<IActInfoUser>();
   useEffect(() => {
     if (modalType) {
       document.body.classList.add("modal-open");

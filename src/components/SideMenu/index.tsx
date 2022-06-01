@@ -5,15 +5,14 @@ import Button from "components/UI/Button";
 import SideMenuItem from "./SideMenuItem";
 import UsersArr from "mock/users.json";
 import { styles } from "./styles";
+import { IActInfoUser } from "typescript/interfaces";
 
 interface Props {
   setModalType: Dispatch<SetStateAction<string>>;
   setIsOpenModal: Dispatch<SetStateAction<boolean>>;
   isDark: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setSelectedFields: any; // TODO check any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setSelectedUser: any; // TODO check any
+  setSelectedFields: Dispatch<SetStateAction<IActInfoUser>>;
+  setSelectedUser: Dispatch<SetStateAction<IActInfoUser>>;
 }
 const SideMenu: FC<Props> = ({
   setIsOpenModal,
@@ -25,16 +24,12 @@ const SideMenu: FC<Props> = ({
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
-
   // const onOpenModal = (item: Record<string | number, string | number>, ) => {
   //   setSelectedFields(item);
   //   setModalType("clientModal");
   // };
 
-  const onOpenModal = (
-    modalType: string,
-    item?: Record<string | number, string | number>
-  ) => {
+  const onOpenModal = (modalType: string, item?: IActInfoUser) => {
     item ? setSelectedFields(item) : setSelectedFields(undefined);
     setIsOpenModal(true);
     modalType === "clientModal"

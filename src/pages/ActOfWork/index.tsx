@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import ClientForm from "components/ClientForm";
 import SideMenu from "../../components/SideMenu";
 import { styles } from "./styles";
+import { IActInfoUser } from "typescript/interfaces";
 
 interface IProps {
   isDark: boolean;
@@ -19,8 +20,8 @@ const ActOfWorkPage: FC<IProps> = ({ isDark }): JSX.Element => {
   const [isActAdded, setIsActAdded] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalType, setModalType] = useState("");
-  const [selectedUser, setSelectedUser] = useState();
-  const [selectedFields, setSelectedFields] = useState();
+  const [selectedUser, setSelectedUser] = useState<IActInfoUser>();
+  const [selectedFields, setSelectedFields] = useState<IActInfoUser>();
 
   useEffect(() => {
     if (modalType) {

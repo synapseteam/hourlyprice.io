@@ -17,7 +17,7 @@ const entityTypeOptions = [
 interface Props {
   type?: "clientModal" | "executorModal";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedFields?: any; // TODO check any
+  selectedFields?: FieldValues; // TODO check any
 }
 
 const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
