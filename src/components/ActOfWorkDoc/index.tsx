@@ -313,7 +313,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
               register={register}
               selected={watchContractDateFrom}
               inputName="contractDateFrom"
-              onChange={(date) =>
+              onChange={(date: Date) =>
                 setValue("contractDateFrom", date.getTime(), {
                   shouldDirty: true,
                 })
@@ -328,7 +328,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
                 selected={watchActDate}
                 inputName="actDate"
                 dateFormat="«dd» MMMM yyyy року"
-                onChange={(date) =>
+                onChange={(date: Date) =>
                   setValue("actDate", date.getTime(), { shouldDirty: true })
                 }
               />

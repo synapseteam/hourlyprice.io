@@ -253,7 +253,7 @@ const Invoice: React.FC = (): JSX.Element => {
                 width={95}
                 dateFormat="dd/MM/yyyy"
                 inputName="invoiceDate"
-                onChange={(date) => setValue("invoiceDate", date.getTime())}
+                onChange={(date: Date) => setValue("invoiceDate", date)}
               />
               <BaseDatePicker
                 classname={[
@@ -268,7 +268,7 @@ const Invoice: React.FC = (): JSX.Element => {
                 disabled={!isEditMode}
                 dateFormat="dd/MM/yyyy"
                 inputName="dueDate"
-                onChange={(date) => setValue("dueDate", date.getTime())}
+                onChange={(date: Date) => setValue("dueDate", date)}
               />
             </div>
           </div>

@@ -281,7 +281,7 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
             inputName="contractDateFrom"
             classname={styles.titleFieldBold}
             dateFormat="dd.MM.yyyy"
-            onChange={(date) =>
+            onChange={(date: Date) =>
               setValue("contractDateFrom", date.getTime(), {
                 shouldDirty: true,
               })

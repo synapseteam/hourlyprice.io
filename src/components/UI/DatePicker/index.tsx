@@ -6,12 +6,23 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import uk from "date-fns/locale/uk";
-import { css, Global } from "@emotion/react";
-import PropTypes from "prop-types";
+import { css, Global, SerializedStyles } from "@emotion/react";
 
 import { styles } from "./styles";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
-export default function BaseDatePicker({
+interface IProps {
+  register: UseFormRegister<FieldValues>;
+  selected: number | string | Date;
+  onChange: (date: Date) => void;
+  inputName: string;
+  dateFormat?: string;
+  width?: number;
+  classname?: SerializedStyles | SerializedStyles[];
+  disabled?: boolean;
+}
+
+const BaseDatePicker: React.FC<IProps> = ({
   register,
   selected,
   onChange,
@@ -20,7 +31,8 @@ export default function BaseDatePicker({
   width = 170,
   classname,
   disabled,
-}) {
+}): JSX.Element => {
+  const parsedDate = new Date(selected);
   return (
     <span data-comp="hover">
       <Global
@@ -39,7 +51,7 @@ export default function BaseDatePicker({
       <DatePicker
         css={[styles.fieldDate, classname]}
         locale={uk}
-        selected={selected}
+        selected={parsedDate}
         dateFormat={dateFormat}
         {...register(inputName)}
         onChange={onChange}
@@ -47,15 +59,6 @@ export default function BaseDatePicker({
       />
     </span>
   );
-}
-
-BaseDatePicker.propTypes = {
-  register: PropTypes.func,
-  selected: PropTypes.any,
-  onChange: PropTypes.func,
-  inputName: PropTypes.string,
-  dateFormat: PropTypes.string,
-  classname: PropTypes.any,
-  width: PropTypes.number,
-  disabled: PropTypes.bool,
 };
+
+export default BaseDatePicker;
