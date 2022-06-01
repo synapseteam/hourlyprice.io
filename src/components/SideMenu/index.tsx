@@ -26,13 +26,16 @@ const SideMenu: FC<Props> = ({
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
 
-  const onOpenModal = (item: Record<string | number, string | number>) => {
-    setSelectedFields(item);
-    setModalType("clientModal");
-  };
+  // const onOpenModal = (item: Record<string | number, string | number>, ) => {
+  //   setSelectedFields(item);
+  //   setModalType("clientModal");
+  // };
 
-  const onAddUser = (modalType: string) => {
-    setSelectedFields(undefined);
+  const onOpenModal = (
+    modalType: string,
+    item?: Record<string | number, string | number>
+  ) => {
+    item ? setSelectedFields(item) : setSelectedFields(undefined);
     setIsOpenModal(true);
     modalType === "clientModal"
       ? setModalType("clientModal")
@@ -49,7 +52,7 @@ const SideMenu: FC<Props> = ({
       >
         <Button
           disabled={false}
-          onClick={() => onAddUser("clientModal")}
+          onClick={() => onOpenModal("clientModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
@@ -65,7 +68,7 @@ const SideMenu: FC<Props> = ({
                   surname={item.surname}
                   patronym={item.patronym}
                   onClick={() => setSelectedUser(item)}
-                  toggleModal={() => onOpenModal(item)}
+                  toggleModal={() => onOpenModal("clientModal", item)}
                 />
               </li>
             ))}
@@ -79,7 +82,7 @@ const SideMenu: FC<Props> = ({
       >
         <Button
           disabled={false}
-          onClick={() => onAddUser("executorModal")}
+          onClick={() => onOpenModal("executorModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
@@ -94,7 +97,7 @@ const SideMenu: FC<Props> = ({
                   name={item.name}
                   surname={item.surname}
                   patronym={item.patronym}
-                  toggleModal={() => setModalType("executorModal")}
+                  toggleModal={() => onOpenModal("executorModal", item)}
                   onClick={() => setSelectedUser(item)}
                 />
               </li>
