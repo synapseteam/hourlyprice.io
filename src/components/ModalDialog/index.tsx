@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const ModalDialog: React.FC<IProps> = ({
-  isOpen = false,
+  isOpen,
   children,
   title = "",
   onClose,

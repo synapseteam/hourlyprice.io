@@ -8,11 +8,15 @@ import { styles } from "./styles";
 
 interface Props {
   setModalType: Dispatch<SetStateAction<string>>;
+  setIsOpenModal: Dispatch<SetStateAction<boolean>>;
   isDark: boolean;
-  setSelectedFields: any;
-  setSelectedUser: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setSelectedFields: any; // TODO check any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setSelectedUser: any; // TODO check any
 }
 const SideMenu: FC<Props> = ({
+  setIsOpenModal,
   setModalType,
   isDark,
   setSelectedFields,
@@ -22,14 +26,17 @@ const SideMenu: FC<Props> = ({
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
 
-  const onOpenModal = (item: Record<any, any>) => {
+  const onOpenModal = (item: Record<string | number, string | number>) => {
     setSelectedFields(item);
     setModalType("clientModal");
   };
 
-  const onAddUser = () => {
+  const onAddUser = (modalType: string) => {
     setSelectedFields(undefined);
-    setModalType("clientModal");
+    setIsOpenModal(true);
+    modalType === "clientModal"
+      ? setModalType("clientModal")
+      : setModalType("executorModal");
   };
 
   return (
@@ -42,7 +49,7 @@ const SideMenu: FC<Props> = ({
       >
         <Button
           disabled={false}
-          onClick={onAddUser}
+          onClick={() => onAddUser("clientModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
@@ -72,7 +79,7 @@ const SideMenu: FC<Props> = ({
       >
         <Button
           disabled={false}
-          onClick={() => setModalType("executorModal")}
+          onClick={() => onAddUser("executorModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >

@@ -67,6 +67,7 @@ const ActOfWorkPage: FC<IProps> = ({ isDark }): JSX.Element => {
       />
       <div css={styles.contentContainer}>
         <SideMenu
+          setIsOpenModal={setIsOpenModal}
           setModalType={setModalType}
           isDark={isDark}
           setSelectedFields={setSelectedFields}

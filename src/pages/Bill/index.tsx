@@ -71,6 +71,7 @@ const BillPage: FC<IProps> = ({ isDark }): JSX.Element => {
       />
       <div css={styles.contentContainer}>
         <SideMenu
+          setIsOpenModal={setIsOpenModal}
           setModalType={setModalType}
           isDark={isDark}
           setSelectedUser={setSelectedUser}

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { SerializedStyles, Theme } from "@emotion/react";
+import { SerializedStyles } from "@emotion/react";
 import { styles } from "./styles";
 
 interface Props {

@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Select from "components/UI/Select";
 import InputLabel from "components/UI/InputLabel";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { styles } from "./styles";
 import Button from "components/UI/Button";
 import { useState } from "react";
@@ -16,7 +16,8 @@ const entityTypeOptions = [
 
 interface Props {
   type?: "clientModal" | "executorModal";
-  selectedFields?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  selectedFields?: any; // TODO check any
 }
 
 const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
@@ -50,7 +51,7 @@ const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
     defaultValues: selectedFields && selectedFields,
   });
 
-  const submitForm = async (data: any) => {
+  const submitForm: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
   };
 
