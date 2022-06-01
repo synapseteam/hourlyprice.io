@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../utils/urls";
 

@@ -8,7 +8,7 @@ import { styles } from "./styles";
 
 interface IProps {
   allCurrencies: ICurrency[];
-  currency: any;
+  currency: string;
 }
 const SubCurrenciesRatesDisplay: React.FC<IProps> = ({
   allCurrencies,

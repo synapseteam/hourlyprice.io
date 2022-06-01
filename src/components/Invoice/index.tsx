@@ -125,7 +125,7 @@ const Invoice: React.FC = (): JSX.Element => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
-      .html(document.getElementById("#report")!, { margin: [20, 10, 10, 50] })
+      .html(document.getElementById("#report"), { margin: [20, 10, 10, 50] })
       .then(() => {
         report.save("report.pdf");
       });

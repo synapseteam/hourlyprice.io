@@ -9,6 +9,7 @@ import { DECIMAL_SIGNS_FOR_PRICE } from "utils/constants";
 
 import { styles } from "./styles";
 import { useTranslation } from "react-i18next";
+import { ICurrency } from "typescript/interfaces";
 
 const Display: FC = (): JSX.Element => {
   const [t] = useTranslation();
@@ -28,15 +29,13 @@ const Display: FC = (): JSX.Element => {
     symbol: "",
   };
 
-  // TODO check any
-  function formatSum(num: any) {
+  function formatSum(num: number): string {
     return new Intl.NumberFormat("de-DE")
-      .format(num.toFixed(DECIMAL_SIGNS_FOR_PRICE))
+      .format(Number(num.toFixed(DECIMAL_SIGNS_FOR_PRICE)))
       .replace(".", " ");
   }
 
-  // TODO check any
-  function generateSubCurrenciesArr(arr: any[], basicRate: number) {
+  function generateSubCurrenciesArr(arr: ICurrency[], basicRate: number) {
     const subCurrencyInitial = arr.filter((el) => el.name !== currency);
     if (!currency) {
       return subCurrencyInitial.map((el) => {

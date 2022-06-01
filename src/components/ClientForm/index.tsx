@@ -21,7 +21,6 @@ interface Props {
 
 const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
   const [entityType, setEntityType] = useState("physicalPerson");
-  console.log(selectedFields);
   const [t] = useTranslation();
 
   const requiredText = "Поле обов'язкове для заповнення";
