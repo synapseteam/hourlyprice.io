@@ -3,7 +3,12 @@ import { useTranslation } from "react-i18next";
 import JsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import BaseDatePicker from "../UI/DatePicker/index";
-import { useForm, useFieldArray } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  FieldValues,
+  SubmitHandler,
+} from "react-hook-form";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
@@ -12,7 +17,7 @@ import LogoUa from "../../assets/ukraine-heart.png";
 import LogoUs from "../../assets/us-heart.png";
 import { changeLanguage } from "i18next";
 import { styles } from "./styles";
-import { IInvoice } from "typescript/interfaces";
+import { IDetails } from "typescript/interfaces";
 
 const Invoice: React.FC = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -32,7 +37,7 @@ const Invoice: React.FC = (): JSX.Element => {
 
   const weekFromNow = new Date(new Date().setDate(new Date().getDate() + 7));
 
-  const defaultValues: IInvoice = {
+  const defaultValues: FieldValues = {
     invoice: "Invoice",
     teamName: "Synapse Team LLC",
     code: "USREOU Code: 42772269",
@@ -81,7 +86,7 @@ const Invoice: React.FC = (): JSX.Element => {
   const calculateOrderTotal = (): void => {
     if (formValues && formValues.details) {
       const total = formValues.details.reduce(
-        (acc, curr) => Number(curr.total) + acc,
+        (acc: number, curr: { total: string }) => Number(curr.total) + acc,
         0
       );
       setOrderTotal(total);
@@ -116,7 +121,7 @@ const Invoice: React.FC = (): JSX.Element => {
 
   const watchDueDate = new Date(watch("dueDate"));
 
-  const onSubmit = (data: IInvoice): void => {
+  const onSubmit: SubmitHandler<FieldValues> = (data): void => {
     setIsEditMode(!isEditMode);
     localStorage.setItem("invoiceDoc", JSON.stringify(data));
   };
@@ -277,7 +282,7 @@ const Invoice: React.FC = (): JSX.Element => {
               {isEditMode && <span css={styles.headingColumn5}>&nbsp;</span>}
             </div>
 
-            {formValues.details.map((item, index) => (
+            {formValues.details.map((item: IDetails, index: number) => (
               <div key={index} css={[styles.row, styles.headingRow]}>
                 <span
                   css={[

@@ -4,7 +4,12 @@
  */
 
 import { useEffect, useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  FieldValues,
+  SubmitHandler,
+} from "react-hook-form";
 import JsPDF from "jspdf";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import BaseInput from "../UI/Input";
@@ -16,7 +21,7 @@ import CopyIconWhite from "../../assets/copy-white.png";
 import CloseIcon from "../../assets/close.svg";
 import { styles } from "./styles";
 import { styles as actOfWorkStyles } from "../ActOfWorkDoc/styles";
-import { IActDoc, IActInfoUser } from "typescript/interfaces";
+import { IActInfoUser, IDetails } from "typescript/interfaces";
 
 interface Props {
   selectedUser: IActInfoUser;
@@ -25,7 +30,7 @@ interface Props {
 const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const [isEditInputShown, setIsEditInputShown] = useState<boolean>(false);
-  const [editInputName, setEditInputName] = useState<any>("");
+  const [editInputName, setEditInputName] = useState<string>("");
   const [editInputPosition, setEditInputPosition] = useState<number[]>([]);
   const [editedValue, setEditedValue] = useState<string>("");
 
@@ -39,7 +44,7 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
       });
   }, [selectedUser]);
 
-  const defaultValues: IActDoc = {
+  const defaultValues: FieldValues = {
     docName: "test1",
     actNumber: "XXXXXX",
     contractDateFrom: Date.parse(now.toString()),
@@ -128,7 +133,7 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
   const calculateOrderTotal = () => {
     if (formValues && formValues.details) {
       const total = formValues.details.reduce(
-        (acc, curr) => Number(curr.total) + acc,
+        (acc: number, curr: { total: string }) => Number(curr.total) + acc,
         0
       );
       setOrderTotal(total);
@@ -143,13 +148,14 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
     const report = new JsPDF("p", "px", [936, 1300]);
     report.viewerPreferences({ CenterWindow: true }, true);
     report
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       .html(document.getElementById("#billDoc")!, { margin: [20, 10, 10, 50] })
       .then(() => {
         report.save("bill.pdf");
       });
   };
 
-  const onSubmit = (data: IActDoc) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
 
@@ -414,7 +420,7 @@ const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
             <div css={styles.fieldBold}>Сума, грн.</div>
           </div>
 
-          {formValues.details.map((item, index) => (
+          {formValues.details.map((item: IDetails, index: number) => (
             <div key={index} css={styles.details}>
               <div css={styles.fieldBold}>{index + 1}</div>
               <div>

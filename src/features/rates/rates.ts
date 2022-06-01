@@ -8,7 +8,7 @@ type RatesState = {
   allCurrencies: ICurrency[];
   updatedAt: string;
   ratesSource: string;
-  newRates?: any;
+  newRates?: ICurrency[];
 };
 
 const initialState: RatesState = {

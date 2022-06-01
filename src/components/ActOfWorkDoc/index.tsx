@@ -1,6 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import JsPDF from "jspdf";
-import { useForm, useFieldArray } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  FieldValues,
+  SubmitHandler,
+} from "react-hook-form";
 import BaseDatePicker from "../UI/DatePicker/index";
 import CloseIcon from "../../assets/close.svg";
 import CopyIcon from "../../assets/copy-black.png";
@@ -11,7 +16,7 @@ import BaseInput from "../UI/Input/index";
 import Button from "components/UI/Button";
 import { convertStrTimeToNum, handleTimeChange } from "utils/generic";
 import { useEffect, useState } from "react";
-import { IActDoc, IActInfoUser } from "typescript/interfaces";
+import { IActInfoUser, IDetails } from "typescript/interfaces";
 import { styles } from "./styles";
 interface Props {
   selectedUser: IActInfoUser;
@@ -21,7 +26,7 @@ interface Props {
 const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const [isEditInputShown, setIsEditInputShown] = useState<boolean>(false);
-  const [editInputName, setEditInputName] = useState<any>("");
+  const [editInputName, setEditInputName] = useState<string>("");
   const [editInputPosition, setEditInputPosition] = useState<number[]>([]);
   const [editedValue, setEditedValue] = useState<string>("");
 
@@ -35,7 +40,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
       });
   }, [selectedUser]);
 
-  const defaultValues: IActDoc = {
+  const defaultValues: FieldValues = {
     docName: "test1",
     city: "м. Запоріжжя",
     actNumber: "22-1904_6125",
@@ -107,7 +112,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
     e.returnValue = "";
   };
 
-  const onSubmit = (data: IActDoc) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
 
@@ -145,7 +150,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
   const calculateOrderTotal = () => {
     if (formValues && formValues.details) {
       const total = formValues.details.reduce(
-        (acc, curr) => Number(curr.total) + acc,
+        (acc: number, curr: { total: string }) => Number(curr.total) + acc,
         0
       );
       setOrderTotal(total);
@@ -503,7 +508,7 @@ const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
             <span css={styles.column6}>Вартість, грн., без ПДВ</span>
           </div>
 
-          {formValues.details.map((item, index) => {
+          {formValues.details.map((item: IDetails, index: number) => {
             return (
               <div key={index} css={styles.heading}>
                 <span css={styles.column1}> {index + 1}</span>

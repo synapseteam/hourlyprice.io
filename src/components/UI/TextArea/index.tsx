@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { FC } from "react";
 import { styles } from "./styles";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 import { SerializedStyles } from "@emotion/react";
 
 interface ITextArea {
-  register: UseFormRegister<any>;
+  register: UseFormRegister<FieldValues>;
   inputName: string;
   width?: string;
   height?: string;

@@ -46,37 +46,37 @@ export interface ICurrency {
 }
 
 export interface IInvoice {
-  invoice: string
-  teamName: string
-  code: string
-  location: string
-  email: string
-  invoiceNumber: string
-  agreementNumber: string
-  billToColumn1: string
-  billToColumn2: string
-  billToColumn3: string
-  invoiceDate: Date
-  dueDate: Date
-  details: IInvoiceDetails[],
-  notes: string,
-  wireTransferDetails: string
+  invoice: string;
+  teamName: string;
+  code: string;
+  location: string;
+  email: string;
+  invoiceNumber: string;
+  agreementNumber: string;
+  billToColumn1: string;
+  billToColumn2: string;
+  billToColumn3: string;
+  invoiceDate: Date;
+  dueDate: Date;
+  details: IInvoiceDetails[];
+  notes: string;
+  wireTransferDetails: string;
 }
 
 export interface IInvoiceDetails {
-  title: string
-  price: number
-  quantity: string
-  total: string
+  title: string;
+  price: number;
+  quantity: string;
+  total: string;
 }
 
 export interface IRoutes {
-  home: string,
-  actOfWork: string,
-  bill: string,
-  login: string,
-  registration: string,
-  companyRegistration: string,
+  home: string;
+  actOfWork: string;
+  bill: string;
+  login: string;
+  registration: string;
+  companyRegistration: string;
 }
 
 export interface IResponseUser {
@@ -90,4 +90,12 @@ export interface IResponseUser {
 export interface IResponseData {
   user: IResponseUser;
   access_token: string;
+}
+
+export interface IDetails {
+  title: string;
+  units: string;
+  price: number;
+  quantity: string;
+  total: string;
 }

@@ -4,11 +4,11 @@
  */
 
 import { SerializedStyles, Theme } from "@emotion/react";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 import { styles } from "./styles";
 
 interface Props {
-  register: UseFormRegister<any>;
+  register: UseFormRegister<FieldValues>;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
   classname?:
