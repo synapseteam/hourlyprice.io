@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import PropTypes, { string } from "prop-types";
-
 import { styles } from "./styles";
 
 interface IProps {

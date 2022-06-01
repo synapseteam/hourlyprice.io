@@ -1,6 +1,6 @@
-import i18n from "i18next";
+import i18n, { TFunction } from "i18next";
 import detector from "i18next-browser-languagedetector";
-import { useTranslation, initReactI18next, Trans, TFunction } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import { translationEN, translationUA } from "i18n/translations";
 
 i18n
@@ -17,6 +17,6 @@ i18n
 
 
 
-export function changeLanguage(lang: string) {
+export function changeLanguage(lang: string): Promise<TFunction> {
   return i18n.changeLanguage(lang);
 }

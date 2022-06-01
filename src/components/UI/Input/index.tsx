@@ -3,7 +3,7 @@
  * @jsxImportSource @emotion/react
  */
 
-import { SerializedStyles } from "@emotion/react";
+import { SerializedStyles, Theme } from "@emotion/react";
 import { UseFormRegister } from "react-hook-form";
 import { styles } from "./styles";
 
@@ -14,7 +14,7 @@ interface Props {
   classname?:
     | SerializedStyles
     | SerializedStyles[]
-    | ((theme: any) => SerializedStyles);
+    | ((theme: Theme) => SerializedStyles);
   width?: number;
   placeholder?: string;
   disabled?: boolean;
