@@ -21,7 +21,8 @@ interface Props {
 const ActOfWorkDoc: React.FC<Props> = ({ selectedUser, isDark }) => {
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const [isEditInputShown, setIsEditInputShown] = useState<boolean>(false);
-  const [editInputName, setEditInputName] = useState<any>("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [editInputName, setEditInputName] = useState<any>(""); // TODO check any
   const [editInputPosition, setEditInputPosition] = useState<number[]>([]);
   const [editedValue, setEditedValue] = useState<string>("");
 
