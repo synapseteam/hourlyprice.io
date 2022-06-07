@@ -28,6 +28,8 @@ interface Props {
   isDark: boolean;
 }
 const BillDoc: React.FC<Props> = ({ selectedUser, isDark }): JSX.Element => {
+  console.log(isDark);
+
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const [isEditInputShown, setIsEditInputShown] = useState<boolean>(false);
   const [editInputName, setEditInputName] = useState<string>("");

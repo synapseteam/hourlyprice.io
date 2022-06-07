@@ -24,10 +24,6 @@ const SideMenu: FC<Props> = ({
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
-  // const onOpenModal = (item: Record<string | number, string | number>, ) => {
-  //   setSelectedFields(item);
-  //   setModalType("clientModal");
-  // };
 
   const onOpenModal = (modalType: string, item?: IActInfoUser) => {
     item ? setSelectedFields(item) : setSelectedFields(undefined);

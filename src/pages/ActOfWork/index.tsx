@@ -74,7 +74,7 @@ const ActOfWorkPage: FC<IProps> = ({ isDark }): JSX.Element => {
           setSelectedFields={setSelectedFields}
           setSelectedUser={setSelectedUser}
         />
-        <ActOfWorkDoc selectedUser={selectedUser} isDark={false} />
+        <ActOfWorkDoc selectedUser={selectedUser} isDark={isDark} />
       </div>
       <div css={styles.noPreviewMessage}>
         Попередній перегляд не підтримується
