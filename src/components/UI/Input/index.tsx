@@ -3,22 +3,25 @@
  * @jsxImportSource @emotion/react
  */
 
-import { SerializedStyles } from "@emotion/react";
-import { CSSProperties } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { SerializedStyles, Theme } from "@emotion/react";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 import { styles } from "./styles";
 
 interface Props {
-  register: UseFormRegister<any>;
-  onChange: () => void;
+  register: UseFormRegister<FieldValues>;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
-  classname?: SerializedStyles;
+  classname?:
+    | SerializedStyles
+    | SerializedStyles[]
+    | ((theme: Theme) => SerializedStyles);
   width?: number;
   placeholder?: string;
   disabled?: boolean;
   readOnly?: boolean;
   type?: string;
   step?: string;
+  maxLength?: number;
 }
 
 const BaseInput: React.FC<Props> = ({

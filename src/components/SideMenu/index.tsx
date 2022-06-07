@@ -5,14 +5,17 @@ import Button from "components/UI/Button";
 import SideMenuItem from "./SideMenuItem";
 import UsersArr from "mock/users.json";
 import { styles } from "./styles";
+import { IActInfoUser } from "typescript/interfaces";
 
 interface Props {
   setModalType: Dispatch<SetStateAction<string>>;
+  setIsOpenModal: Dispatch<SetStateAction<boolean>>;
   isDark: boolean;
-  setSelectedFields: any;
-  setSelectedUser: any;
+  setSelectedFields: Dispatch<SetStateAction<IActInfoUser>>;
+  setSelectedUser: Dispatch<SetStateAction<IActInfoUser>>;
 }
 const SideMenu: FC<Props> = ({
+  setIsOpenModal,
   setModalType,
   isDark,
   setSelectedFields,
@@ -22,14 +25,12 @@ const SideMenu: FC<Props> = ({
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
 
-  const onOpenModal = (item: Record<any, any>) => {
-    setSelectedFields(item);
-    setModalType("clientModal");
-  };
-
-  const onAddUser = () => {
-    setSelectedFields(undefined);
-    setModalType("clientModal");
+  const onOpenModal = (modalType: string, item?: IActInfoUser) => {
+    item ? setSelectedFields(item) : setSelectedFields(undefined);
+    setIsOpenModal(true);
+    modalType === "clientModal"
+      ? setModalType("clientModal")
+      : setModalType("executorModal");
   };
 
   return (
@@ -42,7 +43,7 @@ const SideMenu: FC<Props> = ({
       >
         <Button
           disabled={false}
-          onClick={onAddUser}
+          onClick={() => onOpenModal("clientModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
@@ -58,7 +59,7 @@ const SideMenu: FC<Props> = ({
                   surname={item.surname}
                   patronym={item.patronym}
                   onClick={() => setSelectedUser(item)}
-                  toggleModal={() => onOpenModal(item)}
+                  toggleModal={() => onOpenModal("clientModal", item)}
                 />
               </li>
             ))}
@@ -72,7 +73,7 @@ const SideMenu: FC<Props> = ({
       >
         <Button
           disabled={false}
-          onClick={() => setModalType("executorModal")}
+          onClick={() => onOpenModal("executorModal")}
           classname={styles.addButton}
           classnameContainer={styles.addButtonContainer}
         >
@@ -87,7 +88,7 @@ const SideMenu: FC<Props> = ({
                   name={item.name}
                   surname={item.surname}
                   patronym={item.patronym}
-                  toggleModal={() => setModalType("executorModal")}
+                  toggleModal={() => onOpenModal("executorModal", item)}
                   onClick={() => setSelectedUser(item)}
                 />
               </li>

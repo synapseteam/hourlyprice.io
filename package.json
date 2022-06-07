@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/user-event": "^12.1.10",
     "@types/react-collapse": "^5.0.1",
+    "@types/react-toastify": "^4.1.0",
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
     "i18next": "^21.4.2",

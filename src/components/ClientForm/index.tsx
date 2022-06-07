@@ -3,26 +3,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Select from "components/UI/Select";
 import InputLabel from "components/UI/InputLabel";
-import { useCustomTranslation } from "i18n";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { styles } from "./styles";
 import Button from "components/UI/Button";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const entityTypeOptions = [
-  { value: "physicalPerson", label: "Фізична особа" },
-  { value: "business", label: "Підприємство" },
+  { value: "physicalPerson", name: "Фізична особа" },
+  { value: "business", name: "Підприємство" },
 ];
 
 interface Props {
   type?: "clientModal" | "executorModal";
-  selectedFields?: any;
+  selectedFields?: FieldValues;
 }
 
 const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
   const [entityType, setEntityType] = useState("physicalPerson");
-
-  const [t] = useCustomTranslation();
+  const [t] = useTranslation();
 
   const requiredText = "Поле обов'язкове для заповнення";
 
@@ -50,7 +49,7 @@ const ClientForm: React.FC<Props> = ({ type, selectedFields }): JSX.Element => {
     defaultValues: selectedFields && selectedFields,
   });
 
-  const submitForm = async (data: any) => {
+  const submitForm: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
   };
 

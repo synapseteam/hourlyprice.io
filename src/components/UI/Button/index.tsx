@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { SerializedStyles, Theme } from "@emotion/react";
+import { SerializedStyles } from "@emotion/react";
 import { styles } from "./styles";
 
 interface Props {
@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({
   classnameContainer,
   form,
   dataTip,
-}) => {
+}): JSX.Element => {
   return (
     <div css={[styles.buttonContainer, classnameContainer]}>
       <button

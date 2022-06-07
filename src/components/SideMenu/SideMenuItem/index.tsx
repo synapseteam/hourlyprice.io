@@ -11,7 +11,7 @@ interface ISideMenuItem {
   surname: string;
   name: string;
   patronym: string;
-  onClick: any;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const SideMenuItem: FC<ISideMenuItem> = ({
